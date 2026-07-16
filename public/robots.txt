@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /404/
+Disallow: /thank-you/
+Disallow: /blog/
+Disallow: /materials/
+Disallow: /compare/
+Disallow: /glossary/
+Disallow: /case-studies/
+Disallow: /resources/
+Disallow: /standards/
+
+Sitemap: https://dieselpartsource.com/sitemap-index.xml

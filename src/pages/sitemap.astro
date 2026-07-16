@@ -1,0 +1,9 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import { products } from '../data/products';
+import { nadellaSeries } from '../data/nadella-alternatives';
+---
+<BaseLayout title="Sitemap" description="Browse industrial bearing products, NADELLA alternative model pages, company, quality and inquiry pages." currentPath="/sitemap"><BreadcrumbHero title="Sitemap" trail={[{label:'Home',href:'/'},{label:'Sitemap'}]} variant="5"/><section class="blog-details-section resource-page-section"><div class="section-gap bottom"><div class="container"><article class="blog-details-content-block resource-page"><h2>Main Pages</h2><ul><li><a href="/">Home</a></li><li><a href="/products/">Bearing Products</a></li><li><a href="/nadella-bearing-alternatives/">NADELLA Bearing Alternatives</a></li><li><a href="/about/">About</a></li><li><a href="/certifications/">Quality</a></li><li><a href="/contact/">Contact</a></li></ul><h2>Bearing Products</h2><ul>{products.map(p=><li><a href={`/products/${p.slug}/`}>{p.title}</a></li>)}</ul><h2>NADELLA Alternative Series</h2>{nadellaSeries.map(series=><div><h3><a href={`/nadella-bearing-alternatives/${series.slug}/`}>{series.code} Alternatives</a></h3><ul>{series.models.map(model=><li><a href={`/nadella-bearing-alternatives/model/${model.toLowerCase().replace(/\./g,'-').replace(/\s+/g,'-')}/`}>{model} alternative</a></li>)}</ul></div>)}</article></div></div></section></BaseLayout>
+
+

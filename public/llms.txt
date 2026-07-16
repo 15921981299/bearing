@@ -1,0 +1,22 @@
+# Precision Bearing Source — LLM / AI crawler index
+
+> B2B industrial bearing supplier for combined bearings, track roller bearings, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings, Standard NbV profiles, and special track rollers.
+
+## Primary pages
+- [Home](/)
+- [Industrial bearing products](/products/)
+- [Combined bearings](/products/combined-bearings/)
+- [Track roller bearings](/products/track-roller-bearings/)
+- [Full-complement cylindrical roller bearings](/products/full-complement-cylindrical-roller-bearings/)
+- [Back-up roller bearings](/products/backup-roller-bearings/)
+- [Cross roller bearings](/products/cross-roller-bearings/)
+- [Standard NbV profiles](/products/standard-nbv-profiles/)
+- [Special track roller bearings](/products/special-track-roller-bearings/)
+- [Quality and inspection](/certifications/)
+- [Bearing inquiry](/contact/)
+
+## Model references
+Winkel 4.053–4.096, PR4.054–PR4.063, NUTR, NNTR, PWTR, NUKR, KR, KRV, NATR, NATV, LFR, SL01, SL02, SL04, SL05, SL06, SL18, SL19, RSL, NCF, NJG, NNCL, NNCF, CSF, SHF, and AKD.
+
+## Inquiry details
+Provide the bearing model, dimensions, quantity, application, load direction, speed, accuracy or clearance, sealing preference, destination, and drawings or photos when available.

@@ -1,0 +1,581 @@
+.nadella-page {
+  --nadella-ink: #0b1f3a;
+  --nadella-muted: #526174;
+  --nadella-soft: #f3f7fc;
+  --nadella-line: #dce5ef;
+  color: var(--nadella-ink);
+}
+
+.nadella-page .container {
+  padding-inline: clamp(20px, 4vw, 64px);
+}
+
+.nadella-intro {
+  padding: clamp(56px, 7vw, 104px) 0 clamp(48px, 6vw, 88px);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(20, 110, 245, 0.1), transparent 30%),
+    var(--color-white);
+}
+
+.nadella-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
+  gap: clamp(36px, 7vw, 110px);
+  align-items: center;
+  /* max-width: 1420px; */
+  margin: 0 auto;
+}
+
+.nadella-eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.nadella-intro-copy h2,
+.nadella-section-heading h2,
+.nadella-checklist-panel h2 {
+  margin: 0;
+  color: var(--nadella-ink);
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  text-transform: none;
+}
+
+.nadella-lead {
+  max-width: 780px;
+  margin: 24px 0 0;
+  color: var(--nadella-muted);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.65;
+}
+
+.nadella-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.nadella-button {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.nadella-button--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.nadella-button--primary:hover {
+  background: #0c5ed7;
+}
+
+.nadella-button--secondary {
+  border-color: #bfd0e3;
+  background: var(--color-white);
+  color: var(--nadella-ink);
+}
+
+.nadella-button--secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.nadella-proof {
+  overflow: hidden;
+  border: 1px solid var(--nadella-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 22px 60px rgba(11, 31, 58, 0.1);
+}
+
+.nadella-proof-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--nadella-line);
+}
+
+.nadella-proof-stats div {
+  padding: 26px 24px;
+}
+
+.nadella-proof-stats div + div {
+  border-left: 1px solid var(--nadella-line);
+}
+
+.nadella-proof-stats strong,
+.nadella-proof-stats span {
+  display: block;
+}
+
+.nadella-proof-stats strong {
+  color: var(--color-primary);
+  font-family: var(--font-title);
+  font-size: clamp(34px, 4vw, 50px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.nadella-proof-stats span {
+  margin-top: 8px;
+  color: var(--nadella-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nadella-proof-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 24px;
+  list-style: none;
+}
+
+.nadella-proof-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--nadella-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.nadella-proof-list svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  color: var(--color-primary);
+}
+
+.nadella-series-section,
+.nadella-checklist {
+  padding: clamp(64px, 8vw, 112px) 0;
+  background: var(--nadella-soft);
+}
+
+.nadella-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: 40px;
+  align-items: end;
+  /* max-width: 1420px; */
+  margin: 0 auto 34px;
+}
+
+.nadella-section-heading h2,
+.nadella-checklist-panel h2 {
+  font-size: clamp(30px, 3.4vw, 50px);
+}
+
+.nadella-section-heading > p {
+  margin: 0;
+  color: var(--nadella-muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.nadella-series-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  /* max-width: 1420px; */
+  margin: 0 auto 28px;
+}
+
+.nadella-series-jump a {
+  padding: 8px 13px;
+  border: 1px solid #cedae7;
+  border-radius: 999px;
+  background: var(--color-white);
+  color: #3e5065;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.nadella-series-jump a:hover {
+  border-color: var(--color-primary);
+  background: #eaf2ff;
+  color: var(--color-primary);
+}
+
+.nadella-series-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  /* max-width: 1420px; */
+  margin: 0 auto;
+}
+
+.nadella-series-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid var(--nadella-line);
+  border-radius: 10px;
+  background: var(--color-white);
+  scroll-margin-top: 92px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nadella-series-card:hover {
+  border-color: rgba(20, 110, 245, 0.45);
+  box-shadow: 0 16px 38px rgba(11, 31, 58, 0.08);
+}
+
+.nadella-series-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.nadella-series-index {
+  color: #98a7b9;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.nadella-series-count {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #edf4ff;
+  color: #245a9c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.nadella-series-code {
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.nadella-series-card h3 {
+  margin: 0;
+  color: var(--nadella-ink);
+  font-size: clamp(22px, 2vw, 29px);
+  font-weight: 500;
+  line-height: 1.22;
+  text-transform: none;
+}
+
+.nadella-series-card h3 a {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nadella-series-card h3 a:hover {
+  color: var(--color-primary);
+}
+
+.nadella-series-description {
+  min-height: 3.2em;
+  margin: 14px 0 22px;
+  color: var(--nadella-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.nadella-series-specs {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 16px 0;
+  border-block: 1px solid #e7edf4;
+}
+
+.nadella-series-specs div {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.nadella-series-specs dt,
+.nadella-series-specs dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.nadella-series-specs dt {
+  color: #758396;
+  font-weight: 600;
+}
+
+.nadella-series-specs dd {
+  color: #37485c;
+}
+
+.nadella-series-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: auto;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nadella-series-link svg {
+  transition: transform 0.2s ease;
+}
+
+.nadella-series-link:hover svg {
+  transform: translateX(3px);
+}
+
+.nadella-process {
+  padding: clamp(64px, 8vw, 112px) 0;
+  background: var(--nadella-ink);
+}
+
+.nadella-section-heading--light h2,
+.nadella-section-heading--light > p {
+  color: var(--color-white);
+}
+
+.nadella-section-heading--light > p {
+  opacity: 0.72;
+}
+
+.nadella-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  /* max-width: 1420px; */
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  list-style: none;
+}
+
+.nadella-process-grid li {
+  min-height: 260px;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--nadella-ink);
+}
+
+.nadella-process-grid span {
+  color: #6ea7ff;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.nadella-process-grid h3 {
+  margin: 48px 0 12px;
+  color: var(--color-white);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.nadella-process-grid p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.nadella-checklist-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: clamp(36px, 8vw, 120px);
+  /* max-width: 1420px; */
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 64px);
+  border: 1px solid var(--nadella-line);
+  border-radius: 12px;
+  background: var(--color-white);
+}
+
+.nadella-checklist-panel > div > p:last-child {
+  margin: 20px 0 0;
+  color: var(--nadella-muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.nadella-checklist-panel ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nadella-checklist-panel li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  border-bottom: 1px solid #e7edf4;
+  color: #35475c;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.nadella-checklist-panel li::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 2px;
+  width: 13px;
+  height: 7px;
+  border-bottom: 2px solid var(--color-primary);
+  border-left: 2px solid var(--color-primary);
+  transform: rotate(-45deg);
+}
+
+.nadella-trademark-notice {
+  max-width: 1100px;
+  margin: 24px auto 0;
+  color: #69788b;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.nadella-trademark-notice strong {
+  color: #435267;
+}
+
+.nadella-page a:focus-visible {
+  outline: 3px solid rgba(20, 110, 245, 0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nadella-page *,
+  .nadella-page *::before,
+  .nadella-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .nadella-intro-grid,
+  .nadella-section-heading,
+  .nadella-checklist-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .nadella-intro-grid {
+    gap: 38px;
+  }
+
+  .nadella-section-heading {
+    gap: 18px;
+  }
+
+  .nadella-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nadella-process-grid li {
+    min-height: auto;
+  }
+
+  .nadella-process-grid h3 {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .nadella-page .container {
+    padding-inline: 16px;
+  }
+
+  .nadella-series-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nadella-series-jump {
+    flex-wrap: nowrap;
+    margin-inline: -16px;
+    padding: 2px 16px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nadella-series-jump::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nadella-series-jump a {
+    flex: 0 0 auto;
+  }
+
+  .nadella-series-description {
+    min-height: 0;
+  }
+
+  .nadella-checklist-panel {
+    padding: 26px 20px;
+  }
+}
+
+@media (max-width: 479px) {
+  .breadcrumb-section[data-variant="2"]::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    pointer-events: none;
+  }
+
+  .breadcrumb-section[data-variant="2"] .breadcrumb-subtitle-block {
+    z-index: 1;
+  }
+
+  .nadella-intro-actions,
+  .nadella-button {
+    width: 100%;
+  }
+
+  .nadella-proof-stats div {
+    padding: 22px 18px;
+  }
+
+  .nadella-series-specs div {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+}
