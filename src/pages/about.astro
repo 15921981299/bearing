@@ -1,0 +1,668 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import FunnelPageView from '../components/FunnelPageView.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { breadcrumbSchema, site, videoSchema } from '../data/site';
+
+const workshopVideo = videoSchema({
+  name: 'Precision Bearing Source Parts Support Overview',
+  description: 'See how Precision Bearing Source supports industrial bearings identification, stock checking, and global delivery.',
+  thumbnailUrl: 'https://img.youtube.com/vi/M7uJEbDD-_8/hqdefault.jpg',
+  embedUrl: 'https://www.youtube.com/embed/M7uJEbDD-_8',
+  uploadDate: '2023-06-01',
+});
+
+const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.0001 17L20 12L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
+---
+
+<BaseLayout
+  title="About Precision Bearing Source — Industrial Bearings Supplier in Shanghai"
+  description="Precision Bearing Source is a Shanghai-based industrial bearings supplier for combined bearings, track rollers, back-up rollers, and cross roller bearings buyers, with model verification, export packing, and global delivery support."
+  currentPath="/about"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'About Us', url: `${site.url}/about/` },
+    ]),
+    workshopVideo,
+  ]}
+>
+  <FunnelPageView stage="awareness" label="about" />
+  <BreadcrumbHero
+    title="Industrial Bearings Supplier Built for Urgent Sourcing"
+    trail={[
+      { label: 'Home', href: '/' },
+      { label: 'About Us' },
+    ]}
+    variant="1"
+  />
+
+  <!-- Mission: Who We Are -->
+  <section id="about-mission" class="mission-and-vision-section about-section">
+    <div class="section-gap">
+      <div class="container">
+        <div class="mission-and-vision-wrapper">
+          <SectionHeading title="An Industrial Bearing Supplier for Global Buyers" subtitle="Who We Are" />
+
+          <div class="about-trust-meta" aria-label="Company credentials">
+            <span><strong>Product range:</strong> combined bearings, track rollers, back-up rollers, cross roller bearings</span>
+            <span><strong>Requests:</strong> bearing model, dimensions, photos, bearing lists and drawings</span>
+            <span><strong>Use cases:</strong> marine, generator, industrial, rail, shipyard</span>
+            <span><strong>Export:</strong> Shanghai coordination and global delivery</span>
+          </div>
+
+          <div class="about-legal-block fade-in" aria-label="Legal entity">
+            <p class="about-legal-name"><strong>{site.company.legalNameEn}</strong> · {site.company.legalName}</p>
+            <p class="about-legal-detail">
+              Shanghai-based industrial bearings supplier serving maintenance teams, repair companies, equipment manufacturers, maintenance teams, and distributors worldwide —
+              <a href="/certifications/">view QC & certification scope</a>.
+              Contact: <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phone}`}>{site.phone}</a>
+            </p>
+          </div>
+
+          <div class="about-scope-grid fade-in" aria-label="Supply scope">
+            <div class="about-scope-card">
+              <span class="about-scope-kicker">Main Focus</span>
+              <strong>industrial bearing full-series parts</strong>
+              <p>183, 331, 396, 493, 538, 595, 956, 1163, 2000, 4000, and 8000 series inquiries.</p>
+            </div>
+            <div class="about-scope-card">
+              <span class="about-scope-kicker">Also Supported</span>
+              <strong>Track rollers, back-up rollers, cross roller bearings</strong>
+              <p>Standard and special industrial bearings for material handling, conveyors, metal forming, robotics and heavy machinery.</p>
+            </div>
+            <div class="about-scope-card">
+              <span class="about-scope-kicker">Best Fit</span>
+              <strong>Model driven RFQs</strong>
+              <p>Single urgent parts, repeated service items, and Excel lists from overhaul or repair projects.</p>
+            </div>
+          </div>
+
+          <nav class="about-jump-nav" aria-label="On this page">
+            <a href="#about-mission" class="about-jump-link">Company focus</a>
+            <a href="#about-different" class="about-jump-link">Verification</a>
+            <a href="#about-process" class="about-jump-link">RFQ process</a>
+            <a href="#about-factory" class="about-jump-link">Global delivery</a>
+          </nav>
+
+          <div class="mission-and-vision-content">
+            <div class="mission-block fade-in">
+              <div class="mission-content-block">
+                <div class="mission-subtitle-block"><div class="mission-subtitle-text">Our Mission</div></div>
+                <div class="mission-text-block">
+                  <h3 class="mission-title">Correct Parts Start With Correct Identification</h3>
+                  <p class="mission-summary">Bearing selection depends on more than a model name. Dimensions, load direction, speed, clearance, accuracy, sealing and application conditions must be reviewed before availability and pricing are confirmed.</p>
+                  <a href="/products/" class="mission-link-button"><div class="link-button-text">Our Parts Range</div><div class="link-button-icon" set:html={linkArrow} /></a>
+                </div>
+              </div>
+              <div class="mission-image-block">
+                <img src="/images/industrial-bearing-product-range.webp" alt="industrial bearing industrial bearing spare parts and components" class="mission-image" width="850" height="753" loading="lazy" decoding="async" />
+                <div class="image-overlay"></div>
+              </div>
+            </div>
+            <div class="vision-block fade-in">
+              <div class="vision-content-block">
+                <div class="vision-subtitle-block"><div class="vision-subtitle-text">Our Vision</div></div>
+                <div class="vision-text-block">
+                  <h3 class="vision-title">Built for Buyers Who Need Clear Answers</h3>
+                  <p class="vision-summary">Precision Bearing Source is designed as a sourcing desk for practical maintenance work: confirm the likely part, check available supply routes, prepare export packing, and keep communication clear. We do not describe ourselves as an official brand owner; brand names and bearing models are used to identify buyer requirements.</p>
+                  <a href="/contact/?source=about" class="vision-link-button"><div class="link-button-text">Send Parts Inquiry</div><div class="link-button-icon" set:html={linkArrow} /></a>
+                </div>
+              </div>
+              <div class="vision-image-block">
+                <img src="/images/bearing-dimensional-inspection.webp" alt="industrial bearing bearing model verification and bearing products quality check" class="vision-image" width="850" height="753" loading="lazy" decoding="async" />
+                <div class="image-overlay"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Different -->
+  <section id="about-different" class="who-we-are-section about-section">
+    <div class="section-gap bottom">
+      <div class="container">
+        <SectionHeading title="What Makes Precision Bearing Source Useful" subtitle="Why Choose Us" />
+        <div class="funfact-wrapper about-differentiators-grid fade-in">
+          <div class="funfact-single-block">
+            <div class="funfact-number-block"><div class="chain-character">01</div></div>
+            <div class="funfact-text-block">
+              <h3 class="funfact-title">Verification Before Price</h3>
+              <p class="funfact-summary">We review bearing model, dimensions, application, load, speed and drawings before treating an item as ready to quote.</p>
+            </div>
+          </div>
+          <div class="funfact-separtion-liner"></div>
+          <div class="funfact-single-block">
+            <div class="funfact-number-block"><div class="chain-character">02</div></div>
+            <div class="funfact-text-block">
+              <h3 class="funfact-title">Clear Replacement Discussion</h3>
+              <p class="funfact-summary">When an old number, supersession, or alternative route is involved, we ask for confirmation instead of hiding the risk.</p>
+            </div>
+          </div>
+          <div class="funfact-separtion-liner"></div>
+          <div class="funfact-single-block">
+            <div class="funfact-number-block"><div class="chain-character">03</div></div>
+            <div class="funfact-text-block">
+              <h3 class="funfact-title">Prepared for Export Orders</h3>
+              <p class="funfact-summary">We coordinate packing, shipping documents, and delivery options for buyers outside China after the part is confirmed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RFQ process -->
+  <section id="about-process" class="who-we-are-section about-section">
+    <div class="section-gap bottom">
+      <div class="container">
+        <SectionHeading title="How We Handle a Parts Inquiry" subtitle="RFQ Process" />
+        <div class="about-process-layout fade-in">
+          <div class="about-process-card">
+            <span class="about-process-step">01</span>
+            <h3>Receive Part Details</h3>
+            <p>Send the bearing model, dimensions, quantity, application, destination, and any drawing, bearing marking or old-bearing photos.</p>
+          </div>
+          <div class="about-process-card">
+            <span class="about-process-step">02</span>
+            <h3>Check Fitment and Supply Route</h3>
+            <p>We compare the request against dimensional data, series references, operating conditions and available manufacturing options.</p>
+          </div>
+          <div class="about-process-card">
+            <span class="about-process-step">03</span>
+            <h3>Quote With Practical Notes</h3>
+            <p>The reply may include availability, lead-time notes, packing approach, shipping method, and any details still needing buyer confirmation.</p>
+          </div>
+        </div>
+
+        <div class="about-rfq-note fade-in">
+          <div>
+            <h3>What helps us quote faster?</h3>
+            <p>Exact bearing models, complete dimensions, drawings, old-bearing photos and Excel lists reduce back-and-forth. For urgent downtime orders, include the required delivery country and deadline in the first message.</p>
+          </div>
+          <a href="/contact/?source=about-process" class="about-inline-cta">Send inquiry details →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Factory tour -->
+  <section id="about-factory" class="who-we-are-section about-section">
+    <div class="section-gap bottom">
+      <div class="container">
+        <SectionHeading title="Global Delivery From Shanghai" subtitle="Shipping Support" />
+        <div class="who-we-are-wrapper fade-in">
+          <div class="who-we-are-content-block">
+            <p class="who-we-are-text">Precision Bearing Source is based in Shanghai and supports international buyers with express, air, and freight shipment options. For urgent industrial equipment downtime orders, share the destination and deadline in your first inquiry.</p>
+            <p class="who-we-are-text about-disclaimer">Precision Bearing Source is an independent supplier. combined bearings, track rollers, back-up rollers, cross roller bearings, and other names are used only to identify compatible bearing products requested by buyers.</p>
+            <p class="about-factory-cta-row">
+              <a href="/contact/?source=about-shipping" class="about-inline-cta">Send a parts inquiry →</a>
+              <a href="/contact/" class="about-inline-cta about-inline-cta--secondary">Shipping terms</a>
+            </p>
+          </div>
+          <div class="who-we-are-image-block about-factory-image">
+            <img src="/images/bearing-export-packaging.webp" alt="Industrial bearing export packing for global delivery" class="who-we-are-image" width="520" height="400" loading="lazy" decoding="async" />
+            <div class="who-we-are-lightbox">
+              <button type="button" class="lightbox-link-block primary" data-lightbox-trigger="https://www.youtube.com/watch?v=M7uJEbDD-_8&t=4s" aria-label="Play factory tour video">
+                <div class="lightbox-inner-block primary"><img src="/images/video-play-icon.svg" alt="" aria-hidden="true" class="lightbox-play-icon primary" width="20" height="20" loading="lazy" decoding="async" /></div>
+                <div class="lightbox-circle-one primary"></div>
+                <div class="lightbox-circle-two primary"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .about-section {
+    scroll-margin-top: 100px;
+  }
+
+  .about-trust-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-body-text);
+    background: var(--color-background);
+    border: 1px solid var(--color-stroke);
+    border-radius: 8px;
+  }
+
+  .about-trust-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .about-trust-meta strong {
+    color: var(--color-title);
+  }
+
+  .about-legal-block {
+    margin: 0 0 20px;
+    padding: 14px 18px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-body-text);
+    background: rgba(20, 110, 245, 0.06);
+    border: 1px solid rgba(20, 110, 245, 0.15);
+    border-radius: 8px;
+  }
+
+  .about-legal-name {
+    margin: 0 0 6px;
+    font-size: 15px;
+    color: var(--color-title);
+  }
+
+  .about-legal-detail {
+    margin: 0;
+  }
+
+  .about-legal-block a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .about-legal-block a:hover {
+    text-decoration: underline;
+  }
+
+  .about-scope-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0 0 22px;
+  }
+
+  .about-scope-card {
+    min-height: 150px;
+    padding: 18px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke);
+    border-radius: 8px;
+  }
+
+  .about-scope-kicker {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .about-scope-card strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-title);
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .about-scope-card p {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .about-jump-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .about-jump-link {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--color-stroke);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-body-text);
+    background: var(--color-white);
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .about-jump-link:hover {
+    border-color: rgba(20, 110, 245, 0.45);
+    background: rgba(20, 110, 245, 0.08);
+    color: var(--color-primary);
+  }
+
+  .about-jump-link:focus-visible,
+  .mission-link-button:focus-visible,
+  .vision-link-button:focus-visible,
+  .about-inline-cta:focus-visible,
+  .editorial-team-name a:focus-visible,
+  .editorial-team-note a:focus-visible,
+  .lightbox-link-block:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .mission-link-button,
+  .vision-link-button {
+    cursor: pointer;
+  }
+
+  .about-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    background: var(--color-body);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .about-metrics-grid .funfact-single-block {
+    max-width: none;
+    padding: 40px 28px;
+    border-right: 1px solid var(--color-stroke);
+  }
+
+  .about-metrics-grid .funfact-single-block:last-child {
+    border-right: none;
+  }
+
+  .about-metrics-grid .funfact-separtion-liner {
+    display: none;
+  }
+
+  .about-differentiators-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    background: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .about-differentiators-grid .funfact-single-block {
+    max-width: none;
+    padding: 40px 28px;
+    border-right: 1px solid var(--color-stroke);
+  }
+
+  .about-differentiators-grid .funfact-single-block:last-child {
+    border-right: none;
+  }
+
+  .about-differentiators-grid .funfact-separtion-liner {
+    display: none;
+  }
+
+  .about-process-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .about-process-card {
+    position: relative;
+    min-height: 220px;
+    padding: 28px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke);
+    border-radius: 8px;
+  }
+
+  .about-process-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 22px;
+    color: var(--color-white);
+    background: var(--color-title);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .about-process-card h3 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    text-transform: none;
+  }
+
+  .about-process-card p {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .about-rfq-note {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-top: 18px;
+    padding: 22px 24px;
+    background: rgba(20, 110, 245, 0.07);
+    border: 1px solid rgba(20, 110, 245, 0.16);
+    border-radius: 8px;
+  }
+
+  .about-rfq-note h3 {
+    margin-bottom: 6px;
+    font-size: 20px;
+    text-transform: none;
+  }
+
+  .about-rfq-note p {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .about-factory-image {
+    position: relative;
+  }
+
+  .about-factory-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-top: 16px;
+  }
+
+  .about-inline-cta {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .about-inline-cta:hover {
+    text-decoration: underline;
+  }
+
+  .about-inline-cta--secondary {
+    color: var(--color-title);
+  }
+
+  .about-inline-cta--secondary:hover {
+    color: var(--color-primary);
+  }
+
+  .about-disclaimer {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--color-background);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 6px;
+    font-size: 15px;
+  }
+
+  .editorial-team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .editorial-team-card {
+    padding: 24px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .editorial-team-card:hover {
+    border-color: rgba(20, 110, 245, 0.35);
+    box-shadow: 0 4px 18px rgba(20, 110, 245, 0.08);
+  }
+
+  .editorial-team-name {
+    font-size: 20px;
+    margin: 0 0 6px;
+    text-transform: none;
+  }
+
+  .editorial-team-name a {
+    color: var(--color-title);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .editorial-team-name a:hover {
+    color: var(--color-primary);
+  }
+
+  .editorial-team-role {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  .editorial-team-bio {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .editorial-team-note {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #64748b;
+  }
+
+  .editorial-team-note a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .editorial-team-note a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 991px) {
+    .about-scope-grid,
+    .about-process-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .about-metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-metrics-grid .funfact-single-block:nth-child(2) {
+      border-right: none;
+    }
+
+    .about-metrics-grid .funfact-single-block:nth-child(1),
+    .about-metrics-grid .funfact-single-block:nth-child(2) {
+      border-bottom: 1px solid var(--color-stroke);
+    }
+
+    .about-differentiators-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-differentiators-grid .funfact-single-block {
+      border-right: none;
+      border-bottom: 1px solid var(--color-stroke);
+    }
+
+    .about-differentiators-grid .funfact-single-block:last-child {
+      border-bottom: none;
+    }
+
+    .about-rfq-note {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .editorial-team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-jump-nav {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .about-jump-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .about-jump-link {
+      flex-shrink: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about-metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-metrics-grid .funfact-single-block {
+      border-right: none;
+      border-bottom: 1px solid var(--color-stroke);
+    }
+
+    .about-metrics-grid .funfact-single-block:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .editorial-team-card:hover {
+      box-shadow: none;
+    }
+  }
+</style>
+
+

@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import DetailRfqStrip from "../../components/DetailRfqStrip.astro";
+import { nadellaSeries } from "../../data/nadella-alternatives";
+import { breadcrumbSchema, faqSchema, site } from "../../data/site";
+import "../../styles/resource-page.css";
+import "../../styles/nadella-detail.css";
+export function getStaticPaths() {
+  return nadellaSeries.map((series) => ({
+    params: { series: series.slug },
+    props: { series },
+  }));
+}
+const { series } = Astro.props;
+const url = `${site.url}/nadella-bearing-alternatives/${series.slug}/`;
+const faqs = [
+  {
+    question: `Can you supply an alternative to NADELLA ${series.code} series?`,
+    answer: `We can review replacement options for ${series.code} references. Final interchangeability depends on dimensions, mounting, outer-ring profile, sealing, load and operating conditions.`,
+  },
+  {
+    question: "Which information is required for cross-reference?",
+    answer:
+      "Send the complete model and suffix, dimensions or drawing, quantity, application, speed, load direction, lubrication, temperature and destination.",
+  },
+  {
+    question: "Is the replacement made by NADELLA?",
+    answer:
+      "No. We supply independently manufactured alternative bearings. Original brand references are used only to identify the requested fit and function.",
+  },
+];
+---
+
+<BaseLayout
+  title={`NADELLA ${series.code} Alternative Cam Followers & Replacement Models`}
+  description={`Replacement and equivalent sourcing for NADELLA ${series.code} ${series.name.toLowerCase()}. Review models, mounting, seals and cross-reference requirements.`}
+  currentPath="/nadella-bearing-alternatives"
+  image="/images/industrial-bearing-product-range.webp"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: "Home", url: site.url },
+      {
+        name: "NADELLA Alternatives",
+        url: `${site.url}/nadella-bearing-alternatives/`,
+      },
+      { name: `${series.code} Alternatives`, url },
+    ]),
+    faqSchema(faqs),
+  ]}
+>
+  <BreadcrumbHero
+    title={`NADELLA ${series.code} Alternatives`}
+    trail={[
+      { label: "Home", href: "/" },
+      { label: "NADELLA Alternatives", href: "/nadella-bearing-alternatives/" },
+      { label: series.code },
+    ]}
+    variant="2"
+  />
+  <section class="resource-page-section nadella-detail-page">
+    <div class="section-gap">
+      <div class="container">
+        <div class="resource-page-intro">
+          <p class="resource-page-kicker">
+            {series.code} replacement series
+          </p><h2>NADELLA {series.code} Cam Follower Alternatives</h2><p>
+            {series.name} use a {series.design}. Alternative selection must also
+            match the {series.mounting}, rolling-element arrangement and
+            application conditions.
+          </p>
+          <dl class="nadella-detail-facts">
+            <div><dt>Series</dt><dd>{series.code}</dd></div>
+            <div><dt>Model references</dt><dd>{series.models.length}</dd></div>
+            <div><dt>Rolling elements</dt><dd>{series.rollingElements}</dd></div>
+          </dl>
+        </div>
+        <div class="resource-page-content">
+          <h2>{series.code} Design and Replacement Checklist</h2><h3>
+            Construction
+          </h3><p>
+            The reference series uses {series.rollingElements}. Available
+            replacement engineering is reviewed around the outer-ring running
+            surface, internal design, lubrication and expected radial loading.
+          </p><h3>Mounting and adjustment</h3><p>
+            {series.mounting}. Confirm the shaft or housing fit, abutment
+            geometry, fastener details and whether eccentric adjustment is
+            required.
+          </p><h3>Seal and suffix options</h3><p>
+            {series.seals}. Always include the complete suffix because an open,
+            plastic-sealed, metal-shielded or cylindrical-outer-ring version may
+            not be directly interchangeable.
+          </p><h2>NADELLA {series.code} Model Alternative Pages</h2><div
+            class="model-link-grid"
+          >
+            {
+              series.models.map((model) => (
+                <a
+                  class="utility-pill-link"
+                  href={`/nadella-bearing-alternatives/model/${model.toLowerCase().replace(/\./g, "-").replace(/\s+/g, "-")}/`}
+                >
+                  {model} alternative
+                </a>
+              ))
+            }
+          </div><h2>Typical Applications</h2><p>
+            {series.applications.join(", ")}. Provide actual load, speed, shock,
+            temperature and duty-cycle information when the follower runs
+            directly on a cam or track.
+          </p><h2>Independent Alternative Notice</h2><p>
+            NADELLA is a trademark of its respective owner. We are an
+            independent alternative bearing supplier and are not affiliated with
+            NADELLA. Model references are used for identification only.
+          </p><h2>FAQ</h2>{
+            faqs.map((item) => (
+              <div class="nadella-faq-item">
+                <>
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                </>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+  <DetailRfqStrip
+    title={`Source a ${series.code} replacement`}
+    text="Send the complete model, suffix, dimensions, drawing and operating conditions."
+    label="Request a Cross-Reference"
+    quoteHref={`/contact/?source=${series.slug}`}
+    secondaryLabel="All NADELLA Alternatives"
+    secondaryHref="/nadella-bearing-alternatives/"
+  />
+</BaseLayout>

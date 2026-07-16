@@ -1,0 +1,31 @@
+# Precision Bearing Source — Full product index
+
+Precision Bearing Source supplies standard and special industrial bearings for material handling, forklift masts, conveyors, metal forming, robotics, machine tools, and heavy machinery.
+
+## Product taxonomy
+- Combined bearings: fixed, adjustable, radial, axial, Jumbo and profile-plate configurations; common references include Winkel 4.053–4.096 and PR4.054–PR4.063.
+- Track roller bearings: NUTR, NNTR, PWTR, NUKR, KR, KRV, NATR, NATV and LFR series.
+- Full-complement cylindrical roller bearings: SL01, SL02, SL04, SL05, SL06, SL18, SL19, RSL, NCF, NJG, NNCL and NNCF series.
+- Back-up roller bearings for straightening, levelling, rolling and metal-forming equipment.
+- Cross roller bearings: CSF, SHF and AKD series for compact, rigid rotary systems.
+- Standard NbV profiles and matching combined-bearing systems.
+- Custom and special track rollers made after drawing and application review.
+
+## Canonical paths
+/
+/products/
+/products/combined-bearings/
+/products/track-roller-bearings/
+/products/full-complement-cylindrical-roller-bearings/
+/products/backup-roller-bearings/
+/products/cross-roller-bearings/
+/products/standard-nbv-profiles/
+/products/special-track-roller-bearings/
+/about/
+/certifications/
+/contact/
+/privacy/
+/sitemap/
+
+## Quotation guidance
+Useful inquiry data includes model, dimensions, quantity, application, radial and axial loads, speed, temperature, accuracy, clearance, lubrication, sealing, destination, and technical drawings. Model compatibility and custom feasibility must be confirmed for each order.

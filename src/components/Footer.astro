@@ -1,0 +1,72 @@
+---
+import { site } from '../data/site';
+---
+<footer class="footer-section">
+  <div class="container">
+    <div class="footer-wrapper">
+      <div class="footer-content-block">
+        <a href="/" class="footer-logo-link-block">
+          <img src={site.logo.default} alt={`${site.name} logo`} class="footer-logo" width={site.logo.width} height={site.logo.height} loading="lazy" decoding="async" />
+        </a>
+        <p class="footer-title">Industrial Bearings<br />Fast Global Delivery</p>
+        <a href="/contact/" class="primary-button footer">
+          <div class="button-content-block">
+            <div class="button-text">Request Bearings</div>
+            <div class="button-text">Request Bearings</div>
+          </div>
+        </a>
+      </div>
+      <div class="footer-image-block">
+        <img src="/images/bearing-export-packaging.webp" alt="Industrial bearings protected in export packing crates" class="footer-image" width="880" height="719" loading="lazy" decoding="async" />
+      </div>
+    </div>
+    <div class="footer-bottom-block">
+      <nav class="footer-nav-grid" aria-label="Footer navigation">
+        <div class="footer-nav-col">
+          <p class="footer-nav-label">Parts</p>
+          <a href="/products/combined-bearings/" class="footer-link">Combined Bearings</a>
+          <a href="/products/track-roller-bearings/" class="footer-link">Track Roller Bearings</a>
+          <a href="/products/full-complement-cylindrical-roller-bearings/" class="footer-link">Full Complement Bearings</a>
+          <a href="/products/" class="footer-link">Bearing Model Catalog</a>
+          <a href="/nadella-bearing-alternatives/" class="footer-link">NADELLA Alternatives</a>
+          <a href="/nadella-bearing-alternatives/gc-gcr-cam-followers/" class="footer-link">GC / GCR Cam Followers</a>
+          <a href="/nadella-bearing-alternatives/fg-yoke-rollers/" class="footer-link">FG Yoke Rollers</a>
+          <a href="/products/standard-nbv-profiles/" class="footer-link">Standard NbV Profiles</a>
+          <a href="/products/special-track-roller-bearings/" class="footer-link">Special Track Rollers</a>
+          <a href="/products/special-track-roller-bearings/" class="footer-link">Special Track Roller Bearings</a>
+          <a href="/products/cross-roller-bearings/" class="footer-link">Cross Roller Bearings</a>
+          <a href="/products/backup-roller-bearings/" class="footer-link">Back-up Roller Bearings</a>
+        </div>
+        <div class="footer-nav-col">
+          <p class="footer-nav-label">Service & Support</p>
+          <a href="/certifications/" class="footer-link">Bearing Quality Control</a>
+          <a href="/about/" class="footer-link">Industrial Bearing Support</a>
+          <a href="/about/" class="footer-link">Forklifts & Masts Service</a>
+          <a href="/certifications/" class="footer-link">Material & Inspection</a>
+          <a href="/certifications/" class="footer-link">Quality & Support</a>
+        </div>
+        <div class="footer-nav-col">
+          <p class="footer-nav-label">Applications</p>
+          <a href="/products/combined-bearings/" class="footer-link">Forklifts & Masts</a>
+          <a href="/products/track-roller-bearings/" class="footer-link">Conveying Systems</a>
+          <a href="/products/full-complement-cylindrical-roller-bearings/" class="footer-link">Heavy Industry</a>
+          <a href="/products/backup-roller-bearings/" class="footer-link">Metal Forming</a>
+          <a href="/products/special-track-roller-bearings/" class="footer-link">Special Machinery</a>
+        </div>
+        <div class="footer-nav-col">
+          <p class="footer-nav-label">Company</p>
+          <a href="/about/" class="footer-link">About Precision Bearing Source</a>
+          <a href="/certifications/" class="footer-link">Quality Policy</a>
+          <a href="/contact/" class="footer-link">Contact</a>
+          <a href="/privacy/" class="footer-link">Privacy</a>
+          <a href="/sitemap/" class="footer-link">Sitemap</a>
+        </div>
+      </nav>
+      <div class="footer-nav-meta">
+        <a href={`mailto:${site.email}`} class="footer-link footer-link--email">{site.email}</a>
+        <span class="footer-link footer-link--email">{site.phone}</span>
+      </div>
+    </div>
+  </div>
+</footer>
+

@@ -1,0 +1,8 @@
+---
+import { products } from '../data/products';
+import { site } from '../data/site';
+interface Props { activeSlug:string; capabilitySlugs?:readonly string[]; quoteHref?:string; }
+const { activeSlug, quoteHref='/contact/?source=products' }=Astro.props;
+const arrow=`<svg width="20" height="14" viewBox="0 0 18 12" fill="none"><path d="M17 6H1M12 11s5-3.68 5-5-5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+---
+<aside class="service-details-sidebar"><div class="service-category-block"><div class="service-category-flex"><h2 class="service-sidebar-title">Bearing Products</h2></div><div class="service-category-cms-block"><div class="service-sidebar-collection-list">{products.map(product=><div class="service-sidebar-collection-items"><div class="service-title-block"><a href={`/products/${product.slug}/`} class:list={['service-title-link-block','is-2',{active:product.slug===activeSlug}]}><div class="service-title">{product.title}</div><div class="arrow-icon" set:html={arrow}/></a></div></div>)}</div></div></div><div class="service-sidebar-inner"><div class="service-contact-info-block"><a href={quoteHref} class="sidebar-rfq-link">Request a bearing quote -&gt;</a><div class="service-contact-info-title">RFQ information</div><div class="service-contact-info-devider"></div><div class="servoce-contact-link-block"><a href="/products/" class="service-cotact-info-link">All bearing products</a><a href="/certifications/" class="service-cotact-email">Quality and inspection</a><a href="/contact/" class="service-cotact-email">Send model or drawing</a><a href={`mailto:${site.email}`} class="service-cotact-email">{site.email}</a></div></div></div></aside>

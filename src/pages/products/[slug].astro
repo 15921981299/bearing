@@ -1,0 +1,32 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import DetailPageShell from '../../components/DetailPageShell.astro';
+import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
+import ProductSidebar from '../../components/ProductSidebar.astro';
+import { products, type ProductItem } from '../../data/products';
+import { productFaqs } from '../../data/page-faqs';
+import { breadcrumbSchema, faqSchema, productSchema, site } from '../../data/site';
+import '../../styles/resource-page.css';
+export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
+const { product }=Astro.props as {product:ProductItem};
+const pageUrl=`${site.url}/products/${product.slug}/`;
+const quoteHref=`/contact/?source=product-${product.slug}`;
+const related=products.filter(item=>item.slug!==product.slug).slice(0,4);
+---
+<BaseLayout title={product.seoTitle} description={product.summary} currentPath="/products" image={product.mainImage} jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Bearing Products',url:`${site.url}/products/`},{name:product.title,url:pageUrl}]),productSchema({name:product.title,description:product.summary,url:pageUrl,image:`${site.url}${product.mainImage}`,category:'Industrial Bearings'}),faqSchema(productFaqs.map(f=>({question:f.question,answer:f.answer})))]}>
+  <BreadcrumbHero title={product.h1Title} trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:product.title}]} variant="2"/>
+  <DetailPageShell intro={product.summary}>
+    <img slot="hero" src={product.mainImage} alt={`${product.title} manufacturer and supplier`} width="1400" height="692" loading="eager" fetchpriority="high" decoding="async"/>
+    <div class="resource-meta"><span><strong>Selection</strong> {product.tolerance}</span><span><strong>Lead time</strong> {product.leadTime}</span><span><strong>Input</strong> Model, dimensions or drawing</span><span><strong>Delivery</strong> Worldwide export support</span></div>
+    <DetailRfqStrip quoteHref={quoteHref} title={`Request ${product.title.toLowerCase()} pricing`} text="Send the full bearing designation, dimensions, quantity, application and delivery country for specification review and quotation." modalContext={`${product.title} inquiry`} modalSource={`product-${product.slug}`}/>
+    <div set:html={product.content.partOne}/>
+    <figure class="detail-page-figure"><img src={product.secondImage} alt={`${product.title} dimensional inspection`} width="1200" height="662" loading="lazy" decoding="async"/></figure>
+    <div set:html={product.content.partTwo}/>
+    <section class="detail-differentiation-block"><h2>{product.title} FAQ</h2>{productFaqs.slice(0,4).map(f=><><h3>{f.question}</h3><p>{f.answer}</p></>)}</section>
+    <p class="resource-related"><strong>Related products:</strong>{related.map(item=><><span aria-hidden="true"> · </span><a href={`/products/${item.slug}/`}>{item.title}</a></>)}</p>
+    <p class="resource-note detail-page-back"><a href="/products/">All bearing products</a><span aria-hidden="true"> · </span><a href="/certifications/">Quality control</a><span aria-hidden="true"> · </span><a href={quoteHref}>Request a quote</a></p>
+    <ProductSidebar slot="sidebar" activeSlug={product.slug} quoteHref={quoteHref}/>
+  </DetailPageShell>
+</BaseLayout>
+
