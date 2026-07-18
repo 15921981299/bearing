@@ -6,7 +6,7 @@ import { site } from '../data/site';
     <div class="footer-wrapper">
       <div class="footer-content-block">
         <a href="/" class="footer-logo-link-block">
-          <img src={site.logo.default} alt={`${site.name} logo`} class="footer-logo" width={site.logo.width} height={site.logo.height} loading="lazy" decoding="async" />
+          <img src={site.logo.default} srcset={`${site.logo.default} 640w, ${site.logo.large} 1200w`} sizes="280px" alt={`${site.name} logo`} class="footer-logo" width={site.logo.width} height={site.logo.height} loading="lazy" decoding="async" />
         </a>
         <p class="footer-title">Factory-Direct Bearings<br />Changzhou Manufacture · Global Export</p>
         <a href="/contact/" class="primary-button footer">

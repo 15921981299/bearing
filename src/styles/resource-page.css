@@ -1,3 +1,5 @@
+@import './detail-rfq-strip.css';
+
 .resource-page {
   margin: 0 auto;
   padding: 0px;
@@ -771,31 +773,6 @@ a.hub-card:hover .hub-card-title {
   }
 }
 
-.detail-rfq-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 20px;
-  margin-bottom: 24px;
-  padding: 16px 20px;
-  border: 1px solid rgba(20, 110, 245, 0.2);
-  border-radius: 4px;
-  background: rgba(20, 110, 245, 0.06);
-}
-
-.detail-rfq-strip p {
-  margin: 0;
-  flex: 1 1 240px;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #475569;
-}
-
-.detail-rfq-strip strong {
-  color: var(--color-title);
-}
-
 .detail-quick-label {
   margin: 0 0 10px;
   font-size: 13px;
@@ -947,23 +924,6 @@ a.hub-card:hover .hub-card-title {
   .calc-results--three {
     grid-template-columns: 1fr;
   }
-}
-
-.detail-rfq-link {
-  flex-shrink: 0;
-  padding: 10px 18px;
-  border-radius: 6px;
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
-}
-
-.detail-rfq-link:hover {
-  opacity: 0.92;
 }
 
 .detail-rfq-link:focus-visible,

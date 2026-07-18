@@ -51,10 +51,11 @@ const pageDescription =
                   <a href={item.href}>{item.title}</a>
                 </h3>
                 <p>{item.description}</p>
-                <p style="margin:0 0 12px;font-size:13px;color:#64748b;">Updated {item.updated}</p>
-                <a href={item.href} class="products-text-link" download>
-                  Download PDF
-                </a>
+                <p style="margin:0 0 12px;font-size:13px;color:#64748b;">Reviewed {item.updated} · Identification reference, not a batch certificate</p>
+                <div class="products-rfq-actions">
+                  <a href={item.href} class="products-text-link" download>Download PDF</a>
+                  <a href={`/contact/?source=download-${item.slug}`} class="products-text-link">Request drawing / quote</a>
+                </div>
               </div>
             </article>
           ))}

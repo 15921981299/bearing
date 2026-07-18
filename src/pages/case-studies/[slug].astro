@@ -22,13 +22,15 @@ const pageUrl=`${site.url}/case-studies/${study.slug}/`;
 >
   <BreadcrumbHero title={study.title} trail={[{label:'Home',href:'/'},{label:'Case Studies',href:'/case-studies/'},{label:study.industry}]} variant="5" />
   <main class="factory-evidence-page">
-    <div class="container factory-case-detail">
+    <div class="section-gap bottom">
+      <div class="container factory-case-detail">
       <figure class="factory-case-hero"><img src={study.image} alt={`${study.industry} factory application case`} width={study.imageWidth} height={study.imageHeight} loading="eager" decoding="async" /><figcaption>Changzhou manufacturing reference. {factoryEvidenceSource.name}.</figcaption></figure>
       <p class="factory-disclosure"><strong>Factory note:</strong> This page is an application identification reference for quotation. Final interchangeability depends on the controlled drawing, dimensions and inspection scope agreed for the order.</p>
       <dl class="factory-fact-grid">{study.facts.map(fact=><div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
       {study.sections.map(section=><section class="factory-case-section"><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
       <p class="factory-source-link"><strong>Related page:</strong> <a href={study.sourceUrl}>{study.sourceLabel}</a></p>
       <DetailRfqStrip quoteHref={`/contact/?source=factory-case-${study.slug}`} title="Request a factory quotation" text="Send the complete model, dimensions, application and required documents. Production route and inspection scope are confirmed before quotation." modalContext={study.title} modalSource={`factory-case-${study.slug}`} />
+      </div>
     </div>
   </main>
 </BaseLayout>

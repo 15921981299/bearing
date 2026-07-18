@@ -28,6 +28,12 @@ export const downloadItems: DownloadItem[] = [
     href: '/downloads/high-load-axial-support-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
   },
   {
+    slug: 'mr4180-mr4183-heavy-load-combined-bearings',
+    title: 'MR4180-MR4183 Heavy-Load Adjustable Series',
+    description: 'Complete selected-series geometry, radial and axial load ratings, material notes and controlled-drawing checks.',
+    href: '/downloads/mr4180-mr4183-heavy-load-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+  },
+  {
     slug: '4-078-shim-adjustable-combined-bearings',
     title: '4.078 / 4.0784 Shim-Adjustable Cross Reference',
     description: 'Focused MR.152 and MR.142 cross-reference with dimensions, load ratings and shim options.',

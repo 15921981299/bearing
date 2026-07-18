@@ -126,6 +126,62 @@
   line-height: 1.7;
 }
 
+.model-cluster-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 clamp(20px, 3vw, 28px);
+  padding: 0;
+  list-style: none;
+}
+
+.model-cluster-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--model-line);
+  border-radius: 0;
+  background: var(--model-soft);
+  color: var(--model-body);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--model-ease), border-color var(--model-ease), background var(--model-ease);
+}
+
+.model-cluster-nav a:hover,
+.model-cluster-nav a:focus-visible {
+  border-color: var(--model-accent);
+  color: var(--model-accent);
+}
+
+.model-cluster-nav a.is-active {
+  border-color: var(--model-accent);
+  background: #eef4ff;
+  color: var(--model-accent);
+}
+
+.model-cluster-nav a:focus-visible {
+  outline: 2px solid var(--model-accent);
+  outline-offset: 2px;
+}
+
+.model-note--footer {
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid var(--model-line);
+}
+
+.model-faq-question {
+  display: inline;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
 /* On-page jump links — helps users and search snippet navigation */
 .model-jump-nav {
   margin: clamp(20px, 3vw, 28px) 0 0;

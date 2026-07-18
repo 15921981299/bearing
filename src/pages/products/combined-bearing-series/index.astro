@@ -2,10 +2,31 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../../components/BreadcrumbHero.astro';
 import { specialCombinedSeries } from '../../../data/special-combined-series';
-import { breadcrumbSchema,itemListSchema,site } from '../../../data/site';
+import { breadcrumbSchema,faqSchema,itemListSchema,site } from '../../../data/site';
 import '../../../styles/products-index.css';
+import '../../../styles/product-seo.css';
+const seriesFaqs = [
+  {question:'Which combined bearing series allows axial adjustment?',answer:'Eccentric PR4 models, MR.96 screw-adjustable models and 4.078 / 4.0784 shim-adjustable models use different adjustment methods. Select the series from the existing mounting geometry and controlled drawing.'},
+  {question:'How is an HT combined bearing selected?',answer:'Confirm the base model, actual bearing temperature, grease, seals and relubrication interval. The HT suffix alone does not define the complete temperature capability.'},
+  {question:'When is a high-load axial-support bearing required?',answer:'Use the high-load family when the application has a separate hardened axial support and higher side-load demand. Confirm the support geometry, shims and radial and axial load case.'},
+  {question:'What should be supplied for replacement verification?',answer:'Send the full model, marking photos, main dimensions, profile or mounting drawing, quantity, load, speed, temperature and destination.'},
+];
 ---
-<BaseLayout title="Special Combined Bearing Series | Technical Tables" description="High-temperature, precision-adjustable, screw-adjustable, shim-adjustable and high-load axial-support combined bearing technical tables." currentPath="/products" jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Combined Bearings',url:`${site.url}/products/combined-bearings/`},{name:'Special Series',url:`${site.url}/products/combined-bearing-series/`}]),itemListSchema(specialCombinedSeries.map(item=>({name:item.title,url:`${site.url}/products/combined-bearing-series/${item.slug}/`})))]}>
+<BaseLayout
+ title="Special Combined Bearing Series | Technical Data"
+ description="Compare HT, PR4, MR.96, 4.078 and high-load combined bearing series. Review adjustment methods, technical tables, drawings and replacement requirements."
+ currentPath="/products"
+ jsonLd={[
+  breadcrumbSchema([{name:'Home',url:site.url},{name:'Combined Bearings',url:`${site.url}/products/combined-bearings/`},{name:'Special Series',url:`${site.url}/products/combined-bearing-series/`}]),
+  itemListSchema(specialCombinedSeries.map(item=>({name:item.title,url:`${site.url}/products/combined-bearing-series/${item.slug}/`}))),
+  faqSchema(seriesFaqs),
+ ]}
+>
  <BreadcrumbHero title="Special Combined Bearing Series" trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:'Combined Bearings',href:'/products/combined-bearings/'},{label:'Special Series'}]} variant="2"/>
- <main class="products-page"><section class="products-catalog"><div class="section-gap bottom"><div class="container"><div class="products-grid">{specialCombinedSeries.map(item=><article class="products-card"><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-card-media"><img src={item.image} alt={item.title} width="520" height="340" loading="lazy" decoding="async"/><span class="products-card-media-label">Technical table</span></a><div class="products-card-body"><h2><a href={`/products/combined-bearing-series/${item.slug}/`}>{item.title}</a></h2><p>{item.description}</p><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-text-link">View dimensions and drawings</a></div></article>)}</div></div></div></section></main>
+ <main class="products-page"><section class="products-catalog"><div class="section-gap bottom"><div class="container">
+  <section class="product-seo-section"><p class="product-specification-eyebrow">Series selection hub</p><h2>Choose by adjustment method and duty</h2><p>Special combined bearings solve applications that cannot be approved from a standard outside diameter alone. Compare the existing mounting arrangement first: eccentric adjustment sets clearance through the stud, screw-adjustable supports move the axial roller externally, shim-adjustable supports use calibrated washers, and HT executions require temperature-specific lubrication and sealing.</p><div class="product-seo-grid"><article><h3>Adjustable clearance</h3><p>Use PR4 eccentric or MR.96 screw-adjustable families when installation requires controlled axial setting. Confirm the adjustment range and locking method.</p></article><article><h3>Temperature duty</h3><p>Use the 4.054HT–4.063HT family only after the actual bearing temperature, grease, seals and relubrication plan are defined.</p></article><article><h3>High axial load</h3><p>MR.142 and MR.146–MR.154 use a separate hardened axial support. Verify its geometry and washer stack against the application drawing.</p></article></div></section>
+  <div class="products-grid">{specialCombinedSeries.map(item=><article class="products-card"><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-card-media"><img src={item.image} alt={item.title} width="520" height="340" loading="lazy" decoding="async"/><span class="products-card-media-label">Technical table</span></a><div class="products-card-body"><h2><a href={`/products/combined-bearing-series/${item.slug}/`}>{item.title}</a></h2><p>{item.description}</p><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-text-link">View dimensions and drawings</a></div></article>)}</div>
+  <section class="product-seo-section"><h2>Information required before quotation</h2><ul><li>Complete bearing model, suffix and every visible marking</li><li>Radial roller diameter, stud or bore size, overall height and axial-support position</li><li>Matched steel profile or mounting drawing</li><li>Radial and axial load, speed, shock, duty cycle and temperature</li><li>Quantity, inspection documents and destination country</li></ul><p><a href="/downloads/">Download technical tables</a> or <a href="/contact/?source=special-series-hub">submit the model and drawing for review</a>.</p></section>
+  <section class="product-seo-section"><h2>Special combined bearing FAQ</h2>{seriesFaqs.map(item=><details class="model-faq"><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
+ </div></div></section></main>
 </BaseLayout>
