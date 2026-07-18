@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import { catalogRequestHref, downloadItems } from '../../data/downloads';
+import { breadcrumbSchema, site } from '../../data/site';
+import '../../styles/products-index.css';
+
+const pageUrl = `${site.url}/downloads/`;
+const pageTitle = 'Bearing Catalog Downloads | Factory Technical References';
+const pageDescription =
+  'Download combined bearing, Standard NbV profile, NATR, NUKR, NNTR and SL-series technical references for model verification and RFQ preparation.';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  currentPath="/downloads"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Downloads', url: pageUrl },
+    ]),
+  ]}
+>
+  <BreadcrumbHero
+    title="Factory Catalog & Technical Downloads"
+    trail={[{ label: 'Home', href: '/' }, { label: 'Downloads' }]}
+    variant="5"
+  />
+
+  <section class="products-page">
+    <div class="section-gap bottom">
+      <div class="container">
+        <div class="products-intro fade-in">
+          <h2>Bearing and profile technical references</h2>
+          <p>
+            Download processed series tables for preliminary model identification. For complete catalogs,
+            CAD drawings or controlled manufacturing drawings, send a factory inquiry with the model list
+            and application.
+          </p>
+        </div>
+
+        <div class="products-grid fade-in" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+          {downloadItems.map((item) => (
+            <article class="products-card">
+              <div class="products-card-body">
+                <p class="home-series-code" style="margin:0 0 8px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#1d4ed8;font-weight:700;">
+                  {item.category} · {item.format}
+                </p>
+                <h3 style="font-size:18px;margin:0 0 8px;">
+                  <a href={item.href}>{item.title}</a>
+                </h3>
+                <p>{item.description}</p>
+                <p style="margin:0 0 12px;font-size:13px;color:#64748b;">Updated {item.updated}</p>
+                <a href={item.href} class="products-text-link" download>
+                  Download PDF
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <aside class="products-rfq-panel fade-in" style="margin-top:28px;" aria-label="Request full catalog">
+          <p>
+            <strong>Need the full factory catalog?</strong>
+            Request Combined Bearings, SL full-complement, back-up rollers, cross rollers and NbV profile catalogs as PDF packages for your RFQ list.
+          </p>
+          <div class="products-rfq-actions">
+            <a href={catalogRequestHref} class="products-btn products-btn-primary">Request full catalog</a>
+            <a href="/products/" class="products-btn products-btn-secondary">Browse products online</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

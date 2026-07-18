@@ -21,6 +21,14 @@ export const faqs = [
   },
   {
     question: 'Do you ship industrial bearings internationally?',
-    answer: 'Yes. We support worldwide B2B orders with export packing and express, air or sea freight options according to quantity and delivery requirements.',
+    answer: 'Yes. We support worldwide B2B orders with export packing and express, air or sea freight options according to quantity and delivery requirements. See our export shipping and Incoterms guide for packing and document notes.',
+  },
+  {
+    question: 'Which Incoterms do you support?',
+    answer: 'Common options include EXW (Changzhou or Shanghai), FOB Shanghai/Ningbo on request, and CIF/CFR to the destination port. DDP is only available when agreed in writing. State your preferred term in the RFQ.',
+  },
+  {
+    question: 'What export documents can you provide?',
+    answer: 'Typical documents include commercial invoice and packing list. Certificate of origin, inspection photos, marking photos and agreed dimensional reports can be provided when specified before quotation.',
   },
 ] as const;

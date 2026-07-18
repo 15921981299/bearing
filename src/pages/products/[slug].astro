@@ -8,7 +8,15 @@ import { products, type ProductItem } from '../../data/products';
 import { technicalReferencesByProduct } from '../../data/technical-references';
 import { productFaqs } from '../../data/page-faqs';
 import { combinedBearingModels } from '../../data/combined-bearing-models';
-import { crossRollerModels, fullComplementModels, nbvProfileModels, trackRollerModels } from '../../data/extended-bearing-models';
+import { bearingProfileMatrix } from '../../data/bearing-profile-matrix';
+import {
+  backupRollerModels,
+  crossRollerModels,
+  fullComplementModels,
+  nbvProfileModels,
+  specialTrackRollerModels,
+  trackRollerModels,
+} from '../../data/extended-bearing-models';
 import { breadcrumbSchema, faqSchema, itemListSchema, productSchema, site } from '../../data/site';
 import '../../styles/products-index.css';
 import '../../styles/product-detail.css';
@@ -23,17 +31,27 @@ const pageUrl = `${site.url}/products/${product.slug}/`;
 const quoteHref = `/contact/?source=product-${product.slug}`;
 const related = products.filter((item) => item.slug !== product.slug).slice(0, 4);
 const technicalReferences = technicalReferencesByProduct[product.slug] ?? [];
-const modelDirectory = product.slug === 'combined-bearings'
-  ? combinedBearingModels.map((model) => ({ slug:model.slug, model:model.model, aliases:model.aliases, image:model.image }))
-  : product.slug === 'track-roller-bearings'
-    ? trackRollerModels
-    : product.slug === 'full-complement-cylindrical-roller-bearings'
-      ? fullComplementModels
-      : product.slug === 'cross-roller-bearings'
-        ? crossRollerModels
-        : product.slug === 'standard-nbv-profiles'
-          ? nbvProfileModels
-      : [];
+const modelDirectory =
+  product.slug === 'combined-bearings'
+    ? combinedBearingModels.map((model) => ({
+        slug: model.slug,
+        model: model.model,
+        aliases: model.aliases,
+        image: model.image,
+      }))
+    : product.slug === 'track-roller-bearings'
+      ? trackRollerModels
+      : product.slug === 'full-complement-cylindrical-roller-bearings'
+        ? fullComplementModels
+        : product.slug === 'cross-roller-bearings'
+          ? crossRollerModels
+          : product.slug === 'standard-nbv-profiles'
+            ? nbvProfileModels
+            : product.slug === 'backup-roller-bearings'
+              ? backupRollerModels
+              : product.slug === 'special-track-roller-bearings'
+                ? specialTrackRollerModels
+                : [];
 
 const categoryNav = [
   { href: '/products/', label: 'All bearings', slug: null },
@@ -245,10 +263,22 @@ const iconInput =
                       <div class="combined-model-directory-grid">
                         {modelDirectory.map((model) => (
                           <a href={`/products/${product.slug}/${model.slug}/`}>
-                            <img src={model.image} alt={`${model.model} combined bearing`} width="180" height="130" loading="lazy" decoding="async" />
+                            <img src={model.image} alt={`${model.model} ${product.title}`} width="180" height="130" loading="lazy" decoding="async" />
                             <span><strong>{model.model}</strong><small>{model.aliases.slice(0, 3).join(' · ')}</small></span>
                           </a>
                         ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {(product.slug === 'combined-bearings' || product.slug === 'standard-nbv-profiles') && (
+                    <section class="product-seo-section product-specification-section" aria-labelledby="bearing-profile-matrix-heading">
+                      <div class="product-specification-heading"><div><p class="product-specification-eyebrow">Compatibility reference</p><h2 id="bearing-profile-matrix-heading">Combined bearing and Standard NbV profile matching table</h2></div><a class="product-pdf-link" href="/downloads/combined-bearing-nbv-profile-matrix.pdf" download>Download matching PDF</a></div>
+                      <p>Use the matrix in both directions: select a profile from the bearing model, or identify the related bearing class from an existing profile. Confirm profile geometry, clearance and the current drawing before manufacture.</p>
+                      <div class="product-reference-table-wrap product-specification-table-wrap" tabindex="0" aria-label="Combined bearing and NbV profile compatibility table; scroll horizontally on small screens">
+                        <table class="product-reference-table product-specification-table"><caption>Standard NbV 0-8 profile and combined-bearing classes</caption><thead><tr><th scope="col">Profile</th><th scope="col">Article / replacement</th><th scope="col">Mass</th><th scope="col">Matched bearings</th><th scope="col">Verification note</th></tr></thead><tbody>
+                          {bearingProfileMatrix.map((row)=><tr><th scope="row"><a href={`/products/standard-nbv-profiles/${row.profileSlug}/`}>{row.profile}</a></th><td>{row.articleNumber}<br/>{row.replacementReference}</td><td>{row.mass}</td><td>{row.matchedBearings.map((bearing,index)=><span><a href={`/products/combined-bearings/${bearing.slug}/`}>{bearing.model}</a>{index < row.matchedBearings.length-1 ? ' · ' : ''}</span>)}</td><td>{row.note}</td></tr>)}
+                        </tbody></table>
                       </div>
                     </section>
                   )}
@@ -336,21 +366,21 @@ const iconInput =
                     titleId="evidence-policy-heading"
                   />
                   <p>
-                    Evidence is matched to the quoted product and order scope. We do not present another
-                    supplier's factory media, certificates or customer projects as our own.
+                    Evidence is matched to the quoted product and order scope from our Changzhou manufacturing process.
+                    Batch documents are confirmed against the agreed drawing before shipment.
                   </p>
                   <div class="evidence-policy-grid">
                     <article>
                       <h3>Technical drawings</h3>
-                      <p>Reference sheets support identification. Controlled manufacturing drawings require model and supplier confirmation.</p>
+                      <p>Reference sheets support identification. Controlled manufacturing drawings require model and factory confirmation.</p>
                     </article>
                     <article>
                       <h3>Inspection records</h3>
-                      <p>Request dimensional, marking, packing or supplier-document checks with the RFQ. Availability is confirmed before order placement.</p>
+                      <p>Request dimensional, marking, packing or factory-document checks with the RFQ. Availability is confirmed before order placement.</p>
                     </article>
                     <article>
                       <h3>Factory and equipment media</h3>
-                      <p>Only dated media supplied by the selected manufacturing partner or captured during the relevant inspection is used as evidence.</p>
+                      <p>Only dated factory media or inspection records captured for the quoted product batch are used as evidence.</p>
                     </article>
                     <article>
                       <h3>Customer applications</h3>

@@ -1,6 +1,6 @@
 # Combined Bearing Source — LLM / AI crawler index
 
-> B2B industrial bearing supplier for combined bearings, track roller bearings, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings, Standard NbV profiles, and special track rollers.
+> China industrial bearing manufacturer for combined bearings, track roller bearings, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings, Standard NbV profiles, and special track rollers. Factory-direct OEM and replacement supply from Changzhou with Shanghai export sales.
 
 ## Primary pages
 - [Home](/)
@@ -12,11 +12,20 @@
 - [Cross roller bearings](/products/cross-roller-bearings/)
 - [Standard NbV profiles](/products/standard-nbv-profiles/)
 - [Special track roller bearings](/products/special-track-roller-bearings/)
-- [Quality and inspection](/certifications/)
+- [Factory quality and inspection](/certifications/)
+- [Catalog downloads](/downloads/)
+- [Combined bearing series PDF](/downloads/combined-bearing-standard-series-reference.pdf)
+- [SL full-complement PDF](/downloads/sl-full-complement-bearing-reference.pdf)
+- [About our factory](/about/)
+- [Application cases](/case-studies/)
+- [China factory export RFQ](/solutions/china-bearing-manufacturer-export/)
+- [Export shipping & Incoterms](/solutions/bearing-export-shipping-incoterms/)
+- [OEM custom bearing program](/solutions/oem-custom-bearing-program/)
+- [WINKEL cross reference](/solutions/winkel-bearing-cross-reference/)
 - [Bearing inquiry](/contact/)
 
 ## Model references
-Winkel 4.053–4.096, PR4.054–PR4.063, NUTR, NNTR, PWTR, NUKR, KR, KRV, NATR, NATV, LFR, SL01, SL02, SL04, SL05, SL06, SL18, SL19, RSL, NCF, NJG, NNCL, NNCF, CSF, SHF, and AKD.
+Winkel 4.053–4.096, PR4.054–PR4.056 / PR4.058–PR4.063, eccentric 4.454–4.463, welded-plate AP0/AP1/AP2/AP2-LUB/AP2-Q/AP3.1/AP4/AP6/AP91-Q, NUTR25–40 / NUTR45100 / NUTR50110, NNTR, NUKR35–110, KRV16-PP through KRV90-PP, NATR5-PP through NATR50-PP, NATV5-PP through NATV50-PP, LFR, SL04, SL18 2205–2206, SL18 3004–3010, SL18 1832 / 4860, NCF, CSF, SHF, and AKD.
 
 ## Inquiry details
 Provide the bearing model, dimensions, quantity, application, load direction, speed, accuracy or clearance, sealing preference, destination, and drawings or photos when available.

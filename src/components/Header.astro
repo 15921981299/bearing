@@ -10,7 +10,7 @@ const isActive = (path: string) => currentPath === path || (path !== '/' && curr
 const productsActive = isActive('/products');
 const supportActive = isActive('/certifications');
 const companyActive = isActive('/about') || isActive('/certifications');
-const resourcesActive = isActive('/products') || isActive('/solutions') || isActive('/resources') || isActive('/case-studies');
+const resourcesActive = isActive('/products') || isActive('/solutions') || isActive('/resources') || isActive('/case-studies') || isActive('/downloads');
 ---
 
 <header class="header">
@@ -56,6 +56,7 @@ const resourcesActive = isActive('/products') || isActive('/solutions') || isAct
                     <div class="nav-dropdown-column">
                       <div class="nav-heading">Bearing Products</div>
                       <a href="/products/combined-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Combined Bearings</span></a>
+                      <a href="/products/combined-bearing-series/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Special Combined Series</span></a>
                       <a href="/products/track-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Track Roller Bearings</span></a>
                       <a href="/products/full-complement-cylindrical-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Full Complement Bearings</span></a>
                       <a href="/products/backup-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Back-up Rollers</span></a>
@@ -67,7 +68,8 @@ const resourcesActive = isActive('/products') || isActive('/solutions') || isAct
                     <div class="nav-dropdown-column">
                       <div class="nav-heading">Service & Support</div>
                       <a href="/certifications/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Bearing Quality Control</span></a>
-                      <a href="/contact/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Bearing Selection Support</span></a>
+                      <a href="/solutions/china-bearing-manufacturer-export/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">China Export RFQ</span></a>
+                      <a href="/solutions/oem-custom-bearing-program/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">OEM Custom Program</span></a>
                       <a href="/resources/industrial-bearing-rfq-checklist/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">RFQ Preparation Guide</span></a>
                     </div>
                     <div class="nav-dropdown-column">
@@ -104,6 +106,7 @@ const resourcesActive = isActive('/products') || isActive('/solutions') || isAct
                 <div class="nav-dropdown-list nav-dropdown-list--grid">
                   <div class="nav-dropdown-panel">
                     <a href="/products/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">All Bearing Models</span></a>
+                    <a href="/downloads/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Catalog Downloads</span></a>
                     <a href="/resources/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Technical Guides</span></a>
                     <a href="/solutions/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Solutions & Applications</span></a>
                     <a href="/case-studies/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Application References</span></a>
@@ -111,6 +114,7 @@ const resourcesActive = isActive('/products') || isActive('/solutions') || isAct
                     <a href="/products/track-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Track Roller Models</span></a>
                     <a href="/products/full-complement-cylindrical-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">SL Series Bearings</span></a>
                     <a href="/products/backup-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Back-up Roller Models</span></a>
+                    <a href="/products/special-track-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Special Track Rollers</span></a>
                     <a href="/products/cross-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Cross Roller Models</span></a>
                   </div>
                 </div>

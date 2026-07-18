@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../../components/BreadcrumbHero.astro';
+import DetailRfqStrip from '../../../components/DetailRfqStrip.astro';
+import { specialCombinedSeries, type SpecialCombinedSeries } from '../../../data/special-combined-series';
+import { breadcrumbSchema, itemListSchema, productSchema, site } from '../../../data/site';
+import '../../../styles/product-detail.css';
+import '../../../styles/product-seo.css';
+import '../../../styles/products-index.css';
+export function getStaticPaths(){return specialCombinedSeries.map(item=>({params:{slug:item.slug},props:{item}}));}
+const {item}=Astro.props as {item:SpecialCombinedSeries};
+const pageUrl=`${site.url}/products/combined-bearing-series/${item.slug}/`;
+---
+<BaseLayout title={item.seoTitle} description={item.description} currentPath="/products" image={item.image} jsonLd={[
+ breadcrumbSchema([{name:'Home',url:site.url},{name:'Combined Bearings',url:`${site.url}/products/combined-bearings/`},{name:item.title,url:pageUrl}]),
+ productSchema({name:item.title,description:item.description,url:pageUrl,image:`${site.url}${item.image}`,sku:item.slug,model:item.title,category:'Special Combined Bearing Series',brandName:site.name,manufacturerName:site.name}),
+ itemListSchema(item.rows.map(row=>({name:row.model,url:`${pageUrl}#${row.model.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`}))),
+]}>
+ <BreadcrumbHero title={item.title} trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:'Combined Bearings',href:'/products/combined-bearings/'},{label:item.title}]} variant="2"/>
+ <main class="products-page product-detail-page"><section class="products-catalog"><div class="section-gap bottom"><div class="container"><article class="product-detail-main">
+  <div class="product-detail-intro"><div class="product-detail-intro-media"><figure class="product-detail-figure"><img src={item.image} alt={`${item.title} real product image`} width="840" height="560" loading="eager" fetchpriority="high" decoding="async"/></figure></div><div class="product-detail-intro-panel"><p class="product-specification-eyebrow">Verified special series</p><h2>{item.title}</h2><p>{item.intro}</p><div class="products-rfq-actions"><a href={`/contact/?source=${item.slug}`} class="products-btn products-btn-primary" data-rfq-modal data-rfq-context={`${item.title} inquiry`} data-rfq-source={item.slug}>Request model review</a><a href={item.downloadHref} class="products-btn products-btn-secondary" download>Download technical PDF</a></div></div></div>
+  <div class="product-detail-content">
+   <section class="product-seo-section product-specification-section"><div class="product-specification-heading"><div><p class="product-specification-eyebrow">Dimensions and ratings</p><h2>Series technical table</h2></div><a class="product-pdf-link" href={item.downloadHref} download>Download PDF</a></div><div class="product-reference-table-wrap product-specification-table-wrap" tabindex="0" aria-label={`${item.title} technical table; scroll horizontally on small screens`}><table class="product-reference-table product-specification-table"><caption>{item.title} factory reference data</caption><thead><tr>{item.columns.map(column=><th scope="col">{column.label}</th>)}</tr></thead><tbody>{item.rows.map(row=><tr id={row.model.toLowerCase().replace(/[^a-z0-9]+/g,'-')}>{item.columns.map((column,index)=>index===0?<th scope="row">{row[column.key]}</th>:<td>{row[column.key]}</td>)}</tr>)}</tbody></table></div><p class="product-verification-note"><strong>Selection notice:</strong> Catalog values support identification. Confirm suffix, drawing, load case, adjustment, lubrication and current production data before ordering.</p></section>
+   <section class="product-seo-section"><h2>Design, materials and verification</h2><ul>{item.designNotes.map(note=><li>{note}</li>)}</ul><p><a href={item.source.url} rel="nofollow noopener" target="_blank">{item.source.label}</a></p></section>
+   {item.drawings.length>0&&<section class="product-seo-section"><h2>Technical drawings</h2><div class="products-grid">{item.drawings.map(drawing=><figure class="product-detail-figure"><img src={drawing.src} alt={drawing.alt} width="900" height="640" loading="lazy" decoding="async"/><figcaption>{drawing.alt}. Verify the controlled drawing for the quoted execution.</figcaption></figure>)}</div></section>}
+   <p class="product-detail-back"><a href="/products/combined-bearings/">Combined bearing model directory</a><span aria-hidden="true"> · </span><a href="/products/standard-nbv-profiles/">Standard NbV profiles</a><span aria-hidden="true"> · </span><a href="/downloads/">Technical downloads</a></p>
+  </div>
+ </article></div></div></section></main>
+ <DetailRfqStrip title={`Need ${item.title.toLowerCase()}?`} text="Send the complete model, drawing, operating conditions, quantity and delivery country for technical review." label="Submit bearing details" quoteHref={`/contact/?source=${item.slug}`} secondaryLabel="Combined bearing directory" secondaryHref="/products/combined-bearings/"/>
+</BaseLayout>

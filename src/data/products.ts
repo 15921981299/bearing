@@ -20,8 +20,8 @@ export const products: ProductItem[] = [
       {label:'Standard combined bearings',references:'4.053, 4.054, 4.055, 4.056, 4.058, 4.059, 4.061, 4.062, 4.063'},
       {label:'Precision series',references:'PR4.054 through PR4.063'},
       {label:'Eccentric adjustable series',references:'4.454 through 4.463'},
-      {label:'Jumbo high-load series',references:'4.090 through 4.096'},
-      {label:'Welded plate assemblies',references:'AP0, AP1, AP2, AP3.1, AP4, AP6'},
+      {label:'Jumbo high-load series',references:'4.085, 4.089, 4.090 through 4.096'},
+      {label:'Welded plate assemblies',references:'AP0, AP1, AP2, AP2-LUB, AP2-Q, AP3.1, AP4, AP6, AP91-Q'},
     ],
     selectionChecks:[
       {label:'Identification',detail:'Complete bearing marking plus any MR, TR, JD or 400-series reference.'},
@@ -30,18 +30,19 @@ export const products: ProductItem[] = [
       {label:'Adjustment',detail:'Fixed or eccentric axial roller and the required adjustment method.'},
       {label:'Environment',detail:'Speed, temperature, contamination, lubrication and sealing requirement.'},
     ],
-    content:{partOne:`<h2>Standard and Non-Standard Combined Bearings</h2><p>We supply combined bearings that carry radial and axial loads in one compact unit. Typical applications include forklift masts, telescopic columns, material-handling equipment and heavy linear guide systems.</p><h3>Combined Bearing Series and Keywords</h3><ul><li>Winkel-type standard combined bearings: 4.053, 4.054, 4.055, 4.056, 4.058, 4.059, 4.061, 4.062 and 4.063</li><li>Precision series: PR4.054–PR4.063</li><li>Eccentric adjustable bearings: 4.454–4.463</li><li>Jumbo high-load bearings: 4.090–4.096</li><li>Combined bearings welded on AP0, AP1, AP2, AP3.1, AP4 and AP6 plates</li></ul>`,partTwo:`<h2>Cross-Reference and Selection Support</h2><p>Common cross-reference terms include MR, TR, JD and 400-series designations. Send the complete marking, outside diameter, width, shaft or plate details, radial load, axial load and operating temperature.</p><h3>Related Bearing Products</h3><p>Matched <a href="/products/standard-nbv-profiles/">Standard NbV profiles</a> are available for combined-bearing guide systems. For rolling tracks and cams, see <a href="/products/track-roller-bearings/">track roller bearings</a>.</p><p><a href="/contact/?product=combined-bearings">Request a combined bearing quotation</a></p>`}
+    content:{partOne:`<h2>Standard and Non-Standard Combined Bearings</h2><p>We supply combined bearings that carry radial and axial loads in one compact unit. Typical applications include forklift masts, telescopic columns, material-handling equipment and heavy linear guide systems.</p><h3>Combined Bearing Series and Keywords</h3><ul><li>Winkel-type standard combined bearings: 4.053, 4.054, 4.055, 4.056, 4.058, 4.059, 4.061, 4.062 and 4.063</li><li>Precision series: PR4.054–PR4.056 and PR4.058–PR4.063</li><li>Eccentric adjustable bearings: 4.454–4.463</li><li>Jumbo high-load bearings: 4.085, 4.089, 4.090–4.096</li><li>Combined bearings welded on AP0, AP1, AP2, AP2-LUB, AP2-Q, AP3.1, AP4, AP6 and AP91-Q plates</li></ul>`,partTwo:`<h2>Cross-Reference and Selection Support</h2><p>Common cross-reference terms include MR, TR, JD and 400-series designations. Send the complete marking, outside diameter, width, shaft or plate details, radial load, axial load and operating temperature.</p><h3>Related Bearing Products</h3><p>Matched <a href="/products/standard-nbv-profiles/">Standard NbV profiles</a> are available for combined-bearing guide systems. For rolling tracks and cams, see <a href="/products/track-roller-bearings/">track roller bearings</a>.</p><p><a href="/contact/?product=combined-bearings">Request a combined bearing quotation</a></p>`}
   },
   {
     slug:'track-roller-bearings', title:'Track Roller Bearings', image, mainImage:image, secondImage,
-    seoTitle:'Track Roller Bearing Supplier | Yoke & Stud Type Rollers', h1Title:'Track Roller Bearings and Cam Followers',
+    seoTitle:'Track Roller Bearing Manufacturer | Yoke & Stud Type Rollers', h1Title:'Track Roller Bearings and Cam Followers',
     summary:'Yoke type and stud type track rollers for cam drives, conveyors, guideways and heavy-duty automation.',
     materialSlugs:['bearing-steel'], capabilitySlugs:[], tolerance:'Bore or stud, OD, width, track profile and load checked', leadTime:'Quoted after model and quantity review',
     seriesGroups:[
       {label:'Double-row yoke rollers',references:'NNTR, RSU'},
       {label:'Full-complement yoke rollers',references:'NUTR, PWTR'},
-      {label:'Needle roller yoke followers',references:'NATR, NATV'},
-      {label:'Stud type cam followers',references:'NUKR, NUKRE, KR, KRV, CF'},
+      {label:'Needle roller yoke followers',references:'NATR5-PP–NATR50-PP, NATV5-PP–NATV50-PP'},
+      {label:'Full-complement stud followers',references:'KRV16-PP through KRV90-PP'},
+      {label:'Stud type cam followers',references:'NUKR35 through NUKR110, NUKRE, CF'},
       {label:'Profiled track rollers',references:'LFR and drawing-based groove profiles'},
     ],
     selectionChecks:[
@@ -60,7 +61,7 @@ export const products: ProductItem[] = [
     materialSlugs:['bearing-steel'], capabilitySlugs:[], tolerance:'Internal clearance, locating function and lubrication reviewed', leadTime:'Series and quantity dependent',
     seriesGroups:[
       {label:'Locating and semi-locating designs',references:'SL01, SL02, SL04, SL05, SL06'},
-      {label:'Single-row full-complement designs',references:'SL18, SL19, RSL, NCF, NJG'},
+      {label:'Single-row full-complement designs',references:'SL18 2205–2206, SL18 3004–3010, SL19, NCF'},
       {label:'Double-row and multi-row equivalents',references:'NNCF, NNCL and application-specific designs'},
       {label:'Sealed variants',references:'PP, 2RS and manufacturer-specific suffixes'},
     ],
@@ -95,7 +96,7 @@ export const products: ProductItem[] = [
   },
   {
     slug:'cross-roller-bearings', title:'Cross Roller Bearings', image, mainImage:image, secondImage,
-    seoTitle:'Cross Roller Bearing Supplier | Robotics & Rotary Tables', h1Title:'Precision Cross Roller Bearings',
+    seoTitle:'Cross Roller Bearing Manufacturer | Robotics & Rotary Tables', h1Title:'Precision Cross Roller Bearings',
     summary:'High-rigidity crossed roller bearings for robotics, harmonic reducers, rotary tables and positioning equipment.',
     materialSlugs:['bearing-steel'], capabilitySlugs:[], tolerance:'Accuracy, clearance or preload confirmed by application', leadTime:'Model and precision class dependent',
     seriesGroups:[

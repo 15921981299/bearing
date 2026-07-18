@@ -5,10 +5,19 @@ import { technicalResources } from '../../data/resources';
 import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
 import '../../styles/resource-page.css';
 import '../../styles/resource-library.css';
+
+const buyerGuides = [
+  { label: '01', title: 'China factory export RFQ', summary: 'Factory-direct export from Changzhou with Shanghai packing and overseas RFQ checklist.', href: '/solutions/china-bearing-manufacturer-export/' },
+  { label: '02', title: 'Export shipping & Incoterms', summary: 'EXW, FOB, CIF notes plus packing and document expectations for bearing shipments.', href: '/solutions/bearing-export-shipping-incoterms/' },
+  { label: '03', title: 'WINKEL cross reference', summary: 'Use 4.xxx, PR4, JD, MR, TR and 400-series references to narrow a replacement.', href: '/solutions/winkel-bearing-cross-reference/' },
+  { label: '04', title: 'Catalog downloads', summary: 'NATR, NUKR, NNTR, combined bearing and SL series factory PDF references.', href: '/downloads/' },
+  { label: '05', title: 'OEM custom program', summary: 'Drawing-based OEM assemblies for plates, special track rollers and private-label work.', href: '/solutions/oem-custom-bearing-program/' },
+  { label: '06', title: 'Application cases', summary: 'Forklift mast, conveyor, welded-plate and steel-equipment factory references.', href: '/case-studies/' },
+];
 ---
 <BaseLayout
   title="Industrial Bearing Technical Guides"
-  description="Practical technical guides for bearing identification, track roller measurement and complete industrial bearing quotation requests."
+  description="Practical technical guides for bearing identification, track roller measurement, combined mast bearings, NUKR vs KRV selection and complete industrial bearing RFQs."
   currentPath="/resources"
   jsonLd={[
     breadcrumbSchema([{name:'Home',url:site.url},{name:'Technical Guides',url:`${site.url}/resources/`}]),
@@ -21,6 +30,10 @@ import '../../styles/resource-library.css';
       <div class="resource-library-intro"><p class="resource-page-kicker">Engineering and purchasing support</p><h2>Prepare better bearing specifications and RFQs</h2><p>These guides focus on the information required to identify, measure and source industrial bearings. They support preliminary selection; final approval still requires verified dimensions and operating conditions.</p></div>
       <div class="resource-library-grid">
         {technicalResources.map((item,index)=><article class="resource-library-card"><span>{String(index+1).padStart(2,'0')}</span><h2><a href={`/resources/${item.slug}/`}>{item.title}</a></h2><p>{item.summary}</p><a class="resource-library-link" href={`/resources/${item.slug}/`}>Read technical guide →</a></article>)}
+      </div>
+      <div class="resource-library-intro resource-library-intro--secondary"><p class="resource-page-kicker">Buyer support</p><h2>Export, cross-reference and factory evidence</h2><p>Use these pages with the technical guides when you are preparing an overseas quotation or a catalog cross-reference.</p></div>
+      <div class="resource-library-grid">
+        {buyerGuides.map((item)=><article class="resource-library-card resource-library-card--compact"><span>{item.label}</span><h2><a href={item.href}>{item.title}</a></h2><p>{item.summary}</p><a class="resource-library-link" href={item.href}>Open guide →</a></article>)}
       </div>
     </div></div>
   </section>

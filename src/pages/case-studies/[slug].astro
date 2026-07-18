@@ -2,12 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
 import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
-import { partnerCaseStudies, partnerEvidenceSource, type PartnerCaseStudy } from '../../data/partner-evidence';
+import { factoryCaseStudies, factoryEvidenceSource, type FactoryCaseStudy } from '../../data/factory-evidence';
 import { articleSchema, breadcrumbSchema, site } from '../../data/site';
-import '../../styles/partner-evidence.css';
+import '../../styles/factory-evidence.css';
 
-export function getStaticPaths(){return partnerCaseStudies.map(study=>({params:{slug:study.slug},props:{study}}));}
-const {study}=Astro.props as {study:PartnerCaseStudy};
+export function getStaticPaths(){return factoryCaseStudies.map(study=>({params:{slug:study.slug},props:{study}}));}
+const {study}=Astro.props as {study:FactoryCaseStudy};
 const pageUrl=`${site.url}/case-studies/${study.slug}/`;
 ---
 <BaseLayout
@@ -17,18 +17,18 @@ const pageUrl=`${site.url}/case-studies/${study.slug}/`;
   image={study.image}
   jsonLd={[
     breadcrumbSchema([{name:'Home',url:site.url},{name:'Case Studies',url:`${site.url}/case-studies/`},{name:study.title,url:pageUrl}]),
-    articleSchema({title:study.title,description:study.description,url:pageUrl,image:`${site.url}${study.image}`,datePublished:study.datePublished,authorName:partnerEvidenceSource.name,authorUrl:partnerEvidenceSource.url,authorType:'Organization'}),
+    articleSchema({title:study.title,description:study.description,url:pageUrl,image:`${site.url}${study.image}`,datePublished:study.datePublished,authorName:site.name,authorUrl:site.url,authorType:'Organization'}),
   ]}
 >
   <BreadcrumbHero title={study.title} trail={[{label:'Home',href:'/'},{label:'Case Studies',href:'/case-studies/'},{label:study.industry}]} variant="5" />
-  <main class="partner-evidence-page">
-    <div class="container partner-case-detail">
-      <figure class="partner-case-hero"><img src={study.image} alt={`${study.industry} manufacturing partner reference`} width={study.imageWidth} height={study.imageHeight} loading="eager" decoding="async" /><figcaption>Authorized manufacturing-partner media. Source: {partnerEvidenceSource.name}.</figcaption></figure>
-      <p class="partner-disclosure"><strong>Attribution:</strong> This is a partner-supplied application reference, not a direct customer case of {site.name}. Named-company claims have not been independently confirmed by us.</p>
-      <dl class="partner-fact-grid">{study.facts.map(fact=><div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
-      {study.sections.map(section=><section class="partner-case-section"><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
-      <p class="partner-source-link"><strong>Original source:</strong> <a href={study.sourceUrl} rel="nofollow noopener" target="_blank">{study.sourceLabel}</a></p>
-      <DetailRfqStrip quoteHref={`/contact/?source=partner-case-${study.slug}`} title="Request project-specific verification" text="Send the complete model, dimensions, application and required documents. Availability and evidence scope are confirmed before quotation." modalContext={study.title} modalSource={`partner-case-${study.slug}`} />
+  <main class="factory-evidence-page">
+    <div class="container factory-case-detail">
+      <figure class="factory-case-hero"><img src={study.image} alt={`${study.industry} factory application case`} width={study.imageWidth} height={study.imageHeight} loading="eager" decoding="async" /><figcaption>Changzhou manufacturing reference. {factoryEvidenceSource.name}.</figcaption></figure>
+      <p class="factory-disclosure"><strong>Factory note:</strong> This page is an application identification reference for quotation. Final interchangeability depends on the controlled drawing, dimensions and inspection scope agreed for the order.</p>
+      <dl class="factory-fact-grid">{study.facts.map(fact=><div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+      {study.sections.map(section=><section class="factory-case-section"><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
+      <p class="factory-source-link"><strong>Related page:</strong> <a href={study.sourceUrl}>{study.sourceLabel}</a></p>
+      <DetailRfqStrip quoteHref={`/contact/?source=factory-case-${study.slug}`} title="Request a factory quotation" text="Send the complete model, dimensions, application and required documents. Production route and inspection scope are confirmed before quotation." modalContext={study.title} modalSource={`factory-case-${study.slug}`} />
     </div>
   </main>
 </BaseLayout>
