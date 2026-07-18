@@ -16,27 +16,34 @@ const specs = (values: Record<string, string>): BearingSpec[] =>
   Object.entries(values).map(([label, value]) => ({ label, value }));
 
 const screwAdjustableRows = [
-  ['MR.961','30','62','20','37.5','39.5','39','65','-','-','900','0.52'],
-  ['MR.962','35','70.1','23','38.5','40.5','56','93','-','-','900','0.60'],
-  ['MR.963','40','77.7','23','40.7','42.7','58','101.5','-','-','800','0.82'],
-  ['MR.964','45','88.9','30','48.5','51','84','133','15','22','700','1.43'],
-  ['MR.965','50','101.9','28','46','48.5','91','153','18','22','700','1.70'],
-  ['MR.966','55','107.7','31','53.5','56.5','94','162','31','40','650','2.45'],
-  ['MR.967','60','123','33','61.5','64.5','132','242','31','40','500','3.50'],
-  ['MR.968','60','149','43','75.5','79','179','353','68','71','400','6.50'],
+  ['MR.961','30','62','20','37.5','39.5','30.5','32.5','7','50','—','Ø26','42','20°','3','500','500','2.5','—','M10','39','65','—','—','900','0.52'],
+  ['MR.962','35','70.1','23','38.5','40.5','31.5','33.5','7','57','—','Ø30','48','20°','3','500','500','3','M6×1','M10','56','93','—','—','900','0.60'],
+  ['MR.963','40','77.7','23','40.7','42.7','31.7','33.7','9','61','—','Ø30','54','20°','3','700','700','4','M6×1','M10','58','101.5','—','—','800','0.82'],
+  ['MR.964','45','88.9','30','48.5','51','36.5','39','12','68','21','Ø33','59','20°','4','700','700','4','M6×1','M10','84','133','15','22','700','1.43'],
+  ['MR.965','50','101.9','28','46','48.5','33','35.5','13','77','21','Ø33','67','20°','4','850','700','2.5','M6×1','M10','91','153','18','22','700','1.70'],
+  ['MR.966','55','107.7','31','53.5','56.5','41.5','44.5','12','82','30','Ø42','71','20°','4','1000','700','6','M6×1','M16','94','162','31','40','650','2.45'],
+  ['MR.967','60','123','33','61.5','64.5','49.5','52','12','94','30','Ø42','78','15°','4','1000','1000','6.5','M6×1','M16','132','242','31','40','500','3.50'],
+  ['MR.968','60','149','43','75.5','79','58.5','62','17','116','45','Ø63','103','15°','4','1000','1000','6.8','M6×1','M10','179','353','68','71','400','6.50'],
 ] as const;
 
 const highLoadRows = [
-  ['MR.146','MR.146G2','30','62','20','43','39','65','10','14','900','0.60'],
-  ['MR.147','MR.147G2','35','70.1','23','48','56','93','10','14','900','0.90'],
-  ['MR.148','MR.148G2','40','77.7','23','50.5','58','101.5','14','22','800','1.05'],
-  ['MR.149','MR.148G2','40','78.3','23','45','58','101.5','14','22','800','0.95'],
-  ['MR.150','MR.150G2','45','88.9','30','61','84','133','14','22','700','1.70'],
-  ['MR.151','MR.151G2','50','101.9','28','50.5','91','153','18','22','700','1.85'],
-  ['MR.142','MR.142G2','60','107.7','31','69','94','162','39','57','650','2.40'],
-  ['MR.152','MR.152G2','55','108.55','31','58.5','94','162','39','57','650','2.80'],
-  ['MR.153','MR.153G2','60','123','37','75.8','132','242','39','57','500','4.10'],
-  ['MR.154','MR.154G2','60','149','43','89','179','353','83','131','400','6.80'],
+  ['MR.146','MR.146G2','30','62','20','43','33','10','50','16','42','5.5','20°','3','500','500','40','25','22','39','65','10','14','900','0.60'],
+  ['MR.147','MR.146G2','35','70.1','23','48','40','8','57','16','48','6.5','20°','4','500','500','40','25','22','56','93','10','14','900','0.90'],
+  ['MR.148','MR.148G2','40','77.7','23','50.5','39.5','11','61','21','54','7','20°','4','700','700','52','33','28','58','101.5','14','22','800','1.05'],
+  ['MR.149','MR.148G2','40','78.3','23','45','34','11','61','21','54','7','20°','4','850','700','52','33','28','58','101.5','14','22','800','0.95'],
+  ['MR.150','MR.148G2','45','88.9','30','61','48','13','69.5','21','59','7','20°','3','850','700','52','33','28','84','133','14','22','700','1.70'],
+  ['MR.151','MR.151G2','50','101.9','28','50.5','37.5','13','77','21','67','7','20°','3','850','700','52','33','28','91','153','18','22','700','1.85'],
+  ['MR.142','MR.142G2','60','107.7','31','69','55','14','82','33','71','8','20°','4','1000','700','74','48','38','94','162','39','57','650','2.40'],
+  ['MR.152','MR.142G2','55','108.55','31','58.5','44.5','14','82','33','71','8','20°','4','1000','700','74','48','38','94','162','39','57','650','2.80'],
+  ['MR.153','MR.142G2','60','123','37','75.8','59.5','16.3','92','33','78','8','20°','4','1000','1000','74','48','38','132','242','39','57','500','4.10'],
+  ['MR.154','MR.154G2','60','149','43','89','69','20','116','50','103','15','15°','4','1000','1000','105','72','>55','179','353','83','131','400','6.80'],
+] as const;
+
+const mr418Rows = [
+  ['MR4180','70','170','51','109.7','84.7','49.7','98','11.2','4','195','360','85','130'],
+  ['MR4181','80','185','47','100','75','49.7','115','15','3','235','440','85','130'],
+  ['MR4182','110','220','60','115','90','70','150','13.5','5','365','720','105','230'],
+  ['MR4183','130','260','60','120','95','80','184','18.5','5','475','1000','165','280'],
 ] as const;
 
 export const combinedBearingModels: CombinedBearingModel[] = [
@@ -231,7 +238,7 @@ export const combinedBearingModels: CombinedBearingModel[] = [
   },
   {
     slug: 'winkel-4-064', model: '4.064', family: 'Standard',
-    aliases: ['MR191', 'JD149-86', '200.026.000', '400-0064', 'AP 89-Q'], image: '/images/combined-bearing-models/winkel-4-064.png',
+    aliases: ['MR191', 'JD149-86', '200.026.000', '400-0064', 'AP 89-Q'], image: '/images/combined-bearing-models/winkel-4-064.webp',
     description: 'Large fixed-axial combined bearing matched to Standard 7 NbV profile for high-load mast and steel-section guidance.',
     application: 'Forklift masts, stacker cranes, steel handling equipment and heavy linear guide systems.',
     specs: specs({ ArticleNumber:'200.026.000', d:'80 mm', D:'170 mm', T:'103 mm', H:'91 mm', h:'72 mm', B:'53 mm', A:'7 mm', S:'50 mm', r:'5 mm', FR:'72 kN', FA:'18.5 kN', Cr:'264.7 kN', C0r:'471.1 kN', Ca:'96 kN', C0a:'145 kN', Mass:'10.40 kg', MatchedProfile:'Standard 7 NbV', PlateReference:'AP 89-Q', Design:'Fixed axial combined bearing' }),
@@ -397,7 +404,7 @@ export const combinedBearingModels: CombinedBearingModel[] = [
     application: 'Heavy mast systems, cranes, steel equipment and large linear guide structures.',
     specs: specs({ Plate:'AP91-Q', TypicalBearing:'4.091 jumbo class', Assembly:'Bearing welded on plate', Adjustment:'Eccentric axial support' }),
   },
-  ...screwAdjustableRows.map(([model,d,D,C,Hmin,Hmax,Cr,C0r,Ca,C0a,speed,mass]) => ({
+  ...screwAdjustableRows.map(([model,d,D,C,Hmin,Hmax,H1min,H1max,H2,D1,C1,D2,d1,angle,r,R,R1,V,V1,adjustingScrew,Cr,C0r,Ca,C0a,speed,mass]) => ({
     slug: model.toLowerCase().replace('.', '-'),
     model,
     family: 'Screw adjustable' as const,
@@ -405,9 +412,9 @@ export const combinedBearingModels: CombinedBearingModel[] = [
     image: '/images/special-combined-series/screw-adjustable-main.jpg',
     description: `${model} combined bearing with screw-adjustable axial support for controlled clearance setting in steel-section guides.`,
     application: 'Adjustable mast guides, handling systems and welded steel-section linear guides.',
-    specs: specs({d:`${d} mm`,D:`${D} mm`,C:`${C} mm`,Hmin:`${Hmin} mm`,Hmax:`${Hmax} mm`,Cr:`${Cr} kN`,C0r:`${C0r} kN`,Ca:Ca==='-'?'Not published':`${Ca} kN`,C0a:C0a==='-'?'Not published':`${C0a} kN`,Speed:`${speed} rpm`,Mass:`${mass} kg`,Adjustment:'UNI 5929 / DIN 916 screw'}),
+    specs: specs({d:`${d} mm`,D:`${D} mm`,C:`${C} mm`,Hmin:`${Hmin} mm`,Hmax:`${Hmax} mm`,H1min:`${H1min} mm`,H1max:`${H1max} mm`,H2:`${H2} mm`,D1:`${D1} mm`,C1:C1==='—'?'Not published':`${C1} mm`,D2,d1:`${d1} mm`,Angle:angle,r:`${r} mm`,R:`${R} mm`,R1:`${R1} mm`,V:`${V} mm`,V1,VAdjustingScrew:adjustingScrew,Cr:`${Cr} kN`,C0r:`${C0r} kN`,Ca:Ca==='—'?'Not published':`${Ca} kN`,C0a:C0a==='—'?'Not published':`${C0a} kN`,Speed:`${speed} rpm`,Mass:`${mass} kg`,Adjustment:'UNI 5929 / DIN 916 screw'}),
   })),
-  ...highLoadRows.map(([model,axialSupport,d,D,C,H,Cr,C0r,Ca,C0a,speed,mass]) => ({
+  ...highLoadRows.map(([model,axialSupport,d,D,C,H,H1,H2,D1,C1,d1,S,angle,r,R,R1,D2,d2,H3,Cr,C0r,Ca,C0a,speed,mass]) => ({
     slug: model.toLowerCase().replace('.', '-'),
     model,
     family: 'High load axial support' as const,
@@ -420,7 +427,15 @@ export const combinedBearingModels: CombinedBearingModel[] = [
     image: '/images/special-combined-series/high-load-main.jpg',
     description: `${model} high-load combined bearing with separate axial support and shim-adjustable axial position.`,
     application: 'Heavy masts, steel handling, logistics equipment and high-load linear guide structures.',
-    specs: specs({d:`${d} mm`,D:`${D} mm`,C:`${C} mm`,H:`${H} mm`,Cr:`${Cr} kN`,C0r:`${C0r} kN`,Ca:`${Ca} kN`,C0a:`${C0a} kN`,Speed:`${speed} rpm`,Mass:`${mass} kg`,Adjustment:'0.3 / 0.5 / 1.0 mm adapter washers'}),
+    specs: specs({AxialSupport:axialSupport,d:`${d} mm`,D:`${D} mm`,C:`${C} mm`,H:`${H} mm`,H1:`${H1} mm`,H2:`${H2} mm`,D1:`${D1} mm`,C1:`${C1} mm`,d1:`${d1} mm`,S:`${S} mm`,Angle:angle,r:`${r} mm`,R:`${R} mm`,R1:`${R1} mm`,D2:`${D2} mm`,d2:`${d2} mm`,H3:`${H3} mm`,Cr:`${Cr} kN`,C0r:`${C0r} kN`,Ca:`${Ca} kN`,C0a:`${C0a} kN`,Speed:`${speed} rpm`,Mass:`${mass} kg`,Adjustment:'0.3 / 0.5 / 1.0 mm adapter washers'}),
+  })),
+  ...mr418Rows.map(([model,d,D,B,H,H1,C1,d1,S,r,Cr,C0r,Ca,C0a]) => ({
+    slug: model.toLowerCase(), model, family: 'High load axial support' as const,
+    aliases: [`${model} heavy load combined bearing`, `${model} externally adjustable bearing`],
+    image: '/images/special-combined-series/mr418-heavy-load-main.jpg',
+    description: `${model} heavy-load combined bearing adjustable from outside for large steel-section guide systems.`,
+    application: 'Heavy steel handling, large lifting columns, crane guides and severe-duty linear guide structures.',
+    specs: specs({d:`${d} mm`,D:`${D} mm`,B:`${B} mm`,H:`${H} mm`,H1:`${H1} mm`,C1:`${C1} mm`,d1:`${d1} mm`,S:`${S} mm`,r:`${r} mm`,Cr:`${Cr} kN`,C0r:`${C0r} kN`,Ca:`${Ca} kN`,C0a:`${C0a} kN`,Speed:'Not published',Mass:'Not published',Adjustment:'Externally adjustable'}),
   })),
 ];
 

@@ -6,6 +6,7 @@ import FaqSection from './FaqSection.astro';
 import ProductSidebar from './ProductSidebar.astro';
 import type { ExtendedBearingModel } from '../data/extended-bearing-models';
 import { extendedBearingModels } from '../data/extended-bearing-models';
+import { bearingProfileMatrix } from '../data/bearing-profile-matrix';
 import { breadcrumbSchema, faqSchema, productSchema, site } from '../data/site';
 import '../styles/products-index.css';
 import '../styles/product-detail.css';
@@ -24,9 +25,22 @@ const categoryTitle = categoryTitles[item.categorySlug];
 const categoryUrl = `${site.url}/products/${item.categorySlug}/`;
 const pageUrl = `${categoryUrl}${item.slug}/`;
 const quoteHref = `/contact/?source=${item.slug}`;
-const title = `${item.model} ${item.family} | Dimensions & Equivalents`;
-const description = `${item.model} ${item.family.toLowerCase()} dimensions, application and cross references: ${item.aliases.join(', ')}. Request replacement verification and pricing.`;
+const seoCopy: Record<ExtendedBearingModel['categorySlug'], { title: string; noun: string }> = {
+  'track-roller-bearings': { title: 'Track Roller | Dimensions & Equivalent', noun: 'track roller' },
+  'full-complement-cylindrical-roller-bearings': { title: 'Bearing | Dimensions & Equivalent', noun: 'full-complement bearing' },
+  'cross-roller-bearings': { title: 'Cross Roller Bearing | Specifications', noun: 'cross roller bearing' },
+  'standard-nbv-profiles': { title: 'NbV Profile | Dimensions & Matching', noun: 'NbV steel profile' },
+  'backup-roller-bearings': { title: 'Back-up Roller | Dimensions', noun: 'back-up roller' },
+  'special-track-roller-bearings': { title: 'Special Track Roller | Replacement', noun: 'special track roller' },
+};
+const title = item.categorySlug === 'standard-nbv-profiles'
+  ? `${item.model} | Dimensions & Bearing Match`
+  : item.categorySlug === 'special-track-roller-bearings'
+    ? `${item.model} | Replacement Track Roller`
+    : `${item.model} ${seoCopy[item.categorySlug].title}`;
+const description = `${item.model} ${seoCopy[item.categorySlug].noun}: dimensions, application and replacement references. Confirm fit, suffix and availability before ordering.`;
 const peers = extendedBearingModels.filter((x) => x.categorySlug === item.categorySlug && x.slug !== item.slug).slice(0, 6);
+const profileMatch = item.categorySlug === 'standard-nbv-profiles' ? bearingProfileMatrix.find(row => row.profileSlug === item.slug) : undefined;
 const faqs = [
   {
     question: `What are the dimensions of ${item.model}?`,
@@ -236,6 +250,12 @@ const iconApplication =
                   requirement. We manufacture compatible bearings to the confirmed drawing unless an original branded
                   product is expressly quoted.
                 </p>
+                {profileMatch && (
+                  <aside class="product-verification-note">
+                    <strong>Matched combined bearings:</strong>{' '}
+                    {profileMatch.matchedBearings.map((bearing,index)=><span><a href={`/products/combined-bearings/${bearing.slug}/`}>{bearing.model}</a>{index < profileMatch.matchedBearings.length-1 ? ' · ' : ''}</span>)}. {profileMatch.note}
+                  </aside>
+                )}
 
                 <section class="product-seo-section" aria-labelledby="specification-heading">
                   <CatalogSectionHead
@@ -262,6 +282,7 @@ const iconApplication =
                     <strong>Selection notice:</strong> Catalog dimensions are factory reference data. Confirm the
                     controlled drawing and suffix during quotation.
                   </p>
+                  <p class="product-verification-note"><strong>Documentation status:</strong> Data reviewed 2026-07-18. Controlled drawings and order-specific inspection scope are available on request; a batch report must identify the actual model and lot.</p>
 
                   <h3 id="cross-reference-heading">{item.model} cross references</h3>
                   <p>
@@ -276,6 +297,7 @@ const iconApplication =
                   <nav class="product-detail-links" aria-label="Technical resources">
                     <strong>Resources:</strong>
                     <a href="/downloads/">Download references</a>
+                    <a href="/downloads/combined-bearing-inspection-checklist.pdf" download>Inspection checklist</a>
                     <a href={`/contact/?source=${item.slug}-drawing`}>Request controlled drawing</a>
                   </nav>
                 </section>

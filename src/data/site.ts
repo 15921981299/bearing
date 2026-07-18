@@ -10,11 +10,12 @@
   whatsapp: '+8618018620661',
   tagline: 'Factory-Direct Industrial Bearings | OEM & Custom',
   logo: {
-    default: '/logo.png',
-    compact: '/logo-compact.png',
+    default: '/logo-640.webp',
+    large: '/logo-1200.webp',
+    compact: '/logo-compact.webp',
     icon: '/favicon.png',
-    width: 2048,
-    height: 768,
+    width: 640,
+    height: 234,
   },
   /** Set your GA4 Measurement ID (e.g. G-XXXXXXXX) to enable analytics. Leave empty to disable. */
   gaMeasurementId: 'G-WFJ59G7FKN',
@@ -90,7 +91,7 @@
   },
 };
 
-const organizationLogoUrl = `${site.url}/logo.png`;
+const organizationLogoUrl = `${site.url}${site.logo.large}`;
 
 export const organizationSchema = {
   '@context': 'https://schema.org',

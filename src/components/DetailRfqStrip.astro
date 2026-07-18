@@ -1,4 +1,6 @@
 ---
+import '../styles/detail-rfq-strip.css';
+
 interface Props {
   quoteHref: string;
   title?: string;
@@ -22,39 +24,23 @@ const {
 } = Astro.props;
 ---
 
-<div class="detail-rfq-strip" style="margin-top: 40px;">
-  <p>
-    <strong>{title}:</strong> {text}
-  </p>
+<aside class="detail-rfq-strip" aria-label="Request a quotation">
+  <div class="detail-rfq-copy">
+    <p class="detail-rfq-title">{title}</p>
+    <p class="detail-rfq-text">{text}</p>
+  </div>
   <div class="detail-rfq-actions">
     <a
       href={quoteHref}
-      class="detail-rfq-link"
+      class="detail-rfq-link detail-rfq-link--primary"
       data-rfq-modal
       data-rfq-context={modalContext}
       data-rfq-source={modalSource}
-    >{label}</a>
+    >
+      {label}
+    </a>
     {secondaryHref && (
       <a href={secondaryHref} class="detail-rfq-link detail-rfq-link--secondary">{secondaryLabel}</a>
     )}
   </div>
-</div>
-
-<style>
-  .detail-rfq-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    margin-top: 12px;
-  }
-
-  .detail-rfq-link--secondary {
-    background: var(--color-white);
-    color: var(--color-primary);
-    border: 1px solid rgba(20, 110, 245, 0.35);
-  }
-
-  .detail-rfq-link--secondary:hover {
-    background: rgba(20, 110, 245, 0.06);
-  }
-</style>
+</aside>

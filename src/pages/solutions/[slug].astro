@@ -3,91 +3,335 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
 import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
 import { seoLandingPages, type SeoLandingPage } from '../../data/seo-landing-pages';
-import { breadcrumbSchema, faqSchema, serviceSchema, site } from '../../data/site';
-import '../../styles/product-model.css';
+import { articleSchema, breadcrumbSchema, faqSchema, serviceSchema, site } from '../../data/site';
+import '../../styles/products-index.css';
+import '../../styles/solution-page.css';
 
 export function getStaticPaths() {
   return seoLandingPages.map((item) => ({ params: { slug: item.slug }, props: { item } }));
 }
+
 const { item } = Astro.props as { item: SeoLandingPage };
 const pageUrl = `${site.url}/solutions/${item.slug}/`;
+const articleDatePublished = '2026-07-18';
+const articleDateModified = '2026-07-18';
+
+const clusterImages: Record<SeoLandingPage['cluster'], string> = {
+  'Bearing Designs': '/images/industrial-bearing-product-range.webp',
+  Applications: '/images/industrial-bearing-hero.webp',
+  'Buyer Support': '/images/bearing-export-packaging.webp',
+};
+
+const clusterAnchors: Record<SeoLandingPage['cluster'], string> = {
+  'Bearing Designs': 'bearing-designs',
+  Applications: 'applications',
+  'Buyer Support': 'buyer-support',
+};
+
+const heroImage = clusterImages[item.cluster];
+
+const solutionsNav = [
+  { href: '/solutions/', label: 'All solutions', cluster: null as SeoLandingPage['cluster'] | null },
+  { href: '/solutions/#bearing-designs', label: 'Bearing designs', cluster: 'Bearing Designs' as const },
+  { href: '/solutions/#applications', label: 'Applications', cluster: 'Applications' as const },
+  { href: '/solutions/#buyer-support', label: 'Buyer support', cluster: 'Buyer Support' as const },
+];
+
+const siblingGuides = seoLandingPages.filter(
+  (page) => page.cluster === item.cluster && page.slug !== item.slug,
+);
+
+function sectionId(heading: string) {
+  return heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function faqId(question: string) {
+  return `faq-${question.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48)}`;
+}
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: item.seoTitle,
+  description: item.description,
+  url: pageUrl,
+  primaryImageOfPage: `${site.url}${heroImage}`,
+  isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+  about: {
+    '@type': 'Thing',
+    name: item.title,
+  },
+};
 ---
 
-<BaseLayout title={item.seoTitle} description={item.description} currentPath="/solutions" jsonLd={[
-  breadcrumbSchema([{name:'Home',url:site.url},{name:'Solutions',url:`${site.url}/solutions/`},{name:item.title,url:pageUrl}]),
-  serviceSchema({name:item.title,description:item.description,url:pageUrl,image:`${site.url}/images/industrial-bearing-product-range.webp`}),
-  faqSchema(item.faqs),
-]}>
-  <BreadcrumbHero title={item.title} trail={[{label:'Home',href:'/'},{label:'Solutions',href:'/solutions/'},{label:item.title}]} variant="2" />
-  <main class="model-page">
-    <section class="model-page-section">
+<BaseLayout
+  title={item.seoTitle}
+  description={item.description}
+  currentPath="/solutions"
+  image={heroImage}
+  ogType="article"
+  articlePublishedTime={articleDatePublished}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Solutions', url: `${site.url}/solutions/` },
+      { name: item.title, url: pageUrl },
+    ]),
+    webPageSchema,
+    articleSchema({
+      title: item.title,
+      description: item.description,
+      url: pageUrl,
+      image: `${site.url}${heroImage}`,
+      datePublished: articleDatePublished,
+      dateModified: articleDateModified,
+      authorName: site.name,
+      authorType: 'Organization',
+    }),
+    serviceSchema({
+      name: item.title,
+      description: item.description,
+      url: pageUrl,
+      image: `${site.url}${heroImage}`,
+    }),
+    faqSchema(item.faqs),
+  ]}
+>
+  <BreadcrumbHero
+    title={item.title}
+    trail={[
+      { label: 'Home', href: '/' },
+      { label: 'Solutions', href: '/solutions/' },
+      { label: item.title },
+    ]}
+    variant="2"
+    image={heroImage}
+  />
+
+  <main class="solution-page">
+    <section class="solution-page-section" aria-labelledby="solution-overview-heading">
       <div class="section-gap bottom">
         <div class="container">
-          <article class="model-shell">
-            <header class="model-intro">
-              <p class="model-kicker">{item.cluster}</p>
-              <h2 class="model-title">Selection, replacement and quotation support</h2>
-              <p class="model-lead">{item.intro}</p>
-              <div class="model-actions">
-                <a href={`/contact/?source=solution-${item.slug}`} class="products-btn products-btn-primary" data-rfq-modal data-rfq-context={`${item.title} inquiry`} data-rfq-source={`solution-${item.slug}`}>Request technical review</a>
-                <a href="/products/combined-bearings/" class="products-btn products-btn-secondary">Browse combined bearings</a>
-              </div>
-            </header>
+          <nav aria-label="Solution categories">
+            <ul class="products-category-nav fade-in">
+              {solutionsNav.map((navItem) => (
+                <li>
+                  <a
+                    href={navItem.href}
+                    class:list={[{ 'is-active': navItem.cluster === item.cluster }]}
+                    aria-current={navItem.cluster === item.cluster ? 'page' : undefined}
+                  >
+                    {navItem.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            <p class="model-note">
-              Cross references and catalog data support preliminary identification. Confirm the current drawing, load
-              capacity, tolerances and application requirements before ordering.
+          <article
+            class="solution-shell"
+            itemscope
+            itemtype="https://schema.org/Article"
+          >
+            <meta itemprop="headline" content={item.title} />
+            <meta itemprop="description" content={item.description} />
+            <link itemprop="url" href={pageUrl} />
+            <meta itemprop="datePublished" content={articleDatePublished} />
+            <meta itemprop="dateModified" content={articleDateModified} />
+
+            <div class="solution-intro">
+              <div class="solution-intro-media">
+                <figure class="solution-figure">
+                  <img
+                    src={heroImage}
+                    alt={`${item.title} — combined bearing selection and replacement guide`}
+                    width="640"
+                    height="360"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    itemprop="image"
+                  />
+                </figure>
+              </div>
+
+              <div class="solution-intro-panel">
+                <header>
+                  <p class="solution-kicker">
+                    <a href={`/solutions/#${clusterAnchors[item.cluster]}`}>{item.cluster}</a>
+                  </p>
+                  <h2 class="solution-title" id="solution-overview-heading">
+                    {item.title}: selection, replacement and quotation support
+                  </h2>
+                  <p class="solution-lead" itemprop="abstract">{item.intro}</p>
+                </header>
+
+                <aside class="solution-rfq-panel" aria-label="Request a quotation">
+                  <p>
+                    <strong>Request {item.title} review</strong>
+                    Send the model, drawing, quantity, application and delivery country for replacement review
+                    and factory quotation.
+                  </p>
+                  <div class="solution-rfq-actions">
+                    <a
+                      href={`/contact/?source=solution-${item.slug}`}
+                      class="products-btn products-btn-primary"
+                      data-rfq-modal
+                      data-rfq-context={`${item.title} inquiry`}
+                      data-rfq-source={`solution-${item.slug}`}
+                    >
+                      Request technical review
+                    </a>
+                    <a href="/products/combined-bearings/" class="products-btn products-btn-secondary">
+                      Browse combined bearings
+                    </a>
+                  </div>
+                </aside>
+              </div>
+            </div>
+
+            <dl class="solution-meta-row" aria-label="Guide metadata">
+              <div class="solution-meta-chip">
+                <dt>Topic</dt>
+                <dd>{item.title}</dd>
+              </div>
+              <div class="solution-meta-chip">
+                <dt>Category</dt>
+                <dd>
+                  <a href={`/solutions/#${clusterAnchors[item.cluster]}`}>{item.cluster}</a>
+                </dd>
+              </div>
+              <div class="solution-meta-chip">
+                <dt>Updated</dt>
+                <dd>
+                  <time datetime={articleDateModified}>{articleDateModified}</time>
+                </dd>
+              </div>
+              <div class="solution-meta-chip">
+                <dt>Use</dt>
+                <dd>Identification, cross-reference and RFQ preparation</dd>
+              </div>
+            </dl>
+
+            <nav class="solution-jump-nav" aria-label="On this page">
+              <p class="solution-jump-label">On this page</p>
+              <ol>
+                {item.sections.map((section) => (
+                  <li>
+                    <a href={`#${sectionId(section.heading)}`}>{section.heading}</a>
+                  </li>
+                ))}
+                <li><a href="#next-steps-heading">RFQ checklist</a></li>
+                <li><a href="#related-heading">Related links</a></li>
+                {siblingGuides.length > 0 && <li><a href="#related-guides-heading">Related guides</a></li>}
+                <li><a href="#faq-heading">FAQ</a></li>
+              </ol>
+            </nav>
+
+            <p class="solution-callout">
+              Cross references and catalog data support preliminary identification. Confirm the current drawing,
+              load capacity, tolerances and application requirements before ordering. See the{' '}
+              <a href="/resources/industrial-bearing-rfq-checklist/">industrial bearing RFQ checklist</a> for the
+              full data set.
             </p>
 
-            <div class="model-content-grid">
+            <div class="solution-topic-grid">
               {item.sections.map((section) => (
-                <section>
-                  <h2>{section.heading}</h2>
+                <section class="solution-topic-card" aria-labelledby={sectionId(section.heading)}>
+                  <h2 id={sectionId(section.heading)}>{section.heading}</h2>
                   <p>{section.body}</p>
-                  <ul class="model-aliases">
-                    {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                  <ul class="solution-bullets">
+                    {section.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
                   </ul>
                 </section>
               ))}
             </div>
 
-            <section class="model-section" aria-labelledby="next-steps-heading">
-              <h2 id="next-steps-heading">Recommended next steps</h2>
-              <ul class="model-checklist">
-                <li><strong>Identify</strong> — model, suffix and machine reference</li>
-                <li><strong>Measure</strong> — envelope and mounting dimensions</li>
-                <li><strong>Describe duty</strong> — load, speed, shock and environment</li>
-                <li><strong>Approve</strong> — proposed drawing and documents</li>
+            <section class="solution-section solution-section--soft" aria-labelledby="next-steps-heading">
+              <h2 id="next-steps-heading">Information required for {item.title.toLowerCase()} quotation</h2>
+              <ul class="solution-steps">
+                <li>
+                  <span class="solution-step-num">1</span>
+                  <span><strong>Identify</strong> — model, suffix and machine reference</span>
+                </li>
+                <li>
+                  <span class="solution-step-num">2</span>
+                  <span><strong>Measure</strong> — envelope and mounting dimensions</span>
+                </li>
+                <li>
+                  <span class="solution-step-num">3</span>
+                  <span><strong>Describe duty</strong> — load, speed, shock and environment</span>
+                </li>
+                <li>
+                  <span class="solution-step-num">4</span>
+                  <span><strong>Approve</strong> — proposed drawing and documents</span>
+                </li>
               </ul>
             </section>
 
-            <section class="model-section" aria-labelledby="related-heading">
+            <section class="solution-section" aria-labelledby="related-heading">
               <h2 id="related-heading">Related products and buyer resources</h2>
-              <div class="model-related-grid">
+              <nav class="solution-link-grid" aria-label="Related products and resources">
                 {item.related.map((link) => (
                   <a href={link.href}>
-                    <strong>{link.label}</strong>
-                    <span>View technical information</span>
+                    <span class="solution-link-title">{link.label}</span>
+                    <span class="solution-link-desc">View technical information</span>
                   </a>
                 ))}
-              </div>
+              </nav>
             </section>
 
-            <section class="model-section model-faq" aria-labelledby="faq-heading">
+            {siblingGuides.length > 0 && (
+              <section class="solution-section" aria-labelledby="related-guides-heading">
+                <h2 id="related-guides-heading">More {item.cluster.toLowerCase()} guides</h2>
+                <nav class="solution-link-grid" aria-label={`More ${item.cluster} guides`}>
+                  {siblingGuides.map((guide) => (
+                    <a href={`/solutions/${guide.slug}/`}>
+                      <span class="solution-link-title">{guide.title}</span>
+                      <span class="solution-link-desc">
+                        {guide.intro.length > 96 ? `${guide.intro.slice(0, 96)}…` : guide.intro}
+                      </span>
+                    </a>
+                  ))}
+                </nav>
+              </section>
+            )}
+
+            <section class="solution-section solution-faq" aria-labelledby="faq-heading">
               <h2 id="faq-heading">{item.title} FAQ</h2>
-              <div class="model-faq-list">
+              <div class="solution-faq-list">
                 {item.faqs.map((faq) => (
-                  <details>
-                    <summary>{faq.question}</summary>
+                  <details id={faqId(faq.question)}>
+                    <summary>
+                      <h3 class="solution-faq-question">{faq.question}</h3>
+                    </summary>
                     <p>{faq.answer}</p>
                   </details>
                 ))}
               </div>
             </section>
+
+            <p class="solution-callout solution-callout--muted">
+              <strong>Technical note:</strong> This guide supports preliminary sourcing. Confirm the controlled
+              drawing, tolerances, load capacity and application requirements before ordering. Return to the{' '}
+              <a href="/solutions/">solutions library</a>, browse{' '}
+              <a href="/products/">bearing products</a> or review{' '}
+              <a href="/certifications/">quality and inspection scope</a>.
+            </p>
           </article>
         </div>
       </div>
     </section>
   </main>
-  <DetailRfqStrip title={`Need help with ${item.title.toLowerCase()}?`} text="Send the model, drawing, quantity, application and delivery country for replacement review and quotation." label="Submit bearing details" quoteHref={`/contact/?source=solution-${item.slug}`} secondaryLabel="RFQ checklist" secondaryHref="/resources/industrial-bearing-rfq-checklist/" />
+
+  <DetailRfqStrip
+    title={`Need help with ${item.title.toLowerCase()}?`}
+    text="Send the model, drawing, quantity, application and delivery country for replacement review and quotation."
+    label="Submit bearing details"
+    quoteHref={`/contact/?source=solution-${item.slug}`}
+    secondaryLabel="RFQ checklist"
+    secondaryHref="/resources/industrial-bearing-rfq-checklist/"
+  />
 </BaseLayout>

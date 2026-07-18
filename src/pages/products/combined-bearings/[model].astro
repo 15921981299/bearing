@@ -21,8 +21,8 @@ const primaryModel = item.model.split(' / ')[0];
 const aliases = item.aliases.join(', ');
 const quoteHref = `/contact/?source=${item.slug}`;
 const matchedProfile = profileMatchByBearingSlug[item.slug];
-const title = `${primaryModel} Combined Bearing Replacement | ${item.aliases[0] ?? 'WINKEL Type'}`;
-const description = `${primaryModel} combined bearing replacement with dimensions, load data and cross references including ${item.aliases.slice(0, 4).join(', ')}. Request model verification and pricing.`;
+const title = `${primaryModel} Combined Bearing | Replacement Data`;
+const description = `${primaryModel} combined bearing replacement dimensions, load data, profile matching and cross references. Request drawing verification and availability.`;
 const index = combinedBearingModels.findIndex((model) => model.slug === item.slug);
 const related = [
   combinedBearingModels[(index - 1 + combinedBearingModels.length) % combinedBearingModels.length],
@@ -53,6 +53,19 @@ const selectionChecks = [
   { label: 'Execution', detail: 'Standard, precision, fixed axial or eccentric-adjustable' },
   { label: 'Environment', detail: 'Temperature, contamination, sealing and lubrication' },
 ];
+const familyGuidance: Record<CombinedBearingModel['family'], { design: string; installation: string; inspection: string }> = {
+  Standard: { design: 'A fixed axial roller supports combined radial and side load in a compact mast-guide envelope.', installation: 'Set running clearance through the mating profile and mounting position; the axial roller itself is not eccentric-adjustable.', inspection: 'Verify radial OD, overall height, axial-roller position, stud geometry and smooth rotation.' },
+  Precision: { design: 'The precision family uses a controlled radial outside diameter for tighter guide accuracy.', installation: 'Do not replace it with a standard-OD version without confirming profile clearance and the controlled drawing.', inspection: 'Record radial OD, runout, axial position and the specified precision class.' },
+  'Jumbo adjustable': { design: 'Jumbo models provide a larger radial roller and an adjustable axial arrangement for severe-duty guides.', installation: 'Confirm the adjustment method, locking arrangement and structural clearance before setting the guide.', inspection: 'Check eccentric or axial adjustment travel, mounting interfaces, load surfaces and lubrication access.' },
+  'Radial precision': { design: 'This execution focuses on radial guidance and a precision outside diameter.', installation: 'Confirm whether a separate axial guide element is used and match the profile clearance to the precision OD.', inspection: 'Measure OD, bore or stud, width, runout and the mating-track contact pattern.' },
+  'Eccentric adjustable': { design: 'An eccentric axial element allows guide clearance to be set after installation.', installation: 'Rotate the eccentric to the drawing-defined clearance, then secure the locking feature without preloading the guide.', inspection: 'Verify eccentric offset, adjustment travel, locking security and free rotation across the full travel.' },
+  'Welded plate': { design: 'The bearing is supplied with a welded mounting plate for direct integration into the guide structure.', installation: 'Plate hole pattern, weld orientation and datum position must match the complete AP drawing.', inspection: 'Inspect plate flatness, hole spacing, weld condition, bearing position and marking.' },
+  'Screw adjustable': { design: 'A DIN 916 / UNI 5929 screw moves the axial support to set the guide position.', installation: 'Adjust from the external screw, confirm the required running clearance and lock the setting against service vibration.', inspection: 'Check adjustment range, screw engagement, axial-support position, radial and axial roller rotation.' },
+  'High load axial support': { design: 'A separate hardened axial support carries higher side load than the compact standard arrangement.', installation: 'Confirm support orientation, available structural clearance and the specified washer or mounting arrangement.', inspection: 'Inspect the hardened support, contact face, axial position, washer stack and both load paths.' },
+  'Shim adjustable': { design: 'Calibrated adapter washers set the axial support position.', installation: 'Build the approved 0.3, 0.5 or 1.0 mm washer stack and recheck guide clearance after tightening.', inspection: 'Record shim thickness, final axial position, fastener security and free running condition.' },
+};
+const guidance = familyGuidance[item.family];
+const lastReviewed = '2026-07-18';
 
 const categoryNav = [
   { href: '/products/', label: 'All bearings', slug: null },
@@ -286,6 +299,15 @@ const iconApplication =
                     <a href="/downloads/">Download references</a>
                     <a href={`/contact/?source=${item.slug}-drawing`}>Request controlled drawing</a>
                   </nav>
+                </section>
+
+                <section class="product-seo-section" aria-labelledby="installation-heading">
+                  <CatalogSectionHead kicker="Execution guidance" title={`${item.family} design and inspection`} titleId="installation-heading" />
+                  <h3>Design function</h3><p>{guidance.design}</p>
+                  <h3>Installation and adjustment</h3><p>{guidance.installation}</p>
+                  <h3>Inspection focus</h3><p>{guidance.inspection}</p>
+                  <aside class="product-verification-note"><strong>Documentation status:</strong> Technical data reviewed {lastReviewed}. Controlled drawing, marking photos and order-specific dimensional inspection can be agreed before quotation. A batch report is issued only for the identified product lot and inspection scope.</aside>
+                  <nav class="product-detail-links" aria-label="Inspection and drawing documents"><strong>Documents:</strong><a href="/downloads/combined-bearing-inspection-checklist.pdf" download>Inspection checklist</a><a href="/certifications/">Factory QC scope</a><a href={`/contact/?source=${item.slug}-documents`}>Request drawing and report scope</a></nav>
                 </section>
 
                 <section class="product-seo-section" aria-labelledby="application-heading">

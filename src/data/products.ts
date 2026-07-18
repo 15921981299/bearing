@@ -34,7 +34,7 @@ export const products: ProductItem[] = [
   },
   {
     slug:'track-roller-bearings', title:'Track Roller Bearings', image, mainImage:image, secondImage,
-    seoTitle:'Track Roller Bearing Manufacturer | Yoke & Stud Type Rollers', h1Title:'Track Roller Bearings and Cam Followers',
+    seoTitle:'Track Roller Bearings | Yoke & Stud Rollers', h1Title:'Track Roller Bearings and Cam Followers',
     summary:'Yoke type and stud type track rollers for cam drives, conveyors, guideways and heavy-duty automation.',
     materialSlugs:['bearing-steel'], capabilitySlugs:[], tolerance:'Bore or stud, OD, width, track profile and load checked', leadTime:'Quoted after model and quantity review',
     seriesGroups:[
@@ -96,7 +96,7 @@ export const products: ProductItem[] = [
   },
   {
     slug:'cross-roller-bearings', title:'Cross Roller Bearings', image, mainImage:image, secondImage,
-    seoTitle:'Cross Roller Bearing Manufacturer | Robotics & Rotary Tables', h1Title:'Precision Cross Roller Bearings',
+    seoTitle:'Cross Roller Bearings | Robotics & Rotary Tables', h1Title:'Precision Cross Roller Bearings',
     summary:'High-rigidity crossed roller bearings for robotics, harmonic reducers, rotary tables and positioning equipment.',
     materialSlugs:['bearing-steel'], capabilitySlugs:[], tolerance:'Accuracy, clearance or preload confirmed by application', leadTime:'Model and precision class dependent',
     seriesGroups:[

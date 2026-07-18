@@ -73,6 +73,11 @@ const clusterMeta: Record<
             return (
               <>
                 <div
+                  id={cluster === 'Bearing Designs'
+                    ? 'bearing-designs'
+                    : cluster === 'Applications'
+                      ? 'applications'
+                      : 'buyer-support'}
                   class:list={[
                     'resource-library-intro',
                     'resource-library-intro--cluster',
