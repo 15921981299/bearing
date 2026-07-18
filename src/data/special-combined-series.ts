@@ -65,7 +65,44 @@ const heavyLoadRows = [
   ['MR4181','80','185','47','100','75','49.7','115','15','3','235','440','85','130','Not published','Not published'],
   ['MR4182','110','220','60','115','90','70','150','13.5','5','365','720','105','230','Not published','Not published'],
   ['MR4183','130','260','60','120','95','80','184','18.5','5','475','1000','165','280','Not published','Not published'],
+  ['MR4184','150','260','80','135','110','80','187','10','5','565','1300','165','280','Not published','Not published'],
+  ['MR4185','140','300','80','140','110','86','190','10','8','550','1275','195','335','Not published','Not published'],
+  ['MR4186','140','315','89','240','120','100','240','10','8','785','1690','225','390','Not published','Not published'],
+  ['MR4187','140','340','89','150','120','100','240','10','8','785','1690','225','390','Not published','Not published'],
+  ['MR4188','170','390','118','200','150','100','242','11','8','1075','2535','225','390','Not published','Not published'],
 ].map((values)=>Object.fromEntries(heavyLoadColumns.map((column,index)=>[column.key,values[index]])));
+
+const zrsColumns = columns(['model|Model','alternate|Alternate','d|d mm','D|D mm','C|C mm','H|H mm','H1|H1 mm','H2|H2 mm','D1|D1 mm','C1|C1 mm','d1|d1 mm','S|S mm','angle|Angle','r|r mm','R|R mm','R1|R1 mm','V|V','Cr|Cr kN','C0r|C0r kN','Ca|Ca kN','C0a|C0a kN','speed|Speed rpm','mass|Mass kg']);
+const zrsRows = [
+ ['MR.706','—','30','52.5','19','33','27','6','43','16','40','2.5','10°','3','500','500','26.5','46','6','6','800','0.39'],
+ ['MR.001','MR.021 / MR.430','30','62','20','37.5','30.5','7','50','20','42','2','20°','3','500','500','—','39','65','14','21','900','0.52'],
+ ['MR.002','MR.022 / MR.1195','35','70.1','23','44','36','8','57','22','48','2','20°','3','500','500','M6×1','56','93','17','25','900','0.78'],
+ ['MR.003','MR.023','40','77.7','23','48','36.5','11.5','61','24','54','2.5','20°','3','700','700','M6×1','58','101.5','21','32','800','1.02'],
+ ['MR.005','MR.025','45','88.9','30','57','44','13','68','26','59','3','20°','4','700','700','M6×1','84','133','28','43','700','1.61'],
+ ['MR.007','MR.027','60','107.7','31','69','55','14','82','34','71','3.5','20°','4','1000','700','M6×1','94','162','46','84','650','2.69'],
+ ['MR.009','MR.029','60','123','37','72.3','56','16.3','92','40','80','4.5','20°','4','1000','1000','M6×1','132','242','53','94','500','3.88'],
+ ['MR.010','MR.030','60','149','43','78.5','58.5','20','116','50','103','4.5','15°','4','1000','1000','M6×1','179','353','83','131','400','6.65'],
+ ['MR.191','—','60','149','45','86','67','19','120','50','107','5','15°','4','1000','1000','1/8 GAS','179','353','83','131','400','7.15'],
+].map(values=>Object.fromEntries(zrsColumns.map((column,index)=>[column.key,values[index]])));
+
+const inclinedRows = [
+ ['MR.031','MR.032','35','70.35','23','40.5','30.5','10','57','22','48','2.5','20°','4','650','500','—','56','93','17','25','900','0.47'],
+ ['MR.004','MR.024','40','78.3','23','40.7','29','11.7','61','24','54','2.5','20°','4','700','700','M6×1','58','101.5','21','32','800','0.88'],
+ ['MR.034','MR.035','45','89.25','30','50','37.5','12.5','68','26','59','3','20°','4','850','700','M6×1','84','133','28','43','800','1.58'],
+ ['MR.006','MR.026','50','101.8','28','46','33','13','77','30','67','2.5','20°','4','850','700','M6×1','91','153','32','50','700','1.72'],
+ ['MR.008','MR.028','55','108.55','31','53','38.5','14.5','82','34','71','3.5','20°','4','1000','700','M6×1','94','162','39','66','700','2.22'],
+ ['MR.040','MR.041','60','123.5','33','57','42','15','94','33','78','2.5','15°','4','1000','750','M6×1','134','211','39','57','500','3.20'],
+ ['MR.016','—','60','129.4','33','56.5','42.5','14','94','40','78','2.5','10°','4','1000','750','M6×1','126','200','42','73','500','3.40'],
+ ['MR.011','—','80','165','36','61','46','15','130','60','113','2.5','10°','4','1000','1000','M6×1','173','306','58','111','400','6.30'],
+].map(values=>Object.fromEntries(zrsColumns.map((column,index)=>[column.key,values[index]])));
+
+const externalColumns = columns(['model|Model','d|d mm','D|D mm','C|C mm','Hmin|H min mm','Hmax|H max mm','H1min|H1 min mm','H1max|H1 max mm','H2|H2 mm','D1|D1 mm','C1|C1 mm','d1|d1 mm','S|S mm','angle|Angle','r|r mm','R|R mm','R1|R1 mm','Cr|Cr kN','C0r|C0r kN','Ca|Ca kN','C0a|C0a kN','speed|Speed rpm','mass|Mass kg']);
+const externalRows = [
+ ['KRES.062','30','62','20','37.5','39','30.5','32','7','50','20','42','2','20°','3','500','500','39','65','14','21','900','0.52'],['KRES.070','35','70.1','23','44','45.5','36','37.5','8','57','20','48','2','20°','3','500','500','56','93','14','21','900','0.78'],
+ ['KRES.078','40','77.7','23','48','50','36.5','38.5','11.5','61','24','53','2.5','20°','3','700','700','58','101.5','21','32','800','1.02'],['KRES.089','45','88.9','30','57','59','44','46','13','68','26','59','3','20°','4','700','700','84','133','28','43','700','1.61'],
+ ['KRES.101','50','101.9','28','46','48.5','33','35.5','13','77','26','67','2.5','20°','4','850','700','91','153','30','35','700','1.75'],['KRES.108','60','107.7','31','69','71.5','55','57.5','14','82','34','71','3.5','20°','4','1000','700','94','162','33','47','650','2.69'],
+ ['KRES.123','60','123','37','72.3','75.3','56','59','16.3','92','40','80','4.5','20°','4','1000','700','132','242','53','94','500','3.88'],['KRES.149','60','149','43','78.5','81.5','58.5','61.5','20','116','50','103','4.5','15°','4','1000','700','179','353','68','71','400','6.65'],
+].map(values=>Object.fromEntries(externalColumns.map((column,index)=>[column.key,values[index]])));
 
 const familyRows=(prefix:string,from:number,to:number,note:string)=>Array.from({length:to-from+1},(_,i)=>({model:`${prefix}${from+i}`,execution:note,verification:'Confirm base model dimensions and current controlled drawing'}));
 
@@ -87,12 +124,44 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     columns:highLoadColumns,rows:highLoadRows,source:{label:'Authorized Jade high-load technical sheet',url:'https://www.jadebearings.com/combined-bearing/high-lloads/combined-bearings-for-high-loads.html'},downloadHref:'/downloads/high-load-axial-support-combined-bearings.pdf',lastVerified:'2026-07-18',
   },
   {
-    slug:'mr4180-mr4183-heavy-load-series',title:'MR4180-MR4183 Heavy-Load Adjustable Combined Bearings',seoTitle:'MR4180-MR4183 Heavy-Load Adjustable Combined Bearings',
-    description:'MR4180, MR4181, MR4182 and MR4183 heavy-load combined bearing dimensions, radial and axial load ratings, materials, drawing and RFQ data.',
+    slug:'mr4180-mr4183-heavy-load-series',title:'MR4180-MR4188 Heavy-Load Adjustable Combined Bearings',seoTitle:'MR4180-MR4188 Heavy-Load Adjustable Combined Bearings',
+    description:'MR4180 through MR4188 heavy-load combined bearing dimensions, radial and axial load ratings, materials, drawing and RFQ data.',
     image:'/images/special-combined-series/mr418-heavy-load-main.jpg',drawings:[{src:'/images/special-combined-series/mr418-heavy-load-drawing.png',alt:'MR4180 to MR4183 heavy-load adjustable combined bearing technical drawing'}],
-    intro:'These large combined bearings are adjusted externally for heavy steel-section guidance. Published outside diameters cover 170 to 260 mm in the selected MR4180-MR4183 range.',
+    intro:'These large combined bearings are adjusted externally for heavy steel-section guidance. The published range covers 170 to 390 mm outside diameters.',
     designNotes:['Outer ring: UNI 16CrNi4 case-hardened and tempered, 62 ±2 HRC','Inner ring and rolling elements: UNI 100Cr6 hardened and tempered','Main stud: weldable Fe52C','Speed and mass are not published in the source table; confirm them on the controlled quotation drawing'],
-    columns:heavyLoadColumns,rows:heavyLoadRows,source:{label:'Authorized Jade MR418 heavy-load technical sheet',url:'https://www.jadebearings.com/combined-bearing/steel-sections/combined-bearings-for-heavy-loads-adjustable-from.html'},downloadHref:'/downloads/mr4180-mr4183-heavy-load-combined-bearings.pdf',lastVerified:'2026-07-18',
+    columns:heavyLoadColumns,rows:heavyLoadRows,source:{label:'Authorized Jade MR418 heavy-load technical sheet',url:'https://www.jadebearings.com/combined-bearing/steel-sections/combined-bearings-for-heavy-loads-adjustable-from.html'},downloadHref:'/downloads/mr4180-mr4188-heavy-load-combined-bearings.pdf',lastVerified:'2026-07-18',
+  },
+  {
+    slug:'steel-section-zrs-series',title:'MR.001-MR.191 Steel-Section ZRS Combined Bearings',seoTitle:'Steel-Section ZRS Combined Bearings | MR.001-MR.191',
+    description:'Complete ZRS steel-section combined bearing dimensions, load ratings, speed, mass and MR cross-references for mast and industrial guide systems.',
+    image:'/images/special-combined-series/zrs-series.jpg',drawings:[],intro:'ZRS executions combine radial and axial guidance for straight steel sections, with fixed axial geometry and published MR alternate references.',
+    designNotes:['MR.706 and MR.001 are non-relubricable executions','MR.430 is the requested 62.5 mm OD alternative to MR.021','MR.1195 is the relubricable alternative to MR.002','DIN 620 P0 tolerance and ISO 76 / ISO 281 rating basis'],
+    columns:zrsColumns,rows:zrsRows,source:{label:'Authorized Jade ZRS steel-section technical sheet',url:'https://www.jadebearings.com/combined-bearing/steel-sections-zrs-execution/combined-bearings-for-steel-sections-zrs-execution.html'},downloadHref:'/downloads/zrs-steel-section-combined-bearings.pdf',lastVerified:'2026-07-18',
+  },
+  {
+    slug:'inclined-section-zrs-series',title:'MR.004-MR.041 Inclined-Section ZRS Combined Bearings',seoTitle:'Inclined-Section ZRS Combined Bearings | MR Series',
+    description:'Inclined steel-section ZRS combined bearing dimensions, loads, speed, mass and alternate MR references for angled guide profiles.',
+    image:'/images/special-combined-series/inclined-zrs-series.jpg',drawings:[],intro:'Inclined-section executions change the radial and axial roller relationship to match angled steel guide profiles.',
+    designNotes:['MR.031 is a non-relubricable execution','MR.016 and MR.011 use a non-tapered outer profile','Confirm the profile angle and axial roller position before replacement','DIN 620 P0 tolerance and ISO 76 / ISO 281 rating basis'],
+    columns:zrsColumns,rows:inclinedRows,source:{label:'Authorized Jade inclined ZRS technical sheet',url:'https://www.jadebearings.com/combined-bearing/inclined-sections-zrs-execution/combined-bearings-for-inclined-sections.html'},downloadHref:'/downloads/inclined-zrs-combined-bearings.pdf',lastVerified:'2026-07-18',
+  },
+  {
+    slug:'external-adjustable-kres-series',title:'KRES.062-KRES.149 Externally Adjustable Combined Bearings',seoTitle:'KRES.062-KRES.149 Externally Adjustable Bearings',
+    description:'KRES externally adjustable combined bearing dimensions, adjustment ranges, load ratings, speed and mass for steel-section guide systems.',
+    image:'/images/special-combined-series/external-adjustable-series.jpg',drawings:[],intro:'The eccentric stud is adjusted from outside the guide assembly, allowing axial clearance correction without removing the main bearing.',
+    designNotes:['KRES.101 has a tapered outer profile','Eccentric stud: UNI 16CrNi4 case-hardened and tempered','Confirm tool access and adjustment direction in the assembly','DIN 620 P0 tolerance and ISO 76 / ISO 281 rating basis'],
+    columns:externalColumns,rows:externalRows,source:{label:'Authorized Jade externally adjustable technical sheet',url:'https://www.jadebearings.com/combined-bearing/adjustable-from-outside-for-steel-sections/combined-bearings-adjustable-from-outside-for.html'},downloadHref:'/downloads/kres-external-adjustable-combined-bearings.pdf',lastVerified:'2026-07-18',
+  },
+  {
+    slug:'radial-stud-combined-bearing-series',title:'2-Series Radial Combined Bearings With Stud',seoTitle:'2-Series Radial Combined Bearings With Stud',
+    description:'2-series radial combined bearing identification range for steel sections, including TR111, TR120, MR0120 and precision radial references.',
+    image:'/images/combined-bearing-models/winkel-2-063.webp',drawings:[],intro:'Radial combined bearings with stud are used where the axial guide element is separate or the assembly requires radial guidance only.',
+    designNotes:['Published family references include 2.054, 2.055, 2.056, 2.058, 2.061, 2.062 and 2.063','2.0363 / TR111 is a special 62 mm OD, 62.5 mm height reference','2.063 / TR120 / MR0120 is a 149 mm OD, 74 mm height reference','Confirm all remaining dimensions and load ratings from the controlled drawing'],
+    columns:columns(['model|Model','crossReference|Cross-reference','D|Published OD','H|Published height','verification|Verification']),rows:[
+      {model:'2.0363',crossReference:'TR111',D:'62 mm',H:'62.5 mm',verification:'Confirm controlled drawing'},
+      {model:'2.054-2.062',crossReference:'Precision radial family',D:'See model drawing',H:'See model drawing',verification:'Confirm each model envelope'},
+      {model:'2.063',crossReference:'TR120 / MR0120',D:'149 mm',H:'74 mm',verification:'Confirm controlled drawing'},
+    ],source:{label:'Authorized Jade radial stud series references',url:'https://www.jadebearings.com/combined-bearing/'},downloadHref:'/downloads/radial-stud-combined-bearing-series.pdf',lastVerified:'2026-07-18',
   },
   {
     slug:'high-temperature-4-series',title:'4.054HT-4.063HT High-Temperature Combined Bearings',seoTitle:'4.054HT-4.063HT High-Temperature Combined Bearings',
