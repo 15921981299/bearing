@@ -1,23 +1,221 @@
 ﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import CatalogSectionHead from '../../components/CatalogSectionHead.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { productFaqs } from '../../data/page-faqs';
 import { products } from '../../data/products';
 import { breadcrumbSchema, faqSchema, itemListSchema, site } from '../../data/site';
-import '../../styles/resource-page.css';
+import '../../styles/products-index.css';
+
+const pageUrl = `${site.url}/products/`;
+const pageTitle = 'Industrial Bearing Products | Combined, Track Rollers & SL Series';
+const pageDescription =
+  'Browse combined bearings, track roller bearings, full-complement SL cylindrical rollers, back-up rollers, cross roller bearings, Standard NbV profiles and special track rollers with model review.';
+
+const categoryNav = [
+  { href: '/products/', label: 'All bearings', active: true },
+  { href: '/products/combined-bearings/', label: 'Combined' },
+  { href: '/products/track-roller-bearings/', label: 'Track rollers' },
+  { href: '/products/full-complement-cylindrical-roller-bearings/', label: 'SL series' },
+  { href: '/products/backup-roller-bearings/', label: 'Back-up rollers' },
+  { href: '/products/cross-roller-bearings/', label: 'Cross roller' },
+  { href: '/products/standard-nbv-profiles/', label: 'NbV profiles' },
+  { href: '/products/special-track-roller-bearings/', label: 'Special track' },
+];
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  isPartOf: {
+    '@type': 'WebSite',
+    name: site.name,
+    url: site.url,
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Industrial roller bearings and cam followers',
+  },
+};
+
+const iconArrow =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 ---
-<BaseLayout title="Industrial Bearing Products | Combined Bearings & Track Rollers" description="Browse combined bearings, track roller bearings, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings and Standard NbV profiles." currentPath="/products" jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Bearing Products',url:`${site.url}/products/`}]),itemListSchema(products.map(p=>({name:p.title,url:`${site.url}/products/${p.slug}/`}))),faqSchema(productFaqs.map(f=>({question:f.question,answer:f.answer})))]}>
-  <BreadcrumbHero title="Industrial Bearing<br>Products" trail={[{label:'Home',href:'/'},{label:'Products'}]} variant="1"/>
-  <section class="blog-details-section resource-page-section"><div class="section-gap bottom"><div class="container"><article class="blog-details-content-block resource-page fade-in">
-    <nav class="resource-nav" aria-label="Bearing product navigation"><a href="/products/" class="resource-nav-link active" aria-current="page">All bearings</a><a href="/products/combined-bearings/" class="resource-nav-link">Combined</a><a href="/products/track-roller-bearings/" class="resource-nav-link">Track rollers</a><a href="/products/full-complement-cylindrical-roller-bearings/" class="resource-nav-link">SL series</a><a href="/products/backup-roller-bearings/" class="resource-nav-link">Back-up rollers</a></nav>
-    <p class="resource-intro">Our industrial bearing range covers standard references, brand cross-references and drawing-based modifications. Search by bearing family, series, model or application, then confirm dimensions and working conditions before ordering.</p>
-    <div class="resource-meta"><span><strong>{products.length}</strong> bearing families</span><span>Standard and non-standard options</span><span>Model and drawing review</span></div>
-    <div class="detail-rfq-strip"><p>Send the complete designation, d × D × B dimensions, quantity, application and destination for a faster quotation.</p><div class="detail-rfq-actions-inline"><a href="/contact/?source=products" class="detail-rfq-link">Request Bearing Pricing</a></div></div>
-    <div class="hub-grid products-hub-grid">{products.map(product=><article class="hub-card"><a href={`/products/${product.slug}/`} class="hub-card-image"><img src={product.image} alt={product.title} width="400" height="280" loading="lazy" decoding="async"/></a><div class="hub-card-body"><h2 class="hub-card-title"><a href={`/products/${product.slug}/`}>{product.title}</a></h2><p class="hub-card-summary">{product.summary}</p><a href={`/products/${product.slug}/`} class="hub-card-link">Models and specifications →</a></div></article>)}</div>
-    <h2 class="hub-faq-heading">Industrial Bearing FAQ</h2><div class="hub-faq-list">{productFaqs.map(faq=><details class="hub-faq-item"><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div>
-    <p class="resource-related"><a href="/products/combined-bearings/">Combined bearings</a><span> · </span><a href="/products/track-roller-bearings/">Track roller bearings</a><span> · </span><a href="/products/cross-roller-bearings/">Cross roller bearings</a><span> · </span><a href="/contact/">Bearing RFQ</a></p>
-  </article></div></div></section>
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  currentPath="/products"
+  image="/images/industrial-bearing-product-range.webp"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Bearing Products', url: pageUrl },
+    ]),
+    collectionPageSchema,
+    itemListSchema(
+      products.map((product) => ({
+        name: product.title,
+        url: `${site.url}/products/${product.slug}/`,
+      })),
+    ),
+    faqSchema(productFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))),
+  ]}
+>
+  <BreadcrumbHero
+    title="Industrial Bearing Products"
+    trail={[{ label: 'Home', href: '/' }, { label: 'Products' }]}
+    variant="2"
+  />
+
+  <main class="products-page">
+    <section class="products-catalog" aria-labelledby="products-catalog-heading">
+      <div class="section-gap bottom">
+        <div class="container">
+          <div class="products-catalog-inner">
+            <CatalogSectionHead
+              kicker="Product Catalog"
+              title="Browse by bearing family"
+              align="split"
+              class="fade-in"
+            >
+              Search by family, series, model or application. Confirm dimensions, suffixes and
+              operating conditions before ordering standard or drawing-based options.
+            </CatalogSectionHead>
+
+            <div class="products-intro fade-in">
+              <h2 id="products-catalog-heading">Standard and custom industrial bearing families</h2>
+              <p>
+                {site.name} supplies combined bearings, track roller bearings, full-complement
+                cylindrical roller bearings, back-up rollers, cross roller bearings, Standard NbV
+                profiles and special track rollers for maintenance, OEM and distributor inquiries.
+                Use the pages below to review series references, selection checks and RFQ
+                requirements for each bearing family.
+              </p>
+              <p>
+                Need help preparing an inquiry? Read our <a href="/resources/">technical guides</a>, or review
+                <a href="/certifications/">quality and inspection scope</a> before sending a
+                <a href="/contact/?source=products-intro">bearing inquiry</a>.
+              </p>
+            </div>
+
+            <nav aria-label="Bearing product categories">
+              <ul class="products-category-nav fade-in">
+                {categoryNav.map((item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      class:list={[{ 'is-active': item.active }]}
+                      aria-current={item.active ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div class="products-meta-row fade-in" aria-label="Catalog highlights">
+              <div class="products-meta-chip">
+                <strong>{products.length}</strong>
+                <span>Bearing families with dedicated specification pages</span>
+              </div>
+              <div class="products-meta-chip">
+                <strong>Standard &amp; custom</strong>
+                <span>Drawing-based dimensions, profiles and modifications on request</span>
+              </div>
+              <div class="products-meta-chip">
+                <strong>Model review</strong>
+                <span>Cross-reference, suffix checks and RFQ preparation support</span>
+              </div>
+            </div>
+
+            <aside class="products-rfq-panel fade-in" aria-label="Request a quotation">
+              <p>
+                <strong>Need pricing for a specific bearing?</strong>
+                Send the complete designation, d × D × B dimensions, quantity, application and
+                destination for a faster quotation.
+              </p>
+              <div class="products-rfq-actions">
+                <a href="/contact/?source=products" class="products-btn products-btn-primary">
+                  Request bearing pricing
+                  <span set:html={iconArrow} />
+                </a>
+                <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">
+                  RFQ checklist
+                </a>
+              </div>
+            </aside>
+
+            <div class="fade-in">
+              <CatalogSectionHead kicker="Specification Pages" title="Bearing families and model references" />
+              <div class="products-grid">
+                {products.map((product, index) => (
+                  <article class="products-card">
+                    <a href={`/products/${product.slug}/`} class="products-card-media">
+                      <img
+                        src={product.image}
+                        alt={`${product.title} product range and reference models`}
+                        width="400"
+                        height="310"
+                        loading={index < 4 ? 'eager' : 'lazy'}
+                        decoding="async"
+                        fetchpriority={index === 0 ? 'high' : undefined}
+                      />
+                      <span class="products-card-media-label">View specifications</span>
+                    </a>
+                    <div class="products-card-body">
+                      <h2>
+                        <a href={`/products/${product.slug}/`}>{product.title}</a>
+                      </h2>
+                      <p>{product.summary}</p>
+                      <a href={`/products/${product.slug}/`} class="products-text-link">
+                        Models and specifications
+                        <span set:html={iconArrow} />
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <nav class="products-seo-cluster fade-in" aria-label="Related bearing resources">
+              <h2>Related bearing resources</h2>
+              <ul class="products-seo-links">
+                {products.map((product) => (
+                  <li>
+                    <a href={`/products/${product.slug}/`}>{product.title}</a>
+                  </li>
+                ))}
+                <li><a href="/resources/identify-industrial-bearing-replacement/">Identify a replacement</a></li>
+                <li><a href="/resources/measure-track-roller-cam-follower/">Measure a track roller</a></li>
+                <li><a href="/resources/industrial-bearing-rfq-checklist/">Industrial bearing RFQ checklist</a></li>
+              </ul>
+            </nav>
+
+            <p class="products-related fade-in">
+              <a href="/">Industrial bearing supplier home</a>
+              <span aria-hidden="true">·</span>
+              <a href="/about/">About our sourcing desk</a>
+              <span aria-hidden="true">·</span>
+              <a href="/case-studies/">Application references</a>
+              <span aria-hidden="true">·</span>
+              <a href="/contact/?source=products-footer">Bearing RFQ</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="products-faq-wrap">
+      <FaqSection
+        items={productFaqs}
+        title="Industrial Bearing Supply FAQ"
+        subtitle="Common Buyer Questions"
+      />
+    </div>
+  </main>
 </BaseLayout>
-<style>.products-hub-grid{grid-template-columns:repeat(4,1fr)}.detail-rfq-actions-inline{display:flex;gap:14px;margin-top:12px}@media(max-width:991px){.products-hub-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:768px){.products-hub-grid{grid-template-columns:1fr}}</style>
-
-

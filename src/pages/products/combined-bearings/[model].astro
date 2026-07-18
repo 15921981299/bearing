@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../../components/BreadcrumbHero.astro';
+import { combinedBearingModels, type CombinedBearingModel } from '../../../data/combined-bearing-models';
+import { breadcrumbSchema, faqSchema, productSchema, site } from '../../../data/site';
+import '../../../styles/product-model.css';
+
+export function getStaticPaths() {
+  return combinedBearingModels.map((item) => ({ params: { model: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props as { item: CombinedBearingModel };
+const pageUrl = `${site.url}/products/combined-bearings/${item.slug}/`;
+const primaryModel = item.model.split(' / ')[0];
+const aliases = item.aliases.join(', ');
+const title = `${primaryModel} Combined Bearing Replacement | ${item.aliases[0] ?? 'WINKEL Type'}`;
+const description = `${primaryModel} combined bearing replacement with dimensions, load data and cross references including ${item.aliases.slice(0, 4).join(', ')}. Request model verification and pricing.`;
+const index = combinedBearingModels.findIndex((model) => model.slug === item.slug);
+const related = [
+  combinedBearingModels[(index - 1 + combinedBearingModels.length) % combinedBearingModels.length],
+  combinedBearingModels[(index + 1) % combinedBearingModels.length],
+  ...combinedBearingModels.filter((model) => model.family === item.family && model.slug !== item.slug),
+].filter((model, position, array) => array.findIndex((candidate) => candidate.slug === model.slug) === position).slice(0, 4);
+
+const faqs = [
+  {
+    question: `Is ${primaryModel} interchangeable with ${item.aliases[0] ?? 'other combined bearing references'}?`,
+    answer: `The references are commonly associated with the same product family, but interchangeability must be confirmed from d, D, H, mounting details, axial-roller execution, load and operating conditions before ordering.`,
+  },
+  {
+    question: `What information is required to quote a ${primaryModel} combined bearing?`,
+    answer: `Send the full marking, quantity, delivery country and, where possible, a bearing photo or drawing. We verify the dimensional envelope and fixed, precision or adjustable execution before quotation.`,
+  },
+  {
+    question: `Is this an official WINKEL product?`,
+    answer: `${site.name} is an independent supplier. WINKEL and other brand references are used only to identify the requested replacement. The supplied product is an independent compatible replacement unless an original branded product is expressly quoted.`,
+  },
+];
+
+const modelProductSchema = productSchema({
+  name: `${primaryModel} Combined Bearing Replacement`,
+  description,
+  url: pageUrl,
+  image: `${site.url}${item.image}`,
+  sku: primaryModel,
+  model: primaryModel,
+  category: `${item.family} Combined Bearing`,
+});
+
+const additionalProperties = [
+  ...item.specs.map((spec) => ({ '@type': 'PropertyValue', name: spec.label, value: spec.value })),
+  { '@type': 'PropertyValue', name: 'Cross references', value: aliases },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  currentPath="/products"
+  image={item.image}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Bearing Products', url: `${site.url}/products/` },
+      { name: 'Combined Bearings', url: `${site.url}/products/combined-bearings/` },
+      { name: primaryModel, url: pageUrl },
+    ]),
+    { ...modelProductSchema, additionalProperty: additionalProperties },
+    faqSchema(faqs),
+  ]}
+>
+  <BreadcrumbHero
+    title={`${primaryModel} Combined Bearing Replacement`}
+    trail={[
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products/' },
+      { label: 'Combined Bearings', href: '/products/combined-bearings/' },
+      { label: primaryModel },
+    ]}
+    image={item.image}
+  />
+
+  <main class="model-page">
+    <div class="section-gap bottom">
+      <div class="container">
+        <article class="model-shell">
+          <section class="model-hero" aria-labelledby="model-overview-heading">
+            <div class="model-image-wrap">
+              <img src={item.image} alt={`${primaryModel} combined bearing replacement`} width="900" height="700" loading="eager" fetchpriority="high" decoding="async" />
+            </div>
+            <div class="model-summary">
+              <p class="model-kicker">{item.family} combined bearing</p>
+              <h2 id="model-overview-heading">{primaryModel} bearing dimensions and cross references</h2>
+              <p>{item.description}</p>
+              <dl class="model-quick-data">
+                <div><dt>Primary model</dt><dd>{primaryModel}</dd></div>
+                <div><dt>Family</dt><dd>{item.family}</dd></div>
+                <div><dt>Application</dt><dd>{item.application}</dd></div>
+              </dl>
+              <div class="model-actions">
+                <a href={`/contact/?source=${item.slug}`} class="products-btn products-btn-primary" data-rfq-modal data-rfq-context={`${primaryModel} combined bearing inquiry`} data-rfq-source={item.slug}>Request price and availability</a>
+                <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">Prepare an RFQ</a>
+              </div>
+            </div>
+          </section>
+
+          <aside class="model-disclaimer">
+            <strong>Independent replacement reference:</strong>
+            WINKEL and other manufacturer designations are used for buyer identification and cross-reference purposes. Confirm all dimensions and operating requirements before purchase.
+          </aside>
+
+          <div class="model-content-grid">
+            <section aria-labelledby="specification-heading">
+              <h2 id="specification-heading">{primaryModel} technical specifications</h2>
+              <div class="model-table-wrap">
+                <table class="model-table">
+                  <tbody>
+                    {item.specs.map((spec) => <tr><th scope="row">{spec.label}</th><td>{spec.value}</td></tr>)}
+                  </tbody>
+                </table>
+              </div>
+              <p class="model-data-note">Dimensions and catalog ratings are transferred from the authorized Jade Bearings product catalog. Verify the controlled drawing and current production data during quotation.</p>
+            </section>
+
+            <section aria-labelledby="cross-reference-heading">
+              <h2 id="cross-reference-heading">Cross-reference models</h2>
+              <p>Common purchasing and maintenance references associated with this bearing include:</p>
+              <ul class="model-aliases">
+                <li><strong>{primaryModel}</strong></li>
+                {item.aliases.map((alias) => <li>{alias}</li>)}
+              </ul>
+              <h3>Replacement confirmation</h3>
+              <p>Suffixes, seals, lubrication, outside-diameter variants, eccentric adjustment and mounting plates can change fit. Send the complete marking and a measured or controlled drawing for confirmation.</p>
+              <p><a href={item.sourceUrl} rel="nofollow noopener" target="_blank">View the authorized source catalog record</a></p>
+            </section>
+          </div>
+
+          <section class="model-application" aria-labelledby="application-heading">
+            <h2 id="application-heading">Applications and selection checks</h2>
+            <p>{item.application}</p>
+            <div class="model-check-grid">
+              <div><strong>Dimensions</strong><span>Confirm d, D, H, B, S, T and plate or stud geometry.</span></div>
+              <div><strong>Load</strong><span>Review radial load, axial load, shock, speed and duty cycle.</span></div>
+              <div><strong>Execution</strong><span>Identify standard, precision, fixed axial or eccentric-adjustable construction.</span></div>
+              <div><strong>Environment</strong><span>Specify temperature, contamination, sealing and lubrication.</span></div>
+            </div>
+          </section>
+
+          <section class="model-related" aria-labelledby="related-models-heading">
+            <h2 id="related-models-heading">Related combined bearing models</h2>
+            <div class="model-related-grid">
+              {related.map((model) => (
+                <a href={`/products/combined-bearings/${model.slug}/`}>
+                  <img src={model.image} alt={`${model.model} combined bearing`} width="260" height="180" loading="lazy" decoding="async" />
+                  <strong>{model.model}</strong>
+                  <span>{model.family}</span>
+                </a>
+              ))}
+            </div>
+            <p class="model-back"><a href="/products/combined-bearings/">Browse all combined bearing series</a></p>
+          </section>
+
+          <section class="model-faq" aria-labelledby="model-faq-heading">
+            <h2 id="model-faq-heading">{primaryModel} combined bearing FAQ</h2>
+            {faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,6 +1,6 @@
-# Diesel Part Source
+# Combined Bearing Source
 
-Diesel engine parts supplier website built with [Astro](https://astro.build). Live site: [dieselpartsource.com](https://dieselpartsource.com).
+Combined bearing and track roller supplier website built with [Astro](https://astro.build). Live site: [combinedbearingsource.com](https://combinedbearingsource.com).
 
 ## Setup
 

@@ -1,32 +1,446 @@
 ﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
-import DetailPageShell from '../../components/DetailPageShell.astro';
-import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
+import CatalogSectionHead from '../../components/CatalogSectionHead.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import ProductSidebar from '../../components/ProductSidebar.astro';
 import { products, type ProductItem } from '../../data/products';
+import { technicalReferencesByProduct } from '../../data/technical-references';
 import { productFaqs } from '../../data/page-faqs';
-import { breadcrumbSchema, faqSchema, productSchema, site } from '../../data/site';
-import '../../styles/resource-page.css';
-export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
-const { product }=Astro.props as {product:ProductItem};
-const pageUrl=`${site.url}/products/${product.slug}/`;
-const quoteHref=`/contact/?source=product-${product.slug}`;
-const related=products.filter(item=>item.slug!==product.slug).slice(0,4);
----
-<BaseLayout title={product.seoTitle} description={product.summary} currentPath="/products" image={product.mainImage} jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Bearing Products',url:`${site.url}/products/`},{name:product.title,url:pageUrl}]),productSchema({name:product.title,description:product.summary,url:pageUrl,image:`${site.url}${product.mainImage}`,category:'Industrial Bearings'}),faqSchema(productFaqs.map(f=>({question:f.question,answer:f.answer})))]}>
-  <BreadcrumbHero title={product.h1Title} trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:product.title}]} variant="2"/>
-  <DetailPageShell intro={product.summary}>
-    <img slot="hero" src={product.mainImage} alt={`${product.title} manufacturer and supplier`} width="1400" height="692" loading="eager" fetchpriority="high" decoding="async"/>
-    <div class="resource-meta"><span><strong>Selection</strong> {product.tolerance}</span><span><strong>Lead time</strong> {product.leadTime}</span><span><strong>Input</strong> Model, dimensions or drawing</span><span><strong>Delivery</strong> Worldwide export support</span></div>
-    <DetailRfqStrip quoteHref={quoteHref} title={`Request ${product.title.toLowerCase()} pricing`} text="Send the full bearing designation, dimensions, quantity, application and delivery country for specification review and quotation." modalContext={`${product.title} inquiry`} modalSource={`product-${product.slug}`}/>
-    <div set:html={product.content.partOne}/>
-    <figure class="detail-page-figure"><img src={product.secondImage} alt={`${product.title} dimensional inspection`} width="1200" height="662" loading="lazy" decoding="async"/></figure>
-    <div set:html={product.content.partTwo}/>
-    <section class="detail-differentiation-block"><h2>{product.title} FAQ</h2>{productFaqs.slice(0,4).map(f=><><h3>{f.question}</h3><p>{f.answer}</p></>)}</section>
-    <p class="resource-related"><strong>Related products:</strong>{related.map(item=><><span aria-hidden="true"> · </span><a href={`/products/${item.slug}/`}>{item.title}</a></>)}</p>
-    <p class="resource-note detail-page-back"><a href="/products/">All bearing products</a><span aria-hidden="true"> · </span><a href="/certifications/">Quality control</a><span aria-hidden="true"> · </span><a href={quoteHref}>Request a quote</a></p>
-    <ProductSidebar slot="sidebar" activeSlug={product.slug} quoteHref={quoteHref}/>
-  </DetailPageShell>
-</BaseLayout>
+import { combinedBearingModels } from '../../data/combined-bearing-models';
+import { crossRollerModels, fullComplementModels, nbvProfileModels, trackRollerModels } from '../../data/extended-bearing-models';
+import { breadcrumbSchema, faqSchema, itemListSchema, productSchema, site } from '../../data/site';
+import '../../styles/products-index.css';
+import '../../styles/product-detail.css';
+import '../../styles/product-seo.css';
 
+export function getStaticPaths() {
+  return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props as { product: ProductItem };
+const pageUrl = `${site.url}/products/${product.slug}/`;
+const quoteHref = `/contact/?source=product-${product.slug}`;
+const related = products.filter((item) => item.slug !== product.slug).slice(0, 4);
+const technicalReferences = technicalReferencesByProduct[product.slug] ?? [];
+const modelDirectory = product.slug === 'combined-bearings'
+  ? combinedBearingModels.map((model) => ({ slug:model.slug, model:model.model, aliases:model.aliases, image:model.image }))
+  : product.slug === 'track-roller-bearings'
+    ? trackRollerModels
+    : product.slug === 'full-complement-cylindrical-roller-bearings'
+      ? fullComplementModels
+      : product.slug === 'cross-roller-bearings'
+        ? crossRollerModels
+        : product.slug === 'standard-nbv-profiles'
+          ? nbvProfileModels
+      : [];
+
+const categoryNav = [
+  { href: '/products/', label: 'All bearings', slug: null },
+  { href: '/products/combined-bearings/', label: 'Combined', slug: 'combined-bearings' },
+  { href: '/products/track-roller-bearings/', label: 'Track rollers', slug: 'track-roller-bearings' },
+  {
+    href: '/products/full-complement-cylindrical-roller-bearings/',
+    label: 'SL series',
+    slug: 'full-complement-cylindrical-roller-bearings',
+  },
+  { href: '/products/backup-roller-bearings/', label: 'Back-up rollers', slug: 'backup-roller-bearings' },
+  { href: '/products/cross-roller-bearings/', label: 'Cross roller', slug: 'cross-roller-bearings' },
+  { href: '/products/standard-nbv-profiles/', label: 'NbV profiles', slug: 'standard-nbv-profiles' },
+  { href: '/products/special-track-roller-bearings/', label: 'Special track', slug: 'special-track-roller-bearings' },
+];
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: product.seoTitle,
+  description: product.summary,
+  url: pageUrl,
+  primaryImageOfPage: `${site.url}${product.mainImage}`,
+  isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+};
+
+const iconArrow =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const iconSelection =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const iconLeadTime =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const iconInput =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<BaseLayout
+  title={product.seoTitle}
+  description={product.summary}
+  currentPath="/products"
+  image={product.mainImage}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Bearing Products', url: `${site.url}/products/` },
+      { name: product.title, url: pageUrl },
+    ]),
+    webPageSchema,
+    productSchema({
+      name: product.title,
+      description: product.summary,
+      url: pageUrl,
+      image: `${site.url}${product.mainImage}`,
+      category: 'Industrial Bearings',
+      sku: product.slug,
+    }),
+    faqSchema(productFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))),
+    ...(modelDirectory.length
+      ? [itemListSchema(modelDirectory.map((model) => ({
+          name: `${model.model} ${product.slug === 'combined-bearings' ? 'Combined Bearing' : product.title}`,
+          url: `${site.url}/products/${product.slug}/${model.slug}/`,
+        })))]
+      : []),
+  ]}
+>
+  <BreadcrumbHero
+    title={product.h1Title}
+    trail={[
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products/' },
+      { label: product.title },
+    ]}
+    variant="2"
+  />
+
+  <main class="products-page product-detail-page">
+    <section class="products-catalog" aria-labelledby="product-overview-heading">
+      <div class="section-gap bottom">
+        <div class="container">
+          <nav aria-label="Bearing product categories">
+            <ul class="products-category-nav fade-in">
+              {categoryNav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class:list={[{ 'is-active': item.slug === product.slug }]}
+                    aria-current={item.slug === product.slug ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div class="product-detail-layout fade-in">
+            <article class="product-detail-main">
+              <div class="product-detail-intro">
+                <div class="product-detail-intro-media">
+                  <div class="product-detail-hero">
+                    <img
+                      src={product.mainImage}
+                      alt={`${product.title} industrial bearing range and reference models`}
+                      width="840"
+                      height="360"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
+
+                <div class="product-detail-intro-panel">
+                  <CatalogSectionHead
+                    kicker="Product Overview"
+                    title={product.title}
+                    align="split"
+                    class="product-detail-overview-head"
+                  >
+                    {product.summary}
+                  </CatalogSectionHead>
+
+                  <div class="products-meta-row product-detail-meta-row" aria-label="Selection and delivery notes">
+                    <div class="products-meta-chip">
+                      <span class="product-detail-meta-icon" set:html={iconSelection} />
+                      <div>
+                        <strong>Selection</strong>
+                        <span>{product.tolerance}</span>
+                      </div>
+                    </div>
+                    <div class="products-meta-chip">
+                      <span class="product-detail-meta-icon" set:html={iconLeadTime} />
+                      <div>
+                        <strong>Lead time</strong>
+                        <span>{product.leadTime}</span>
+                      </div>
+                    </div>
+                    <div class="products-meta-chip">
+                      <span class="product-detail-meta-icon" set:html={iconInput} />
+                      <div>
+                        <strong>Input required</strong>
+                        <span>Model, dimensions or controlled drawing</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <aside class="products-rfq-panel product-detail-rfq-panel" aria-label="Request a quotation">
+                    <p>
+                      <strong id="product-overview-heading">Request {product.title.toLowerCase()} pricing</strong>
+                      Send the full bearing designation, dimensions, quantity, application and delivery country
+                      for specification review and quotation.
+                    </p>
+                    <div class="products-rfq-actions">
+                      <a
+                        href={quoteHref}
+                        class="products-btn products-btn-primary"
+                        data-rfq-modal
+                        data-rfq-context={`${product.title} inquiry`}
+                        data-rfq-source={`product-${product.slug}`}
+                      >
+                        Request bearing pricing
+                        <span set:html={iconArrow} />
+                      </a>
+                      <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">
+                        RFQ checklist
+                      </a>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+
+              <div class="product-detail-content">
+                <div class="product-detail-prose" set:html={product.content.partOne} />
+
+                <section class="product-seo-section" aria-labelledby="series-reference-heading">
+                  <CatalogSectionHead
+                    kicker="Reference Groups"
+                    title={`${product.title} series and model references`}
+                    titleId="series-reference-heading"
+                  />
+                  <p>
+                    Use these groups to identify the requested design. A reference is not an interchange
+                    approval; dimensions, suffixes and operating conditions must still be checked.
+                  </p>
+                  <div class="product-reference-table-wrap">
+                    <table class="product-reference-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Design group</th>
+                          <th scope="col">Common references or options</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {product.seriesGroups.map((group) => (
+                          <tr>
+                            <th scope="row">{group.label}</th>
+                            <td>{group.references}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {modelDirectory.length > 0 && (
+                    <section class="combined-model-directory" aria-labelledby="combined-model-directory-heading">
+                      <h2 id="combined-model-directory-heading">{product.title} model directory</h2>
+                      <p>Browse individual model dimensions, applications and common cross references.</p>
+                      <div class="combined-model-directory-grid">
+                        {modelDirectory.map((model) => (
+                          <a href={`/products/${product.slug}/${model.slug}/`}>
+                            <img src={model.image} alt={`${model.model} combined bearing`} width="180" height="130" loading="lazy" decoding="async" />
+                            <span><strong>{model.model}</strong><small>{model.aliases.slice(0, 3).join(' · ')}</small></span>
+                          </a>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  <h2 id="selection-checks-heading">Information required for selection</h2>
+                  <dl class="product-selection-grid">
+                    {product.selectionChecks.map((item) => (
+                      <div>
+                        <dt>{item.label}</dt>
+                        <dd>{item.detail}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+
+                {technicalReferences.map((technicalReference, referenceIndex) => (
+                  <section
+                    class="product-seo-section product-specification-section"
+                    aria-labelledby={`technical-reference-heading-${referenceIndex}`}
+                  >
+                    <div class="product-specification-heading">
+                      <div>
+                        <p class="product-specification-eyebrow">Processed technical reference</p>
+                        <h2 id={`technical-reference-heading-${referenceIndex}`}>{technicalReference.title}</h2>
+                      </div>
+                      {technicalReference.downloadHref && (
+                        <a class="product-pdf-link" href={technicalReference.downloadHref} download>
+                          Download reference PDF
+                        </a>
+                      )}
+                    </div>
+                    <p>{technicalReference.description}</p>
+                    <div
+                      class="product-reference-table-wrap product-specification-table-wrap"
+                      tabindex="0"
+                      aria-label={`${technicalReference.series} dimensional and load table; scroll horizontally on small screens`}
+                    >
+                      <table class="product-reference-table product-specification-table">
+                        <caption>
+                          {technicalReference.series} dimensions, load ratings, speed and mass
+                        </caption>
+                        <thead>
+                          <tr>
+                            {technicalReference.columns.map((column) => (
+                              <th scope="col">{column.label}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {technicalReference.rows.map((row) => (
+                            <tr>
+                              {technicalReference.columns.map((column, index) =>
+                                index === 0 ? (
+                                  <th scope="row">{row[column.key]}</th>
+                                ) : (
+                                  <td>{row[column.key]}</td>
+                                ),
+                              )}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="product-verification-note">
+                      <strong>Selection notice:</strong> {technicalReference.verificationNote}
+                    </p>
+                    <details class="product-source-notes">
+                      <summary>Data sources and processing notes</summary>
+                      <ul>
+                        {technicalReference.sources.map((source) => (
+                          <li>
+                            <a href={source.url} rel="nofollow noopener" target="_blank">{source.label}</a>
+                            {' '}- {source.note}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  </section>
+                ))}
+
+                <section class="product-seo-section evidence-policy" aria-labelledby="evidence-policy-heading">
+                  <CatalogSectionHead
+                    kicker="Verification"
+                    title="Drawings, inspection records and application evidence"
+                    titleId="evidence-policy-heading"
+                  />
+                  <p>
+                    Evidence is matched to the quoted product and order scope. We do not present another
+                    supplier's factory media, certificates or customer projects as our own.
+                  </p>
+                  <div class="evidence-policy-grid">
+                    <article>
+                      <h3>Technical drawings</h3>
+                      <p>Reference sheets support identification. Controlled manufacturing drawings require model and supplier confirmation.</p>
+                    </article>
+                    <article>
+                      <h3>Inspection records</h3>
+                      <p>Request dimensional, marking, packing or supplier-document checks with the RFQ. Availability is confirmed before order placement.</p>
+                    </article>
+                    <article>
+                      <h3>Factory and equipment media</h3>
+                      <p>Only dated media supplied by the selected manufacturing partner or captured during the relevant inspection is used as evidence.</p>
+                    </article>
+                    <article>
+                      <h3>Customer applications</h3>
+                      <p>Cases are published only with permission or in anonymized form using verified order and application facts.</p>
+                    </article>
+                  </div>
+                  <p class="product-detail-links">
+                    <a href="/certifications/">Review the verification process</a>
+                    <span aria-hidden="true">·</span>
+                    <a href={quoteHref}>Request product-specific documents</a>
+                  </p>
+                </section>
+
+                <figure class="product-detail-figure">
+                  <img
+                    src={product.secondImage}
+                    alt={`${product.title} dimensional inspection and model verification`}
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+
+                <div class="product-detail-prose" set:html={product.content.partTwo} />
+
+                <nav class="product-detail-links" aria-label="Technical guides">
+                  <strong>Technical guides:</strong>
+                  <a href="/resources/identify-industrial-bearing-replacement/">Identify a replacement</a>
+                  <a href="/resources/measure-track-roller-cam-follower/">Measure a track roller</a>
+                  <a href="/resources/industrial-bearing-rfq-checklist/">RFQ checklist</a>
+                </nav>
+
+                <section class="product-detail-related" aria-labelledby="related-products-heading">
+                  <CatalogSectionHead kicker="Related Products" title="Other bearing families" align="split">
+                    Continue browsing related industrial bearing categories or return to the full product catalog.
+                  </CatalogSectionHead>
+                  <div class="products-grid" id="related-products-heading">
+                    {related.map((item) => (
+                      <article class="products-card">
+                        <a href={`/products/${item.slug}/`} class="products-card-media">
+                          <img
+                            src={item.image}
+                            alt={`${item.title} product range`}
+                            width="320"
+                            height="180"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <span class="products-card-media-label">View specifications</span>
+                        </a>
+                        <div class="products-card-body">
+                          <h2>
+                            <a href={`/products/${item.slug}/`}>{item.title}</a>
+                          </h2>
+                          <p>{item.summary}</p>
+                          <a href={`/products/${item.slug}/`} class="products-text-link">
+                            Explore models
+                            <span set:html={iconArrow} />
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                <p class="product-detail-back">
+                  <a href="/products/">All bearing products</a>
+                  <span aria-hidden="true">·</span>
+                  <a href="/certifications/">Quality control</a>
+                  <span aria-hidden="true">·</span>
+                  <a href={quoteHref}>Request a quote</a>
+                </p>
+              </div>
+            </article>
+
+            <div class="product-detail-sidebar">
+              <ProductSidebar activeSlug={product.slug} quoteHref={quoteHref} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="products-faq-wrap">
+      <FaqSection
+        items={productFaqs}
+        title={`${product.title} and Industrial Bearing Supply FAQ`}
+        subtitle="Common Buyer Questions"
+      />
+    </div>
+  </main>
+</BaseLayout>

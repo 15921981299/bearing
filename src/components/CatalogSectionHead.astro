@@ -1,0 +1,50 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  align?: 'center' | 'split';
+  class?: string;
+  titleId?: string;
+}
+
+const { kicker, title, align = 'center', class: className, titleId } = Astro.props;
+const hasLead = Astro.slots.has('default');
+---
+
+<header
+  class:list={[
+    'catalog-section-head',
+    `catalog-section-head--${align}`,
+    { 'catalog-section-head--has-lead': hasLead },
+    className,
+  ]}
+>
+  {
+    align === 'split' ? (
+      <>
+        <div class="catalog-section-head-main">
+          <p class="catalog-section-kicker">{kicker}</p>
+          <h2 class="catalog-section-title" id={titleId}>{title}</h2>
+        </div>
+        {hasLead && (
+          <div class="catalog-section-head-aside">
+            <p class="catalog-section-lead">
+              <slot />
+            </p>
+          </div>
+        )}
+      </>
+    ) : (
+      <div class="catalog-section-head-stack">
+        <p class="catalog-section-kicker">{kicker}</p>
+        <h2 class="catalog-section-title" id={titleId}>{title}</h2>
+        {hasLead && (
+          <p class="catalog-section-lead">
+            <slot />
+          </p>
+        )}
+        <div class="catalog-section-head-rule" aria-hidden="true" />
+      </div>
+    )
+  }
+</header>

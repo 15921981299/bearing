@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
+import { seoLandingPages, type SeoLandingPage } from '../../data/seo-landing-pages';
+import { breadcrumbSchema, faqSchema, serviceSchema, site } from '../../data/site';
+import '../../styles/resource-page.css';
+import '../../styles/product-model.css';
+
+export function getStaticPaths() {
+  return seoLandingPages.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+const { item } = Astro.props as { item: SeoLandingPage };
+const pageUrl = `${site.url}/solutions/${item.slug}/`;
+---
+
+<BaseLayout title={item.seoTitle} description={item.description} currentPath="/solutions" jsonLd={[
+  breadcrumbSchema([{name:'Home',url:site.url},{name:'Solutions',url:`${site.url}/solutions/`},{name:item.title,url:pageUrl}]),
+  serviceSchema({name:item.title,description:item.description,url:pageUrl,image:`${site.url}/images/industrial-bearing-product-range.webp`}),
+  faqSchema(item.faqs),
+]}>
+  <BreadcrumbHero title={item.title} trail={[{label:'Home',href:'/'},{label:'Solutions',href:'/solutions/'},{label:item.title}]} variant="2" />
+  <main class="model-page">
+    <div class="section-gap bottom"><div class="container"><article class="model-shell">
+      <section class="model-summary">
+        <p class="model-kicker">{item.cluster}</p>
+        <h2>Selection, replacement and quotation support</h2>
+        <p>{item.intro}</p>
+        <div class="model-actions">
+          <a href={`/contact/?source=solution-${item.slug}`} class="products-btn products-btn-primary" data-rfq-modal data-rfq-context={`${item.title} inquiry`} data-rfq-source={`solution-${item.slug}`}>Request technical review</a>
+          <a href="/products/combined-bearings/" class="products-btn products-btn-secondary">Browse combined bearings</a>
+        </div>
+      </section>
+      <aside class="model-disclaimer"><strong>Engineering note:</strong> Cross references and catalog data support preliminary identification. Confirm the current drawing, load capacity, tolerances and application requirements before ordering.</aside>
+      <div class="model-content-grid">
+        {item.sections.map((section) => <section><h2>{section.heading}</h2><p>{section.body}</p><ul class="model-aliases">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul></section>)}
+      </div>
+      <section class="model-application"><h2>Recommended next steps</h2><div class="model-check-grid">
+        <div><strong>Identify</strong><span>Record model, suffix and machine reference.</span></div>
+        <div><strong>Measure</strong><span>Confirm envelope and mounting dimensions.</span></div>
+        <div><strong>Describe duty</strong><span>Share load, speed, shock and environment.</span></div>
+        <div><strong>Approve</strong><span>Review the proposed drawing and documents.</span></div>
+      </div></section>
+      <nav class="model-related" aria-label="Related pages"><h2>Related products and buyer resources</h2><div class="model-related-grid">{item.related.map((link) => <a href={link.href}><strong>{link.label}</strong><span>View technical information</span></a>)}</div></nav>
+      <section class="model-faq"><h2>{item.title} FAQ</h2>{item.faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
+    </article></div></div>
+  </main>
+  <DetailRfqStrip title={`Need help with ${item.title.toLowerCase()}?`} text="Send the model, drawing, quantity, application and delivery country for replacement review and quotation." label="Submit bearing details" quoteHref={`/contact/?source=solution-${item.slug}`} secondaryLabel="RFQ checklist" secondaryHref="/resources/industrial-bearing-rfq-checklist/" />
+</BaseLayout>
