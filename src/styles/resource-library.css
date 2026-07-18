@@ -1,0 +1,145 @@
+.resource-library-section,
+.technical-guide-section {
+  background: #f4f7fb;
+}
+
+.resource-library-section .container,
+.technical-guide-section .container {
+  padding-inline: clamp(20px, 4vw, 64px);
+}
+
+.resource-library-intro {
+  max-width: 850px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.resource-library-intro h2 {
+  margin: 0;
+  color: var(--color-title);
+  font-size: clamp(30px, 4vw, 50px);
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+.resource-library-intro > p:last-child {
+  margin: 18px auto 0;
+  color: #526174;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.resource-library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.resource-library-card {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid #dce5ef;
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.resource-library-card > span {
+  color: #8c9bad;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.resource-library-card h2 {
+  margin: 42px 0 14px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+.resource-library-card h2 a:hover,
+.resource-library-link:hover {
+  color: var(--color-primary);
+}
+
+.resource-library-card p {
+  margin: 0 0 24px;
+  color: #526174;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.resource-library-link {
+  margin-top: auto;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.technical-guide {
+  max-width: 980px;
+  padding: clamp(26px, 5vw, 58px);
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  background: var(--color-white);
+  box-shadow: 0 18px 48px rgba(11,31,58,.07);
+}
+
+.technical-guide-summary {
+  color: #24384f !important;
+  font-size: clamp(18px, 2vw, 22px) !important;
+  line-height: 1.6 !important;
+}
+
+.technical-guide-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 24px 0 36px;
+  padding: 12px 0;
+  border-block: 1px solid #e3eaf2;
+  color: #68788b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.technical-guide-content h2 {
+  margin-top: 38px;
+  font-size: clamp(23px, 2.5vw, 30px);
+}
+
+.technical-guide-content p,
+.technical-guide-content li {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.technical-guide-content ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 24px;
+}
+
+.technical-guide-disclaimer {
+  margin-top: 36px !important;
+  padding: 16px 18px;
+  border-left: 3px solid var(--color-primary);
+  background: #eef5ff;
+}
+
+@media (max-width: 900px) {
+  .resource-library-grid { grid-template-columns: 1fr; }
+  .resource-library-card { min-height: 0; }
+  .resource-library-card h2 { margin-top: 24px; }
+}
+
+@media (max-width: 767px) {
+  .resource-library-section .container,
+  .technical-guide-section .container { padding-inline: 16px; }
+}

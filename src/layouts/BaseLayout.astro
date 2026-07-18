@@ -32,7 +32,11 @@ interface Props {
 }
 
 const { title, description = site.defaultDescription, currentPath = Astro.url.pathname.replace(/\/$/, '') || '/', jsonLd, hideFloatingCta = false, image, noindex = false, ogType = 'website', articlePublishedTime } = Astro.props;
-const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+// Keep transactional page titles concise. Short utility titles still receive
+// the current brand suffix; the brand can be changed centrally in site.ts.
+const fullTitle = title.includes(site.name) || title.length > 30
+  ? title
+  : `${title} | ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? '/images/industrial-bearing-hero.webp', Astro.site);
 const schemas = [organizationSchema, { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url }, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
@@ -49,8 +53,7 @@ const schemas = [organizationSchema, { '@context': 'https://schema.org', '@type'
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={canonical} />
     <link rel="alternate" hreflang="x-default" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     {site.gaMeasurementId && <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />}
     <meta property="og:type" content={ogType} />

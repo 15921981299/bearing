@@ -1,20 +1,20 @@
 ﻿export const site = {
-  name: 'Precision Bearing Source',
+  name: 'Combined Bearing Source',
   company: {
-    legalName: 'Precision Bearing Source',
-    legalNameEn: 'Precision Bearing Source',
+    legalName: 'Combined Bearing Source',
+    legalNameEn: 'Combined Bearing Source',
   },
-  url: 'https://dieselpartsource.com',
-  email: 'charles@dieselpartsource.com',
+  url: 'https://combinedbearingsource.com',
+  email: 'charles@combinedbearingsource.com',
   phone: '+862133282711',
   whatsapp: '+8618018620661',
   tagline: 'Industrial Bearings | Model & Drawing Support',
   logo: {
     default: '/logo.png',
-    compact: '/logo.png',
-    icon: '/logo.png',
-    width: 2076,
-    height: 758,
+    compact: '/logo-compact.png',
+    icon: '/favicon.png',
+    width: 2048,
+    height: 768,
   },
   /** Set your GA4 Measurement ID (e.g. G-XXXXXXXX) to enable analytics. Leave empty to disable. */
   gaMeasurementId: 'G-WFJ59G7FKN',
@@ -151,7 +151,13 @@ export function productSchema(product: {
   sku?: string;
   model?: string;
   brandName?: string;
+  manufacturerName?: string;
   category?: string;
+  offer?: {
+    price: number | string;
+    priceCurrency: string;
+    availability?: string;
+  };
 }) {
   const description = product.material
     ? `${product.description} Reference groups: ${product.material}.`
@@ -164,30 +170,37 @@ export function productSchema(product: {
     description,
     url: product.url,
     image: product.image,
-    brand: {
-      '@type': 'Brand',
-      name: product.brandName ?? site.name,
-    },
+    ...(product.brandName
+      ? { brand: { '@type': 'Brand', name: product.brandName } }
+      : {}),
     ...(product.category ? { category: product.category } : {}),
-    manufacturer: {
-      '@type': 'Organization',
-      name: site.name,
-      url: site.url,
-    },
-    offers: {
-      '@type': 'Offer',
-      url: product.url,
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      description:
-        'Quote based on bearing model, dimensions, accuracy, sealing, quantity, availability, and shipping destination.',
-      seller: {
-        '@type': 'Organization',
-        name: site.name,
-        url: site.url,
-      },
-    },
+    ...(product.manufacturerName
+      ? {
+          manufacturer: {
+            '@type': 'Organization',
+            name: product.manufacturerName,
+          },
+        }
+      : {}),
+    ...(product.offer
+      ? {
+          offers: {
+            '@type': 'Offer',
+            url: product.url,
+            price: product.offer.price,
+            priceCurrency: product.offer.priceCurrency,
+            ...(product.offer.availability
+              ? { availability: product.offer.availability }
+              : {}),
+            itemCondition: 'https://schema.org/NewCondition',
+            seller: {
+              '@type': 'Organization',
+              name: site.name,
+              url: site.url,
+            },
+          },
+        }
+      : {}),
     ...(sku
       ? {
           sku,

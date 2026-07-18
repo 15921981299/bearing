@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import { partnerCaseStudies, partnerEvidenceSource } from '../../data/partner-evidence';
+import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
+import '../../styles/partner-evidence.css';
+
+const pageUrl = `${site.url}/case-studies/`;
+---
+<BaseLayout
+  title="Bearing Application References | Partner Case Studies"
+  description="Attributed manufacturing-partner application references for steel equipment, combined bearings, cross roller bearings and harmonic reducers."
+  currentPath="/case-studies"
+  jsonLd={[
+    breadcrumbSchema([{name:'Home',url:site.url},{name:'Case Studies',url:pageUrl}]),
+    itemListSchema(partnerCaseStudies.map(study=>({name:study.title,url:`${pageUrl}${study.slug}/`}))),
+  ]}
+>
+  <BreadcrumbHero title="Application References" trail={[{label:'Home',href:'/'},{label:'Case Studies'}]} variant="5" />
+  <main class="partner-evidence-page">
+    <div class="container">
+      <header class="partner-evidence-intro">
+        <p class="partner-evidence-kicker">Authorized manufacturing-partner evidence</p>
+        <h2>Attributed application references</h2>
+        <p>These pages summarize public and authorized partner information without presenting the named customers, facilities or reports as assets owned by {site.name}.</p>
+      </header>
+      <div class="partner-case-grid">
+        {partnerCaseStudies.map(study=><article class="partner-case-card">
+          <img src={study.image} alt="" width={study.imageWidth} height={study.imageHeight} loading="lazy" decoding="async" />
+          <div><p>{study.industry}</p><h2><a href={`/case-studies/${study.slug}/`}>{study.title}</a></h2><p>{study.description}</p><a href={`/case-studies/${study.slug}/`}>Review attributed reference</a></div>
+        </article>)}
+      </div>
+      <p class="partner-disclosure"><strong>Source disclosure:</strong> {partnerEvidenceSource.disclosure} <a href={partnerEvidenceSource.url} rel="nofollow noopener" target="_blank">Partner source page</a>.</p>
+    </div>
+  </main>
+</BaseLayout>

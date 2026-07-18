@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import { seoLandingPages } from '../../data/seo-landing-pages';
+import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
+import '../../styles/resource-page.css';
+import '../../styles/product-model.css';
+const clusters = ['Bearing Designs','Applications','Buyer Support'] as const;
+---
+<BaseLayout title="Combined Bearing Solutions & Application Guides" description="Browse combined bearing designs, application guides, cross references, quality control and RFQ support." currentPath="/solutions" jsonLd={[
+ breadcrumbSchema([{name:'Home',url:site.url},{name:'Solutions',url:`${site.url}/solutions/`}]),
+ itemListSchema(seoLandingPages.map(item=>({name:item.title,url:`${site.url}/solutions/${item.slug}/`}))),
+]}>
+ <BreadcrumbHero title="Combined Bearing Solutions" trail={[{label:'Home',href:'/'},{label:'Solutions'}]} variant="2" />
+ <main class="model-page"><div class="section-gap bottom"><div class="container"><article class="model-shell">
+  <section class="model-summary"><p class="model-kicker">Technical Library</p><h2>Find a bearing by design, application or sourcing requirement</h2><p>These pages connect WINKEL-style combined bearing models with the equipment, guide profiles and technical checks required for replacement approval.</p></section>
+  {clusters.map(cluster=><section class="model-related"><h2>{cluster}</h2><div class="model-related-grid">{seoLandingPages.filter(item=>item.cluster===cluster).map(item=><a href={`/solutions/${item.slug}/`}><strong>{item.title}</strong><span>{item.intro}</span></a>)}</div></section>)}
+ </article></div></div></main>
+</BaseLayout>

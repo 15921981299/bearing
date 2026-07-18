@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../components/BreadcrumbHero.astro';
 import FunnelPageView from '../components/FunnelPageView.astro';
 import { site, breadcrumbSchema, videoSchema } from '../data/site';
+import { partnerFacilityMedia, partnerEvidenceSource } from '../data/partner-evidence';
 import '../styles/resource-page.css';
 import '../styles/hub-list-page.css';
 import '../styles/certification-page.css';
@@ -20,7 +21,7 @@ const { quality } = site;
 const inspectionVideo = videoSchema({
   name: 'Bearing Products Verification and Packing Process',
   description:
-    'See how Precision Bearing Source checks bearing models, supplier documents, packing, and shipment details for bearing products inquiries.',
+    'See how Combined Bearing Source checks bearing models, supplier documents, packing, and shipment details for bearing products inquiries.',
   thumbnailUrl: 'https://img.youtube.com/vi/M7uJEbDD-_8/hqdefault.jpg',
   embedUrl: 'https://www.youtube.com/embed/M7uJEbDD-_8',
   uploadDate: '2023-06-01',
@@ -122,8 +123,8 @@ const verificationDocuments = [
 ---
 
 <BaseLayout
-  title="Quality Policy & Parts Verification | Precision Bearing Source"
-  description="Precision Bearing Source checks bearing models, dimensions, supplier documents, packing requirements, and delivery routes before quotation and shipment."
+  title="Bearing Quality Control & Parts Verification"
+  description="Combined Bearing Source checks bearing models, dimensions, supplier documents, packing requirements, and delivery routes before quotation and shipment."
   currentPath="/certifications"
   jsonLd={[
     breadcrumbSchema([
@@ -146,7 +147,7 @@ const verificationDocuments = [
             </a>
             <a href="/certifications/" class="resource-nav-link">Inspection samples</a>
             <a href="/certifications/" class="resource-nav-link">Standards</a>
-            <a href="/about/" class="resource-nav-link">Case studies</a>
+            <a href="/case-studies/" class="resource-nav-link">Case studies</a>
             <a href="/certifications/" class="resource-nav-link resource-nav-all">
               Material certs
             </a>
@@ -155,7 +156,7 @@ const verificationDocuments = [
           <header class="blog-index-hero cert-hero">
             <p class="blog-index-kicker">Part verification · Shipment-ready</p>
             <p class="blog-index-intro">
-              Precision Bearing Source reduces wrong-part risk by checking bearing models, dimensions, bearing markings, old-bearing photos,
+              Combined Bearing Source reduces wrong-part risk by checking bearing models, dimensions, bearing markings, old-bearing photos,
               supplier documents, packing requirements, and delivery routes before quotation and shipment.
             </p>
             <div class="blog-index-stats" role="list">
@@ -186,6 +187,7 @@ const verificationDocuments = [
             </a>
             <a href="#inspection-process" class="hub-list-jump-link">Inspection process</a>
             <a href="#equipment" class="hub-list-jump-link">Equipment</a>
+            <a href="#partner-facility" class="hub-list-jump-link">Partner facility</a>
             <a href="#documentation" class="hub-list-jump-link">Documentation</a>
           </nav>
 
@@ -205,6 +207,24 @@ const verificationDocuments = [
                 </div>
               ))}
             </div>
+          </section>
+
+          <section id="partner-facility" class="blog-index-section cert-section">
+            <header class="blog-index-section-head">
+              <div>
+                <h2>Manufacturing partner facility</h2>
+                <p>Authorized images from Changzhou Jade Bearing showing CNC production and dimensional inspection equipment.</p>
+              </div>
+            </header>
+            <div class="partner-facility-grid">
+              {partnerFacilityMedia.map((media) => (
+                <figure class="partner-facility-card">
+                  <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" decoding="async" />
+                  <figcaption><strong>{media.title}</strong><span>{media.description}</span></figcaption>
+                </figure>
+              ))}
+            </div>
+            <p class="partner-facility-disclosure"><strong>Ownership disclosure:</strong> {partnerEvidenceSource.disclosure} <a href={partnerEvidenceSource.url} rel="nofollow noopener" target="_blank">View original partner profile</a>.</p>
           </section>
 
           <section id="inspection-process" class="blog-index-section cert-section">
@@ -273,6 +293,10 @@ const verificationDocuments = [
                   )}
                 </div>
               ))}
+            </div>
+            <div class="report-integrity-note">
+              <h3>Inspection report integrity requirements</h3>
+              <p>A document is presented as a product inspection report only when it identifies the supplier or laboratory, report number, product model or batch, inspection date, method or equipment, measured results, acceptance criteria and approval signature. Public capability statements without these fields are labeled as partner information, not test reports.</p>
             </div>
             <p class="cert-cta-row">
               <a href="/certifications/">Document samples</a>
@@ -562,6 +586,40 @@ const verificationDocuments = [
     gap: 16px;
   }
 
+  .partner-facility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .partner-facility-card {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--color-stroke);
+    border-radius: 10px;
+    background: var(--color-white);
+  }
+
+  .partner-facility-card img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+  }
+
+  .partner-facility-card figcaption {
+    display: grid;
+    gap: 5px;
+    padding: 16px 18px;
+  }
+
+  .partner-facility-card figcaption strong { color: var(--color-title); }
+  .partner-facility-card figcaption span { color: #64748b; font-size: 13px; line-height: 1.5; }
+  .partner-facility-disclosure { margin-top: 18px; padding: 14px 16px; border-left: 4px solid #d97706; background: #fff8e8; color: #6b4b12; font-size: 13px; }
+  .report-integrity-note { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--color-stroke); border-radius: 9px; background: var(--color-background); }
+  .report-integrity-note h3 { margin: 0 0 8px; font-size: 17px; }
+  .report-integrity-note p { margin: 0; font-size: 14px; line-height: 1.6; }
+
   .verify-doc-card {
     padding: 18px 20px;
     background: var(--color-background);
@@ -697,6 +755,8 @@ const verificationDocuments = [
   }
 
   @media (max-width: 640px) {
+    .partner-facility-grid { grid-template-columns: 1fr; }
+    .partner-facility-card img { height: 220px; }
     .equip-table th,
     .equip-table td {
       padding: 14px 16px;

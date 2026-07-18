@@ -10,7 +10,7 @@ const isActive = (path: string) => currentPath === path || (path !== '/' && curr
 const productsActive = isActive('/products');
 const supportActive = isActive('/certifications');
 const companyActive = isActive('/about') || isActive('/certifications');
-const resourcesActive = isActive('/products');
+const resourcesActive = isActive('/products') || isActive('/solutions') || isActive('/resources') || isActive('/case-studies');
 ---
 
 <header class="header">
@@ -19,13 +19,13 @@ const resourcesActive = isActive('/products');
       <div class="navbar-wrapper">
         <a href="/" class="navbar-brand" aria-label={`${site.name} home`}>
           <img src={site.logo.default} alt={`${site.name} logo`} class="brand-logo is-1" width={site.logo.width} height={site.logo.height} loading="eager" fetchpriority="high" decoding="async" />
-          <img src={site.logo.default} alt={`${site.name} logo`} class="brand-logo is-2" width={site.logo.width} height={site.logo.height} loading="eager" fetchpriority="high" decoding="async" />
+          <img src={site.logo.default} alt="" class="brand-logo is-2" width={site.logo.width} height={site.logo.height} loading="lazy" decoding="async" aria-hidden="true" />
         </a>
 
         <div class="nav-menu-block" id="nav-menu">
           <div class="nav-mobile-brand">
             <a href="/" class="navbar-brand" aria-label={`${site.name} home`}>
-              <img src={site.logo.default} alt={`${site.name} logo`} class="brand-logo" width={site.logo.width} height={site.logo.height} loading="eager" decoding="async" />
+              <img src={site.logo.default} alt="" class="brand-logo" width={site.logo.width} height={site.logo.height} loading="lazy" decoding="async" aria-hidden="true" />
             </a>
             <button class="nav-close-btn" aria-label="close menu" id="nav-close">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,17 +68,15 @@ const resourcesActive = isActive('/products');
                       <div class="nav-heading">Service & Support</div>
                       <a href="/certifications/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Bearing Quality Control</span></a>
                       <a href="/contact/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Bearing Selection Support</span></a>
-                      <a href="/contact/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Custom Bearing Support</span></a>
-                      <a href="/certifications/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Material & Inspection</span></a>
-                      <a href="/certifications/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Quality & Support</span></a>
+                      <a href="/resources/industrial-bearing-rfq-checklist/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">RFQ Preparation Guide</span></a>
                     </div>
                     <div class="nav-dropdown-column">
                       <div class="nav-heading">Applications</div>
-                      <a href="/products/combined-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Forklifts & Masts</span></a>
-                      <a href="/products/track-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Conveying Systems</span></a>
-                      <a href="/products/full-complement-cylindrical-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Heavy Industry</span></a>
-                      <a href="/products/backup-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Metal Forming</span></a>
-                      <a href="/products/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">All Bearing Types</span></a>
+                      <a href="/solutions/combined-bearings-for-forklift-masts/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Forklifts & Masts</span></a>
+                      <a href="/solutions/combined-bearings-for-stacker-cranes/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Stacker Cranes</span></a>
+                      <a href="/solutions/bearings-for-steel-mill-equipment/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Steel Mill Equipment</span></a>
+                      <a href="/solutions/bearings-for-heavy-duty-linear-guides/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Heavy Linear Guides</span></a>
+                      <a href="/solutions/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">All Applications</span></a>
                     </div>
                   </div>
                 </div>
@@ -106,7 +104,9 @@ const resourcesActive = isActive('/products');
                 <div class="nav-dropdown-list nav-dropdown-list--grid">
                   <div class="nav-dropdown-panel">
                     <a href="/products/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">All Bearing Models</span></a>
-                    <a href="/nadella-bearing-alternatives/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">NADELLA Alternatives</span></a>
+                    <a href="/resources/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Technical Guides</span></a>
+                    <a href="/solutions/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Solutions & Applications</span></a>
+                    <a href="/case-studies/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Application References</span></a>
                     <a href="/products/combined-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Combined Bearing Models</span></a>
                     <a href="/products/track-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">Track Roller Models</span></a>
                     <a href="/products/full-complement-cylindrical-roller-bearings/" class="nav-dropdown-link-block"><div class="nav-dropdown-shape"></div><span class="nav-dropdown-link-text">SL Series Bearings</span></a>
@@ -175,4 +175,3 @@ const resourcesActive = isActive('/products');
 <script>
   import '../scripts/nav.ts';
 </script>
-

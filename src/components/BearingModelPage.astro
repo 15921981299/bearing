@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BreadcrumbHero from './BreadcrumbHero.astro';
+import type { ExtendedBearingModel } from '../data/extended-bearing-models';
+import { extendedBearingModels } from '../data/extended-bearing-models';
+import { breadcrumbSchema, faqSchema, productSchema, site } from '../data/site';
+import '../styles/product-model.css';
+const { item }=Astro.props as {item:ExtendedBearingModel};
+const categoryTitles:Record<ExtendedBearingModel['categorySlug'],string>={
+ 'track-roller-bearings':'Track Roller Bearings',
+ 'full-complement-cylindrical-roller-bearings':'Full Complement Cylindrical Roller Bearings',
+ 'cross-roller-bearings':'Cross Roller Bearings',
+ 'standard-nbv-profiles':'Standard NbV Profiles',
+};
+const categoryTitle=categoryTitles[item.categorySlug];
+const categoryUrl=`${site.url}/products/${item.categorySlug}/`;
+const pageUrl=`${categoryUrl}${item.slug}/`;
+const title=`${item.model} ${item.family} | Dimensions & Equivalents`;
+const description=`${item.model} ${item.family.toLowerCase()} dimensions, application and cross references: ${item.aliases.join(', ')}. Request replacement verification and pricing.`;
+const peers=extendedBearingModels.filter(x=>x.categorySlug===item.categorySlug&&x.slug!==item.slug).slice(0,4);
+const faqs=[
+ {question:`What are the dimensions of ${item.model}?`,answer:`The catalog dimensions shown on this page are reference data. Confirm the complete designation, suffix, seals, clearance and current controlled drawing before ordering.`},
+ {question:`Can ${item.model} be replaced by ${item.aliases[0]??'an equivalent model'}?`,answer:'The listed references identify a related design family. Final interchangeability depends on dimensions, load, speed, mounting, lubrication and operating conditions.'},
+ {question:`How do I request a quote for ${item.model}?`,answer:'Send the full model, quantity, delivery country and a photo or drawing. We will review the requested execution before quotation.'},
+];
+const schema=productSchema({name:`${item.model} ${item.family}`,description,url:pageUrl,image:`${site.url}${item.image}`,sku:item.model,model:item.model,category:item.family});
+---
+<BaseLayout title={title} description={description} currentPath="/products" image={item.image} jsonLd={[
+ breadcrumbSchema([{name:'Home',url:site.url},{name:'Bearing Products',url:`${site.url}/products/`},{name:categoryTitle,url:categoryUrl},{name:item.model,url:pageUrl}]),
+ {...schema,additionalProperty:[...item.specs.map(x=>({'@type':'PropertyValue',name:x.label,value:x.value})),{'@type':'PropertyValue',name:'Cross references',value:item.aliases.join(', ')}]},
+ faqSchema(faqs),
+]}>
+ <BreadcrumbHero title={`${item.model} ${item.family}`} trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:categoryTitle,href:`/products/${item.categorySlug}/`},{label:item.model}]} image={item.image}/>
+ <main class="model-page"><div class="section-gap bottom"><div class="container"><article class="model-shell">
+  <section class="model-hero"><div class="model-image-wrap"><img src={item.image} alt={`${item.model} ${item.family}`} width="900" height="700" loading="eager" fetchpriority="high" decoding="async"/></div><div class="model-summary"><p class="model-kicker">{item.family}</p><h2>{item.model} dimensions and replacement references</h2><p>{item.description}</p><dl class="model-quick-data"><div><dt>Model</dt><dd>{item.model}</dd></div><div><dt>Product family</dt><dd>{item.family}</dd></div><div><dt>Application</dt><dd>{item.application}</dd></div></dl><div class="model-actions"><a href={`/contact/?source=${item.slug}`} class="products-btn products-btn-primary" data-rfq-modal data-rfq-context={`${item.model} inquiry`} data-rfq-source={item.slug}>Request price and availability</a><a href={`/products/${item.categorySlug}/`} class="products-btn products-btn-secondary">View product family</a></div></div></section>
+  <aside class="model-disclaimer"><strong>Cross-reference note:</strong> Brand names and reference numbers identify the buyer's requirement. Confirm suffixes, dimensions and operating data before purchase.</aside>
+  <div class="model-content-grid"><section><h2>{item.model} technical specifications</h2><div class="model-table-wrap"><table class="model-table"><tbody>{item.specs.map(x=><tr><th scope="row">{x.label}</th><td>{x.value}</td></tr>)}</tbody></table></div><p class="model-data-note">Technical data and imagery are transferred from the authorized Jade Bearings catalog. Current production data is confirmed during quotation.</p></section><section><h2>Equivalent and related references</h2><ul class="model-aliases"><li><strong>{item.model}</strong></li>{item.aliases.map(x=><li>{x}</li>)}</ul><h3>Selection checks</h3><p>Verify the dimensional envelope, internal design, seals, mounting, track profile, load, speed, lubrication and temperature. Similar model numbers do not by themselves confirm interchangeability.</p><p><a href={item.sourceUrl} rel="nofollow noopener" target="_blank">View authorized source catalog record</a></p></section></div>
+  <section class="model-application"><h2>Applications and RFQ information</h2><p>{item.application}</p><div class="model-check-grid"><div><strong>Identification</strong><span>Complete model and suffix.</span></div><div><strong>Dimensions</strong><span>Bore or stud, OD and width.</span></div><div><strong>Duty</strong><span>Load, speed, shock and cycle.</span></div><div><strong>Environment</strong><span>Seals, grease and temperature.</span></div></div><p><a href="/solutions/">Browse bearing application and replacement guides</a></p></section>
+  <section class="model-related"><h2>Related {categoryTitle.toLowerCase()}</h2><div class="model-related-grid">{peers.map(x=><a href={`/products/${x.categorySlug}/${x.slug}/`}><img src={x.image} alt={`${x.model} bearing`} width="260" height="180" loading="lazy"/><strong>{x.model}</strong><span>{x.aliases[0]??x.family}</span></a>)}</div></section>
+  <section class="model-faq"><h2>{item.model} FAQ</h2>{faqs.map(x=><details><summary>{x.question}</summary><p>{x.answer}</p></details>)}</section>
+ </article></div></div></main>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import { technicalResources } from '../../data/resources';
+import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
+import '../../styles/resource-page.css';
+import '../../styles/resource-library.css';
+---
+<BaseLayout
+  title="Industrial Bearing Technical Guides"
+  description="Practical technical guides for bearing identification, track roller measurement and complete industrial bearing quotation requests."
+  currentPath="/resources"
+  jsonLd={[
+    breadcrumbSchema([{name:'Home',url:site.url},{name:'Technical Guides',url:`${site.url}/resources/`}]),
+    itemListSchema(technicalResources.map(item=>({name:item.title,url:`${site.url}/resources/${item.slug}/`}))),
+  ]}
+>
+  <BreadcrumbHero title="Industrial Bearing Technical Guides" trail={[{label:'Home',href:'/'},{label:'Technical Guides'}]} variant="3" />
+  <section class="resource-library-section">
+    <div class="section-gap"><div class="container">
+      <div class="resource-library-intro"><p class="resource-page-kicker">Engineering and purchasing support</p><h2>Prepare better bearing specifications and RFQs</h2><p>These guides focus on the information required to identify, measure and source industrial bearings. They support preliminary selection; final approval still requires verified dimensions and operating conditions.</p></div>
+      <div class="resource-library-grid">
+        {technicalResources.map((item,index)=><article class="resource-library-card"><span>{String(index+1).padStart(2,'0')}</span><h2><a href={`/resources/${item.slug}/`}>{item.title}</a></h2><p>{item.summary}</p><a class="resource-library-link" href={`/resources/${item.slug}/`}>Read technical guide →</a></article>)}
+      </div>
+    </div></div>
+  </section>
+</BaseLayout>

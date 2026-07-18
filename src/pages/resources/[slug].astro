@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import DetailRfqStrip from '../../components/DetailRfqStrip.astro';
+import { technicalResources, type TechnicalResource } from '../../data/resources';
+import { articleSchema, breadcrumbSchema, site } from '../../data/site';
+import '../../styles/resource-page.css';
+import '../../styles/resource-library.css';
+export function getStaticPaths(){return technicalResources.map(resource=>({params:{slug:resource.slug},props:{resource}}));}
+const { resource }=Astro.props as {resource:TechnicalResource};
+const pageUrl=`${site.url}/resources/${resource.slug}/`;
+---
+<BaseLayout
+  title={resource.seoTitle}
+  description={resource.description}
+  currentPath="/resources"
+  ogType="article"
+  articlePublishedTime={resource.datePublished}
+  jsonLd={[
+    breadcrumbSchema([{name:'Home',url:site.url},{name:'Technical Guides',url:`${site.url}/resources/`},{name:resource.title,url:pageUrl}]),
+    articleSchema({title:resource.title,description:resource.description,url:pageUrl,image:`${site.url}/images/bearing-dimensional-inspection.webp`,datePublished:resource.datePublished,dateModified:resource.dateModified,authorName:site.name,authorType:'Organization'}),
+  ]}
+>
+  <BreadcrumbHero title={resource.title} trail={[{label:'Home',href:'/'},{label:'Technical Guides',href:'/resources/'},{label:resource.title}]} variant="3" />
+  <section class="technical-guide-section"><div class="section-gap"><div class="container"><article class="technical-guide resource-page">
+    <p class="technical-guide-summary">{resource.summary}</p>
+    <div class="technical-guide-meta"><span>Technical guide</span><span>Updated {resource.dateModified}</span><span>For identification and RFQ preparation</span></div>
+    <div class="technical-guide-content" set:html={resource.content}/>
+    <p class="technical-guide-disclaimer"><strong>Technical note:</strong> This guide supports preliminary sourcing. Confirm the controlled drawing, tolerances, load capacity and application requirements before ordering or installation.</p>
+    <p class="resource-related"><strong>Continue:</strong><span aria-hidden="true"> · </span><a href="/resources/">All technical guides</a><span aria-hidden="true"> · </span><a href="/products/">Bearing products</a><span aria-hidden="true"> · </span><a href="/certifications/">Quality and inspection</a></p>
+  </article></div></div></section>
+  <DetailRfqStrip title="Need help identifying a bearing?" text="Send the marking, dimensions, photos, drawing, quantity, application and destination for a preliminary review." label="Submit Bearing Details" quoteHref={`/contact/?source=resource-${resource.slug}`} secondaryLabel="Bearing Products" secondaryHref="/products/" />
+</BaseLayout>

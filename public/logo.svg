@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="600" viewBox="0 0 2048 600" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">Combined Bearing Source</title>
+  <g transform="translate(270 300)">
+    <circle r="188" fill="none" stroke="#111A24" stroke-width="34"/>
+    <circle r="105" fill="none" stroke="#111A24" stroke-width="30"/>
+    <g fill="#086CFF">
+      <circle cy="-146" r="25"/>
+      <circle cx="126.4" cy="-73" r="25"/>
+      <circle cx="126.4" cy="73" r="25"/>
+      <circle cy="146" r="25"/>
+      <circle cx="-126.4" cy="73" r="25"/>
+      <circle cx="-126.4" cy="-73" r="25"/>
+    </g>
+  </g>
+  <g font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="150" letter-spacing="2">
+    <text transform="translate(530 365) scale(.72 1)" fill="#111A24">COMBINED</text>
+    <text transform="translate(1060 365) scale(.71 1)" fill="#086CFF">BEARING</text>
+    <text transform="translate(1490 365) scale(.72 1)" fill="#66717D">SOURCE</text>
+  </g>
+</svg>
