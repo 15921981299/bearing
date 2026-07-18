@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BreadcrumbHero from '../../../components/BreadcrumbHero.astro';
+import { specialCombinedSeries } from '../../../data/special-combined-series';
+import { breadcrumbSchema,itemListSchema,site } from '../../../data/site';
+import '../../../styles/products-index.css';
+---
+<BaseLayout title="Special Combined Bearing Series | Technical Tables" description="High-temperature, precision-adjustable, screw-adjustable, shim-adjustable and high-load axial-support combined bearing technical tables." currentPath="/products" jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Combined Bearings',url:`${site.url}/products/combined-bearings/`},{name:'Special Series',url:`${site.url}/products/combined-bearing-series/`}]),itemListSchema(specialCombinedSeries.map(item=>({name:item.title,url:`${site.url}/products/combined-bearing-series/${item.slug}/`})))]}>
+ <BreadcrumbHero title="Special Combined Bearing Series" trail={[{label:'Home',href:'/'},{label:'Products',href:'/products/'},{label:'Combined Bearings',href:'/products/combined-bearings/'},{label:'Special Series'}]} variant="2"/>
+ <main class="products-page"><section class="products-catalog"><div class="section-gap bottom"><div class="container"><div class="products-grid">{specialCombinedSeries.map(item=><article class="products-card"><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-card-media"><img src={item.image} alt={item.title} width="520" height="340" loading="lazy" decoding="async"/><span class="products-card-media-label">Technical table</span></a><div class="products-card-body"><h2><a href={`/products/combined-bearing-series/${item.slug}/`}>{item.title}</a></h2><p>{item.description}</p><a href={`/products/combined-bearing-series/${item.slug}/`} class="products-text-link">View dimensions and drawings</a></div></article>)}</div></div></div></section></main>
+</BaseLayout>

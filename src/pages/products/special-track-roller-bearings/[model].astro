@@ -1,0 +1,9 @@
+---
+import BearingModelPage from '../../../components/BearingModelPage.astro';
+import { specialTrackRollerModels, type ExtendedBearingModel } from '../../../data/extended-bearing-models';
+export function getStaticPaths() {
+  return specialTrackRollerModels.map((item) => ({ params: { model: item.slug }, props: { item } }));
+}
+const { item } = Astro.props as { item: ExtendedBearingModel };
+---
+<BearingModelPage item={item} />

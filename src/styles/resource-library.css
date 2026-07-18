@@ -14,6 +14,19 @@
   text-align: center;
 }
 
+.resource-library-intro--secondary {
+  margin-top: 56px;
+}
+
+.resource-library-card--compact {
+  min-height: 260px;
+}
+
+.resource-library-card--compact h2 {
+  margin-top: 28px;
+  font-size: 20px;
+}
+
 .resource-library-intro h2 {
   margin: 0;
   color: var(--color-title);
@@ -28,6 +41,68 @@
   color: #526174;
   font-size: 17px;
   line-height: 1.65;
+}
+
+.resource-page-kicker {
+  margin: 0 0 12px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resource-library-intro--cluster {
+  max-width: 760px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.resource-library-intro--cluster h2 {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 500;
+}
+
+.resource-library-intro--cluster > p:last-child {
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 16px;
+}
+
+.resource-library-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+  max-width: 1320px;
+  margin: clamp(40px, 5vw, 56px) auto 0;
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid #dce5ef;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.resource-library-footer a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.resource-library-footer a:hover {
+  text-decoration: underline;
+}
+
+.resource-library-card h2 a {
+  color: var(--color-title);
+  text-decoration: none;
+}
+
+.resource-library-card h2 a:focus-visible,
+.resource-library-link:focus-visible,
+.resource-library-footer a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .resource-library-grid {
@@ -83,12 +158,12 @@
 }
 
 .technical-guide {
-  max-width: 980px;
-  padding: clamp(26px, 5vw, 58px);
+  max-width: 1880px;
+  /* padding: clamp(26px, 5vw, 58px);
   border: 1px solid #dce5ef;
   border-radius: 12px;
   background: var(--color-white);
-  box-shadow: 0 18px 48px rgba(11,31,58,.07);
+  box-shadow: 0 18px 48px rgba(11,31,58,.07); */
 }
 
 .technical-guide-summary {
@@ -137,6 +212,7 @@
   .resource-library-grid { grid-template-columns: 1fr; }
   .resource-library-card { min-height: 0; }
   .resource-library-card h2 { margin-top: 24px; }
+  .resource-library-intro--cluster { max-width: none; }
 }
 
 @media (max-width: 767px) {

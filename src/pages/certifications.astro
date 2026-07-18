@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../components/BreadcrumbHero.astro';
 import FunnelPageView from '../components/FunnelPageView.astro';
 import { site, breadcrumbSchema, videoSchema } from '../data/site';
-import { partnerFacilityMedia, partnerEvidenceSource } from '../data/partner-evidence';
+import { factoryFacilityMedia, factoryEvidenceSource } from '../data/factory-evidence';
 import '../styles/resource-page.css';
 import '../styles/hub-list-page.css';
 import '../styles/certification-page.css';
@@ -19,9 +19,9 @@ const certIcons: Record<string, string> = {
 
 const { quality } = site;
 const inspectionVideo = videoSchema({
-  name: 'Bearing Products Verification and Packing Process',
+  name: 'Bearing Factory Inspection and Packing Process',
   description:
-    'See how Combined Bearing Source checks bearing models, supplier documents, packing, and shipment details for bearing products inquiries.',
+    'See how Combined Bearing Source manufactures and inspects industrial bearings, including model checks, dimensional inspection, packing and export shipment.',
   thumbnailUrl: 'https://img.youtube.com/vi/M7uJEbDD-_8/hqdefault.jpg',
   embedUrl: 'https://www.youtube.com/embed/M7uJEbDD-_8',
   uploadDate: '2023-06-01',
@@ -44,25 +44,25 @@ const qualityCommitments = [
   {
     title: 'IATF 16949-Aligned Automotive Programs',
     description:
-      'Automotive and equipment buyers can request supplier documentation, packing photos, and traceability notes where applicable. Specify required documents when sending the part list.',
+      'Automotive and equipment buyers can request factory documentation, packing photos, and traceability notes where applicable. Specify required documents when sending the part list.',
     iconKey: 'automotive',
   },
   {
     title: 'ISO 13485-Aligned Medical Documentation',
     description:
-      'For regulated or critical applications, tell us the documentation your internal QA process needs before order placement so the sourcing route can be checked early.',
+      'For regulated or critical applications, tell us the documentation your internal QA process needs before order placement so the production and inspection route can be confirmed early.',
     iconKey: 'medical',
   },
   {
     title: 'Part-Number and Photo Verification',
     description:
-      'We check the requested bearing model against bearing model, dimensions, bearing marking photo, old-bearing photo, and replacement notes whenever those details are available.',
+      'We check the requested bearing model against dimensions, bearing marking photo, old-bearing photo, and replacement notes whenever those details are available.',
     iconKey: 'cmm',
   },
   {
-    title: 'Supplier and Packing Documents',
+    title: 'Factory and Packing Documents',
     description:
-      'For qualified inquiries, buyers can request available supplier documents, packing photos, shipment documents, and customs information before dispatch.',
+      'For qualified inquiries, buyers can request inspection reports, packing photos, shipment documents, and customs information before dispatch.',
     iconKey: 'material',
   },
   {
@@ -74,9 +74,9 @@ const qualityCommitments = [
 ];
 
 const equipment = [
-  { name: 'industrial bearing model database checks', qty: 'Ongoing', capability: 'Model, dimensions, replacement, and series matching' },
-  { name: 'Supplier document review', qty: 'On request', capability: 'Available documents checked before shipment' },
-  { name: 'Nameplate and old-bearing photo review', qty: 'Standard', capability: 'Reduces wrong-part risk before quotation' },
+  { name: 'CNC machining & production checks', qty: 'Plant', capability: 'Combined bearings, track rollers and custom executions' },
+  { name: 'Dimensional inspection equipment', qty: 'In-house', capability: 'Length and optical measurement for critical dimensions' },
+  { name: 'Nameplate and old-bearing photo review', qty: 'Standard', capability: 'Reduces wrong-part risk before production release' },
   { name: 'Packing photo confirmation', qty: 'On request', capability: 'Photos before dispatch for urgent orders' },
   { name: 'Export shipment coordination', qty: 'Global', capability: 'Express, air, and freight route planning' },
   { name: 'Excel list line-item check', qty: 'Supported', capability: 'Overhaul and maintenance lists checked item by item' },
@@ -86,8 +86,8 @@ const inspectionSteps = [
   'Receive bearing model, quantity, destination, and delivery deadline',
   'Check bearing model, dimensions, and bearing marking photo when available',
   'Review old-bearing photos and markings for unclear or legacy items',
-  'Confirm stock, replacement, or sourcing route before quotation',
-  'Clarify supplier documentation and packing requirements',
+  'Confirm production route, stock or custom lead time before quotation',
+  'Clarify inspection documents and packing requirements',
   'Quote delivery route by urgency, size, and destination',
   'Prepare packing and shipment details before dispatch',
   'Follow up with tracking and document support after shipment',
@@ -95,8 +95,8 @@ const inspectionSteps = [
 
 const verificationDocuments = [
   {
-    label: 'Supplier availability confirmation',
-    detail: 'Line-item review for bearing model, quantity, replacement route, and expected delivery window.',
+    label: 'Factory availability confirmation',
+    detail: 'Line-item review for bearing model, quantity, production route, and expected delivery window.',
     sampleId: null,
   },
   {
@@ -110,8 +110,8 @@ const verificationDocuments = [
     sampleId: null,
   },
   {
-    label: 'Supplier documents on request',
-    detail: 'Available supplier documents, conformity notes, invoice, packing list, and export paperwork matched to the order scope.',
+    label: 'Factory documents on request',
+    detail: 'Available inspection notes, conformity notes, invoice, packing list, and export paperwork matched to the order scope.',
     sampleId: null,
   },
   {
@@ -123,8 +123,8 @@ const verificationDocuments = [
 ---
 
 <BaseLayout
-  title="Bearing Quality Control & Parts Verification"
-  description="Combined Bearing Source checks bearing models, dimensions, supplier documents, packing requirements, and delivery routes before quotation and shipment."
+  title="Factory Quality Control & Bearing Inspection"
+  description="Combined Bearing Source factory QC for bearing models, dimensions, inspection reports, packing requirements and export delivery before quotation and shipment."
   currentPath="/certifications"
   jsonLd={[
     breadcrumbSchema([
@@ -154,15 +154,15 @@ const verificationDocuments = [
           </nav>
 
           <header class="blog-index-hero cert-hero">
-            <p class="blog-index-kicker">Part verification · Shipment-ready</p>
+            <p class="blog-index-kicker">Factory QC · Shipment-ready</p>
             <p class="blog-index-intro">
               Combined Bearing Source reduces wrong-part risk by checking bearing models, dimensions, bearing markings, old-bearing photos,
-              supplier documents, packing requirements, and delivery routes before quotation and shipment.
+              inspection documents, packing requirements, and delivery routes before production release and shipment.
             </p>
             <div class="blog-index-stats" role="list">
               <span class="blog-index-stat" role="listitem">
                 <strong>ISO 9001</strong>
-                <span>partner facilities</span>
+                <span>manufacturing system</span>
               </span>
               <span class="blog-index-stat" role="listitem">
                 <strong>100%</strong>
@@ -176,8 +176,8 @@ const verificationDocuments = [
           </header>
 
           <div class="blog-index-rfq-strip detail-rfq-strip">
-            <p>List required documents with your parts inquiry — supplier documents, packing photos, customs paperwork, or delivery deadline. We confirm what is practical before order placement.</p>
-            <a href="/contact/?source=certifications" class="blog-index-rfq-btn detail-rfq-link">Request Parts Check</a>
+            <p>List required documents with your factory inquiry — inspection reports, packing photos, customs paperwork, or delivery deadline. We confirm what is practical before order placement.</p>
+            <a href="/contact/?source=certifications" class="blog-index-rfq-btn detail-rfq-link">Request Factory QC Scope</a>
           </div>
 
           <nav class="hub-list-jump-nav cert-jump" aria-label="On this page">
@@ -187,7 +187,7 @@ const verificationDocuments = [
             </a>
             <a href="#inspection-process" class="hub-list-jump-link">Inspection process</a>
             <a href="#equipment" class="hub-list-jump-link">Equipment</a>
-            <a href="#partner-facility" class="hub-list-jump-link">Partner facility</a>
+            <a href="#manufacturing-plant" class="hub-list-jump-link">Manufacturing plant</a>
             <a href="#documentation" class="hub-list-jump-link">Documentation</a>
           </nav>
 
@@ -209,22 +209,22 @@ const verificationDocuments = [
             </div>
           </section>
 
-          <section id="partner-facility" class="blog-index-section cert-section">
+          <section id="manufacturing-plant" class="blog-index-section cert-section">
             <header class="blog-index-section-head">
               <div>
-                <h2>Manufacturing partner facility</h2>
-                <p>Authorized images from Changzhou Jade Bearing showing CNC production and dimensional inspection equipment.</p>
+                <h2>Changzhou manufacturing plant</h2>
+                <p>CNC production and dimensional inspection equipment at our Changzhou bearing manufacturing base.</p>
               </div>
             </header>
-            <div class="partner-facility-grid">
-              {partnerFacilityMedia.map((media) => (
-                <figure class="partner-facility-card">
+            <div class="factory-facility-grid">
+              {factoryFacilityMedia.map((media) => (
+                <figure class="factory-facility-card">
                   <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" decoding="async" />
                   <figcaption><strong>{media.title}</strong><span>{media.description}</span></figcaption>
                 </figure>
               ))}
             </div>
-            <p class="partner-facility-disclosure"><strong>Ownership disclosure:</strong> {partnerEvidenceSource.disclosure} <a href={partnerEvidenceSource.url} rel="nofollow noopener" target="_blank">View original partner profile</a>.</p>
+            <p class="factory-facility-disclosure"><strong>Plant evidence:</strong> {factoryEvidenceSource.disclosure} <a href={factoryEvidenceSource.url}>About our factory</a>.</p>
           </section>
 
           <section id="inspection-process" class="blog-index-section cert-section">
@@ -248,7 +248,7 @@ const verificationDocuments = [
             <header class="blog-index-section-head">
               <div>
                 <h2>Tools &amp; capabilities</h2>
-                <p>Internal and partner support for model checks, document review, packing, and export shipment.</p>
+                <p>Factory team support for model checks, document review, packing, and export shipment.</p>
               </div>
             </header>
             <div class="equip-table-wrap">
@@ -278,7 +278,7 @@ const verificationDocuments = [
             <header class="blog-index-section-head">
               <div>
                 <h2>Documentation buyers can request</h2>
-                <p>Specify which items you need on your inquiry — we confirm available supplier documents, packing notes, and shipment documents before order placement.</p>
+                <p>Specify which items you need on your inquiry — we confirm available factory documents, packing notes, and shipment documents before order placement.</p>
               </div>
             </header>
             <div class="verify-doc-grid">
@@ -296,7 +296,7 @@ const verificationDocuments = [
             </div>
             <div class="report-integrity-note">
               <h3>Inspection report integrity requirements</h3>
-              <p>A document is presented as a product inspection report only when it identifies the supplier or laboratory, report number, product model or batch, inspection date, method or equipment, measured results, acceptance criteria and approval signature. Public capability statements without these fields are labeled as partner information, not test reports.</p>
+              <p>A document is presented as a product inspection report only when it identifies the factory or laboratory, report number, product model or batch, inspection date, method or equipment, measured results, acceptance criteria and approval signature. Capability statements without these fields are labeled as plant information, not batch test reports.</p>
             </div>
             <p class="cert-cta-row">
               <a href="/certifications/">Document samples</a>
@@ -586,13 +586,13 @@ const verificationDocuments = [
     gap: 16px;
   }
 
-  .partner-facility-grid {
+  .factory-facility-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
 
-  .partner-facility-card {
+  .factory-facility-card {
     overflow: hidden;
     margin: 0;
     border: 1px solid var(--color-stroke);
@@ -600,22 +600,22 @@ const verificationDocuments = [
     background: var(--color-white);
   }
 
-  .partner-facility-card img {
+  .factory-facility-card img {
     display: block;
     width: 100%;
     height: 280px;
     object-fit: cover;
   }
 
-  .partner-facility-card figcaption {
+  .factory-facility-card figcaption {
     display: grid;
     gap: 5px;
     padding: 16px 18px;
   }
 
-  .partner-facility-card figcaption strong { color: var(--color-title); }
-  .partner-facility-card figcaption span { color: #64748b; font-size: 13px; line-height: 1.5; }
-  .partner-facility-disclosure { margin-top: 18px; padding: 14px 16px; border-left: 4px solid #d97706; background: #fff8e8; color: #6b4b12; font-size: 13px; }
+  .factory-facility-card figcaption strong { color: var(--color-title); }
+  .factory-facility-card figcaption span { color: #64748b; font-size: 13px; line-height: 1.5; }
+  .factory-facility-disclosure { margin-top: 18px; padding: 14px 16px; border-left: 4px solid #d97706; background: #fff8e8; color: #6b4b12; font-size: 13px; }
   .report-integrity-note { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--color-stroke); border-radius: 9px; background: var(--color-background); }
   .report-integrity-note h3 { margin: 0 0 8px; font-size: 17px; }
   .report-integrity-note p { margin: 0; font-size: 14px; line-height: 1.6; }
@@ -755,8 +755,8 @@ const verificationDocuments = [
   }
 
   @media (max-width: 640px) {
-    .partner-facility-grid { grid-template-columns: 1fr; }
-    .partner-facility-card img { height: 220px; }
+    .factory-facility-grid { grid-template-columns: 1fr; }
+    .factory-facility-card img { height: 220px; }
     .equip-table th,
     .equip-table td {
       padding: 14px 16px;

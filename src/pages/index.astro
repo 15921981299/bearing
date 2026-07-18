@@ -3,16 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CatalogSectionHead from '../components/CatalogSectionHead.astro';
 import FaqSection from '../components/FaqSection.astro';
 import { products } from '../data/products';
-import { partnerEvidenceSource, partnerFacilityMedia } from '../data/partner-evidence';
+import { factoryEvidenceSource, factoryFacilityMedia } from '../data/factory-evidence';
 import { productFaqs } from '../data/page-faqs';
 import { faqSchema, itemListSchema, site } from '../data/site';
 import '../styles/products-index.css';
 import '../styles/home.css';
 
 const pageUrl = `${site.url}/`;
-const pageTitle = 'Industrial Roller Bearing Supplier | OEM & Replacement';
+const pageTitle = 'China Industrial Bearing Manufacturer | Factory-Direct OEM';
 const pageDescription =
-  'Source combined bearings, track rollers, SL full-complement bearings, back-up rollers and custom replacements with model, drawing and application review.';
+  'Factory-direct combined bearings, track rollers, SL full-complement bearings, back-up rollers and cross roller bearings. Changzhou manufacturing with Shanghai export sales.';
 
 const workflowSteps = [
   {
@@ -80,8 +80,8 @@ const popularSeries = [
 
 const technicalHighlights = [
   { eyebrow: 'Track roller data', title: 'NATR..-PP dimensions and loads', metric: '13 verified model rows', text: 'Compare d, D, B, radial load ratings, grease speed and mass using processed primary-source data.', href: '/products/track-roller-bearings/#technical-reference-heading-0', linkLabel: 'View NATR technical table', downloadHref: '/downloads/natr-pp-track-roller-reference.pdf' },
-  { eyebrow: 'Stud roller data', title: 'NUKR published specifications', metric: '8 model references', text: 'Review outside diameter, stud size, overall length, thread, radial ratings, speed and mass.', href: '/products/track-roller-bearings/#technical-reference-heading-2', linkLabel: 'View NUKR parameters' },
-  { eyebrow: 'Combined bearing data', title: '4.058 / JD88.4-57 reference', metric: 'Dimensions + radial/axial loads', text: 'Use the verified 88.4 mm execution as an identification reference before controlled-drawing approval.', href: '/products/combined-bearings/#technical-reference-heading-0', linkLabel: 'View 4.058 parameters' },
+  { eyebrow: 'Stud roller data', title: 'NUKR published specifications', metric: '8 model references', text: 'Review outside diameter, stud size, overall length, thread, radial ratings, speed and mass.', href: '/products/track-roller-bearings/#technical-reference-heading-2', linkLabel: 'View NUKR parameters', downloadHref: '/downloads/nukr-stud-track-roller-reference.pdf' },
+  { eyebrow: 'Combined bearing data', title: 'Combined bearing series catalog', metric: 'Standard + eccentric + jumbo', text: 'Download factory dimensions and JD / MR / TR cross-references, then confirm the controlled drawing before order.', href: '/products/combined-bearings/', linkLabel: 'Browse combined bearings', downloadHref: '/downloads/combined-bearing-standard-series-reference.pdf' },
 ];
 ---
 
@@ -110,21 +110,21 @@ const technicalHighlights = [
               <div class="home-hero-copy-main">
                 <p class="home-hero-kicker">{site.tagline}</p>
                 <h1 class="home-hero-title" id="home-hero-heading">
-                  Industrial Roller Bearing Supplier
-                  <span>OEM, replacement &amp; drawing-based orders</span>
+                  China Industrial Bearing Manufacturer
+                  <span>Factory-direct OEM, replacement &amp; custom</span>
                 </h1>
                 <div class="home-hero-accent" aria-hidden="true"></div>
                 <p class="home-hero-summary">
-                  Source combined bearings, track rollers, SL full-complement cylindrical roller bearings,
-                  back-up rollers and cross roller bearings. Send the model, dimensions, drawing,
-                  quantity and operating conditions for specification review.
+                  We manufacture combined bearings, track rollers, SL full-complement cylindrical roller bearings,
+                  back-up rollers and cross roller bearings at our Changzhou plant. Send the model, dimensions,
+                  drawing, quantity and operating conditions for a factory quotation.
                 </p>
               </div>
 
               <div class="home-hero-copy-foot">
                 <div class="home-hero-actions">
                   <a href="/contact/?source=homepage" class="products-btn products-btn-primary home-hero-btn">
-                    Request bearings
+                    Request factory quote
                     <span set:html={iconArrow} />
                   </a>
                   <a href="/products/" class="products-btn products-btn-secondary home-hero-btn">
@@ -132,9 +132,9 @@ const technicalHighlights = [
                   </a>
                 </div>
                 <ul class="home-trust-row">
-                  <li>Model and suffix review</li>
-                  <li>Published technical references</li>
-                  <li>Export inquiry support</li>
+                  <li>Changzhou manufacturing base</li>
+                  <li>Standard &amp; drawing-based production</li>
+                  <li>Shanghai export packing</li>
                 </ul>
               </div>
             </div>
@@ -153,7 +153,7 @@ const technicalHighlights = [
                   />
                   <div class="home-hero-image-overlay" aria-hidden="true"></div>
                   <span class="home-hero-chip">{products.length} bearing families</span>
-                  <span class="home-hero-badge">Industrial range</span>
+                  <span class="home-hero-badge">Factory production</span>
                 </div>
               </div>
             </div>
@@ -244,7 +244,7 @@ const technicalHighlights = [
               titleId="home-technical-heading"
               align="split"
             >
-              Public data is processed for initial identification and linked to its source notes. Final selection still requires the quoted supplier drawing.
+              Public data is processed for initial identification and linked to its source notes. Final selection still requires the quoted factory drawing.
             </CatalogSectionHead>
             <div class="home-technical-grid">
               {technicalHighlights.map((item) => (
@@ -291,16 +291,16 @@ const technicalHighlights = [
         <section class="home-section" aria-labelledby="home-trust-heading">
           <div class="home-band home-band--evidence home-section-inner fade-in">
             <CatalogSectionHead
-              kicker="Manufacturing & Inspection Evidence"
-              title="Partner equipment, documented checks and application references"
+              kicker="Manufacturing & Inspection"
+              title="Changzhou plant capacity, inspection and application cases"
               titleId="home-trust-heading"
               align="split"
             >
-              Evidence is attributed to the selected manufacturing partner. It is not presented as a facility owned by {site.name}.
+              CNC machining, measurement equipment and application references from our Changzhou manufacturing base.
             </CatalogSectionHead>
             <div class="home-evidence-layout">
               <div class="home-evidence-gallery">
-                {partnerFacilityMedia.slice(0, 2).map((media) => (
+                {factoryFacilityMedia.slice(0, 2).map((media) => (
                   <figure>
                     <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" decoding="async" />
                     <figcaption><strong>{media.title}</strong><span>{media.description}</span></figcaption>
@@ -310,20 +310,20 @@ const technicalHighlights = [
               <div class="home-evidence-cards">
                 <article class="home-trust-card">
                   <span class="home-trust-icon" set:html={iconInspect} />
-                  <h3>Inspection scope agreed with the RFQ</h3>
-                  <p>Dimension, marking, packing and supplier-document checks are defined before order placement. Batch-specific reports are requested against the quoted product.</p>
-                  <a href="/certifications/">Review quality and evidence policy<span set:html={iconArrow} /></a>
+                  <h3>Factory inspection scope with every RFQ</h3>
+                  <p>Dimension, marking, packing and inspection documents are defined before production release. Batch reports can be provided against the quoted product.</p>
+                  <a href="/certifications/">Review factory QC scope<span set:html={iconArrow} /></a>
                 </article>
                 <article class="home-trust-card">
                   <span class="home-trust-icon" set:html={iconCase} />
-                  <h3>Attributed partner application cases</h3>
-                  <p>Review steel-equipment and cross-roller application references with clear source, scope and limitation notes.</p>
-                  <a href="/case-studies/">View application references<span set:html={iconArrow} /></a>
+                  <h3>OEM and steel-line application cases</h3>
+                  <p>Review steel-equipment and cross-roller application references used for factory quotation and drawing confirmation.</p>
+                  <a href="/case-studies/">View application cases<span set:html={iconArrow} /></a>
                 </article>
               </div>
             </div>
             <p class="home-evidence-source">
-              <strong>Media source:</strong> <a href={partnerEvidenceSource.url} rel="nofollow noopener" target="_blank">{partnerEvidenceSource.name}</a>. {partnerEvidenceSource.disclosure}
+              <strong>Plant evidence:</strong> <a href={factoryEvidenceSource.url}>{factoryEvidenceSource.name}</a>. {factoryEvidenceSource.disclosure}
             </p>
           </div>
         </section>
@@ -351,12 +351,14 @@ const technicalHighlights = [
           <nav class="home-band home-band--soft home-resources fade-in" aria-label="Related bearing resources">
             <h2 id="home-resources-heading">Related bearing resources</h2>
             <ul class="home-resources-links">
-              <li><a href="/resources/identify-industrial-bearing-replacement/">Identify a replacement</a></li>
-              <li><a href="/resources/measure-track-roller-cam-follower/">Measure a track roller</a></li>
+              <li><a href="/downloads/">Factory catalog downloads</a></li>
+              <li><a href="/solutions/china-bearing-manufacturer-export/">China factory export RFQ</a></li>
+              <li><a href="/solutions/bearing-export-shipping-incoterms/">Export shipping &amp; Incoterms</a></li>
+              <li><a href="/solutions/oem-custom-bearing-program/">OEM custom bearing program</a></li>
+              <li><a href="/solutions/winkel-bearing-cross-reference/">WINKEL cross reference</a></li>
               <li><a href="/resources/industrial-bearing-rfq-checklist/">Industrial bearing RFQ checklist</a></li>
-              <li><a href="/certifications/">Quality and inspection scope</a></li>
               <li><a href="/case-studies/">Application references</a></li>
-              <li><a href="/about/">About our sourcing desk</a></li>
+              <li><a href="/about/">About our factory</a></li>
             </ul>
           </nav>
 

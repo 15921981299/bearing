@@ -1,9 +1,11 @@
 # Combined Bearing Source — Full product index
 
-Combined Bearing Source supplies standard and special industrial bearings for material handling, forklift masts, conveyors, metal forming, robotics, machine tools, and heavy machinery.
+Combined Bearing Source is a China industrial bearing manufacturer. We produce standard and special industrial bearings for material handling, forklift masts, conveyors, metal forming, robotics, machine tools, and heavy machinery at our Changzhou manufacturing base, with Shanghai export sales.
 
 ## Product taxonomy
-- Combined bearings: fixed, adjustable, radial, axial, Jumbo and profile-plate configurations; common references include Winkel 4.053–4.096 and PR4.054–PR4.063.
+- Combined bearings: fixed, adjustable, eccentric, jumbo and welded-plate AP assemblies; common references include Winkel 4.053–4.096, PR4.054–PR4.063, 4.454–4.463 and AP0–AP6 / AP91-Q.
+- Track rollers: NATR5-PP through NATR50-PP, NATV5-PP through NATV50-PP, NUKR35–110, KRV16-PP through KRV90-PP, NUTR25–40 / 45100 / 50110, NNTR / RSU samples.
+- Full-complement: SL18 2205–2206, SL18 3004–3010, SL04 sealed samples, SL18 1832 / 4860.
 - Track roller bearings: NUTR, NNTR, PWTR, NUKR, KR, KRV, NATR, NATV and LFR series.
 - Full-complement cylindrical roller bearings: SL01, SL02, SL04, SL05, SL06, SL18, SL19, RSL, NCF, NJG, NNCL and NNCF series.
 - Back-up roller bearings for straightening, levelling, rolling and metal-forming equipment.
@@ -23,6 +25,13 @@ Combined Bearing Source supplies standard and special industrial bearings for ma
 /products/special-track-roller-bearings/
 /about/
 /certifications/
+/case-studies/
+/solutions/china-bearing-manufacturer-export/
+/solutions/bearing-export-shipping-incoterms/
+/solutions/oem-custom-bearing-program/
+/solutions/bearing-trade-show-inquiry/
+/solutions/winkel-bearing-cross-reference/
+/solutions/combined-bearing-rfq-and-drawing-review/
 /contact/
 /privacy/
 /sitemap/

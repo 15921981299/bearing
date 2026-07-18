@@ -4,16 +4,112 @@ import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
 import { seoLandingPages } from '../../data/seo-landing-pages';
 import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
 import '../../styles/resource-page.css';
-import '../../styles/product-model.css';
-const clusters = ['Bearing Designs','Applications','Buyer Support'] as const;
+import '../../styles/resource-library.css';
+
+const clusters = ['Bearing Designs', 'Applications', 'Buyer Support'] as const;
+
+const clusterMeta: Record<
+  (typeof clusters)[number],
+  { title: string; description: string }
+> = {
+  'Bearing Designs': {
+    title: 'Combined bearing types and construction',
+    description:
+      'Fixed axial, adjustable, welded plate and jumbo profile references for initial model identification.',
+  },
+  Applications: {
+    title: 'Equipment and duty-specific guides',
+    description:
+      'Forklift masts, stacker cranes, steel mill equipment and heavy-duty linear guide applications.',
+  },
+  'Buyer Support': {
+    title: 'Export, RFQ and verification support',
+    description:
+      'Cross references, quality control, drawing review, Incoterms and factory export documentation.',
+  },
+};
 ---
-<BaseLayout title="Combined Bearing Solutions & Application Guides" description="Browse combined bearing designs, application guides, cross references, quality control and RFQ support." currentPath="/solutions" jsonLd={[
- breadcrumbSchema([{name:'Home',url:site.url},{name:'Solutions',url:`${site.url}/solutions/`}]),
- itemListSchema(seoLandingPages.map(item=>({name:item.title,url:`${site.url}/solutions/${item.slug}/`}))),
-]}>
- <BreadcrumbHero title="Combined Bearing Solutions" trail={[{label:'Home',href:'/'},{label:'Solutions'}]} variant="2" />
- <main class="model-page"><div class="section-gap bottom"><div class="container"><article class="model-shell">
-  <section class="model-summary"><p class="model-kicker">Technical Library</p><h2>Find a bearing by design, application or sourcing requirement</h2><p>These pages connect WINKEL-style combined bearing models with the equipment, guide profiles and technical checks required for replacement approval.</p></section>
-  {clusters.map(cluster=><section class="model-related"><h2>{cluster}</h2><div class="model-related-grid">{seoLandingPages.filter(item=>item.cluster===cluster).map(item=><a href={`/solutions/${item.slug}/`}><strong>{item.title}</strong><span>{item.intro}</span></a>)}</div></section>)}
- </article></div></div></main>
+
+<BaseLayout
+  title="Combined Bearing Solutions & Application Guides"
+  description="Browse combined bearing designs, application guides, cross references, quality control and RFQ support."
+  currentPath="/solutions"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Solutions', url: `${site.url}/solutions/` },
+    ]),
+    itemListSchema(
+      seoLandingPages.map((item) => ({
+        name: item.title,
+        url: `${site.url}/solutions/${item.slug}/`,
+      })),
+    ),
+  ]}
+>
+  <BreadcrumbHero
+    title="Combined Bearing Solutions"
+    trail={[{ label: 'Home', href: '/' }, { label: 'Solutions' }]}
+    variant="2"
+  />
+
+  <section class="resource-library-section">
+    <div class="section-gap">
+      <div class="container">
+        <div class="resource-library-intro">
+          <p class="resource-page-kicker">Technical library</p>
+          <h2>Find a bearing by design, application or export requirement</h2>
+          <p>
+            These pages connect combined bearing models, track rollers and OEM assemblies with the equipment,
+            guide profiles, export RFQ and drawing checks required before quotation.
+          </p>
+        </div>
+
+        {
+          clusters.map((cluster, clusterIndex) => {
+            const items = seoLandingPages.filter((item) => item.cluster === cluster);
+            const meta = clusterMeta[cluster];
+
+            return (
+              <>
+                <div
+                  class:list={[
+                    'resource-library-intro',
+                    'resource-library-intro--cluster',
+                    { 'resource-library-intro--secondary': clusterIndex > 0 },
+                  ]}
+                >
+                  <p class="resource-page-kicker">{cluster}</p>
+                  <h2>{meta.title}</h2>
+                  <p>{meta.description}</p>
+                </div>
+                <div class="resource-library-grid">
+                  {items.map((item, index) => (
+                    <article class="resource-library-card resource-library-card--compact">
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <h2>
+                        <a href={`/solutions/${item.slug}/`}>{item.title}</a>
+                      </h2>
+                      <p>{item.intro}</p>
+                      <a class="resource-library-link" href={`/solutions/${item.slug}/`}>
+                        Read solution →
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </>
+            );
+          })
+        }
+
+        <nav class="resource-library-footer" aria-label="Related libraries">
+          <a href="/resources/">Technical guides</a>
+          <span aria-hidden="true">·</span>
+          <a href="/products/">Bearing products</a>
+          <span aria-hidden="true">·</span>
+          <a href="/downloads/">Catalog downloads</a>
+        </nav>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

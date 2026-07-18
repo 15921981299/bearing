@@ -8,7 +8,7 @@
   email: 'charles@combinedbearingsource.com',
   phone: '+862133282711',
   whatsapp: '+8618018620661',
-  tagline: 'Industrial Bearings | Model & Drawing Support',
+  tagline: 'Factory-Direct Industrial Bearings | OEM & Custom',
   logo: {
     default: '/logo.png',
     compact: '/logo-compact.png',
@@ -42,20 +42,19 @@
       '',
   },
   /**
-   * Quality claims shown on site — keep wording accurate.
-   * Set iso9001CertNumber / iso9001CertBody when you hold a direct certificate;
-   * otherwise we state partner-facility ISO 9001 (default).
+   * Quality claims shown on site — factory-facing export positioning.
+   * Set iso9001CertNumber / iso9001CertBody when a certificate number is on file.
    */
   quality: {
-    iso9001Label: 'ISO 9001 Partner Facilities',
+    iso9001Label: 'ISO 9001 Manufacturing Quality System',
     iso9001Description:
-      'Industrial bearings are sourced through reviewed manufacturing partners. We document model checks, dimensional requirements, inspection scope, packing, and shipment details for qualified inquiries.',
+      'Combined bearings, track rollers and full-complement cylindrical roller bearings are produced under our Changzhou manufacturing quality system. We control model verification, dimensional checks, inspection scope, packing and export shipment for qualified inquiries.',
     iso9001CertNumber: '',
     iso9001CertBody: '',
     /** Shown on certifications when no direct cert number is on file. */
     iso9001VerificationNote:
-      'Available supplier documents and inspection notes can be requested for qualified bearing inquiries.',
-    /** Industry workflows we support — link to /certifications/ pages, not cert claims we cannot verify. */
+      'Factory inspection reports, material notes and packing photos can be provided for qualified bearing inquiries.',
+    /** Industry workflows we support — link to /certifications/ pages. */
     industryPrograms: [
       { label: 'Forklift mast bearings', href: '/products/combined-bearings/' },
       { label: 'Conveyor track rollers', href: '/products/track-roller-bearings/' },
@@ -70,14 +69,32 @@
     },
   },
   defaultDescription:
-    'Industrial bearing supplier for combined bearings, track rollers, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings and Standard NbV profiles.',
+    'China industrial bearing manufacturer for combined bearings, track rollers, full-complement cylindrical roller bearings, back-up rollers, cross roller bearings and Standard NbV profiles. Factory-direct OEM and replacement supply.',
+  /** Manufacturing plant (Changzhou) + export office (Shanghai). */
+  locations: {
+    plant: {
+      name: 'Changzhou Manufacturing Plant',
+      streetAddress: 'Niutang Town, Wujin District',
+      addressLocality: 'Changzhou',
+      addressRegion: 'Jiangsu',
+      postalCode: '213168',
+      addressCountry: 'CN',
+    },
+    exportOffice: {
+      name: 'Shanghai Export Office',
+      streetAddress: 'Room A102, No. 399 Hengnan Road, Pujiang Town, Minhang District',
+      addressLocality: 'Shanghai',
+      addressRegion: 'Shanghai',
+      addressCountry: 'CN',
+    },
+  },
 };
 
 const organizationLogoUrl = `${site.url}/logo.png`;
 
 export const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['Organization', 'Manufacturer'],
   name: site.company.legalNameEn,
   alternateName: [site.name, site.company.legalName],
   url: site.url,
@@ -88,11 +105,37 @@ export const organizationSchema = {
   areaServed: 'Worldwide',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Room A102, No. 399 Hengnan Road, Pujiang Town, Minhang District',
-    addressLocality: 'Shanghai',
-    addressRegion: 'Shanghai',
-    addressCountry: 'CN',
+    streetAddress: site.locations.plant.streetAddress,
+    addressLocality: site.locations.plant.addressLocality,
+    addressRegion: site.locations.plant.addressRegion,
+    postalCode: site.locations.plant.postalCode,
+    addressCountry: site.locations.plant.addressCountry,
   },
+  department: [
+    {
+      '@type': 'Organization',
+      name: site.locations.plant.name,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.locations.plant.streetAddress,
+        addressLocality: site.locations.plant.addressLocality,
+        addressRegion: site.locations.plant.addressRegion,
+        postalCode: site.locations.plant.postalCode,
+        addressCountry: site.locations.plant.addressCountry,
+      },
+    },
+    {
+      '@type': 'Organization',
+      name: site.locations.exportOffice.name,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.locations.exportOffice.streetAddress,
+        addressLocality: site.locations.exportOffice.addressLocality,
+        addressRegion: site.locations.exportOffice.addressRegion,
+        addressCountry: site.locations.exportOffice.addressCountry,
+      },
+    },
+  ],
   contactPoint: [
     {
       '@type': 'ContactPoint',
@@ -110,6 +153,8 @@ export const organizationSchema = {
     'Back-up Roller Bearings',
     'Cross Roller Bearings',
     'Standard NbV Profiles',
+    'OEM Bearing Manufacturing',
+    'Custom Track Roller Production',
   ],
   // sameAs is populated only with non-empty social URLs to avoid emitting empty links.
   ...(Object.values(site.social).some(Boolean)
@@ -133,7 +178,7 @@ export function serviceSchema(service: {
     url: service.url,
     ...(service.image ? { image: service.image } : {}),
     provider: {
-      '@type': 'Organization',
+      '@type': ['Organization', 'Manufacturer'],
       name: site.name,
       url: site.url,
     },

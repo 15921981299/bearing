@@ -6,8 +6,8 @@ import SectionHeading from '../components/SectionHeading.astro';
 import { breadcrumbSchema, site, videoSchema } from '../data/site';
 
 const workshopVideo = videoSchema({
-  name: 'Combined Bearing Source Parts Support Overview',
-  description: 'See how Combined Bearing Source supports industrial bearings identification, stock checking, and global delivery.',
+  name: 'Combined Bearing Source Manufacturing Plant Overview',
+  description: 'See our Changzhou bearing manufacturing plant, machining capacity, inspection process and export packing for industrial roller bearings.',
   thumbnailUrl: 'https://img.youtube.com/vi/M7uJEbDD-_8/hqdefault.jpg',
   embedUrl: 'https://www.youtube.com/embed/M7uJEbDD-_8',
   uploadDate: '2023-06-01',
@@ -17,8 +17,8 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
 ---
 
 <BaseLayout
-  title="Industrial Bearing Supplier in Shanghai | About Us"
-  description="Combined Bearing Source is a Shanghai-based industrial bearings supplier for combined bearings, track rollers, back-up rollers, and cross roller bearings buyers, with model verification, export packing, and global delivery support."
+  title="China Industrial Bearing Manufacturer | About Us"
+  description="Combined Bearing Source is a China industrial bearing manufacturer for combined bearings, track rollers, back-up rollers and cross roller bearings. Changzhou factory production with Shanghai export sales and global delivery."
   currentPath="/about"
   jsonLd={[
     breadcrumbSchema([
@@ -30,7 +30,7 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
 >
   <FunnelPageView stage="awareness" label="about" />
   <BreadcrumbHero
-    title="Industrial Bearings Supplier Built for Urgent Sourcing"
+    title="China Bearing Manufacturer for OEM & Replacement"
     trail={[
       { label: 'Home', href: '/' },
       { label: 'About Us' },
@@ -43,47 +43,47 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
     <div class="section-gap">
       <div class="container">
         <div class="mission-and-vision-wrapper">
-          <SectionHeading title="An Industrial Bearing Supplier for Global Buyers" subtitle="Who We Are" />
+          <SectionHeading title="Factory-Direct Industrial Bearing Manufacturer" subtitle="Who We Are" />
 
           <div class="about-trust-meta" aria-label="Company credentials">
-            <span><strong>Product range:</strong> combined bearings, track rollers, back-up rollers, cross roller bearings</span>
-            <span><strong>Requests:</strong> bearing model, dimensions, photos, bearing lists and drawings</span>
-            <span><strong>Use cases:</strong> marine, generator, industrial, rail, shipyard</span>
-            <span><strong>Export:</strong> Shanghai coordination and global delivery</span>
+            <span><strong>Manufacturing base:</strong> Changzhou, Jiangsu</span>
+            <span><strong>Export office:</strong> Shanghai</span>
+            <span><strong>Products:</strong> combined bearings, track rollers, SL bearings, back-up &amp; cross rollers</span>
+            <span><strong>Capability:</strong> standard series + drawing-based custom</span>
           </div>
 
           <div class="about-legal-block fade-in" aria-label="Legal entity">
             <p class="about-legal-name"><strong>{site.company.legalNameEn}</strong> · {site.company.legalName}</p>
             <p class="about-legal-detail">
-              Shanghai-based industrial bearings supplier serving maintenance teams, repair companies, equipment manufacturers, maintenance teams, and distributors worldwide —
-              <a href="/certifications/">view QC & certification scope</a>.
+              China industrial bearing manufacturer serving OEMs, maintenance teams, equipment builders and distributors worldwide —
+              <a href="/certifications/">view factory QC &amp; inspection scope</a>.
               Contact: <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phone}`}>{site.phone}</a>
             </p>
           </div>
 
-          <div class="about-scope-grid fade-in" aria-label="Supply scope">
+          <div class="about-scope-grid fade-in" aria-label="Manufacturing scope">
             <div class="about-scope-card">
-              <span class="about-scope-kicker">Main Focus</span>
-              <strong>industrial bearing full-series parts</strong>
-              <p>183, 331, 396, 493, 538, 595, 956, 1163, 2000, 4000, and 8000 series inquiries.</p>
+              <span class="about-scope-kicker">Core Manufacture</span>
+              <strong>Combined bearings &amp; track rollers</strong>
+              <p>Winkel-style combined bearings, NUTR/NNTR/NUKR track rollers and matched NbV guide profiles from our Changzhou plant.</p>
             </div>
             <div class="about-scope-card">
-              <span class="about-scope-kicker">Also Supported</span>
-              <strong>Track rollers, back-up rollers, cross roller bearings</strong>
-              <p>Standard and special industrial bearings for material handling, conveyors, metal forming, robotics and heavy machinery.</p>
+              <span class="about-scope-kicker">Also Produced</span>
+              <strong>SL, back-up &amp; cross roller bearings</strong>
+              <p>Full-complement cylindrical roller bearings, metallurgical back-up rollers and precision cross roller bearings for OEM programs.</p>
             </div>
             <div class="about-scope-card">
               <span class="about-scope-kicker">Best Fit</span>
-              <strong>Model driven RFQs</strong>
-              <p>Single urgent parts, repeated service items, and Excel lists from overhaul or repair projects.</p>
+              <strong>Factory-direct RFQs</strong>
+              <p>Model replacements, drawing-based custom parts, repeated OEM items and multi-line maintenance lists.</p>
             </div>
           </div>
 
           <nav class="about-jump-nav" aria-label="On this page">
-            <a href="#about-mission" class="about-jump-link">Company focus</a>
-            <a href="#about-different" class="about-jump-link">Verification</a>
+            <a href="#about-mission" class="about-jump-link">Factory focus</a>
+            <a href="#about-different" class="about-jump-link">Why factory-direct</a>
             <a href="#about-process" class="about-jump-link">RFQ process</a>
-            <a href="#about-factory" class="about-jump-link">Global delivery</a>
+            <a href="#about-factory" class="about-jump-link">Plant &amp; export</a>
           </nav>
 
           <div class="mission-and-vision-content">
@@ -91,13 +91,13 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
               <div class="mission-content-block">
                 <div class="mission-subtitle-block"><div class="mission-subtitle-text">Our Mission</div></div>
                 <div class="mission-text-block">
-                  <h3 class="mission-title">Correct Parts Start With Correct Identification</h3>
-                  <p class="mission-summary">Bearing selection depends on more than a model name. Dimensions, load direction, speed, clearance, accuracy, sealing and application conditions must be reviewed before availability and pricing are confirmed.</p>
-                  <a href="/products/" class="mission-link-button"><div class="link-button-text">Our Parts Range</div><div class="link-button-icon" set:html={linkArrow} /></a>
+                  <h3 class="mission-title">Manufacture to Drawing. Confirm Before Ship.</h3>
+                  <p class="mission-summary">We produce and supply industrial roller bearings against model references and controlled drawings. Dimensions, load direction, speed, clearance, sealing and application conditions are reviewed in-house before quotation and production release.</p>
+                  <a href="/products/" class="mission-link-button"><div class="link-button-text">Our Product Range</div><div class="link-button-icon" set:html={linkArrow} /></a>
                 </div>
               </div>
               <div class="mission-image-block">
-                <img src="/images/industrial-bearing-product-range.webp" alt="industrial bearing industrial bearing spare parts and components" class="mission-image" width="850" height="753" loading="lazy" decoding="async" />
+                <img src="/images/industrial-bearing-product-range.webp" alt="Industrial roller bearings manufactured for OEM and replacement programs" class="mission-image" width="850" height="753" loading="lazy" decoding="async" />
                 <div class="image-overlay"></div>
               </div>
             </div>
@@ -105,13 +105,13 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
               <div class="vision-content-block">
                 <div class="vision-subtitle-block"><div class="vision-subtitle-text">Our Vision</div></div>
                 <div class="vision-text-block">
-                  <h3 class="vision-title">Built for Buyers Who Need Clear Answers</h3>
-                  <p class="vision-summary">Combined Bearing Source is designed as a sourcing desk for practical maintenance work: confirm the likely part, check available supply routes, prepare export packing, and keep communication clear. We do not describe ourselves as an official brand owner; brand names and bearing models are used to identify buyer requirements.</p>
-                  <a href="/contact/?source=about" class="vision-link-button"><div class="link-button-text">Send Parts Inquiry</div><div class="link-button-icon" set:html={linkArrow} /></a>
+                  <h3 class="vision-title">One Factory Team From Spec to Shipment</h3>
+                  <p class="vision-summary">Combined Bearing Source combines Changzhou manufacturing with Shanghai export sales. Buyers get factory pricing, engineering review, inspection scope and packing under one team — without a trading-layer delay between quotation and production.</p>
+                  <a href="/contact/?source=about" class="vision-link-button"><div class="link-button-text">Request Factory Quote</div><div class="link-button-icon" set:html={linkArrow} /></a>
                 </div>
               </div>
               <div class="vision-image-block">
-                <img src="/images/bearing-dimensional-inspection.webp" alt="industrial bearing bearing model verification and bearing products quality check" class="vision-image" width="850" height="753" loading="lazy" decoding="async" />
+                <img src="/images/bearing-dimensional-inspection.webp" alt="Factory dimensional inspection for industrial bearings" class="vision-image" width="850" height="753" loading="lazy" decoding="async" />
                 <div class="image-overlay"></div>
               </div>
             </div>
@@ -125,29 +125,29 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
   <section id="about-different" class="who-we-are-section about-section">
     <div class="section-gap bottom">
       <div class="container">
-        <SectionHeading title="What Makes Combined Bearing Source Useful" subtitle="Why Choose Us" />
+        <SectionHeading title="Why Buy Factory-Direct From Us" subtitle="Why Choose Us" />
         <div class="funfact-wrapper about-differentiators-grid fade-in">
           <div class="funfact-single-block">
             <div class="funfact-number-block"><div class="chain-character">01</div></div>
             <div class="funfact-text-block">
-              <h3 class="funfact-title">Verification Before Price</h3>
-              <p class="funfact-summary">We review bearing model, dimensions, application, load, speed and drawings before treating an item as ready to quote.</p>
+              <h3 class="funfact-title">In-House Production Control</h3>
+              <p class="funfact-summary">Machining, assembly and inspection are managed at our Changzhou plant so lead time and quality scope stay under one production plan.</p>
             </div>
           </div>
           <div class="funfact-separtion-liner"></div>
           <div class="funfact-single-block">
             <div class="funfact-number-block"><div class="chain-character">02</div></div>
             <div class="funfact-text-block">
-              <h3 class="funfact-title">Clear Replacement Discussion</h3>
-              <p class="funfact-summary">When an old number, supersession, or alternative route is involved, we ask for confirmation instead of hiding the risk.</p>
+              <h3 class="funfact-title">OEM &amp; Non-Standard Capability</h3>
+              <p class="funfact-summary">Standard series plus drawing-based custom rollers, welded-plate assemblies and special track profiles for equipment builders.</p>
             </div>
           </div>
           <div class="funfact-separtion-liner"></div>
           <div class="funfact-single-block">
             <div class="funfact-number-block"><div class="chain-character">03</div></div>
             <div class="funfact-text-block">
-              <h3 class="funfact-title">Prepared for Export Orders</h3>
-              <p class="funfact-summary">We coordinate packing, shipping documents, and delivery options for buyers outside China after the part is confirmed.</p>
+              <h3 class="funfact-title">Export-Ready Factory Sales</h3>
+              <p class="funfact-summary">Shanghai export desk handles packing, documents and freight options after the factory quotation and production release are confirmed.</p>
             </div>
           </div>
         </div>
@@ -168,13 +168,13 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
           </div>
           <div class="about-process-card">
             <span class="about-process-step">02</span>
-            <h3>Check Fitment and Supply Route</h3>
-            <p>We compare the request against dimensional data, series references, operating conditions and available manufacturing options.</p>
+            <h3>Factory Engineering Review</h3>
+            <p>We compare the request against dimensional data, series references, operating conditions and our production capability before releasing a factory quotation.</p>
           </div>
           <div class="about-process-card">
             <span class="about-process-step">03</span>
-            <h3>Quote With Practical Notes</h3>
-            <p>The reply may include availability, lead-time notes, packing approach, shipping method, and any details still needing buyer confirmation.</p>
+            <h3>Quote Production &amp; Delivery</h3>
+            <p>The reply covers proposed specification, price, production lead time, inspection scope, packing and shipping method for your destination.</p>
           </div>
         </div>
 
@@ -183,7 +183,7 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
             <h3>What helps us quote faster?</h3>
             <p>Exact bearing models, complete dimensions, drawings, old-bearing photos and Excel lists reduce back-and-forth. For urgent downtime orders, include the required delivery country and deadline in the first message.</p>
           </div>
-          <a href="/contact/?source=about-process" class="about-inline-cta">Send inquiry details →</a>
+          <a href="/contact/?source=about-process" class="about-inline-cta">Send factory inquiry →</a>
         </div>
       </div>
     </div>
@@ -193,18 +193,19 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
   <section id="about-factory" class="who-we-are-section about-section">
     <div class="section-gap bottom">
       <div class="container">
-        <SectionHeading title="Global Delivery From Shanghai" subtitle="Shipping Support" />
+        <SectionHeading title="Changzhou Plant · Shanghai Export" subtitle="Manufacturing Base" />
         <div class="who-we-are-wrapper fade-in">
           <div class="who-we-are-content-block">
-            <p class="who-we-are-text">Combined Bearing Source is based in Shanghai and supports international buyers with express, air, and freight shipment options. For urgent industrial equipment downtime orders, share the destination and deadline in your first inquiry.</p>
-            <p class="who-we-are-text about-disclaimer">Combined Bearing Source is an independent supplier. combined bearings, track rollers, back-up rollers, cross roller bearings, and other names are used only to identify compatible bearing products requested by buyers.</p>
+            <p class="who-we-are-text">Our manufacturing plant is in Niutang Town, Wujin District, Changzhou, Jiangsu (213168), with CNC machining, assembly and inspection for industrial roller bearings. Our Shanghai export office handles sales, packing coordination and global delivery by express, air or sea freight.</p>
+            <p class="who-we-are-text about-disclaimer">Brand names and competitor model numbers are used only for identification and cross-reference. Unless an original branded product is expressly quoted, we supply factory-produced compatible bearings manufactured to the confirmed drawing and specification.</p>
             <p class="about-factory-cta-row">
-              <a href="/contact/?source=about-shipping" class="about-inline-cta">Send a parts inquiry →</a>
-              <a href="/contact/" class="about-inline-cta about-inline-cta--secondary">Shipping terms</a>
+              <a href="/contact/?source=about-shipping" class="about-inline-cta">Request a factory quote →</a>
+              <a href="/case-studies/" class="about-inline-cta about-inline-cta--secondary">Application cases</a>
+              <a href="/certifications/" class="about-inline-cta about-inline-cta--secondary">Factory QC scope</a>
             </p>
           </div>
           <div class="who-we-are-image-block about-factory-image">
-            <img src="/images/bearing-export-packaging.webp" alt="Industrial bearing export packing for global delivery" class="who-we-are-image" width="520" height="400" loading="lazy" decoding="async" />
+            <img src="/images/bearing-export-packaging.webp" alt="Factory export packing for industrial bearings" class="who-we-are-image" width="520" height="400" loading="lazy" decoding="async" />
             <div class="who-we-are-lightbox">
               <button type="button" class="lightbox-link-block primary" data-lightbox-trigger="https://www.youtube.com/watch?v=M7uJEbDD-_8&t=4s" aria-label="Play factory tour video">
                 <div class="lightbox-inner-block primary"><img src="/images/video-play-icon.svg" alt="" aria-hidden="true" class="lightbox-play-icon primary" width="20" height="20" loading="lazy" decoding="async" /></div>

@@ -3286,6 +3286,54 @@ blockquote {
     overflow: clip
 }
 
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.contact-info-card {
+    padding: 22px 20px;
+    border: 1px solid var(--color-stroke, #d7dee8);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.contact-info-card h2 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    color: var(--color-title, #10243e);
+}
+
+.contact-info-card p,
+.contact-info-card a {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #475569;
+}
+
+.contact-info-card a {
+    color: var(--color-primary, #0b5cab);
+    text-decoration: none;
+}
+
+.contact-info-card a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .contact-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .contact-info-wrapper {
     display: grid;
     grid-template-rows: auto;
