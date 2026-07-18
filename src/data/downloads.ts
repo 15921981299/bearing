@@ -28,10 +28,30 @@ export const downloadItems: DownloadItem[] = [
     href: '/downloads/high-load-axial-support-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
   },
   {
-    slug: 'mr4180-mr4183-heavy-load-combined-bearings',
-    title: 'MR4180-MR4183 Heavy-Load Adjustable Series',
-    description: 'Complete selected-series geometry, radial and axial load ratings, material notes and controlled-drawing checks.',
-    href: '/downloads/mr4180-mr4183-heavy-load-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+    slug: 'mr4180-mr4188-heavy-load-combined-bearings',
+    title: 'MR4180-MR4188 Heavy-Load Adjustable Series',
+    description: 'Complete series geometry, radial and axial load ratings, material notes and controlled-drawing checks.',
+    href: '/downloads/mr4180-mr4188-heavy-load-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+  },
+  {
+    slug: 'zrs-steel-section-combined-bearings', title: 'Steel-Section ZRS Combined Bearings',
+    description: 'MR.706 through MR.191 dimensions, load ratings, speeds, masses and alternate ZRS references.',
+    href: '/downloads/zrs-steel-section-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+  },
+  {
+    slug: 'inclined-zrs-combined-bearings', title: 'Inclined-Section ZRS Combined Bearings',
+    description: 'Inclined-profile MR series geometry, ratings and execution notes for angled steel guides.',
+    href: '/downloads/inclined-zrs-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+  },
+  {
+    slug: 'kres-external-adjustable-combined-bearings', title: 'KRES Externally Adjustable Combined Bearings',
+    description: 'KRES.062 through KRES.149 geometry, adjustment ranges, loads, speeds and masses.',
+    href: '/downloads/kres-external-adjustable-combined-bearings.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
+  },
+  {
+    slug: 'radial-stud-combined-bearing-series', title: '2-Series Radial Combined Bearings With Stud',
+    description: 'Published 2-series, TR and MR radial combined-bearing identification references and drawing checks.',
+    href: '/downloads/radial-stud-combined-bearing-series.pdf', category: 'Combined bearings', format: 'PDF', updated: '2026-07',
   },
   {
     slug: '4-078-shim-adjustable-combined-bearings',

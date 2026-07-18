@@ -44,6 +44,11 @@ const mr418Rows = [
   ['MR4181','80','185','47','100','75','49.7','115','15','3','235','440','85','130'],
   ['MR4182','110','220','60','115','90','70','150','13.5','5','365','720','105','230'],
   ['MR4183','130','260','60','120','95','80','184','18.5','5','475','1000','165','280'],
+  ['MR4184','150','260','80','135','110','80','187','10','5','565','1300','165','280'],
+  ['MR4185','140','300','80','140','110','86','190','10','8','550','1275','195','335'],
+  ['MR4186','140','315','89','240','120','100','240','10','8','785','1690','225','390'],
+  ['MR4187','140','340','89','150','120','100','240','10','8','785','1690','225','390'],
+  ['MR4188','170','390','118','200','150','100','242','11','8','1075','2535','225','390'],
 ] as const;
 
 export const combinedBearingModels: CombinedBearingModel[] = [
@@ -403,6 +408,34 @@ export const combinedBearingModels: CombinedBearingModel[] = [
     description: 'Jumbo combined bearing welded on an AP91-Q mounting plate for high-load adjustable guide systems.',
     application: 'Heavy mast systems, cranes, steel equipment and large linear guide structures.',
     specs: specs({ Plate:'AP91-Q', TypicalBearing:'4.091 jumbo class', Assembly:'Bearing welded on plate', Adjustment:'Eccentric axial support' }),
+  },
+  {
+    slug: '0-003338-h-4-0037', model: '0.003338.H / 4.0037', family: 'Standard',
+    aliases: ['4.037', 'JD174-95', '40037', '4037', 'BYSG174S1', 'AWD037-174.2Z', '400-0037'], image: '/images/special-combined-series/0-003338-h.png',
+    description: 'Danieli-reference combined bearing for special steel profiles, cross-referenced as 0.003338.H, 4.0037 and 4.037.',
+    application: 'Danieli equipment, steel mills, heavy lifting systems, cranes and special profile guide assemblies.',
+    specs: specs({d:'80 mm',D:'174 mm',H:'95 mm',h:'71 mm',B:'55 mm',S:'63 mm',A:'7 mm',r:'7 mm',T:'120 mm',Drawing:'Confirm suffix and controlled drawing'}),
+  },
+  {
+    slug: 'mr3187-danieli-combined-bearing', model: 'MR3187', family: 'Standard',
+    aliases: ['0.076395.D', '0.160000.V', '0.160035.C'], image: '/images/special-combined-series/mr3187.png',
+    description: 'MR3187 combined track roller bearing for Danieli steel-section equipment with multiple machine-maker references.',
+    application: 'Danieli metallurgical equipment, stackers, heavy guides and material-lifting systems.',
+    specs: specs({D:'88 mm',H:'79 mm',Seal:'ZZ',Material:'20CrMnTi',OtherDimensions:'Confirm controlled drawing',LoadRatings:'Not published'}),
+  },
+  {
+    slug: 'winkel-4-039-jd185-95', model: '4.039 / JD185-95', family: 'Jumbo adjustable',
+    aliases: ['JD185-95', '4.039 custom combined bearing'], image: '/images/special-combined-series/winkel-4-039.png',
+    description: 'Drawing-controlled 185 mm class combined bearing for heavy industrial guide and handling systems.',
+    application: 'Metallurgical equipment, conveyors, lifting systems, logistics equipment and heavy linear guides.',
+    specs: specs({D:'185 mm class from reference',H:'95 mm reference',Execution:'Drawing-based custom combined bearing',RemainingDimensions:'Confirm controlled drawing',LoadRatings:'Not published'}),
+  },
+  {
+    slug: 'ap92-q-welded-plate', model: 'AP92-Q / 4.092', family: 'Welded plate',
+    aliases: ['JD250-102-KPD', '400-0092', 'MR0014', '4.092 AP92-Q'], image: '/images/special-combined-series/ap92-q.png',
+    description: 'AP92-Q plate assembly with a 4.092 jumbo eccentric-adjustable combined bearing for severe-duty guides.',
+    application: 'Large mast systems, steel equipment, cranes and heavy adjustable linear guide structures.',
+    specs: specs({d:'120 mm',D:'250 mm',H:'102 mm',Hmax:'105 mm',h:'77-80 mm',B:'60 mm',S:'75 mm',T:'168 mm',A:'7-10 mm',r:'5 mm',FR:'101.5 kN',FA:'33.9 kN',Cr:'369 kN',C0r:'748 kN',Ca:'138 kN',C0a:'257 kN',Speed:'75 rpm',Mass:'23.9 kg',Assembly:'4.092 on AP92-Q plate'}),
   },
   ...screwAdjustableRows.map(([model,d,D,C,Hmin,Hmax,H1min,H1max,H2,D1,C1,D2,d1,angle,r,R,R1,V,V1,adjustingScrew,Cr,C0r,Ca,C0a,speed,mass]) => ({
     slug: model.toLowerCase().replace('.', '-'),
