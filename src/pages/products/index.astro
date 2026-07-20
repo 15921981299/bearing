@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
 import CatalogSectionHead from '../../components/CatalogSectionHead.astro';
@@ -158,7 +158,7 @@ const iconArrow =
                     <a href={`/products/${product.slug}/`} class="products-card-media">
                       <img
                         src={product.image}
-                        alt={`${product.title} product range and reference models`}
+                        alt={product.imageAlt}
                         width="400"
                         height="310"
                         loading={index < 4 ? 'eager' : 'lazy'}
