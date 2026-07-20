@@ -1,11 +1,37 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    const host = url.hostname.toLowerCase();
+
+    // SEO canonical redirects: www -> apex, http -> https (single 301 hop)
+    if (host === 'www.combinedbearingsource.com') {
+      url.hostname = 'combinedbearingsource.com';
+      url.protocol = 'https:';
+      url.port = '';
+      return Response.redirect(url.toString(), 301);
+    }
+    if (host === 'combinedbearingsource.com' && url.protocol === 'http:') {
+      url.protocol = 'https:';
+      url.port = '';
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const withSecurityHeaders = (response) => {
+      if (host !== 'combinedbearingsource.com') return response;
+      const headers = new Headers(response.headers);
+      headers.set('Strict-Transport-Security', 'max-age=15552000');
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
+    };
+
     const isRfqRoute = url.pathname === '/api/rfq' || url.pathname === '/api/rfq/';
 
     if (!isRfqRoute) {
       if (env.ASSETS && typeof env.ASSETS.fetch === 'function') {
-        return env.ASSETS.fetch(request);
+        return withSecurityHeaders(await env.ASSETS.fetch(request));
       }
 
       return new Response('Not found', { status: 404 });
