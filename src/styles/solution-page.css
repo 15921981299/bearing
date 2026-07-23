@@ -656,3 +656,52 @@
     transform: none;
   }
 }
+
+
+/* Cross-reference table (solutions) */
+.solution-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.solution-table {
+  width: 100%;
+  min-width: 320px;
+  border-collapse: collapse;
+  border: 1px solid #e2e8f0;
+}
+
+.solution-table th,
+.solution-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.solution-table thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+}
+
+.solution-table tbody td:first-child {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.solution-table tbody td a {
+  color: inherit;
+}
+
+.solution-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.solution-table-note {
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+}
