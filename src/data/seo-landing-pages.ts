@@ -8,6 +8,7 @@ export type SeoLandingPage = {
   sections: { heading: string; body: string; bullets: string[] }[];
   related: { label: string; href: string }[];
   faqs: { question: string; answer: string }[];
+  table?: { heading: string; note?: string; columns: string[]; rows: { cells: string[]; href?: string }[] };
 };
 
 const productLinks = [
@@ -126,7 +127,8 @@ export const seoLandingPages: SeoLandingPage[] = [
     { label: 'Combined bearing model directory', href: '/products/combined-bearings/' },
     { label: 'Request specification review', href: '/contact/?source=solution-danieli' },
   ]),
-  page('winkel-bearing-cross-reference','Buyer Support','WINKEL Bearing Cross Reference Guide','WINKEL Bearing Cross Reference','Use WINKEL, CR, Libe, Alfatec, JD, MR, TR and 400-series references to narrow a replacement search.',[
+  {
+    ...page('winkel-bearing-cross-reference','Buyer Support','WINKEL Bearing Cross Reference Guide','WINKEL Bearing Cross Reference','Use WINKEL, CR, Libe, Alfatec, JD, MR, TR and 400-series references to narrow a replacement search. The table below maps common WINKEL series to reviewed replacement support.',[
     {heading:'How cross references work',body:'Different brands may use distinct numbers for related dimensional families, but suffixes and executions can vary.',bullets:['WINKEL 4.xxx and PR4.xxx','CR 400-xxxx and DR400-xxxx','MR, TR and JD dimensional references']},
     {heading:'Verification sequence',body:'Start with the full marking, then compare drawing and duty before approving a replacement.',bullets:['Dimensions and mounting','Fixed or adjustable axial roller','Loads, speed and lubrication']},
   ], [
@@ -136,6 +138,21 @@ export const seoLandingPages: SeoLandingPage[] = [
     { label: '4.091 jumbo', href: '/products/combined-bearings/winkel-4-091/' },
     { label: 'Combined model directory', href: '/products/combined-bearings/' },
   ]),
+    seoTitle: 'WINKEL Bearing Cross Reference & Replacement Guide',
+    description: 'WINKEL bearing cross reference & replacement support: 4.0xx, PR4.xxx, 4.4xx and jumbo series with dimension review before ordering.',
+    table: {
+      heading: 'WINKEL model cross-reference table',
+      note: 'Model numbers are identification references, not automatic interchangeability. Every replacement is confirmed against dimensions, load, mounting and operating data before quotation.',
+      columns: ['WINKEL reference', 'Series / execution'],
+      rows: [
+        ...['4.053','4.054','4.055','4.056','4.057','4.058','4.059','4.060','4.061','4.062','4.063','4.064'].map((m) => ({ cells: [m, 'Standard fixed axial'], href: `/products/combined-bearings/winkel-${m.replace(/\./g, '-')}/` })),
+        { cells: ['4.039 (JD185-95)', 'Standard fixed axial'], href: '/products/combined-bearings/winkel-4-039-jd185-95/' },
+        ...['PR4.054','PR4.055','PR4.056','PR4.058','PR4.059','PR4.061','PR4.062','PR4.063'].map((m) => ({ cells: [m, 'Precision PR series'], href: `/products/combined-bearings/winkel-${m.toLowerCase().replace(/\./g, '-')}/` })),
+        ...['4.454','4.455','4.456','4.457','4.458','4.459','4.460','4.461','4.462','4.463'].map((m) => ({ cells: [m, 'Eccentric adjustable'], href: `/products/combined-bearings/winkel-${m.replace(/\./g, '-')}/` })),
+        ...['4.085','4.089','4.090','4.091','4.092','4.093','4.094','4.095','4.096'].map((m) => ({ cells: [m, 'Jumbo high-load'], href: `/products/combined-bearings/winkel-${m.replace(/\./g, '-')}/` })),
+      ],
+    },
+  },
   page('bearing-export-shipping-incoterms','Buyer Support','Bearing Export Shipping and Incoterms','Bearing Export Shipping Incoterms','How overseas buyers specify packing, documents and Incoterms when ordering industrial bearings from our Changzhou plant and Shanghai export office.',[
     {heading:'Common export terms',body:'State the preferred Incoterm early so packing, freight and insurance responsibilities are clear before quotation.',bullets:['EXW Changzhou or Shanghai','FOB Shanghai / Ningbo on request','CIF / CFR to destination port','DDP only when agreed in writing']},
     {heading:'Packing and documents',body:'Export packing protects finished bearings in transit. Document scope should match what the buyer actually needs at customs and receiving.',bullets:['Anti-rust oil / VCI and carton or wooden case','Commercial invoice and packing list','Certificate of origin on request','Inspection / marking photos when specified']},
