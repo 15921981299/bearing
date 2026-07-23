@@ -56,6 +56,32 @@ export const seoLandingPages: SeoLandingPage[] = [
     {heading:'Standard model range',body:'The standard 4.053–4.064 family serves forklift masts, lifting columns and material-handling guide systems.',bullets:['Compact fixed geometry','Radial and axial guidance','Matched steel profile selection']},
     {heading:'Replacement review',body:'Cross references from WINKEL, CR, Libe, Alfatec and JD families should be checked against the current drawing.',bullets:['d, D, H, h and B dimensions','Load ratings and speed','Seal and grease execution']},
   ]),
+  {
+    ...page('combined-bearing-types','Bearing Designs','Combined Bearing Types','Combined Bearing Types','Combined bearings carry radial and axial loads in one unit, but the internal construction differs by family. Compare roller-based, needle-thrust and crossed roller designs before specifying a replacement.',[
+    {heading:'Roller-based combined bearings (WINKEL type)',body:'A radial cylindrical roller and an axial roller run inside a mating steel profile. This is the standard design for forklift masts, telescopic columns and heavy linear guide systems, and it is our main supply range.',bullets:['Standard 4.053–4.064 and precision PR4.xxx','Eccentric adjustable 4.454–4.463','Jumbo high-load 4.085 and 4.089–4.096']},
+    {heading:'Needle roller thrust combinations (NAX / NKX type)',body:'These combine a needle radial bearing with a thrust ball or roller bearing in one housed unit for gearboxes and compact transmissions. They are a different family from profile-running combined rollers and are listed here for identification; send the complete marking for an equivalent review.',bullets:['NAX, NKX and NAXI series references','Housed mounting, not profile-running','Thrust direction and lubrication must be confirmed']},
+    {heading:'Crossed roller bearings',body:'Alternating crossed rollers in one raceway carry radial, axial and moment loads with high rigidity. Typical uses are robot joints, harmonic reducers, hollow rotary platforms and precision rotary tables.',bullets:['CSF / SHF harmonic reducer bearings','RB, CRB, RU and mounting-hole types','Accuracy class and preload set by application']},
+    {heading:'How to choose between types',body:'Start from the mounting arrangement, not the load alone. Profile-running combined rollers suit linear guide structures, housed needle-thrust units suit gearbox shafts, and crossed roller bearings suit precision rotation under combined moment loads.',bullets:['Profile-running or housed mounting','Load directions and moment component','Rigidity, accuracy and adjustment requirements']},
+  ], [
+    { label: 'Combined roller bearings', href: '/products/combined-bearings/' },
+    { label: 'WINKEL cross reference', href: '/solutions/winkel-bearing-cross-reference/' },
+    { label: 'Cross roller bearings', href: '/products/cross-roller-bearings/' },
+    { label: 'Combined bearing model directory', href: '/products/combined-bearings/' },
+    { label: 'Request type review', href: '/contact/?source=solution-bearing-types' },
+  ]),
+    seoTitle: 'Combined Bearing Types: Roller, Needle Thrust & Cross Roller',
+    description: 'Compare combined bearing types: WINKEL-type combined roller bearings, NAX/NKX needle roller thrust bearings and crossed roller bearings, with selection guidance.',
+    table: {
+      heading: 'Combined bearing type comparison',
+      note: 'We supply WINKEL-type combined roller bearings and crossed roller bearings. Needle-thrust combinations are listed for identification; send the complete marking for an equivalent review.',
+      columns: ['Type', 'Construction', 'Typical series', 'Typical use'],
+      rows: [
+        { cells: ['Combined roller bearings (WINKEL type)', 'Radial + axial cylindrical rollers, profile-running', '4.053–4.096, PR4.xxx, 4.454–4.463', 'Forklift masts, heavy linear guides'], href: '/products/combined-bearings/' },
+        { cells: ['Needle roller thrust bearings', 'Needle radial + thrust ball or roller, housed unit', 'NAX, NKX, NAXI', 'Gearboxes, compact transmissions'] },
+        { cells: ['Crossed roller bearings', 'Alternating crossed rollers in one raceway', 'RB, CRB, CSF, SHF', 'Robotics, reducers, rotary tables'], href: '/products/cross-roller-bearings/' },
+      ],
+    },
+  },
   page('welded-plate-combined-bearings','Bearing Designs','Welded Plate Combined Bearings','Combined Bearings Welded on Plate','Plate-mounted combined bearings reduce fabrication steps and can be supplied for AP-series or drawing-based assemblies.',[
     {heading:'Plate configurations',body:'The bearing, weld location, plate thickness, holes and datum geometry form one controlled assembly.',bullets:['AP0, AP1, AP2, AP2-LUB, AP2-Q','AP3.1, AP4, AP6 and AP91-Q','Custom laser-cut or machined plates']},
     {heading:'Drawing requirements',body:'Plate assemblies should be quoted from an approved drawing rather than bearing designation alone.',bullets:['Hole pattern and tolerances','Weld specification and distortion control','Coating and corrosion protection']},
