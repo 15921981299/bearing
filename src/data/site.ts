@@ -18,7 +18,7 @@
     height: 234,
   },
   /** Set your GA4 Measurement ID (e.g. G-XXXXXXXX) to enable analytics. Leave empty to disable. */
-  gaMeasurementId: 'G-WFJ59G7FKN',
+  gaMeasurementId: 'G-3N0DBZNNX3',
   /** Paste the content value from Google Search Console HTML verification. Leave empty to skip. */
   googleSiteVerification: 'RqNtSOYc73P2ni6Y1FZl1tsK9INXgsi5qOE2HtyIdIY',
   /** Google Tag Manager container ID (e.g. GTM-XXXXXXX). Leave empty to disable GTM. */
