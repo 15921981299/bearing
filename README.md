@@ -46,13 +46,22 @@ Edit `src/data/site.ts`:
 - Astro 5 (static site generation)
 - TypeScript client scripts
 - `@astrojs/sitemap` for SEO
-- Cloudflare Worker (`cloudflare-worker.js`) for RFQ form submissions via Resend + R2
+- Cloudflare Worker (`cloudflare-worker.js` + `wrangler.jsonc`) for static assets + RFQ form via Resend + R2
+
+### Deploy (Cloudflare Workers)
+
+```bash
+npm run build
+npx wrangler deploy
+```
+
+Or `npm run deploy`. In the Cloudflare dashboard, use build command `npm run build` and deploy command `npx wrangler deploy`, with production branch `main` (not `cloudflare/workers-autoconfig`).
 
 ### Worker secrets
 
-RFQ API is implemented in `functions/api/rfq/index.js` (Cloudflare Pages Function). `cloudflare-worker.js` is a standalone equivalent for separate Worker deploys.
+RFQ API is implemented in `cloudflare-worker.js` (Workers + Assets). `functions/api/rfq/index.js` is a Pages Functions equivalent if you deploy as Cloudflare Pages instead.
 
-Set these secrets/bindings on Cloudflare Pages:
+Set these secrets/bindings on Cloudflare:
 
 - `RESEND_API_KEY` — Resend API bearer token
 - `R2_BUCKET` — R2 bucket binding for drawing uploads

@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/create-worker-entry.mjs",
+    "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && wrangler deploy",
     "check": "astro check",
     "check:links": "node scripts/check-internal-links.mjs",
     "audit:encoding": "node scripts/audit-encoding.mjs",
@@ -23,6 +24,7 @@
     "@astrojs/sitemap": "^3.6.1",
     "exceljs": "^4.4.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "wrangler": "^4.114.0"
   }
 }
