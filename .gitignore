@@ -30,3 +30,9 @@ docs/*
 .roo/
 .trae/
 .windsurf/
+
+# wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
