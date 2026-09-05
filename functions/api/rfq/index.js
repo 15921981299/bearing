@@ -102,13 +102,13 @@ export async function onRequest(context) {
     if (!resendKey) {
       console.error('RESEND_API_KEY not configured');
       return new Response(
-        JSON.stringify({ ok: false, message: 'Email service not configured. Please email us at charles@combinedbearingsource.com' }),
+        JSON.stringify({ ok: false, message: 'Email service not configured. Please email us at sales@combinedbearingsource.com' }),
         { status: 503, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
     await sendResendEmail(resendKey, {
-      to: 'charles@combinedbearingsource.com',
+      to: 'sales@combinedbearingsource.com',
       subject: `New RFQ: ${name} — ${material} / ${quantity}`,
       text: emailBody,
     });
@@ -119,7 +119,7 @@ export async function onRequest(context) {
           to: email,
           subject: 'We received your industrial bearing inquiry — Combined Bearing Source',
           text: buildCustomerAutoReply({ name, siteUrl: SITE_URL }),
-          replyTo: 'charles@combinedbearingsource.com',
+          replyTo: 'sales@combinedbearingsource.com',
         });
       } catch (autoReplyErr) {
         console.error('Customer auto-reply failed:', autoReplyErr.message);
@@ -166,7 +166,7 @@ export async function onRequest(context) {
     });
   } catch (err) {
     console.error('RFQ Error:', err.message);
-    return new Response(JSON.stringify({ ok: false, message: 'Something went wrong. Please email us at charles@combinedbearingsource.com' }), {
+    return new Response(JSON.stringify({ ok: false, message: 'Something went wrong. Please email us at sales@combinedbearingsource.com' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });

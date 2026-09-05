@@ -111,7 +111,7 @@ export default {
       const resendKey = env.RESEND_API_KEY;
       if (!resendKey) {
         console.error('RESEND_API_KEY not configured');
-        return new Response(JSON.stringify({ ok: false, message: 'Email service not configured. Please email us at charles@combinedbearingsource.com' }), {
+        return new Response(JSON.stringify({ ok: false, message: 'Email service not configured. Please email us at sales@combinedbearingsource.com' }), {
           status: 503,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         });
@@ -125,7 +125,7 @@ export default {
         },
         body: JSON.stringify({
           from: 'Combined Bearing Source <rfq@combinedbearingsource.com>',
-          to: 'charles@combinedbearingsource.com',
+          to: 'sales@combinedbearingsource.com',
           subject: `New RFQ: ${name} - ${material} / ${quantity}`,
           text: emailBody,
         }),
@@ -149,7 +149,7 @@ export default {
           '- Combined bearing models: https://combinedbearingsource.com/products/combined-bearings/',
           '- Bearing products catalog: https://combinedbearingsource.com/products/',
           '',
-          'Questions before we reply? Email charles@combinedbearingsource.com - we respond within one business day.',
+          'Questions before we reply? Email sales@combinedbearingsource.com - we respond within one business day.',
           '',
           'Best regards,',
           'Combined Bearing Source Parts Team',
@@ -164,7 +164,7 @@ export default {
           body: JSON.stringify({
             from: 'Combined Bearing Source <rfq@combinedbearingsource.com>',
             to: email,
-            reply_to: 'charles@combinedbearingsource.com',
+            reply_to: 'sales@combinedbearingsource.com',
             subject: 'We received your industrial bearing inquiry - Combined Bearing Source',
             text: autoReplyBody,
           }),
@@ -179,7 +179,7 @@ export default {
 
     } catch (err) {
       console.error('RFQ Error:', err.message);
-      return new Response(JSON.stringify({ ok: false, message: 'Something went wrong. Please email us at charles@combinedbearingsource.com' }), {
+      return new Response(JSON.stringify({ ok: false, message: 'Something went wrong. Please email us at sales@combinedbearingsource.com' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });

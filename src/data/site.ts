@@ -5,7 +5,7 @@
     legalNameEn: 'Combined Bearing Source',
   },
   url: 'https://combinedbearingsource.com',
-  email: 'charles@combinedbearingsource.com',
+  email: 'sales@combinedbearingsource.com',
   phone: '+862133282711',
   whatsapp: '+8618018620661',
   tagline: 'Factory-Direct Industrial Bearings | OEM & Custom',
