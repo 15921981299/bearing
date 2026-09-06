@@ -6,8 +6,8 @@
   },
   url: 'https://combinedbearingsource.com',
   email: 'sales@combinedbearingsource.com',
-  phone: '+862133282711',
-  whatsapp: '+8618018620661',
+  phone: '15921981299',
+  whatsapp: '15921981299',
   tagline: 'Factory-Direct Industrial Bearings | OEM & Custom',
   logo: {
     default: '/logo-640.webp',
@@ -463,4 +463,11 @@ export function personProfileSchema(person: {
       },
     },
   };
+}
+
+/** Digits for wa.me links (adds China country code for 11-digit mobile numbers). */
+export function whatsappLinkNumber(number: string): string {
+  const digits = number.replace(/\D/g, '');
+  if (digits.length === 11 && digits.startsWith('1')) return `86${digits}`;
+  return digits;
 }

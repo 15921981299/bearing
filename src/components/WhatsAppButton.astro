@@ -1,7 +1,7 @@
 ---
-import { site } from '../data/site';
+import { site, whatsappLinkNumber } from '../data/site';
 
-const whatsappNumber = site.whatsapp.replace(/\D/g, '');
+const whatsappNumber = whatsappLinkNumber(site.whatsapp);
 const message = encodeURIComponent("Hi, I'd like to check availability for industrial bearings. I can send the bearing model, quantity, and a photo.");
 ---
 
