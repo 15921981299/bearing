@@ -46,7 +46,7 @@ Edit `src/data/site.ts`:
 - Astro 5 (static site generation)
 - TypeScript client scripts
 - `@astrojs/sitemap` for SEO
-- Cloudflare Worker (`cloudflare-worker.js` + `wrangler.jsonc`) for static assets + RFQ form via Resend + R2
+- Cloudflare Worker (`cloudflare-worker.js` + `wrangler.jsonc`) for static assets + RFQ form via Zoho SMTP + R2
 
 ### Deploy (Cloudflare Workers)
 
@@ -59,9 +59,16 @@ Or `npm run deploy`. In the Cloudflare dashboard, use build command `npm run bui
 
 ### Worker secrets
 
-RFQ API is implemented in `cloudflare-worker.js` (Workers + Assets). `functions/api/rfq/index.js` is a Pages Functions equivalent if you deploy as Cloudflare Pages instead.
+RFQ API is implemented in `cloudflare-worker.js` (Workers + Assets) and sends
+inquiries through Zoho SMTP. The legacy `functions/` directory is not used by
+the production Worker deployment.
 
 Set these secrets/bindings on Cloudflare:
 
-- `RESEND_API_KEY` — Resend API bearer token
-- `R2_BUCKET` — R2 bucket binding for drawing uploads
+- `ZOHO_SMTP_PASS` — Zoho app password for `sales@combinedbearingsource.com`
+- `RFQ_DOWNLOAD_SECRET` — HMAC secret for private 7-day drawing download links
+- `R2_BUCKET` — R2 bucket binding for drawing uploads (`bearing-rfq-uploads`, declared in `wrangler.jsonc`)
+
+Email is sent via Zoho SMTP from `sales@combinedbearingsource.com`. The SMTP host
+and port are declared in `wrangler.jsonc` (`smtppro.zoho.com:465`). Create the R2
+bucket named `bearing-rfq-uploads` if it does not already exist.
