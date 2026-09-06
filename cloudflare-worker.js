@@ -126,6 +126,7 @@ export default {
       const email = fd.get('email')?.toString() || '(not provided)';
       const company = fd.get('company')?.toString() || '-';
       const phone = fd.get('phone')?.toString() || '-';
+      const country = fd.get('country')?.toString() || '-';
       const material = fd.get('material')?.toString() || '-';
       const quantity = fd.get('quantity')?.toString() || '-';
       const message = fd.get('message')?.toString() || '-';
@@ -164,6 +165,7 @@ export default {
         `Email:    ${email}`,
         `Company:  ${company}`,
         `Phone:    ${phone}`,
+        `Country:  ${country}`,
         `Role:     ${role}`,
         `Material: ${material}`,
         `Quantity: ${quantity}`,
