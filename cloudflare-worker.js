@@ -143,17 +143,22 @@ export default {
         const key = `rfq/${Date.now()}_${drawing.name}`;
 
         if (env.R2_BUCKET) {
-          await env.R2_BUCKET.put(key, drawing.stream(), {
-            httpMetadata: { contentType: drawing.type || 'application/octet-stream' },
-            customMetadata: { originalFilename: drawing.name, retentionClass: 'rfq-private' },
-          });
-          if (env.RFQ_DOWNLOAD_SECRET) {
-            const downloadUrl = await createDownloadUrl(request, key, env.RFQ_DOWNLOAD_SECRET);
-            drawingInfo = `${drawing.name} (${fileSizeKB} KB)\nPrivate download (valid for 7 days): ${downloadUrl}`;
-          } else {
-            drawingInfo = `${drawing.name} (${fileSizeKB} KB) [private download not configured]`;
+          try {
+            await env.R2_BUCKET.put(key, drawing.stream(), {
+              httpMetadata: { contentType: drawing.type || 'application/octet-stream' },
+              customMetadata: { originalFilename: drawing.name, retentionClass: 'rfq-private' },
+            });
+            if (env.RFQ_DOWNLOAD_SECRET) {
+              const downloadUrl = await createDownloadUrl(request, key, env.RFQ_DOWNLOAD_SECRET);
+              drawingInfo = `${drawing.name} (${fileSizeKB} KB)\nPrivate download (valid for 7 days): ${downloadUrl}`;
+            } else {
+              drawingInfo = `${drawing.name} (${fileSizeKB} KB) [private download not configured]`;
+            }
+            console.log(`File stored: ${key} (${fileSizeKB} KB)`);
+          } catch (storageErr) {
+            drawingInfo = `${drawing.name} (${fileSizeKB} KB) [file storage failed - email still sent]`;
+            console.error('R2 storage failed, continuing without file:', storageErr.message);
           }
-          console.log(`File stored: ${key} (${fileSizeKB} KB)`);
         } else {
           drawingInfo = `${drawing.name} (${fileSizeKB} KB) [R2 not configured]`;
           console.log('R2 not bound - file not stored');
