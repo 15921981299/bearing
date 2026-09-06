@@ -4,7 +4,7 @@ import BreadcrumbHero from '../components/BreadcrumbHero.astro';
 import FaqSection from '../components/FaqSection.astro';
 import FunnelPageView from '../components/FunnelPageView.astro';
 import { faqs } from '../data/faqs';
-import { breadcrumbSchema, faqSchema, site } from '../data/site';
+import { breadcrumbSchema, faqSchema, site, whatsappLinkNumber } from '../data/site';
 const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 ---
 <BaseLayout title="Industrial Bearing Inquiry | Contact" description="Request combined bearings, track rollers or custom rollers. Send the model, dimensions, drawing, quantity and delivery country for review." currentPath="/contact" hideFloatingCta jsonLd={[breadcrumbSchema([{name:'Home',url:site.url},{name:'Bearing Inquiry',url:`${site.url}/contact/`}]),faqSchema(faqs.map(f=>({question:f.question,answer:f.answer})))]}>
@@ -29,7 +29,7 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   </div></div></div></section>
   <section class="contact-info-section"><div class="section-gap bottom"><div class="container"><div class="contact-info-grid">
     <div class="contact-info-card"><h2>Email</h2><a href={`mailto:${site.email}`}>{site.email}</a></div>
-    <div class="contact-info-card"><h2>WhatsApp</h2><a href={`https://wa.me/${site.whatsapp.replace(/\D/g, '')}`}>{site.whatsapp}</a></div>
+    <div class="contact-info-card"><h2>WhatsApp</h2><a href={`https://wa.me/${whatsappLinkNumber(site.whatsapp)}`}>{site.whatsapp}</a></div>
     <div class="contact-info-card"><h2>Phone</h2><a href={`tel:${site.phone}`}>{site.phone}</a></div>
     <div class="contact-info-card"><h2>Manufacturing Plant</h2><p>{site.locations.plant.name}<br />{site.locations.plant.streetAddress}<br />{site.locations.plant.addressLocality}, {site.locations.plant.addressRegion} {site.locations.plant.postalCode}</p></div>
     <div class="contact-info-card"><h2>Export Office</h2><p>{site.locations.exportOffice.name}<br />{site.locations.exportOffice.streetAddress}<br />{site.locations.exportOffice.addressLocality}, China</p></div>
