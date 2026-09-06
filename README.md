@@ -60,8 +60,7 @@ Or `npm run deploy`. In the Cloudflare dashboard, use build command `npm run bui
 ### Worker secrets
 
 RFQ API is implemented in `cloudflare-worker.js` (Workers + Assets) and sends
-inquiries through Zoho SMTP. The legacy `functions/` directory is not used by
-the production Worker deployment.
+inquiries through Zoho SMTP.
 
 Set these secrets/bindings on Cloudflare:
 
