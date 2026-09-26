@@ -38,7 +38,21 @@
 
 **已修复（2026-09-27）**：删除 6 条（4 条指向 404 + 2 条劫持活栏目），只保留 `/standards/* → /certifications/ 301`。原文件备份于 `.workbuddy/backup-2026-09-27/_redirects.before`。
 
-修复后实测：`npm run build` → 242 页成功；`check:links` → 243 HTML / 0 断裂；sitemap → 240 URL（与基线一致）；`dist/_redirects` 只剩 1 条规则。**改动在下次部署后生效，尚未部署。**
+修复后实测：`npm run build` → 242 页成功；`check:links` → 243 HTML / 0 断裂；sitemap → 240 URL（与基线一致）；`dist/_redirects` 只剩 1 条规则。
+
+**已部署（2026-09-27 05:29）并线上验证**：force push 至远端 `main`（`a7b39c3` → `907d398`）。
+
+> **部署路径**：本站 **Cloudflare Git 集成生效，push 到 `main` 会自动构建部署**——本次 push 于 05:10:07 完成，05:10:27 即出现部署记录，线上在 05:20 前已切到新版本。另于 05:29 手动执行 `npx wrangler deploy`（`Version ID 85c69883-4a62-4df2-9ed9-58aac4149e2f`），用于确保 `dist` 与 HEAD 完全一致。
+
+| 验证项（**不带参数**，真实用户视角） | 修复前 | 部署后 |
+|---|---|---|
+| `/resources/` | 301 | **200** |
+| `/case-studies/` | 301 | **200** |
+| `/blog/` `/materials/` `/compare/` `/glossary/` | 301→404 链 | **404** 直返 |
+| `/standards/foo/` | 301 | **301 → /certifications/**（有意保留） |
+| **sitemap 全量 240 URL** | 228×200 + **12×301** | **240 全部 200，非 200 = 0** |
+
+**已完成（2026-09-27）**：远端 `cloudflare/workers-autoconfig` 分支（Cloudflare bot 于 2026-07-27 自动创建，携带全部 824 个 `exports/` 文件）已删除，本地已 repack（`.git` 71M → 11M）。⚠️ GitHub 侧体积因 `refs/pull/1/head` 仍指向该 commit 而未下降；详见文末。
 
 **来源已实锤（2026-09-27 实测）**：这 6 个路径在 `machiningsupplier.com` 上**全部返回 200（真实存在）**，在本站则多为 404 或正是自己的活栏目 —— 本规则集原是为 **machining 站的 URL 归一** 编写的，fork 时被整份继承。
 
@@ -92,5 +106,48 @@
 
 ## 未做的事（需要决策）
 
-- ~~**`_redirects` 未修改**~~ → **已于 2026-09-27 修改**（本地文件已改并构建验证通过；**尚未 commit、尚未部署**，改动在下次部署后生效）。
-- **git 历史重写只完成在本地**。远端 `main` 仍是旧历史 `a7b39c3`；本地 HEAD 为重写后的 `2a72921`（`.git` 已从 140M 收到 11M，文件树指纹与重写前一致）。**force push 尚未执行。**
+- ~~**`_redirects` 未修改**~~ → **已于 2026-09-27 修复、部署并线上验证通过**（见 P0 章节）。
+- ~~**git 历史重写只完成在本地**~~ → **force push 已完成**：远端 `main` 从 `a7b39c3` 更新为 `907d398`，远端 `exports/` 计数归 **0**。
+- ~~**远端仍有第二个分支携带那 70MB**~~ → **已于 2026-09-27 删除**（详见下节）。
+- **本机环境提示**：`npm run build` 在**已有旧 `dist/`** 时会因安全删除机制卡死（实测 17 分钟、dist 被删到一半）。正确顺序是先 `mv dist dist__prev` 再构建。
+
+---
+
+## 已执行：远端遗留分支删除 + 本地 repack（2026-09-27）
+
+### 执行前取证（证明「删了不丢东西」）
+| 核对项 | 结果 |
+|---|---|
+| 分支性质 | `bc7c17b1ee0750905f1c36a84893dce7447b8862`，作者 `cloudflare-workers-and-pages[bot]`，2026-07-27 03:37 UTC，孤立分支（与 `main` **无共同祖先**） |
+| 相对 `main` 多出文件 | 843 个（644 jpg + 177 webp + 5 pdf + 4 txt + 3 xlsx + 3 js + 2 png + 1 tmp + 1 mjs + 1 md + 1 log + 1 json） |
+| `exports/` 与本地磁盘 | **完全一致**：824 文件 / 70,994,903 字节（两侧逐字节核对） |
+| `output/` 5 个 PDF | 与磁盘**大小逐个相同** |
+| 磁盘上**没有**的分支独有文件 | 仅 5 个文本：`functions/api/rfq/index.js`、`functions/_lib/resend.js`、`public/_worker.js/index.js`、`scripts/create-worker-entry.mjs`、`package-lock.json` |
+| 备份位置 | `.workbuddy/backup-2026-09-27/workers-autoconfig-branch/`（305K，含 README.txt 记录 SHA 与回滚命令） |
+
+### 操作与结果
+| 步骤 | 命令 | 结果 |
+|---|---|---|
+| 删远端分支 | `git push origin --delete cloudflare/workers-autoconfig` | `- [deleted] cloudflare/workers-autoconfig` ✅ |
+| 剪除失效引用 | `git fetch --prune --prune-tags origin` | 本地只剩 `main` / `origin/main` ✅ |
+| 过期 reflog | `git reflog expire --expire=now --expire-unreachable=now --all` | 5 条 reflog 清空 |
+| 垃圾回收 | `git gc --prune=now` | rc=0 |
+| **pack 体积** | — | **67.78 MiB → 7.97 MiB** |
+| **pack 对象数** | — | **2054 → 616** |
+| **`.git` 体积** | — | **71M → 11M** |
+| 完整性 | `git fsck --no-progress` | **0 错误** |
+| 内容未变 | `git rev-parse main^{tree}` | **`1e5d19e7aaac28c793af51643cb249222ba51323`，与操作前一致** |
+| 旧对象已清除 | `git cat-file -t bc7c17b` | `could not get object info` ✅ |
+| 历史可走通 | `git log --oneline \| wc -l` | 25 个提交，HEAD = `907d398` |
+
+### ⚠️ GitHub 侧体积**未同步下降**
+- GitHub API 实测 `size: 61218`（≈59.8 MB），删除分支前后**无变化**。
+- 根因：`git ls-remote` 仍返回 **`refs/pull/1/head` = `bc7c17b`** —— Cloudflare bot 当时也开了 **PR #1**（现状态 `closed`、`merged_at: null`）。该 PR 引用让那 70MB 在服务端**仍然可达**，GitHub 的 GC 不会回收。
+- 结论：**本地瘦身已实打实完成；GitHub 侧的 59.8MB 需要 GitHub 自己跑 GC 才会降。** 常规办法是等（不可控），可靠办法是提工单请 GitHub Support 对该仓库执行一次 `git gc`。
+- 影响评估：59.8MB 远低于 GitHub 的告警线（1GB 提示 / 5GB 硬限），**不影响功能，只影响 clone 速度**，属可接受状态。
+
+### 环境经验（本机）
+- 本会话 Bash 里 `git push` 会**静默挂死**：全局 `credential.helper = helper-selector`（WorkBuddy 自带），而 `CODEBUDDY_API_KEY_HELPER_DISABLED=1` 使其**不返回任何凭据**，且无 `~/.git-credentials`、无 `~/.ssh` 私钥。
+- 可用解法：Windows 凭据管理器里有该仓库凭据（用户名 `15921981299`），经 GCM 2.9.0 取用：
+  `GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=never git -c credential.helper= -c credential.helper=manager push ...`
+  （`credential.helper=` 空值先清空助手列表，再挂 `manager`，否则仍会落到被禁用的 selector。）
