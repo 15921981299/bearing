@@ -36,3 +36,22 @@ docs/*
 .dev.vars
 .dev.vars.*
 !.dev.vars.example
+
+# Env template must stay committed so clones know which vars to set.
+!.env.example
+
+# Generated / local-only artefacts — NOT needed by `astro build` or `wrangler deploy`.
+# exports/ is the output dir of scripts/export-site-pages-xlsx.mjs; output/ is a
+# staging copy of public/downloads/*.pdf; tmp/ holds local screenshots.
+exports/
+output/
+tmp/
+
+# Wrong-project leftovers from the engine (MTU) site, kept locally only.
+_legacy-engine/
+
+# Build logs
+*.build.log
+
+# Local agent workspace (session memory + backups)
+.workbuddy/

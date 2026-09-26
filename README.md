@@ -1,73 +1,138 @@
 # Combined Bearing Source
 
-Combined bearing and track roller supplier website built with [Astro](https://astro.build). Live site: [combinedbearingsource.com](https://combinedbearingsource.com).
+Supplier website for combined bearings, track rollers, full-complement cylindrical roller
+bearings, back-up rollers, cross roller bearings and Standard NbV steel profiles.
 
-## Setup
+- **Live site**: [combinedbearingsource.com](https://combinedbearingsource.com)
+- **Stack**: Astro 5 (static site generation) + TypeScript client scripts
+- **Hosting**: Cloudflare Workers (Workers + Assets), RFQ API via Zoho SMTP, drawings in R2
+
+A production build emits **243 static pages** (~22 MB), roughly 168 of which are
+data-driven bearing model pages.
+
+## Requirements
+
+- Node.js 20 or newer
+- pnpm 10.11.1 — pinned via `packageManager` in `package.json`
+
+> **Known inconsistency**: the project is pinned to pnpm (`pnpm-lock.yaml`, no
+> `package-lock.json`), but the npm scripts and the Cloudflare build command use `npm run`.
+> Both work; normalising on one of them is a pending cleanup.
+
+## Quick start
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev          # http://localhost:4321
 ```
 
-Open [http://localhost:4321](http://localhost:4321).
+## Scripts
 
-## Build
-
-```bash
-npm run check
-npm run build
-npm run preview
-```
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Astro dev server on port 4321 |
+| `pnpm build` | Static build into `dist/` — run this before deploying |
+| `pnpm preview` | Serve the built `dist/` locally |
+| `pnpm check` | `astro check` — type and template diagnostics |
+| `pnpm check:links` | Validate every internal link across the built HTML. **Requires `dist/` to exist first.** |
+| `pnpm audit:encoding` | Scan source files for mojibake / bad encoding |
+| `pnpm optimize:images` | Image optimisation pass |
+| `pnpm format` / `pnpm format:check` | Prettier write / check |
+| `pnpm deploy` | `pnpm build` then `npx wrangler deploy` |
 
 ## Site structure
 
-| Path | Description |
-|------|-------------|
-| `/` | Homepage |
-| `/capabilities/` | Engine parts support capabilities |
-| `/materials/` | Engine parts reference materials |
-| `/industries/` | Industry applications |
-| `/case-studies/` | Project case studies |
-| `/blog/` | Technical articles |
-| `/about/` | About us |
-| `/contact/` | Parts inquiry form (Cloudflare Worker `/api/rfq`) |
-| `/thank-you/` | Post-submission confirmation |
+Static routes, all with trailing slashes (`trailingSlash: 'always'`):
 
-## Configuration
+| Path | Source | Description |
+|---|---|---|
+| `/` | `src/pages/index.astro` | Homepage |
+| `/products/` | `src/pages/products/index.astro` | Product family hub |
+| `/products/<family>/` | `src/pages/products/[slug].astro` | One page per family, generated from `src/data/products.ts` |
+| `/products/<family>/<model>` | `src/pages/products/<family>/[model].astro` | Model detail pages — 6 dynamic route folders |
+| `/products/combined-bearing-series/` | `src/pages/products/combined-bearing-series/` | Series hub + `[slug]` detail pages |
+| `/solutions/` | `src/pages/solutions/` | Application / cross-reference guides |
+| `/case-studies/` | `src/pages/case-studies/` | Customer case studies |
+| `/resources/` | `src/pages/resources/` | Technical resource library |
+| `/downloads/` | `src/pages/downloads/index.astro` | PDF catalogue downloads (files live in `public/downloads/`) |
+| `/certifications/` | `src/pages/certifications.astro` | Quality and certification evidence |
+| `/about/` | `src/pages/about.astro` | Company profile |
+| `/contact/` | `src/pages/contact.astro` | Parts inquiry form, posts to Worker `/api/rfq` |
+| `/thank-you/` | `src/pages/thank-you.astro` | Post-submission confirmation |
+| `/privacy/` | `src/pages/privacy.astro` | Privacy policy |
+| `/sitemap/` | `src/pages/sitemap.astro` | Human-readable sitemap page |
 
-Edit `src/data/site.ts`:
+`@astrojs/sitemap` additionally generates `/sitemap-index.xml` → `/sitemap-0.xml`.
+Exclusions are configured in `src/data/sitemap-exclude.ts` (`/401/`, `/404/`, `/thank-you/`).
 
-- `gaMeasurementId` — Google Analytics 4 (leave empty to disable)
-- `googleSiteVerification` — GSC HTML verification content value (leave empty to skip)
-- `social.linkedin` / `social.youtube` — footer social links (leave empty to hide)
+## Where content lives
 
-## Stack
+Almost all page copy is data-driven — edit these instead of the page templates:
 
-- Astro 5 (static site generation)
-- TypeScript client scripts
-- `@astrojs/sitemap` for SEO
-- Cloudflare Worker (`cloudflare-worker.js` + `wrangler.jsonc`) for static assets + RFQ form via Zoho SMTP + R2
+| File | Contents |
+|---|---|
+| `src/data/site.ts` | Company info, contacts, GA4 / GSC / GTM IDs, social links, JSON-LD schema builders |
+| `src/data/products.ts` | The 7 product families: titles, summaries, series groups, selection checks, body copy |
+| `src/data/combined-bearing-models.ts` | Combined bearing model pages (59 slugs) |
+| `src/data/extended-bearing-models.ts` | Track roller / SL-series model pages (98 slugs) |
+| `src/data/special-combined-series.ts` | Special combined series pages (11 slugs) |
+| `src/data/seo-landing-pages.ts` | SEO landing page definitions |
+| `src/data/technical-references.ts` | Technical reference tables |
+| `src/data/factory-evidence.ts` | Factory capability and inspection evidence |
+| `src/data/downloads.ts` | Downloadable PDF catalogue entries |
+| `src/data/resources.ts` / `faqs.ts` / `page-faqs.ts` | Resource library and FAQ sets |
 
-### Deploy (Cloudflare Workers)
+## Deployment (Cloudflare Workers)
 
 ```bash
-npm run build
+pnpm build
 npx wrangler deploy
 ```
 
-Or `npm run deploy`. In the Cloudflare dashboard, use build command `npm run build` and deploy command `npx wrangler deploy`, with production branch `main` (not `cloudflare/workers-autoconfig`).
+`wrangler.jsonc` declares:
+
+- `main`: `cloudflare-worker.js`
+- `assets.directory`: `./dist`
+- `r2_buckets`: binding `R2_BUCKET` → bucket `bearing-rfq-uploads`
+- `vars`: `ZOHO_SMTP_USER` / `ZOHO_SMTP_HOST` (`smtppro.zoho.com`) / `ZOHO_SMTP_PORT` (`465`)
+
+In the Cloudflare dashboard use build command `npm run build`, deploy command
+`npx wrangler deploy`, and production branch `main` (not `cloudflare/workers-autoconfig`).
 
 ### Worker secrets
 
-RFQ API is implemented in `cloudflare-worker.js` (Workers + Assets) and sends
-inquiries through Zoho SMTP.
+Set these in the Cloudflare dashboard — never commit them:
 
-Set these secrets/bindings on Cloudflare:
+| Secret | Purpose |
+|---|---|
+| `ZOHO_SMTP_PASS` | Zoho app password for `sales@combinedbearingsource.com` |
+| `RFQ_DOWNLOAD_SECRET` | HMAC secret for the 7-day private drawing download links |
+| `R2_BUCKET` | R2 binding for drawing uploads (declared in `wrangler.jsonc`) |
 
-- `ZOHO_SMTP_PASS` — Zoho app password for `sales@combinedbearingsource.com`
-- `RFQ_DOWNLOAD_SECRET` — HMAC secret for private 7-day drawing download links
-- `R2_BUCKET` — R2 bucket binding for drawing uploads (`bearing-rfq-uploads`, declared in `wrangler.jsonc`)
+> **Do not delete or rename `zoho-smtp.js`.** `cloudflare-worker.js` imports
+> `SALES_EMAIL`, `isZohoSmtpConfigured` and `sendZohoEmail` from it on line 1 — it is a
+> runtime dependency of the deployed Worker, not a scratch file.
 
-Email is sent via Zoho SMTP from `sales@combinedbearingsource.com`. The SMTP host
-and port are declared in `wrangler.jsonc` (`smtppro.zoho.com:465`). Create the R2
-bucket named `bearing-rfq-uploads` if it does not already exist.
+The RFQ flow: `/contact/` form → `POST /api/rfq` → email sent over Zoho SMTP
+(port 465, implicit TLS) → drawing stored in R2 → signed 7-day download link
+returned to the sales inbox.
+
+## Local-only directories (not tracked in git)
+
+These are generated or scratch, excluded via `.gitignore` — they are safe to delete
+at any time and are **not** needed by `astro build` or `wrangler deploy`:
+
+| Directory | Why it exists |
+|---|---|
+| `exports/` | Output of `scripts/export-site-pages-xlsx.mjs` and image-processing backups |
+| `output/pdf/` | Staging copies of the PDFs that are published from `public/downloads/` |
+| `tmp/` | Local screenshots and scratch files |
+| `_legacy-engine/` | Leftovers from the engine (MTU) site this repo was forked from — kept locally for reference only |
+
+## Environment variables
+
+Copy `.env.example` to `.env` (both are gitignored except the example). All are optional:
+
+- `PUBLIC_LINKEDIN_URL` — company LinkedIn; also feeds Organization schema `sameAs`
+- `PUBLIC_AUTHOR_WEI_CHEN_LINKEDIN`, `PUBLIC_AUTHOR_LISA_HUANG_LINKEDIN` — author `sameAs`
+- `KEYWORDS_EVERYWHERE_API_KEY`, `KEYWORDS_EVERYWHERE_COUNTRY`, `KEYWORDS_EVERYWHERE_CURRENCY` — keyword export scripts
