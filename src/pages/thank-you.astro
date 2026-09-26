@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import BreadcrumbHero from '../components/BreadcrumbHero.astro';
-import { site } from '../data/site';
-import '../styles/resource-page.css';
-import '../styles/utility-page.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../components/BreadcrumbHero.astro";
+import { site } from "../data/site";
+import "../styles/resource-page.css";
+import "../styles/utility-page.css";
 ---
 
 <BaseLayout
@@ -13,15 +13,25 @@ import '../styles/utility-page.css';
   hideFloatingCta
   noindex
 >
-  <BreadcrumbHero title="Thank You!" current="Quote Received" variant="5" />
+  <BreadcrumbHero
+    title="Thank You!"
+    trail={[{ label: "Home", href: "/" }, { label: "Quote Received" }]}
+    variant="5"
+  />
 
   <section class="blog-details-section utility-section">
     <div class="section-gap bottom">
       <div class="container">
         <article class="blog-details-content-block resource-page fade-in utility-card">
           <h2>We've Received Your Request</h2>
-          <p>Our parts team will review your bearing model, dimensions, quantity, and delivery needs, then reply with availability or next questions.</p>
-          <p>Questions in the meantime? Email us at <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+          <p>
+            Our parts team will review your bearing model, dimensions, quantity,
+            and delivery needs, then reply with availability or next questions.
+          </p>
+          <p>
+            Questions in the meantime? Email us at{" "}
+            <a href={`mailto:${site.email}`}>{site.email}</a>.
+          </p>
 
           <div class="utility-actions">
             <a href="/certifications/" class="primary-button dark-hover">
@@ -39,9 +49,15 @@ import '../styles/utility-page.css';
           </div>
 
           <nav class="utility-pill-nav" aria-label="While you wait">
-            <a href="/products/" class="utility-pill-link">bearing models</a>
-            <a href="/products/combined-bearings/" class="utility-pill-link">industrial bearing spare parts</a>
-            <a href="/privacy/" class="utility-pill-link">Payment terms</a>
+            <a href="/products/" class="utility-pill-link">
+              bearing models
+            </a>
+            <a href="/products/combined-bearings/" class="utility-pill-link">
+              industrial bearing spare parts
+            </a>
+            <a href="/privacy/" class="utility-pill-link">
+              Payment terms
+            </a>
           </nav>
         </article>
       </div>
@@ -50,17 +66,17 @@ import '../styles/utility-page.css';
 </BaseLayout>
 
 <script>
-  import { getAttributionSnapshot } from '../scripts/attribution';
+  import { getAttributionSnapshot } from "../scripts/attribution";
 
   const params = new URLSearchParams(window.location.search);
-  const source = params.get('source') ?? 'contact';
+  const source = params.get("source") ?? "contact";
   const dedupeKey = `lead_tracked:${source}`;
   const attribution = getAttributionSnapshot();
 
-  if (typeof window.gtag === 'function' && !sessionStorage.getItem(dedupeKey)) {
-    sessionStorage.setItem(dedupeKey, '1');
-    window.gtag('event', 'generate_lead', {
-      event_category: 'RFQ',
+  if (typeof window.gtag === "function" && !sessionStorage.getItem(dedupeKey)) {
+    sessionStorage.setItem(dedupeKey, "1");
+    window.gtag("event", "generate_lead", {
+      event_category: "RFQ",
       event_label: source,
       ...(attribution
         ? {
@@ -72,6 +88,3 @@ import '../styles/utility-page.css';
     });
   }
 </script>
-
-
-

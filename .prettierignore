@@ -1,0 +1,20 @@
+# Build output
+dist/
+dist__prev/
+node_modules/
+
+# Generated / scratch directories (also in .gitignore)
+exports/
+output/
+tmp/
+_legacy-engine/
+.workbuddy/
+
+# Audit reports are prose tables — reformatting them only creates noise
+seo-reports/
+
+# Lockfile is managed by pnpm
+pnpm-lock.yaml
+
+# Google site-verification file must stay byte-exact (no trailing newline)
+public/googleda4ae22dea72275b.html

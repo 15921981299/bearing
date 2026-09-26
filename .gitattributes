@@ -1,0 +1,20 @@
+# Normalise line endings: LF in the repository *and* in the working tree.
+#
+# Windows has core.autocrlf=true globally. Without this file git would rewrite
+# the working tree to CRLF on checkout, while Prettier (endOfLine: lf) writes LF —
+# the two would fight and `format:check` would flip between pass and fail.
+* text=auto eol=lf
+
+# Binaries — never convert
+*.pdf  binary
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.webp binary
+*.avif binary
+*.gif  binary
+*.ico  binary
+*.xlsx binary
+*.zip  binary
+*.woff binary
+*.woff2 binary

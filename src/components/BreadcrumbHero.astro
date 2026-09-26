@@ -6,29 +6,20 @@ export interface BreadcrumbItem {
 
 interface Props {
   title: string;
-  /** @deprecated Use `trail` for multi-level breadcrumbs. */
-  current?: string;
   trail?: BreadcrumbItem[];
-  variant?: '1' | '2' | '3' | '5';
+  variant?: "1" | "2" | "3" | "5";
   image?: string;
 }
 
-const { title, current, trail, variant = '1', image } = Astro.props;
+const { title, trail, variant = "1", image } = Astro.props;
 
-const items: BreadcrumbItem[] =
-  trail ??
-  (current
-    ? [
-        { label: 'Home', href: '/' },
-        { label: current },
-      ]
-    : [{ label: 'Home', href: '/' }]);
+const items: BreadcrumbItem[] = trail ?? [{ label: "Home", href: "/" }];
 
 const bgMap: Record<string, string> = {
-  '1': '/images/industrial-bearing-hero.webp',
-  '2': '/images/industrial-bearing-product-range.webp',
-  '3': '/images/bearing-dimensional-inspection.webp',
-  '5': '/images/bearing-export-packaging.webp',
+  "1": "/images/industrial-bearing-hero.webp",
+  "2": "/images/industrial-bearing-product-range.webp",
+  "3": "/images/bearing-dimensional-inspection.webp",
+  "5": "/images/bearing-export-packaging.webp",
 };
 const bgImage = image ?? bgMap[variant];
 const bgStyle = `background-image: linear-gradient(90deg, #000, rgba(255,255,255,0) 50%), linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${bgImage}')`;
@@ -47,11 +38,20 @@ const bgStyle = `background-image: linear-gradient(90deg, #000, rgba(255,255,255
       <ol class="breadcrumb-trail">
         {items.map((item, index) => (
           <li class="breadcrumb-trail-item">
-            {index > 0 && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
+            {index > 0 && (
+              <span class="breadcrumb-separator" aria-hidden="true">
+                /
+              </span>
+            )}
             {item.href && index < items.length - 1 ? (
-              <a href={item.href} class="breadcrumb-subtitle-link">{item.label}</a>
+              <a href={item.href} class="breadcrumb-subtitle-link">
+                {item.label}
+              </a>
             ) : (
-              <span class="breadcrumb-subtitle-current" aria-current={index === items.length - 1 ? 'page' : undefined}>
+              <span
+                class="breadcrumb-subtitle-current"
+                aria-current={index === items.length - 1 ? "page" : undefined}
+              >
                 {item.label}
               </span>
             )}
