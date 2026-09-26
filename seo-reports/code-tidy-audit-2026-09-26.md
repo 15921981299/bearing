@@ -103,23 +103,54 @@
 
 ## P2 — 一致性 / 工具链
 
-**状态（2026-09-27）**：已顺手修掉 3 项 —— **8（`public/_routes.json` 已删）**、**2 的一部分（未使用的 `stat` import 已删；另 1 个未使用 import 随 `parse-parts-to-excel.mjs` 一起归档）**、**1 的一部分（`KEYWORDS_EVERYWHERE_*` 死配置已从 `.env.example` 删除）**。
-`astro check` 由 **6 hints 降到 4 hints**（0 errors / 0 warnings）。
-**未做**：1（prettier 全量格式化，103 文件、且 2 个文件解析失败，属独立动作）、3、4、5、6、7、9 —— 逐项如下。
+**状态（2026-09-27，除第 6 项外全部处理完毕）**
 
-1. **prettier 形同虚设**。`format` / `format:check` 脚本与 `.prettierrc` 齐备，但 **103 个文件未格式化**（`src/` 内 85 + 配置/脚本/文档 18）：
-   - 全部 16 个 CSS、15 个 data 模块、18 个组件、26 个页面、9 个客户端脚本
-   - `astro.config.mjs`、`cloudflare-worker.js`、`wrangler.jsonc`、`zoho-smtp.js`、`README.md`、`pnpm-lock.yaml` 等
-   - **`Analytics.astro`、`Gtm.astro` 直接解析失败**（内联 `<script>` 的 `dataLayer.push(arguments)` / `w[l] = w[l] || []`）→ `npm run format` 当前不可用
-   - 且**没有 `.prettierignore`**
-2. **`astro check` 6 个提示**：未使用的 import ×2（`optimize-images.mjs` 的 `stat`、`parse-parts-to-excel.mjs` 的 `writeFileSync`）；`BreadcrumbHero` 的 `current` 已标 `@deprecated`，仍在 `certifications.astro:138`、`thank-you.astro:16` 使用；`FunnelPageView.astro:15` 的 `<script define:vars>` 缺 `is:inline`
-3. **`tsconfig.json` 的 `@/*` alias 从未使用**（0 次；157 处全为相对路径）
-4. **`cloudflare-worker.js:198` 硬编码跨域收件地址** `to: 'admin@machiningsupplier.com'`，而 `zoho-smtp.js` 的 `SALES_EMAIL = 'sales@combinedbearingsource.com'`。当前行为是故意的（收件箱在 machiningsupplier 域），但两个域名混在一条链路且埋在代码里，建议提为 env var
-5. **`cloudflare-worker.js:185` `console.log(emailBody)`** 把客户姓名/邮箱/询盘全文写进 Cloudflare 日志
-6. **未被引用的图片在被发布**：`public/images/combined-bearing-models` 20 张中 15 张无引用、`extended-bearing-models` 15 张中 11 张无引用。`public/` 会被原样拷贝，故 `dist/images/combined-bearing-models` 实测 20 张全在
-7. **空目录**：`public/videos/`、`scripts/tmp/`
-8. **`public/_routes.json`** 是 Cloudflare **Pages 时代残留**（Workers 下无效，已被 `.assetsignore` 排除，属无害噪音）
-9. **无 CI**：没有 `.github/workflows`
+| # | 问题 | 结果 |
+|---|---|---|
+| 1 | prettier 形同虚设：103 文件未格式化、**2 个文件解析失败**、无 `.prettierignore` | ✅ 根因是 `prettier-plugin-astro@0.14.1` 的 bug（见下），升级到 `1.1.0` + `prettier 3.9.9` 后 99 个文件完成格式化，`format:check` 通过 |
+| 2 | `astro check` 6 个 hints | ✅ **0 errors / 0 warnings / 0 hints**：`BreadcrumbHero` 的 `current`（deprecated）在 2 处使用 → 迁到 `trail` 后**连同该属性一起删除**；`FunnelPageView` 补 `is:inline`；2 个未使用 import 随 P1 清理去掉 |
+| 3 | `tsconfig.json` 的 `@/*` alias 0 使用 | ✅ 已删（`baseUrl` + `paths` 一并移除） |
+| 4 | `cloudflare-worker.js:198` 硬编码跨域收件地址 | ✅ 提为 `env.RFQ_NOTIFY_EMAIL`，默认值沿用原地址（行为不变） |
+| 5 | `cloudflare-worker.js:185` `console.log(emailBody)` 泄露客户 PII | ✅ 改为只记录 `material / quantity / country / source` 等**非个人字段** |
+| 6 | 未被引用的图片仍在发布（20 张中 15 张 / 15 张中 11 张） | ⏸ **未动** —— 删它等于下线已发布 URL，属**内容决策，等拍板** |
+| 7 | 空目录 `public/videos/` | ✅ 已移出（`scripts/tmp/` 本就不存在） |
+| 8 | `public/_routes.json` Pages 残留 | ✅ P1 已删 |
+| 9 | 无 CI | ✅ 新增 `.github/workflows/ci.yml`：`check` + `format:check` + `build` + `check:links`。**只校验，不部署**（部署仍由 Cloudflare Git 集成负责） |
+
+### P2-1 根因：prettier-plugin-astro 0.14.1 的解析 bug
+
+`Analytics.astro` / `Gtm.astro` 报 `SyntaxError: Unexpected token, expected "}"`，**不是**它们写的 JS 有语法问题。最小复现锁定了触发条件：
+
+| 用例 | 结构 | 结果 |
+|---|---|---|
+| t1 | `<script is:inline define:vars={{x}}>` 位于顶层 | 可解析 |
+| t2 / t3 / t4 | 同一个 script 放进 `{cond && (...)}` 表达式内（有无 `<>` / 外层 `<div>` 都一样） | **SyntaxError** |
+| t6 | 表达式内 `<script is:inline>`（无 `define:vars`） | **SyntaxError** |
+| t7 | 表达式内 script，但内容只有一行 | 可解析 |
+
+结论：**当 `<script>` 出现在 Astro 表达式 `{...}` 内、且脚本内容含多行代码块时，0.14.1 必然崩溃**。`prettier-plugin-astro@1.1.0` 已修复——同样两个文件在 1.1.0 下只报格式问题，无 SyntaxError。
+
+> ⚠️ **排查陷阱（务必记住）**：prettier 的 `--ignore-path` **默认读取 `.gitignore`**。最初把复现文件放在 `.workbuddy/` 下（已被 gitignore），`prettier --check` 对它们返回 `All matched files use Prettier code style!` —— 即**静默跳过并假装通过**，导致前几轮实验结论全部无效。**验证 prettier 行为时，必须把文件放在不被忽略的目录，并确认输出里真的出现了该文件名。**
+
+### P2 附带修掉的两个隐患
+
+- **行尾策略**：本机 `core.autocrlf=true`，而 prettier 的 `endOfLine` 默认 `lf`。仓库里存的是 LF，但 checkout 会把工作区写成 CRLF → `format:check` 会「通过 → checkout 后失败 → format 后又通过」来回抖，且在 ubuntu CI 上必然失败。已加 `.gitattributes`（`* text=auto eol=lf`），并把本仓库 `core.autocrlf` 置为 `false`，统一为 LF。
+- **Google 站点验证文件**：`public/googleda4ae22dea72275b.html` 原本**无结尾换行**，prettier 会补一个。该文件要求字节精确，已还原并加入 `.prettierignore`。
+
+### P2 验证（2026-09-27，已推送并自动部署上线）
+
+| 项目 | 结果 |
+|---|---|
+| `pnpm build` | 242 页（与基线一致） |
+| `pnpm check:links` | 243 HTML / **0 断链** |
+| sitemap | 240 URL（与基线一致） |
+| `astro check` | **0 errors / 0 warnings / 0 hints**（原 4 hints） |
+| `pnpm format:check` | All matched files use Prettier code style |
+| `wrangler deploy --dry-run` | 打包正常，685 assets |
+| 线上 sitemap 全量 **240** URL | **全部 200，0 个非 200** |
+| 线上 HTML vs 本地 `dist` | **逐字节一致** |
+
+提交：`874ce80`（修复与工具链）、`8059575`（纯格式化），已推送到 `main`；自动部署版本 `08ca43bf`（2026-09-26T22:35:17Z）。
 
 ---
 
@@ -128,6 +159,7 @@
 - ~~**`_redirects` 未修改**~~ → **已于 2026-09-27 修复、部署并线上验证通过**（见 P0 章节）。
 - ~~**git 历史重写只完成在本地**~~ → **force push 已完成**：远端 `main` 从 `a7b39c3` 更新为 `907d398`，远端 `exports/` 计数归 **0**。
 - ~~**远端仍有第二个分支携带那 70MB**~~ → **已于 2026-09-27 删除**（详见下节）。
+- **P2-6 未被引用的图片（唯一剩下的 P2 项，等拍板）**：`public/images/combined-bearing-models`（20 张中 **15 张**无引用）、`public/images/extended-bearing-models`（15 张中 **11 张**无引用）。`public/` 会被原样拷贝进 `dist/`，所以这些 URL **已经在线上发布**（`dist/images/combined-bearing-models` 实测 20 张全在）。**删它们等于下线已发布 URL**，属内容决策，未动。
 - **本机环境提示**：`npm run build` 在**已有旧 `dist/`** 时会因安全删除机制卡死（实测 17 分钟、dist 被删到一半）。正确顺序是先 `mv dist dist__prev` 再构建。
 
 ---
