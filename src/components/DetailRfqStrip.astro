@@ -1,5 +1,5 @@
 ---
-import '../styles/detail-rfq-strip.css';
+import "../styles/detail-rfq-strip.css";
 
 interface Props {
   quoteHref: string;
@@ -14,11 +14,11 @@ interface Props {
 
 const {
   quoteHref,
-  title = 'Quote this part type',
-  text = 'Send your bearing model, dimensions, quantity, application, and destination for a practical availability check.',
-  label = 'Request Bearings',
+  title = "Quote this part type",
+  text = "Send your bearing model, dimensions, quantity, application, and destination for a practical availability check.",
+  label = "Request Bearings",
   secondaryHref,
-  secondaryLabel = 'Bearing Products',
+  secondaryLabel = "Bearing Products",
   modalContext = title,
   modalSource,
 } = Astro.props;
@@ -40,7 +40,12 @@ const {
       {label}
     </a>
     {secondaryHref && (
-      <a href={secondaryHref} class="detail-rfq-link detail-rfq-link--secondary">{secondaryLabel}</a>
+      <a
+        href={secondaryHref}
+        class="detail-rfq-link detail-rfq-link--secondary"
+      >
+        {secondaryLabel}
+      </a>
     )}
   </div>
 </aside>

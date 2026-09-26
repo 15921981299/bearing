@@ -1,40 +1,61 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BreadcrumbHero from '../../../components/BreadcrumbHero.astro';
-import CatalogSectionHead from '../../../components/CatalogSectionHead.astro';
-import FaqSection from '../../../components/FaqSection.astro';
-import ProductSidebar from '../../../components/ProductSidebar.astro';
-import { combinedBearingModels, type CombinedBearingModel } from '../../../data/combined-bearing-models';
-import { profileMatchByBearingSlug } from '../../../data/bearing-profile-matrix';
-import { breadcrumbSchema, faqSchema, productSchema, site } from '../../../data/site';
-import '../../../styles/products-index.css';
-import '../../../styles/product-detail.css';
-import '../../../styles/product-seo.css';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../../components/BreadcrumbHero.astro";
+import CatalogSectionHead from "../../../components/CatalogSectionHead.astro";
+import FaqSection from "../../../components/FaqSection.astro";
+import ProductSidebar from "../../../components/ProductSidebar.astro";
+import {
+  combinedBearingModels,
+  type CombinedBearingModel,
+} from "../../../data/combined-bearing-models";
+import { profileMatchByBearingSlug } from "../../../data/bearing-profile-matrix";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  productSchema,
+  site,
+} from "../../../data/site";
+import "../../../styles/products-index.css";
+import "../../../styles/product-detail.css";
+import "../../../styles/product-seo.css";
 
 export function getStaticPaths() {
-  return combinedBearingModels.map((item) => ({ params: { model: item.slug }, props: { item } }));
+  return combinedBearingModels.map((item) => ({
+    params: { model: item.slug },
+    props: { item },
+  }));
 }
 
 const { item } = Astro.props as { item: CombinedBearingModel };
 const pageUrl = `${site.url}/products/combined-bearings/${item.slug}/`;
-const primaryModel = item.model.split(' / ')[0];
-const aliases = item.aliases.join(', ');
+const primaryModel = item.model.split(" / ")[0];
+const aliases = item.aliases.join(", ");
 const quoteHref = `/contact/?source=${item.slug}`;
 const matchedProfile = profileMatchByBearingSlug[item.slug];
 const title = `${primaryModel} Combined Bearing | Replacement Data`;
 const description = `${primaryModel} combined bearing replacement dimensions, load data, profile matching and cross references. Request drawing verification and availability.`;
-const index = combinedBearingModels.findIndex((model) => model.slug === item.slug);
+const index = combinedBearingModels.findIndex(
+  (model) => model.slug === item.slug,
+);
 const related = [
-  combinedBearingModels[(index - 1 + combinedBearingModels.length) % combinedBearingModels.length],
+  combinedBearingModels[
+    (index - 1 + combinedBearingModels.length) % combinedBearingModels.length
+  ],
   combinedBearingModels[(index + 1) % combinedBearingModels.length],
-  ...combinedBearingModels.filter((model) => model.family === item.family && model.slug !== item.slug),
+  ...combinedBearingModels.filter(
+    (model) => model.family === item.family && model.slug !== item.slug,
+  ),
 ]
-  .filter((model, position, array) => array.findIndex((candidate) => candidate.slug === model.slug) === position)
+  .filter(
+    (model, position, array) =>
+      array.findIndex((candidate) => candidate.slug === model.slug) ===
+      position,
+  )
   .slice(0, 6);
 
 const faqs = [
   {
-    question: `Is ${primaryModel} interchangeable with ${item.aliases[0] ?? 'other combined bearing references'}?`,
+    question: `Is ${primaryModel} interchangeable with ${item.aliases[0] ?? "other combined bearing references"}?`,
     answer: `The references are commonly associated with the same product family, but interchangeability must be confirmed from d, D, H, mounting details, axial-roller execution, load and operating conditions before ordering.`,
   },
   {
@@ -48,38 +69,139 @@ const faqs = [
 ];
 
 const selectionChecks = [
-  { label: 'Dimensions', detail: 'd, D, H, B, S, T and plate or stud geometry' },
-  { label: 'Load', detail: 'Radial load, axial load, shock, speed and duty cycle' },
-  { label: 'Execution', detail: 'Standard, precision, fixed axial or eccentric-adjustable' },
-  { label: 'Environment', detail: 'Temperature, contamination, sealing and lubrication' },
+  {
+    label: "Dimensions",
+    detail: "d, D, H, B, S, T and plate or stud geometry",
+  },
+  {
+    label: "Load",
+    detail: "Radial load, axial load, shock, speed and duty cycle",
+  },
+  {
+    label: "Execution",
+    detail: "Standard, precision, fixed axial or eccentric-adjustable",
+  },
+  {
+    label: "Environment",
+    detail: "Temperature, contamination, sealing and lubrication",
+  },
 ];
-const familyGuidance: Record<CombinedBearingModel['family'], { design: string; installation: string; inspection: string }> = {
-  Standard: { design: 'A fixed axial roller supports combined radial and side load in a compact mast-guide envelope.', installation: 'Set running clearance through the mating profile and mounting position; the axial roller itself is not eccentric-adjustable.', inspection: 'Verify radial OD, overall height, axial-roller position, stud geometry and smooth rotation.' },
-  Precision: { design: 'The precision family uses a controlled radial outside diameter for tighter guide accuracy.', installation: 'Do not replace it with a standard-OD version without confirming profile clearance and the controlled drawing.', inspection: 'Record radial OD, runout, axial position and the specified precision class.' },
-  'Jumbo adjustable': { design: 'Jumbo models provide a larger radial roller and an adjustable axial arrangement for severe-duty guides.', installation: 'Confirm the adjustment method, locking arrangement and structural clearance before setting the guide.', inspection: 'Check eccentric or axial adjustment travel, mounting interfaces, load surfaces and lubrication access.' },
-  'Radial precision': { design: 'This execution focuses on radial guidance and a precision outside diameter.', installation: 'Confirm whether a separate axial guide element is used and match the profile clearance to the precision OD.', inspection: 'Measure OD, bore or stud, width, runout and the mating-track contact pattern.' },
-  'Eccentric adjustable': { design: 'An eccentric axial element allows guide clearance to be set after installation.', installation: 'Rotate the eccentric to the drawing-defined clearance, then secure the locking feature without preloading the guide.', inspection: 'Verify eccentric offset, adjustment travel, locking security and free rotation across the full travel.' },
-  'Welded plate': { design: 'The bearing is supplied with a welded mounting plate for direct integration into the guide structure.', installation: 'Plate hole pattern, weld orientation and datum position must match the complete AP drawing.', inspection: 'Inspect plate flatness, hole spacing, weld condition, bearing position and marking.' },
-  'Screw adjustable': { design: 'A DIN 916 / UNI 5929 screw moves the axial support to set the guide position.', installation: 'Adjust from the external screw, confirm the required running clearance and lock the setting against service vibration.', inspection: 'Check adjustment range, screw engagement, axial-support position, radial and axial roller rotation.' },
-  'High load axial support': { design: 'A separate hardened axial support carries higher side load than the compact standard arrangement.', installation: 'Confirm support orientation, available structural clearance and the specified washer or mounting arrangement.', inspection: 'Inspect the hardened support, contact face, axial position, washer stack and both load paths.' },
-  'Shim adjustable': { design: 'Calibrated adapter washers set the axial support position.', installation: 'Build the approved 0.3, 0.5 or 1.0 mm washer stack and recheck guide clearance after tightening.', inspection: 'Record shim thickness, final axial position, fastener security and free running condition.' },
+const familyGuidance: Record<
+  CombinedBearingModel["family"],
+  { design: string; installation: string; inspection: string }
+> = {
+  Standard: {
+    design:
+      "A fixed axial roller supports combined radial and side load in a compact mast-guide envelope.",
+    installation:
+      "Set running clearance through the mating profile and mounting position; the axial roller itself is not eccentric-adjustable.",
+    inspection:
+      "Verify radial OD, overall height, axial-roller position, stud geometry and smooth rotation.",
+  },
+  Precision: {
+    design:
+      "The precision family uses a controlled radial outside diameter for tighter guide accuracy.",
+    installation:
+      "Do not replace it with a standard-OD version without confirming profile clearance and the controlled drawing.",
+    inspection:
+      "Record radial OD, runout, axial position and the specified precision class.",
+  },
+  "Jumbo adjustable": {
+    design:
+      "Jumbo models provide a larger radial roller and an adjustable axial arrangement for severe-duty guides.",
+    installation:
+      "Confirm the adjustment method, locking arrangement and structural clearance before setting the guide.",
+    inspection:
+      "Check eccentric or axial adjustment travel, mounting interfaces, load surfaces and lubrication access.",
+  },
+  "Radial precision": {
+    design:
+      "This execution focuses on radial guidance and a precision outside diameter.",
+    installation:
+      "Confirm whether a separate axial guide element is used and match the profile clearance to the precision OD.",
+    inspection:
+      "Measure OD, bore or stud, width, runout and the mating-track contact pattern.",
+  },
+  "Eccentric adjustable": {
+    design:
+      "An eccentric axial element allows guide clearance to be set after installation.",
+    installation:
+      "Rotate the eccentric to the drawing-defined clearance, then secure the locking feature without preloading the guide.",
+    inspection:
+      "Verify eccentric offset, adjustment travel, locking security and free rotation across the full travel.",
+  },
+  "Welded plate": {
+    design:
+      "The bearing is supplied with a welded mounting plate for direct integration into the guide structure.",
+    installation:
+      "Plate hole pattern, weld orientation and datum position must match the complete AP drawing.",
+    inspection:
+      "Inspect plate flatness, hole spacing, weld condition, bearing position and marking.",
+  },
+  "Screw adjustable": {
+    design:
+      "A DIN 916 / UNI 5929 screw moves the axial support to set the guide position.",
+    installation:
+      "Adjust from the external screw, confirm the required running clearance and lock the setting against service vibration.",
+    inspection:
+      "Check adjustment range, screw engagement, axial-support position, radial and axial roller rotation.",
+  },
+  "High load axial support": {
+    design:
+      "A separate hardened axial support carries higher side load than the compact standard arrangement.",
+    installation:
+      "Confirm support orientation, available structural clearance and the specified washer or mounting arrangement.",
+    inspection:
+      "Inspect the hardened support, contact face, axial position, washer stack and both load paths.",
+  },
+  "Shim adjustable": {
+    design: "Calibrated adapter washers set the axial support position.",
+    installation:
+      "Build the approved 0.3, 0.5 or 1.0 mm washer stack and recheck guide clearance after tightening.",
+    inspection:
+      "Record shim thickness, final axial position, fastener security and free running condition.",
+  },
 };
 const guidance = familyGuidance[item.family];
-const lastReviewed = '2026-07-18';
+const lastReviewed = "2026-07-18";
 
 const categoryNav = [
-  { href: '/products/', label: 'All bearings', slug: null },
-  { href: '/products/combined-bearings/', label: 'Combined', slug: 'combined-bearings' },
-  { href: '/products/track-roller-bearings/', label: 'Track rollers', slug: 'track-roller-bearings' },
+  { href: "/products/", label: "All bearings", slug: null },
   {
-    href: '/products/full-complement-cylindrical-roller-bearings/',
-    label: 'SL series',
-    slug: 'full-complement-cylindrical-roller-bearings',
+    href: "/products/combined-bearings/",
+    label: "Combined",
+    slug: "combined-bearings",
   },
-  { href: '/products/backup-roller-bearings/', label: 'Back-up rollers', slug: 'backup-roller-bearings' },
-  { href: '/products/cross-roller-bearings/', label: 'Cross roller', slug: 'cross-roller-bearings' },
-  { href: '/products/standard-nbv-profiles/', label: 'NbV profiles', slug: 'standard-nbv-profiles' },
-  { href: '/products/special-track-roller-bearings/', label: 'Special track', slug: 'special-track-roller-bearings' },
+  {
+    href: "/products/track-roller-bearings/",
+    label: "Track rollers",
+    slug: "track-roller-bearings",
+  },
+  {
+    href: "/products/full-complement-cylindrical-roller-bearings/",
+    label: "SL series",
+    slug: "full-complement-cylindrical-roller-bearings",
+  },
+  {
+    href: "/products/backup-roller-bearings/",
+    label: "Back-up rollers",
+    slug: "backup-roller-bearings",
+  },
+  {
+    href: "/products/cross-roller-bearings/",
+    label: "Cross roller",
+    slug: "cross-roller-bearings",
+  },
+  {
+    href: "/products/standard-nbv-profiles/",
+    label: "NbV profiles",
+    slug: "standard-nbv-profiles",
+  },
+  {
+    href: "/products/special-track-roller-bearings/",
+    label: "Special track",
+    slug: "special-track-roller-bearings",
+  },
 ];
 
 const modelProductSchema = productSchema({
@@ -111,16 +233,23 @@ const iconApplication =
   image={item.image}
   jsonLd={[
     breadcrumbSchema([
-      { name: 'Home', url: site.url },
-      { name: 'Bearing Products', url: `${site.url}/products/` },
-      { name: 'Combined Bearings', url: `${site.url}/products/combined-bearings/` },
+      { name: "Home", url: site.url },
+      { name: "Bearing Products", url: `${site.url}/products/` },
+      {
+        name: "Combined Bearings",
+        url: `${site.url}/products/combined-bearings/`,
+      },
       { name: primaryModel, url: pageUrl },
     ]),
     {
       ...modelProductSchema,
       additionalProperty: [
-        ...item.specs.map((spec) => ({ '@type': 'PropertyValue', name: spec.label, value: spec.value })),
-        { '@type': 'PropertyValue', name: 'Cross references', value: aliases },
+        ...item.specs.map((spec) => ({
+          "@type": "PropertyValue",
+          name: spec.label,
+          value: spec.value,
+        })),
+        { "@type": "PropertyValue", name: "Cross references", value: aliases },
       ],
     },
     faqSchema(faqs),
@@ -129,9 +258,9 @@ const iconApplication =
   <BreadcrumbHero
     title={`${primaryModel} Combined Bearing Replacement`}
     trail={[
-      { label: 'Home', href: '/' },
-      { label: 'Products', href: '/products/' },
-      { label: 'Combined Bearings', href: '/products/combined-bearings/' },
+      { label: "Home", href: "/" },
+      { label: "Products", href: "/products/" },
+      { label: "Combined Bearings", href: "/products/combined-bearings/" },
       { label: primaryModel },
     ]}
     variant="2"
@@ -147,8 +276,12 @@ const iconApplication =
                 <li>
                   <a
                     href={navItem.href}
-                    class:list={[{ 'is-active': navItem.slug === 'combined-bearings' }]}
-                    aria-current={navItem.slug === 'combined-bearings' ? 'page' : undefined}
+                    class:list={[
+                      { "is-active": navItem.slug === "combined-bearings" },
+                    ]}
+                    aria-current={
+                      navItem.slug === "combined-bearings" ? "page" : undefined
+                    }
                   >
                     {navItem.label}
                   </a>
@@ -158,8 +291,15 @@ const iconApplication =
           </nav>
 
           <div class="product-detail-layout fade-in">
-            <article class="product-detail-main" itemscope itemtype="https://schema.org/Product">
-              <meta itemprop="name" content={`${primaryModel} Combined Bearing`} />
+            <article
+              class="product-detail-main"
+              itemscope
+              itemtype="https://schema.org/Product"
+            >
+              <meta
+                itemprop="name"
+                content={`${primaryModel} Combined Bearing`}
+              />
               <meta itemprop="sku" content={primaryModel} />
               <link itemprop="url" href={pageUrl} />
 
@@ -190,23 +330,39 @@ const iconApplication =
                     {item.description}
                   </CatalogSectionHead>
 
-                  <div class="products-meta-row product-detail-meta-row" aria-label="Model summary">
+                  <div
+                    class="products-meta-row product-detail-meta-row"
+                    aria-label="Model summary"
+                  >
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconModel} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconModel}
+                      />
                       <div>
                         <strong>Primary model</strong>
                         <span itemprop="model">{primaryModel}</span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconFamily} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconFamily}
+                      />
                       <div>
                         <strong>Family</strong>
-                        <span><a href="/products/combined-bearings/">{item.family}</a></span>
+                        <span>
+                          <a href="/products/combined-bearings/">
+                            {item.family}
+                          </a>
+                        </span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconApplication} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconApplication}
+                      />
                       <div>
                         <strong>Application</strong>
                         <span>{item.application}</span>
@@ -214,11 +370,15 @@ const iconApplication =
                     </div>
                   </div>
 
-                  <aside class="products-rfq-panel product-detail-rfq-panel" aria-label="Request a quotation">
+                  <aside
+                    class="products-rfq-panel product-detail-rfq-panel"
+                    aria-label="Request a quotation"
+                  >
                     <p>
                       <strong>Request {primaryModel} pricing</strong>
-                      Send the full marking, quantity, application and delivery country for WINKEL-type replacement
-                      review and factory quotation.
+                      Send the full marking, quantity, application and delivery
+                      country for WINKEL-type replacement review and factory
+                      quotation.
                     </p>
                     <div class="products-rfq-actions">
                       <a
@@ -231,7 +391,10 @@ const iconApplication =
                         Request price and availability
                         <span set:html={iconArrow} />
                       </a>
-                      <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">
+                      <a
+                        href="/resources/industrial-bearing-rfq-checklist/"
+                        class="products-btn products-btn-secondary"
+                      >
                         RFQ checklist
                       </a>
                     </div>
@@ -249,19 +412,29 @@ const iconApplication =
                 </nav>
 
                 <p class="product-verification-note">
-                  <strong>Cross-reference note:</strong> WINKEL and other manufacturer designations are used for buyer
-                  identification. We manufacture compatible bearings to the confirmed drawing unless an original branded
-                  product is expressly quoted.
+                  <strong>Cross-reference note:</strong> WINKEL and other
+                  manufacturer designations are used for buyer identification.
+                  We manufacture compatible bearings to the confirmed drawing
+                  unless an original branded product is expressly quoted.
                 </p>
                 {matchedProfile && (
                   <aside class="product-verification-note">
-                    <strong>Matched Standard NbV profile:</strong>{' '}
-                    <a href={`/products/standard-nbv-profiles/${matchedProfile.profileSlug}/`}>{matchedProfile.profile}</a>
-                    {' '}({matchedProfile.articleNumber}; {matchedProfile.replacementReference}). {matchedProfile.note}
+                    <strong>Matched Standard NbV profile:</strong>{" "}
+                    <a
+                      href={`/products/standard-nbv-profiles/${matchedProfile.profileSlug}/`}
+                    >
+                      {matchedProfile.profile}
+                    </a>{" "}
+                    ({matchedProfile.articleNumber};{" "}
+                    {matchedProfile.replacementReference}).{" "}
+                    {matchedProfile.note}
                   </aside>
                 )}
 
-                <section class="product-seo-section" aria-labelledby="specification-heading">
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="specification-heading"
+                >
                   <CatalogSectionHead
                     kicker="Specifications"
                     title={`${primaryModel} technical data`}
@@ -269,7 +442,10 @@ const iconApplication =
                   />
                   <div class="product-reference-table-wrap">
                     <table class="product-reference-table">
-                      <caption>{primaryModel} combined bearing dimensions and load ratings</caption>
+                      <caption>
+                        {primaryModel}combined bearing dimensions and load
+                        ratings
+                      </caption>
                       <tbody>
                         {item.specs.map((spec) => (
                           <tr>
@@ -281,36 +457,82 @@ const iconApplication =
                     </table>
                   </div>
                   <p class="product-verification-note">
-                    <strong>Selection notice:</strong> Dimensions and catalog ratings are factory reference data. Verify
-                    the controlled drawing during quotation.
+                    <strong>Selection notice:</strong> Dimensions and catalog
+                    ratings are factory reference data. Verify the controlled
+                    drawing during quotation.
                   </p>
 
-                  <h3 id="cross-reference-heading">{primaryModel} cross references</h3>
+                  <h3 id="cross-reference-heading">
+                    {primaryModel} cross references
+                  </h3>
                   <p>
-                    Common purchasing and maintenance references include <strong>{primaryModel}</strong>
-                    {item.aliases.length > 0 && ` · ${item.aliases.join(' · ')}`}.
+                    Common purchasing and maintenance references include{" "}
+                    <strong>{primaryModel}</strong>
+                    {item.aliases.length > 0 &&
+                      ` · ${item.aliases.join(" · ")}`}
+                    .
                   </p>
                   <p>
-                    Suffixes, seals, lubrication, OD variants and mounting plates can change fit. Send the complete
-                    marking and a controlled drawing for confirmation.
+                    Suffixes, seals, lubrication, OD variants and mounting
+                    plates can change fit. Send the complete marking and a
+                    controlled drawing for confirmation.
                   </p>
-                  <nav class="product-detail-links" aria-label="Technical resources">
+                  <nav
+                    class="product-detail-links"
+                    aria-label="Technical resources"
+                  >
                     <strong>Resources:</strong>
                     <a href="/downloads/">Download references</a>
-                    <a href={`/contact/?source=${item.slug}-drawing`}>Request controlled drawing</a>
+                    <a href={`/contact/?source=${item.slug}-drawing`}>
+                      Request controlled drawing
+                    </a>
                   </nav>
                 </section>
 
-                <section class="product-seo-section" aria-labelledby="installation-heading">
-                  <CatalogSectionHead kicker="Execution guidance" title={`${item.family} design and inspection`} titleId="installation-heading" />
-                  <h3>Design function</h3><p>{guidance.design}</p>
-                  <h3>Installation and adjustment</h3><p>{guidance.installation}</p>
-                  <h3>Inspection focus</h3><p>{guidance.inspection}</p>
-                  <aside class="product-verification-note"><strong>Documentation status:</strong> Technical data reviewed {lastReviewed}. Controlled drawing, marking photos and order-specific dimensional inspection can be agreed before quotation. A batch report is issued only for the identified product lot and inspection scope.</aside>
-                  <nav class="product-detail-links" aria-label="Inspection and drawing documents"><strong>Documents:</strong><a href="/downloads/combined-bearing-inspection-checklist.pdf" download>Inspection checklist</a><a href="/certifications/">Factory QC scope</a><a href={`/contact/?source=${item.slug}-documents`}>Request drawing and report scope</a></nav>
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="installation-heading"
+                >
+                  <CatalogSectionHead
+                    kicker="Execution guidance"
+                    title={`${item.family} design and inspection`}
+                    titleId="installation-heading"
+                  />
+                  <h3>Design function</h3>
+                  <p>{guidance.design}</p>
+                  <h3>Installation and adjustment</h3>
+                  <p>{guidance.installation}</p>
+                  <h3>Inspection focus</h3>
+                  <p>{guidance.inspection}</p>
+                  <aside class="product-verification-note">
+                    <strong>Documentation status:</strong> Technical data
+                    reviewed {lastReviewed}. Controlled drawing, marking photos
+                    and order-specific dimensional inspection can be agreed
+                    before quotation. A batch report is issued only for the
+                    identified product lot and inspection scope.
+                  </aside>
+                  <nav
+                    class="product-detail-links"
+                    aria-label="Inspection and drawing documents"
+                  >
+                    <strong>Documents:</strong>
+                    <a
+                      href="/downloads/combined-bearing-inspection-checklist.pdf"
+                      download
+                    >
+                      Inspection checklist
+                    </a>
+                    <a href="/certifications/">Factory QC scope</a>
+                    <a href={`/contact/?source=${item.slug}-documents`}>
+                      Request drawing and report scope
+                    </a>
+                  </nav>
                 </section>
 
-                <section class="product-seo-section" aria-labelledby="application-heading">
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="application-heading"
+                >
                   <CatalogSectionHead
                     kicker="Application"
                     title="Application and RFQ checklist"
@@ -326,17 +548,32 @@ const iconApplication =
                       </div>
                     ))}
                   </dl>
-                  <nav class="product-detail-links" aria-label="Technical guides">
+                  <nav
+                    class="product-detail-links"
+                    aria-label="Technical guides"
+                  >
                     <strong>Technical guides:</strong>
-                    <a href="/solutions/winkel-bearing-cross-reference/">WINKEL cross reference</a>
-                    <a href="/resources/industrial-bearing-rfq-checklist/">RFQ checklist</a>
+                    <a href="/solutions/winkel-bearing-cross-reference/">
+                      WINKEL cross reference
+                    </a>
+                    <a href="/resources/industrial-bearing-rfq-checklist/">
+                      RFQ checklist
+                    </a>
                   </nav>
                 </section>
 
                 {related.length > 0 && (
-                  <section class="combined-model-directory" aria-labelledby="related-models-heading">
-                    <h2 id="related-models-heading">Related combined bearing models</h2>
-                    <p>Browse adjacent models for dimensions, applications and common cross references.</p>
+                  <section
+                    class="combined-model-directory"
+                    aria-labelledby="related-models-heading"
+                  >
+                    <h2 id="related-models-heading">
+                      Related combined bearing models
+                    </h2>
+                    <p>
+                      Browse adjacent models for dimensions, applications and
+                      common cross references.
+                    </p>
                     <div class="combined-model-directory-grid">
                       {related.map((model) => (
                         <a href={`/products/combined-bearings/${model.slug}/`}>
@@ -350,13 +587,18 @@ const iconApplication =
                           />
                           <span>
                             <strong>{model.model}</strong>
-                            <small>{model.aliases.slice(0, 3).join(' · ') || model.family}</small>
+                            <small>
+                              {model.aliases.slice(0, 3).join(" · ") ||
+                                model.family}
+                            </small>
                           </span>
                         </a>
                       ))}
                     </div>
                     <p class="product-detail-back">
-                      <a href="/products/combined-bearings/">View all combined bearings</a>
+                      <a href="/products/combined-bearings/">
+                        View all combined bearings
+                      </a>
                     </p>
                   </section>
                 )}
@@ -372,7 +614,10 @@ const iconApplication =
             </article>
 
             <div class="product-detail-sidebar">
-              <ProductSidebar activeSlug="combined-bearings" quoteHref={quoteHref} />
+              <ProductSidebar
+                activeSlug="combined-bearings"
+                quoteHref={quoteHref}
+              />
             </div>
           </div>
         </div>
@@ -380,7 +625,11 @@ const iconApplication =
     </section>
 
     <div class="products-faq-wrap">
-      <FaqSection items={faqs} title={`${primaryModel} combined bearing FAQ`} subtitle="Model Questions" />
+      <FaqSection
+        items={faqs}
+        title={`${primaryModel} combined bearing FAQ`}
+        subtitle="Model Questions"
+      />
     </div>
   </main>
 </BaseLayout>

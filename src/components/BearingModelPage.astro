@@ -1,81 +1,133 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import BreadcrumbHero from './BreadcrumbHero.astro';
-import CatalogSectionHead from './CatalogSectionHead.astro';
-import FaqSection from './FaqSection.astro';
-import ProductSidebar from './ProductSidebar.astro';
-import type { ExtendedBearingModel } from '../data/extended-bearing-models';
-import { extendedBearingModels } from '../data/extended-bearing-models';
-import { bearingProfileMatrix } from '../data/bearing-profile-matrix';
-import { breadcrumbSchema, faqSchema, productSchema, site } from '../data/site';
-import '../styles/products-index.css';
-import '../styles/product-detail.css';
-import '../styles/product-seo.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BreadcrumbHero from "./BreadcrumbHero.astro";
+import CatalogSectionHead from "./CatalogSectionHead.astro";
+import FaqSection from "./FaqSection.astro";
+import ProductSidebar from "./ProductSidebar.astro";
+import type { ExtendedBearingModel } from "../data/extended-bearing-models";
+import { extendedBearingModels } from "../data/extended-bearing-models";
+import { bearingProfileMatrix } from "../data/bearing-profile-matrix";
+import { breadcrumbSchema, faqSchema, productSchema, site } from "../data/site";
+import "../styles/products-index.css";
+import "../styles/product-detail.css";
+import "../styles/product-seo.css";
 
 const { item } = Astro.props as { item: ExtendedBearingModel };
-const categoryTitles: Record<ExtendedBearingModel['categorySlug'], string> = {
-  'track-roller-bearings': 'Track Roller Bearings',
-  'full-complement-cylindrical-roller-bearings': 'Full Complement Cylindrical Roller Bearings',
-  'cross-roller-bearings': 'Cross Roller Bearings',
-  'standard-nbv-profiles': 'Standard NbV Profiles',
-  'backup-roller-bearings': 'Back-up Roller Bearings',
-  'special-track-roller-bearings': 'Special Track Roller Bearings',
+const categoryTitles: Record<ExtendedBearingModel["categorySlug"], string> = {
+  "track-roller-bearings": "Track Roller Bearings",
+  "full-complement-cylindrical-roller-bearings":
+    "Full Complement Cylindrical Roller Bearings",
+  "cross-roller-bearings": "Cross Roller Bearings",
+  "standard-nbv-profiles": "Standard NbV Profiles",
+  "backup-roller-bearings": "Back-up Roller Bearings",
+  "special-track-roller-bearings": "Special Track Roller Bearings",
 };
 const categoryTitle = categoryTitles[item.categorySlug];
 const categoryUrl = `${site.url}/products/${item.categorySlug}/`;
 const pageUrl = `${categoryUrl}${item.slug}/`;
 const quoteHref = `/contact/?source=${item.slug}`;
-const seoCopy: Record<ExtendedBearingModel['categorySlug'], { title: string; noun: string }> = {
-  'track-roller-bearings': { title: 'Track Roller | Dimensions & Equivalent', noun: 'track roller' },
-  'full-complement-cylindrical-roller-bearings': { title: 'Bearing | Dimensions & Equivalent', noun: 'full-complement bearing' },
-  'cross-roller-bearings': { title: 'Cross Roller Bearing | Specifications', noun: 'cross roller bearing' },
-  'standard-nbv-profiles': { title: 'NbV Profile | Dimensions & Matching', noun: 'NbV steel profile' },
-  'backup-roller-bearings': { title: 'Back-up Roller | Dimensions', noun: 'back-up roller' },
-  'special-track-roller-bearings': { title: 'Special Track Roller | Replacement', noun: 'special track roller' },
+const seoCopy: Record<
+  ExtendedBearingModel["categorySlug"],
+  { title: string; noun: string }
+> = {
+  "track-roller-bearings": {
+    title: "Track Roller | Dimensions & Equivalent",
+    noun: "track roller",
+  },
+  "full-complement-cylindrical-roller-bearings": {
+    title: "Bearing | Dimensions & Equivalent",
+    noun: "full-complement bearing",
+  },
+  "cross-roller-bearings": {
+    title: "Cross Roller Bearing | Specifications",
+    noun: "cross roller bearing",
+  },
+  "standard-nbv-profiles": {
+    title: "NbV Profile | Dimensions & Matching",
+    noun: "NbV steel profile",
+  },
+  "backup-roller-bearings": {
+    title: "Back-up Roller | Dimensions",
+    noun: "back-up roller",
+  },
+  "special-track-roller-bearings": {
+    title: "Special Track Roller | Replacement",
+    noun: "special track roller",
+  },
 };
-const title = item.categorySlug === 'standard-nbv-profiles'
-  ? `${item.model} | Dimensions & Bearing Match`
-  : item.categorySlug === 'special-track-roller-bearings'
-    ? `${item.model} | Replacement Track Roller`
-    : `${item.model} ${seoCopy[item.categorySlug].title}`;
+const title =
+  item.categorySlug === "standard-nbv-profiles"
+    ? `${item.model} | Dimensions & Bearing Match`
+    : item.categorySlug === "special-track-roller-bearings"
+      ? `${item.model} | Replacement Track Roller`
+      : `${item.model} ${seoCopy[item.categorySlug].title}`;
 const description = `${item.model} ${seoCopy[item.categorySlug].noun}: dimensions, application and replacement references. Confirm fit, suffix and availability before ordering.`;
-const peers = extendedBearingModels.filter((x) => x.categorySlug === item.categorySlug && x.slug !== item.slug).slice(0, 6);
-const profileMatch = item.categorySlug === 'standard-nbv-profiles' ? bearingProfileMatrix.find(row => row.profileSlug === item.slug) : undefined;
+const peers = extendedBearingModels
+  .filter((x) => x.categorySlug === item.categorySlug && x.slug !== item.slug)
+  .slice(0, 6);
+const profileMatch =
+  item.categorySlug === "standard-nbv-profiles"
+    ? bearingProfileMatrix.find((row) => row.profileSlug === item.slug)
+    : undefined;
 const faqs = [
   {
     question: `What are the dimensions of ${item.model}?`,
     answer: `The catalog dimensions shown on this page are reference data. Confirm the complete designation, suffix, seals, clearance and current controlled drawing before ordering.`,
   },
   {
-    question: `Can ${item.model} be replaced by ${item.aliases[0] ?? 'an equivalent model'}?`,
+    question: `Can ${item.model} be replaced by ${item.aliases[0] ?? "an equivalent model"}?`,
     answer:
-      'The listed references identify a related design family. Final interchangeability depends on dimensions, load, speed, mounting, lubrication and operating conditions.',
+      "The listed references identify a related design family. Final interchangeability depends on dimensions, load, speed, mounting, lubrication and operating conditions.",
   },
   {
     question: `How do I request a quote for ${item.model}?`,
     answer:
-      'Send the full model, quantity, delivery country and a photo or drawing. We will review the requested execution before quotation.',
+      "Send the full model, quantity, delivery country and a photo or drawing. We will review the requested execution before quotation.",
   },
 ];
 const selectionChecks = [
-  { label: 'Identification', detail: 'Complete model designation and suffix' },
-  { label: 'Dimensions', detail: 'Bore or stud, outside diameter and width' },
-  { label: 'Duty', detail: 'Load, speed, shock and operating cycle' },
-  { label: 'Environment', detail: 'Seals, grease type and temperature range' },
+  { label: "Identification", detail: "Complete model designation and suffix" },
+  { label: "Dimensions", detail: "Bore or stud, outside diameter and width" },
+  { label: "Duty", detail: "Load, speed, shock and operating cycle" },
+  { label: "Environment", detail: "Seals, grease type and temperature range" },
 ];
 const categoryNav = [
-  { href: '/products/', label: 'All bearings', slug: null },
-  { href: '/products/combined-bearings/', label: 'Combined', slug: 'combined-bearings' },
-  { href: '/products/track-roller-bearings/', label: 'Track rollers', slug: 'track-roller-bearings' },
+  { href: "/products/", label: "All bearings", slug: null },
   {
-    href: '/products/full-complement-cylindrical-roller-bearings/',
-    label: 'SL series',
-    slug: 'full-complement-cylindrical-roller-bearings',
+    href: "/products/combined-bearings/",
+    label: "Combined",
+    slug: "combined-bearings",
   },
-  { href: '/products/backup-roller-bearings/', label: 'Back-up rollers', slug: 'backup-roller-bearings' },
-  { href: '/products/cross-roller-bearings/', label: 'Cross roller', slug: 'cross-roller-bearings' },
-  { href: '/products/standard-nbv-profiles/', label: 'NbV profiles', slug: 'standard-nbv-profiles' },
-  { href: '/products/special-track-roller-bearings/', label: 'Special track', slug: 'special-track-roller-bearings' },
+  {
+    href: "/products/track-roller-bearings/",
+    label: "Track rollers",
+    slug: "track-roller-bearings",
+  },
+  {
+    href: "/products/full-complement-cylindrical-roller-bearings/",
+    label: "SL series",
+    slug: "full-complement-cylindrical-roller-bearings",
+  },
+  {
+    href: "/products/backup-roller-bearings/",
+    label: "Back-up rollers",
+    slug: "backup-roller-bearings",
+  },
+  {
+    href: "/products/cross-roller-bearings/",
+    label: "Cross roller",
+    slug: "cross-roller-bearings",
+  },
+  {
+    href: "/products/standard-nbv-profiles/",
+    label: "NbV profiles",
+    slug: "standard-nbv-profiles",
+  },
+  {
+    href: "/products/special-track-roller-bearings/",
+    label: "Special track",
+    slug: "special-track-roller-bearings",
+  },
 ];
 const schema = productSchema({
   name: `${item.model} ${item.family}`,
@@ -106,16 +158,24 @@ const iconApplication =
   image={item.image}
   jsonLd={[
     breadcrumbSchema([
-      { name: 'Home', url: site.url },
-      { name: 'Bearing Products', url: `${site.url}/products/` },
+      { name: "Home", url: site.url },
+      { name: "Bearing Products", url: `${site.url}/products/` },
       { name: categoryTitle, url: categoryUrl },
       { name: item.model, url: pageUrl },
     ]),
     {
       ...schema,
       additionalProperty: [
-        ...item.specs.map((x) => ({ '@type': 'PropertyValue', name: x.label, value: x.value })),
-        { '@type': 'PropertyValue', name: 'Cross references', value: item.aliases.join(', ') },
+        ...item.specs.map((x) => ({
+          "@type": "PropertyValue",
+          name: x.label,
+          value: x.value,
+        })),
+        {
+          "@type": "PropertyValue",
+          name: "Cross references",
+          value: item.aliases.join(", "),
+        },
       ],
     },
     faqSchema(faqs),
@@ -124,8 +184,8 @@ const iconApplication =
   <BreadcrumbHero
     title={`${item.model} ${item.family}`}
     trail={[
-      { label: 'Home', href: '/' },
-      { label: 'Products', href: '/products/' },
+      { label: "Home", href: "/" },
+      { label: "Products", href: "/products/" },
       { label: categoryTitle, href: `/products/${item.categorySlug}/` },
       { label: item.model },
     ]}
@@ -142,8 +202,12 @@ const iconApplication =
                 <li>
                   <a
                     href={navItem.href}
-                    class:list={[{ 'is-active': navItem.slug === item.categorySlug }]}
-                    aria-current={navItem.slug === item.categorySlug ? 'page' : undefined}
+                    class:list={[
+                      { "is-active": navItem.slug === item.categorySlug },
+                    ]}
+                    aria-current={
+                      navItem.slug === item.categorySlug ? "page" : undefined
+                    }
                   >
                     {navItem.label}
                   </a>
@@ -153,7 +217,11 @@ const iconApplication =
           </nav>
 
           <div class="product-detail-layout fade-in">
-            <article class="product-detail-main" itemscope itemtype="https://schema.org/Product">
+            <article
+              class="product-detail-main"
+              itemscope
+              itemtype="https://schema.org/Product"
+            >
               <meta itemprop="name" content={`${item.model} ${item.family}`} />
               <meta itemprop="sku" content={item.model} />
               <link itemprop="url" href={pageUrl} />
@@ -185,25 +253,39 @@ const iconApplication =
                     {item.description}
                   </CatalogSectionHead>
 
-                  <div class="products-meta-row product-detail-meta-row" aria-label="Model summary">
+                  <div
+                    class="products-meta-row product-detail-meta-row"
+                    aria-label="Model summary"
+                  >
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconModel} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconModel}
+                      />
                       <div>
                         <strong>Model</strong>
                         <span itemprop="model">{item.model}</span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconFamily} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconFamily}
+                      />
                       <div>
                         <strong>Family</strong>
                         <span>
-                          <a href={`/products/${item.categorySlug}/`}>{item.family}</a>
+                          <a href={`/products/${item.categorySlug}/`}>
+                            {item.family}
+                          </a>
                         </span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconApplication} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconApplication}
+                      />
                       <div>
                         <strong>Application</strong>
                         <span>{item.application}</span>
@@ -211,11 +293,15 @@ const iconApplication =
                     </div>
                   </div>
 
-                  <aside class="products-rfq-panel product-detail-rfq-panel" aria-label="Request a quotation">
+                  <aside
+                    class="products-rfq-panel product-detail-rfq-panel"
+                    aria-label="Request a quotation"
+                  >
                     <p>
                       <strong>Request {item.model} pricing</strong>
-                      Send the full designation, quantity, application and delivery country for replacement review
-                      and factory quotation.
+                      Send the full designation, quantity, application and
+                      delivery country for replacement review and factory
+                      quotation.
                     </p>
                     <div class="products-rfq-actions">
                       <a
@@ -228,7 +314,10 @@ const iconApplication =
                         Request factory quote
                         <span set:html={iconArrow} />
                       </a>
-                      <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">
+                      <a
+                        href="/resources/industrial-bearing-rfq-checklist/"
+                        class="products-btn products-btn-secondary"
+                      >
                         RFQ checklist
                       </a>
                     </div>
@@ -246,18 +335,34 @@ const iconApplication =
                 </nav>
 
                 <p class="product-verification-note">
-                  <strong>Cross-reference note:</strong> Brand names and reference numbers identify the buyer's
-                  requirement. We manufacture compatible bearings to the confirmed drawing unless an original branded
-                  product is expressly quoted.
+                  <strong>Cross-reference note:</strong> Brand names and
+                  reference numbers identify the buyer's requirement. We
+                  manufacture compatible bearings to the confirmed drawing
+                  unless an original branded product is expressly quoted.
                 </p>
                 {profileMatch && (
                   <aside class="product-verification-note">
-                    <strong>Matched combined bearings:</strong>{' '}
-                    {profileMatch.matchedBearings.map((bearing,index)=><span><a href={`/products/combined-bearings/${bearing.slug}/`}>{bearing.model}</a>{index < profileMatch.matchedBearings.length-1 ? ' · ' : ''}</span>)}. {profileMatch.note}
+                    <strong>Matched combined bearings:</strong>{" "}
+                    {profileMatch.matchedBearings.map((bearing, index) => (
+                      <span>
+                        <a
+                          href={`/products/combined-bearings/${bearing.slug}/`}
+                        >
+                          {bearing.model}
+                        </a>
+                        {index < profileMatch.matchedBearings.length - 1
+                          ? " · "
+                          : ""}
+                      </span>
+                    ))}
+                    . {profileMatch.note}
                   </aside>
                 )}
 
-                <section class="product-seo-section" aria-labelledby="specification-heading">
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="specification-heading"
+                >
                   <CatalogSectionHead
                     kicker="Specifications"
                     title={`${item.model} technical data`}
@@ -266,7 +371,8 @@ const iconApplication =
                   <div class="product-reference-table-wrap">
                     <table class="product-reference-table">
                       <caption>
-                        {item.model} catalog dimensions, load ratings and reference specifications
+                        {item.model}catalog dimensions, load ratings and
+                        reference specifications
                       </caption>
                       <tbody>
                         {item.specs.map((x) => (
@@ -279,30 +385,53 @@ const iconApplication =
                     </table>
                   </div>
                   <p class="product-verification-note">
-                    <strong>Selection notice:</strong> Catalog dimensions are factory reference data. Confirm the
-                    controlled drawing and suffix during quotation.
+                    <strong>Selection notice:</strong> Catalog dimensions are
+                    factory reference data. Confirm the controlled drawing and
+                    suffix during quotation.
                   </p>
-                  <p class="product-verification-note"><strong>Documentation status:</strong> Data reviewed 2026-07-18. Controlled drawings and order-specific inspection scope are available on request; a batch report must identify the actual model and lot.</p>
+                  <p class="product-verification-note">
+                    <strong>Documentation status:</strong> Data reviewed
+                    2026-07-18. Controlled drawings and order-specific
+                    inspection scope are available on request; a batch report
+                    must identify the actual model and lot.
+                  </p>
 
-                  <h3 id="cross-reference-heading">{item.model} cross references</h3>
+                  <h3 id="cross-reference-heading">
+                    {item.model} cross references
+                  </h3>
                   <p>
-                    Common purchasing and maintenance references associated with this bearing include{' '}
-                    <strong>{item.model}</strong>
-                    {item.aliases.length > 0 && ` · ${item.aliases.join(' · ')}`}.
+                    Common purchasing and maintenance references associated with
+                    this bearing include <strong>{item.model}</strong>
+                    {item.aliases.length > 0 &&
+                      ` · ${item.aliases.join(" · ")}`}
+                    .
                   </p>
                   <p>
-                    Confirm dimensions, seals, mounting, load and speed before interchange. Similar model numbers do
-                    not guarantee fit.
+                    Confirm dimensions, seals, mounting, load and speed before
+                    interchange. Similar model numbers do not guarantee fit.
                   </p>
-                  <nav class="product-detail-links" aria-label="Technical resources">
+                  <nav
+                    class="product-detail-links"
+                    aria-label="Technical resources"
+                  >
                     <strong>Resources:</strong>
                     <a href="/downloads/">Download references</a>
-                    <a href="/downloads/combined-bearing-inspection-checklist.pdf" download>Inspection checklist</a>
-                    <a href={`/contact/?source=${item.slug}-drawing`}>Request controlled drawing</a>
+                    <a
+                      href="/downloads/combined-bearing-inspection-checklist.pdf"
+                      download
+                    >
+                      Inspection checklist
+                    </a>
+                    <a href={`/contact/?source=${item.slug}-drawing`}>
+                      Request controlled drawing
+                    </a>
                   </nav>
                 </section>
 
-                <section class="product-seo-section" aria-labelledby="application-heading">
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="application-heading"
+                >
                   <CatalogSectionHead
                     kicker="Application"
                     title="Application and RFQ checklist"
@@ -318,17 +447,30 @@ const iconApplication =
                       </div>
                     ))}
                   </dl>
-                  <nav class="product-detail-links" aria-label="Technical guides">
+                  <nav
+                    class="product-detail-links"
+                    aria-label="Technical guides"
+                  >
                     <strong>Technical guides:</strong>
                     <a href="/solutions/">Application guides</a>
-                    <a href="/resources/industrial-bearing-rfq-checklist/">RFQ checklist</a>
+                    <a href="/resources/industrial-bearing-rfq-checklist/">
+                      RFQ checklist
+                    </a>
                   </nav>
                 </section>
 
                 {peers.length > 0 && (
-                  <section class="combined-model-directory" aria-labelledby="related-models-heading">
-                    <h2 id="related-models-heading">Related {item.family.toLowerCase()} models</h2>
-                    <p>Browse adjacent models in the same family for dimensions, applications and cross references.</p>
+                  <section
+                    class="combined-model-directory"
+                    aria-labelledby="related-models-heading"
+                  >
+                    <h2 id="related-models-heading">
+                      Related {item.family.toLowerCase()} models
+                    </h2>
+                    <p>
+                      Browse adjacent models in the same family for dimensions,
+                      applications and cross references.
+                    </p>
                     <div class="combined-model-directory-grid">
                       {peers.map((x) => (
                         <a href={`/products/${x.categorySlug}/${x.slug}/`}>
@@ -342,19 +484,25 @@ const iconApplication =
                           />
                           <span>
                             <strong>{x.model}</strong>
-                            <small>{x.aliases.slice(0, 3).join(' · ') || x.family}</small>
+                            <small>
+                              {x.aliases.slice(0, 3).join(" · ") || x.family}
+                            </small>
                           </span>
                         </a>
                       ))}
                     </div>
                     <p class="product-detail-back">
-                      <a href={`/products/${item.categorySlug}/`}>View all {categoryTitle.toLowerCase()}</a>
+                      <a href={`/products/${item.categorySlug}/`}>
+                        View all {categoryTitle.toLowerCase()}
+                      </a>
                     </p>
                   </section>
                 )}
 
                 <p class="product-detail-back">
-                  <a href={`/products/${item.categorySlug}/`}>{categoryTitle}</a>
+                  <a href={`/products/${item.categorySlug}/`}>
+                    {categoryTitle}
+                  </a>
                   <span aria-hidden="true">·</span>
                   <a href="/products/">All bearing products</a>
                   <span aria-hidden="true">·</span>
@@ -364,7 +512,10 @@ const iconApplication =
             </article>
 
             <div class="product-detail-sidebar">
-              <ProductSidebar activeSlug={item.categorySlug} quoteHref={quoteHref} />
+              <ProductSidebar
+                activeSlug={item.categorySlug}
+                quoteHref={quoteHref}
+              />
             </div>
           </div>
         </div>
@@ -372,7 +523,11 @@ const iconApplication =
     </section>
 
     <div class="products-faq-wrap">
-      <FaqSection items={faqs} title={`${item.model} FAQ`} subtitle="Model Questions" />
+      <FaqSection
+        items={faqs}
+        title={`${item.model} FAQ`}
+        subtitle="Model Questions"
+      />
     </div>
   </main>
 </BaseLayout>

@@ -32,8 +32,16 @@
 
 .solution-page-section {
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.06), transparent 40%),
-    radial-gradient(circle at 0% 100%, rgba(20, 110, 245, 0.04), transparent 44%),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.06),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(20, 110, 245, 0.04),
+      transparent 44%
+    ),
     #f4f7fb;
 }
 
@@ -64,8 +72,16 @@
   border: 1px solid var(--sol-border);
   border-radius: var(--sol-radius-lg);
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.1), transparent 46%),
-    radial-gradient(circle at 0% 100%, rgba(20, 110, 245, 0.06), transparent 42%),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.1),
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(20, 110, 245, 0.06),
+      transparent 42%
+    ),
     linear-gradient(180deg, #f8fafc 0%, #fff 100%);
   box-shadow: var(--sol-shadow-sm), var(--sol-shadow-md);
 }
@@ -125,7 +141,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #146ef5, #38bdf8);
   box-shadow: 0 0 0 3px rgba(20, 110, 245, 0.14);
-  content: '';
+  content: "";
 }
 
 .solution-kicker a {
@@ -161,7 +177,11 @@
   border: 1px solid rgba(20, 110, 245, 0.12);
   border-radius: var(--sol-radius-md);
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.12), transparent 50%),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.12),
+      transparent 50%
+    ),
     linear-gradient(135deg, rgba(239, 246, 255, 0.96), #fff);
 }
 
@@ -303,7 +323,11 @@
   padding: 14px 16px;
   border: 1px solid rgba(20, 110, 245, 0.14);
   border-radius: var(--sol-radius-sm);
-  background: linear-gradient(90deg, rgba(239, 246, 255, 0.95), rgba(255, 255, 255, 0.9));
+  background: linear-gradient(
+    90deg,
+    rgba(239, 246, 255, 0.95),
+    rgba(255, 255, 255, 0.9)
+  );
   color: var(--sol-body);
   font-size: 14px;
   line-height: 1.68;
@@ -386,7 +410,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #146ef5, #38bdf8);
   transform: translateY(-50%);
-  content: '';
+  content: "";
 }
 
 /* Sections */
@@ -485,8 +509,10 @@
   color: #94a3b8;
   font-size: 14px;
   transform: translateY(-50%);
-  transition: color var(--sol-ease), transform var(--sol-ease);
-  content: '→';
+  transition:
+    color var(--sol-ease),
+    transform var(--sol-ease);
+  content: "→";
 }
 
 .solution-link-grid a:hover,
@@ -550,7 +576,9 @@
   font-weight: 600;
   line-height: 1.45;
   cursor: pointer;
-  transition: background var(--sol-ease), color var(--sol-ease);
+  transition:
+    background var(--sol-ease),
+    color var(--sol-ease);
 }
 
 .solution-faq summary::-webkit-details-marker {
@@ -575,7 +603,7 @@
     border-color var(--sol-ease),
     background var(--sol-ease),
     color var(--sol-ease);
-  content: '+';
+  content: "+";
 }
 
 .solution-faq details[open] summary {
@@ -587,7 +615,7 @@
   border-color: var(--sol-accent-ring);
   background: var(--sol-accent-soft);
   color: var(--color-primary);
-  content: '−';
+  content: "−";
 }
 
 .solution-faq summary:hover,
@@ -656,7 +684,6 @@
     transform: none;
   }
 }
-
 
 /* Cross-reference table (solutions) */
 .solution-table-wrap {

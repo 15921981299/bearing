@@ -1,14 +1,14 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
-import CatalogSectionHead from '../../components/CatalogSectionHead.astro';
-import FaqSection from '../../components/FaqSection.astro';
-import ProductSidebar from '../../components/ProductSidebar.astro';
-import { products, type ProductItem } from '../../data/products';
-import { technicalReferencesByProduct } from '../../data/technical-references';
-import { productFaqs } from '../../data/page-faqs';
-import { combinedBearingModels } from '../../data/combined-bearing-models';
-import { bearingProfileMatrix } from '../../data/bearing-profile-matrix';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import CatalogSectionHead from "../../components/CatalogSectionHead.astro";
+import FaqSection from "../../components/FaqSection.astro";
+import ProductSidebar from "../../components/ProductSidebar.astro";
+import { products, type ProductItem } from "../../data/products";
+import { technicalReferencesByProduct } from "../../data/technical-references";
+import { productFaqs } from "../../data/page-faqs";
+import { combinedBearingModels } from "../../data/combined-bearing-models";
+import { bearingProfileMatrix } from "../../data/bearing-profile-matrix";
 import {
   backupRollerModels,
   crossRollerModels,
@@ -16,66 +16,101 @@ import {
   nbvProfileModels,
   specialTrackRollerModels,
   trackRollerModels,
-} from '../../data/extended-bearing-models';
-import { breadcrumbSchema, faqSchema, itemListSchema, productSchema, site } from '../../data/site';
-import '../../styles/products-index.css';
-import '../../styles/product-detail.css';
-import '../../styles/product-seo.css';
+} from "../../data/extended-bearing-models";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  itemListSchema,
+  productSchema,
+  site,
+} from "../../data/site";
+import "../../styles/products-index.css";
+import "../../styles/product-detail.css";
+import "../../styles/product-seo.css";
 
 export function getStaticPaths() {
-  return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
 }
 
 const { product } = Astro.props as { product: ProductItem };
 const pageUrl = `${site.url}/products/${product.slug}/`;
 const quoteHref = `/contact/?source=product-${product.slug}`;
-const related = products.filter((item) => item.slug !== product.slug).slice(0, 4);
+const related = products
+  .filter((item) => item.slug !== product.slug)
+  .slice(0, 4);
 const technicalReferences = technicalReferencesByProduct[product.slug] ?? [];
 const modelDirectory =
-  product.slug === 'combined-bearings'
+  product.slug === "combined-bearings"
     ? combinedBearingModels.map((model) => ({
         slug: model.slug,
         model: model.model,
         aliases: model.aliases,
         image: model.image,
       }))
-    : product.slug === 'track-roller-bearings'
+    : product.slug === "track-roller-bearings"
       ? trackRollerModels
-      : product.slug === 'full-complement-cylindrical-roller-bearings'
+      : product.slug === "full-complement-cylindrical-roller-bearings"
         ? fullComplementModels
-        : product.slug === 'cross-roller-bearings'
+        : product.slug === "cross-roller-bearings"
           ? crossRollerModels
-          : product.slug === 'standard-nbv-profiles'
+          : product.slug === "standard-nbv-profiles"
             ? nbvProfileModels
-            : product.slug === 'backup-roller-bearings'
+            : product.slug === "backup-roller-bearings"
               ? backupRollerModels
-              : product.slug === 'special-track-roller-bearings'
+              : product.slug === "special-track-roller-bearings"
                 ? specialTrackRollerModels
                 : [];
 
 const categoryNav = [
-  { href: '/products/', label: 'All bearings', slug: null },
-  { href: '/products/combined-bearings/', label: 'Combined', slug: 'combined-bearings' },
-  { href: '/products/track-roller-bearings/', label: 'Track rollers', slug: 'track-roller-bearings' },
+  { href: "/products/", label: "All bearings", slug: null },
   {
-    href: '/products/full-complement-cylindrical-roller-bearings/',
-    label: 'SL series',
-    slug: 'full-complement-cylindrical-roller-bearings',
+    href: "/products/combined-bearings/",
+    label: "Combined",
+    slug: "combined-bearings",
   },
-  { href: '/products/backup-roller-bearings/', label: 'Back-up rollers', slug: 'backup-roller-bearings' },
-  { href: '/products/cross-roller-bearings/', label: 'Cross roller', slug: 'cross-roller-bearings' },
-  { href: '/products/standard-nbv-profiles/', label: 'NbV profiles', slug: 'standard-nbv-profiles' },
-  { href: '/products/special-track-roller-bearings/', label: 'Special track', slug: 'special-track-roller-bearings' },
+  {
+    href: "/products/track-roller-bearings/",
+    label: "Track rollers",
+    slug: "track-roller-bearings",
+  },
+  {
+    href: "/products/full-complement-cylindrical-roller-bearings/",
+    label: "SL series",
+    slug: "full-complement-cylindrical-roller-bearings",
+  },
+  {
+    href: "/products/backup-roller-bearings/",
+    label: "Back-up rollers",
+    slug: "backup-roller-bearings",
+  },
+  {
+    href: "/products/cross-roller-bearings/",
+    label: "Cross roller",
+    slug: "cross-roller-bearings",
+  },
+  {
+    href: "/products/standard-nbv-profiles/",
+    label: "NbV profiles",
+    slug: "standard-nbv-profiles",
+  },
+  {
+    href: "/products/special-track-roller-bearings/",
+    label: "Special track",
+    slug: "special-track-roller-bearings",
+  },
 ];
 
 const webPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
+  "@context": "https://schema.org",
+  "@type": "WebPage",
   name: product.seoTitle,
   description: product.summary,
   url: pageUrl,
   primaryImageOfPage: `${site.url}${product.mainImage}`,
-  isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+  isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
 };
 
 const iconArrow =
@@ -96,8 +131,8 @@ const iconInput =
   image={product.mainImage}
   jsonLd={[
     breadcrumbSchema([
-      { name: 'Home', url: site.url },
-      { name: 'Bearing Products', url: `${site.url}/products/` },
+      { name: "Home", url: site.url },
+      { name: "Bearing Products", url: `${site.url}/products/` },
       { name: product.title, url: pageUrl },
     ]),
     webPageSchema,
@@ -106,30 +141,42 @@ const iconInput =
       description: product.summary,
       url: pageUrl,
       image: `${site.url}${product.mainImage}`,
-      category: 'Industrial Bearings',
+      category: "Industrial Bearings",
       sku: product.slug,
     }),
-    faqSchema(productFaqs.map((faq) => ({ question: faq.question, answer: faq.answer }))),
+    faqSchema(
+      productFaqs.map((faq) => ({
+        question: faq.question,
+        answer: faq.answer,
+      })),
+    ),
     ...(modelDirectory.length
-      ? [itemListSchema(modelDirectory.map((model) => ({
-          name: `${model.model} ${product.slug === 'combined-bearings' ? 'Combined Bearing' : product.title}`,
-          url: `${site.url}/products/${product.slug}/${model.slug}/`,
-        })))]
+      ? [
+          itemListSchema(
+            modelDirectory.map((model) => ({
+              name: `${model.model} ${product.slug === "combined-bearings" ? "Combined Bearing" : product.title}`,
+              url: `${site.url}/products/${product.slug}/${model.slug}/`,
+            })),
+          ),
+        ]
       : []),
   ]}
 >
   <BreadcrumbHero
     title={product.h1Title}
     trail={[
-      { label: 'Home', href: '/' },
-      { label: 'Products', href: '/products/' },
+      { label: "Home", href: "/" },
+      { label: "Products", href: "/products/" },
       { label: product.title },
     ]}
     variant="2"
   />
 
   <main class="products-page product-detail-page">
-    <section class="products-catalog" aria-labelledby="product-overview-heading">
+    <section
+      class="products-catalog"
+      aria-labelledby="product-overview-heading"
+    >
       <div class="section-gap bottom">
         <div class="container">
           <nav aria-label="Bearing product categories">
@@ -138,8 +185,10 @@ const iconInput =
                 <li>
                   <a
                     href={item.href}
-                    class:list={[{ 'is-active': item.slug === product.slug }]}
-                    aria-current={item.slug === product.slug ? 'page' : undefined}
+                    class:list={[{ "is-active": item.slug === product.slug }]}
+                    aria-current={
+                      item.slug === product.slug ? "page" : undefined
+                    }
                   >
                     {item.label}
                   </a>
@@ -175,23 +224,35 @@ const iconInput =
                     {product.summary}
                   </CatalogSectionHead>
 
-                  <div class="products-meta-row product-detail-meta-row" aria-label="Selection and delivery notes">
+                  <div
+                    class="products-meta-row product-detail-meta-row"
+                    aria-label="Selection and delivery notes"
+                  >
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconSelection} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconSelection}
+                      />
                       <div>
                         <strong>Selection</strong>
                         <span>{product.tolerance}</span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconLeadTime} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconLeadTime}
+                      />
                       <div>
                         <strong>Lead time</strong>
                         <span>{product.leadTime}</span>
                       </div>
                     </div>
                     <div class="products-meta-chip">
-                      <span class="product-detail-meta-icon" set:html={iconInput} />
+                      <span
+                        class="product-detail-meta-icon"
+                        set:html={iconInput}
+                      />
                       <div>
                         <strong>Input required</strong>
                         <span>Model, dimensions or controlled drawing</span>
@@ -199,11 +260,17 @@ const iconInput =
                     </div>
                   </div>
 
-                  <aside class="products-rfq-panel product-detail-rfq-panel" aria-label="Request a quotation">
+                  <aside
+                    class="products-rfq-panel product-detail-rfq-panel"
+                    aria-label="Request a quotation"
+                  >
                     <p>
-                      <strong id="product-overview-heading">Request {product.title.toLowerCase()} pricing</strong>
-                      Send the full bearing designation, dimensions, quantity, application and delivery country
-                      for specification review and quotation.
+                      <strong id="product-overview-heading">
+                        Request {product.title.toLowerCase()} pricing
+                      </strong>
+                      Send the full bearing designation, dimensions, quantity,
+                      application and delivery country for specification review
+                      and quotation.
                     </p>
                     <div class="products-rfq-actions">
                       <a
@@ -216,7 +283,10 @@ const iconInput =
                         Request bearing pricing
                         <span set:html={iconArrow} />
                       </a>
-                      <a href="/resources/industrial-bearing-rfq-checklist/" class="products-btn products-btn-secondary">
+                      <a
+                        href="/resources/industrial-bearing-rfq-checklist/"
+                        class="products-btn products-btn-secondary"
+                      >
                         RFQ checklist
                       </a>
                     </div>
@@ -225,17 +295,24 @@ const iconInput =
               </div>
 
               <div class="product-detail-content">
-                <div class="product-detail-prose" set:html={product.content.partOne} />
+                <div
+                  class="product-detail-prose"
+                  set:html={product.content.partOne}
+                />
 
-                <section class="product-seo-section" aria-labelledby="series-reference-heading">
+                <section
+                  class="product-seo-section"
+                  aria-labelledby="series-reference-heading"
+                >
                   <CatalogSectionHead
                     kicker="Reference Groups"
                     title={`${product.title} series and model references`}
                     titleId="series-reference-heading"
                   />
                   <p>
-                    Use these groups to identify the requested design. A reference is not an interchange
-                    approval; dimensions, suffixes and operating conditions must still be checked.
+                    Use these groups to identify the requested design. A
+                    reference is not an interchange approval; dimensions,
+                    suffixes and operating conditions must still be checked.
                   </p>
                   <div class="product-reference-table-wrap">
                     <table class="product-reference-table">
@@ -257,33 +334,131 @@ const iconInput =
                   </div>
 
                   {modelDirectory.length > 0 && (
-                    <section class="combined-model-directory" aria-labelledby="combined-model-directory-heading">
-                      <h2 id="combined-model-directory-heading">{product.title} model directory</h2>
-                      <p>Browse individual model dimensions, applications and common cross references.</p>
+                    <section
+                      class="combined-model-directory"
+                      aria-labelledby="combined-model-directory-heading"
+                    >
+                      <h2 id="combined-model-directory-heading">
+                        {product.title} model directory
+                      </h2>
+                      <p>
+                        Browse individual model dimensions, applications and
+                        common cross references.
+                      </p>
                       <div class="combined-model-directory-grid">
                         {modelDirectory.map((model) => (
                           <a href={`/products/${product.slug}/${model.slug}/`}>
-                            <img src={model.image} alt={`${model.model} ${product.title}`} width="180" height="130" loading="lazy" decoding="async" />
-                            <span><strong>{model.model}</strong><small>{model.aliases.slice(0, 3).join(' · ')}</small></span>
+                            <img
+                              src={model.image}
+                              alt={`${model.model} ${product.title}`}
+                              width="180"
+                              height="130"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <span>
+                              <strong>{model.model}</strong>
+                              <small>
+                                {model.aliases.slice(0, 3).join(" · ")}
+                              </small>
+                            </span>
                           </a>
                         ))}
                       </div>
                     </section>
                   )}
 
-                  {(product.slug === 'combined-bearings' || product.slug === 'standard-nbv-profiles') && (
-                    <section class="product-seo-section product-specification-section" aria-labelledby="bearing-profile-matrix-heading">
-                      <div class="product-specification-heading"><div><p class="product-specification-eyebrow">Compatibility reference</p><h2 id="bearing-profile-matrix-heading">Combined bearing and Standard NbV profile matching table</h2></div><a class="product-pdf-link" href="/downloads/combined-bearing-nbv-profile-matrix.pdf" download>Download matching PDF</a></div>
-                      <p>Use the matrix in both directions: select a profile from the bearing model, or identify the related bearing class from an existing profile. Confirm profile geometry, clearance and the current drawing before manufacture.</p>
-                      <div class="product-reference-table-wrap product-specification-table-wrap" tabindex="0" aria-label="Combined bearing and NbV profile compatibility table; scroll horizontally on small screens">
-                        <table class="product-reference-table product-specification-table"><caption>Standard NbV 0-8 profile and combined-bearing classes</caption><thead><tr><th scope="col">Profile</th><th scope="col">Article / replacement</th><th scope="col">Mass</th><th scope="col">Matched bearings</th><th scope="col">Verification note</th></tr></thead><tbody>
-                          {bearingProfileMatrix.map((row)=><tr><th scope="row"><a href={`/products/standard-nbv-profiles/${row.profileSlug}/`}>{row.profile}</a></th><td>{row.articleNumber}<br/>{row.replacementReference}</td><td>{row.mass}</td><td>{row.matchedBearings.map((bearing,index)=><span><a href={`/products/combined-bearings/${bearing.slug}/`}>{bearing.model}</a>{index < row.matchedBearings.length-1 ? ' · ' : ''}</span>)}</td><td>{row.note}</td></tr>)}
-                        </tbody></table>
+                  {(product.slug === "combined-bearings" ||
+                    product.slug === "standard-nbv-profiles") && (
+                    <section
+                      class="product-seo-section product-specification-section"
+                      aria-labelledby="bearing-profile-matrix-heading"
+                    >
+                      <div class="product-specification-heading">
+                        <div>
+                          <p class="product-specification-eyebrow">
+                            Compatibility reference
+                          </p>
+                          <h2 id="bearing-profile-matrix-heading">
+                            Combined bearing and Standard NbV profile matching
+                            table
+                          </h2>
+                        </div>
+                        <a
+                          class="product-pdf-link"
+                          href="/downloads/combined-bearing-nbv-profile-matrix.pdf"
+                          download
+                        >
+                          Download matching PDF
+                        </a>
+                      </div>
+                      <p>
+                        Use the matrix in both directions: select a profile from
+                        the bearing model, or identify the related bearing class
+                        from an existing profile. Confirm profile geometry,
+                        clearance and the current drawing before manufacture.
+                      </p>
+                      <div
+                        class="product-reference-table-wrap product-specification-table-wrap"
+                        tabindex="0"
+                        aria-label="Combined bearing and NbV profile compatibility table; scroll horizontally on small screens"
+                      >
+                        <table class="product-reference-table product-specification-table">
+                          <caption>
+                            Standard NbV 0-8 profile and combined-bearing
+                            classes
+                          </caption>
+                          <thead>
+                            <tr>
+                              <th scope="col">Profile</th>
+                              <th scope="col">Article / replacement</th>
+                              <th scope="col">Mass</th>
+                              <th scope="col">Matched bearings</th>
+                              <th scope="col">Verification note</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bearingProfileMatrix.map((row) => (
+                              <tr>
+                                <th scope="row">
+                                  <a
+                                    href={`/products/standard-nbv-profiles/${row.profileSlug}/`}
+                                  >
+                                    {row.profile}
+                                  </a>
+                                </th>
+                                <td>
+                                  {row.articleNumber}
+                                  <br />
+                                  {row.replacementReference}
+                                </td>
+                                <td>{row.mass}</td>
+                                <td>
+                                  {row.matchedBearings.map((bearing, index) => (
+                                    <span>
+                                      <a
+                                        href={`/products/combined-bearings/${bearing.slug}/`}
+                                      >
+                                        {bearing.model}
+                                      </a>
+                                      {index < row.matchedBearings.length - 1
+                                        ? " · "
+                                        : ""}
+                                    </span>
+                                  ))}
+                                </td>
+                                <td>{row.note}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   )}
 
-                  <h2 id="selection-checks-heading">Information required for selection</h2>
+                  <h2 id="selection-checks-heading">
+                    Information required for selection
+                  </h2>
                   <dl class="product-selection-grid">
                     {product.selectionChecks.map((item) => (
                       <div>
@@ -294,101 +469,143 @@ const iconInput =
                   </dl>
                 </section>
 
-                {technicalReferences.map((technicalReference, referenceIndex) => (
-                  <section
-                    class="product-seo-section product-specification-section"
-                    aria-labelledby={`technical-reference-heading-${referenceIndex}`}
-                  >
-                    <div class="product-specification-heading">
-                      <div>
-                        <p class="product-specification-eyebrow">Processed technical reference</p>
-                        <h2 id={`technical-reference-heading-${referenceIndex}`}>{technicalReference.title}</h2>
-                      </div>
-                      {technicalReference.downloadHref && (
-                        <a class="product-pdf-link" href={technicalReference.downloadHref} download>
-                          Download reference PDF
-                        </a>
-                      )}
-                    </div>
-                    <p>{technicalReference.description}</p>
-                    <div
-                      class="product-reference-table-wrap product-specification-table-wrap"
-                      tabindex="0"
-                      aria-label={`${technicalReference.series} dimensional and load table; scroll horizontally on small screens`}
+                {technicalReferences.map(
+                  (technicalReference, referenceIndex) => (
+                    <section
+                      class="product-seo-section product-specification-section"
+                      aria-labelledby={`technical-reference-heading-${referenceIndex}`}
                     >
-                      <table class="product-reference-table product-specification-table">
-                        <caption>
-                          {technicalReference.series} dimensions, load ratings, speed and mass
-                        </caption>
-                        <thead>
-                          <tr>
-                            {technicalReference.columns.map((column) => (
-                              <th scope="col">{column.label}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {technicalReference.rows.map((row) => (
+                      <div class="product-specification-heading">
+                        <div>
+                          <p class="product-specification-eyebrow">
+                            Processed technical reference
+                          </p>
+                          <h2
+                            id={`technical-reference-heading-${referenceIndex}`}
+                          >
+                            {technicalReference.title}
+                          </h2>
+                        </div>
+                        {technicalReference.downloadHref && (
+                          <a
+                            class="product-pdf-link"
+                            href={technicalReference.downloadHref}
+                            download
+                          >
+                            Download reference PDF
+                          </a>
+                        )}
+                      </div>
+                      <p>{technicalReference.description}</p>
+                      <div
+                        class="product-reference-table-wrap product-specification-table-wrap"
+                        tabindex="0"
+                        aria-label={`${technicalReference.series} dimensional and load table; scroll horizontally on small screens`}
+                      >
+                        <table class="product-reference-table product-specification-table">
+                          <caption>
+                            {technicalReference.series} dimensions, load
+                            ratings, speed and mass
+                          </caption>
+                          <thead>
                             <tr>
-                              {technicalReference.columns.map((column, index) =>
-                                index === 0 ? (
-                                  <th scope="row">{row[column.key]}</th>
-                                ) : (
-                                  <td>{row[column.key]}</td>
-                                ),
-                              )}
+                              {technicalReference.columns.map((column) => (
+                                <th scope="col">{column.label}</th>
+                              ))}
                             </tr>
+                          </thead>
+                          <tbody>
+                            {technicalReference.rows.map((row) => (
+                              <tr>
+                                {technicalReference.columns.map(
+                                  (column, index) =>
+                                    index === 0 ? (
+                                      <th scope="row">{row[column.key]}</th>
+                                    ) : (
+                                      <td>{row[column.key]}</td>
+                                    ),
+                                )}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <p class="product-verification-note">
+                        <strong>Selection notice:</strong>{" "}
+                        {technicalReference.verificationNote}
+                      </p>
+                      <details class="product-source-notes">
+                        <summary>Data sources and processing notes</summary>
+                        <ul>
+                          {technicalReference.sources.map((source) => (
+                            <li>
+                              <a
+                                href={source.url}
+                                rel="nofollow noopener"
+                                target="_blank"
+                              >
+                                {source.label}
+                              </a>{" "}
+                              - {source.note}
+                            </li>
                           ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <p class="product-verification-note">
-                      <strong>Selection notice:</strong> {technicalReference.verificationNote}
-                    </p>
-                    <details class="product-source-notes">
-                      <summary>Data sources and processing notes</summary>
-                      <ul>
-                        {technicalReference.sources.map((source) => (
-                          <li>
-                            <a href={source.url} rel="nofollow noopener" target="_blank">{source.label}</a>
-                            {' '}- {source.note}
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  </section>
-                ))}
+                        </ul>
+                      </details>
+                    </section>
+                  ),
+                )}
 
-                <section class="product-seo-section evidence-policy" aria-labelledby="evidence-policy-heading">
+                <section
+                  class="product-seo-section evidence-policy"
+                  aria-labelledby="evidence-policy-heading"
+                >
                   <CatalogSectionHead
                     kicker="Verification"
                     title="Drawings, inspection records and application evidence"
                     titleId="evidence-policy-heading"
                   />
                   <p>
-                    Evidence is matched to the quoted product and order scope from our Changzhou manufacturing process.
-                    Batch documents are confirmed against the agreed drawing before shipment.
+                    Evidence is matched to the quoted product and order scope
+                    from our Changzhou manufacturing process. Batch documents
+                    are confirmed against the agreed drawing before shipment.
                   </p>
                   <div class="evidence-policy-grid">
                     <article>
                       <h3>Technical drawings</h3>
-                      <p>Reference sheets support identification. Controlled manufacturing drawings require model and factory confirmation.</p>
+                      <p>
+                        Reference sheets support identification. Controlled
+                        manufacturing drawings require model and factory
+                        confirmation.
+                      </p>
                     </article>
                     <article>
                       <h3>Inspection records</h3>
-                      <p>Request dimensional, marking, packing or factory-document checks with the RFQ. Availability is confirmed before order placement.</p>
+                      <p>
+                        Request dimensional, marking, packing or
+                        factory-document checks with the RFQ. Availability is
+                        confirmed before order placement.
+                      </p>
                     </article>
                     <article>
                       <h3>Factory and equipment media</h3>
-                      <p>Only dated factory media or inspection records captured for the quoted product batch are used as evidence.</p>
+                      <p>
+                        Only dated factory media or inspection records captured
+                        for the quoted product batch are used as evidence.
+                      </p>
                     </article>
                     <article>
                       <h3>Customer applications</h3>
-                      <p>Cases are published only with permission or in anonymized form using verified order and application facts.</p>
+                      <p>
+                        Cases are published only with permission or in
+                        anonymized form using verified order and application
+                        facts.
+                      </p>
                     </article>
                   </div>
                   <p class="product-detail-links">
-                    <a href="/certifications/">Review the verification process</a>
+                    <a href="/certifications/">
+                      Review the verification process
+                    </a>
                     <span aria-hidden="true">·</span>
                     <a href={quoteHref}>Request product-specific documents</a>
                   </p>
@@ -405,23 +622,43 @@ const iconInput =
                   />
                 </figure>
 
-                <div class="product-detail-prose" set:html={product.content.partTwo} />
+                <div
+                  class="product-detail-prose"
+                  set:html={product.content.partTwo}
+                />
 
                 <nav class="product-detail-links" aria-label="Technical guides">
                   <strong>Technical guides:</strong>
-                  <a href="/resources/identify-industrial-bearing-replacement/">Identify a replacement</a>
-                  <a href="/resources/measure-track-roller-cam-follower/">Measure a track roller</a>
-                  <a href="/resources/industrial-bearing-rfq-checklist/">RFQ checklist</a>
+                  <a href="/resources/identify-industrial-bearing-replacement/">
+                    Identify a replacement
+                  </a>
+                  <a href="/resources/measure-track-roller-cam-follower/">
+                    Measure a track roller
+                  </a>
+                  <a href="/resources/industrial-bearing-rfq-checklist/">
+                    RFQ checklist
+                  </a>
                 </nav>
 
-                <section class="product-detail-related" aria-labelledby="related-products-heading">
-                  <CatalogSectionHead kicker="Related Products" title="Other bearing families" align="split">
-                    Continue browsing related industrial bearing categories or return to the full product catalog.
+                <section
+                  class="product-detail-related"
+                  aria-labelledby="related-products-heading"
+                >
+                  <CatalogSectionHead
+                    kicker="Related Products"
+                    title="Other bearing families"
+                    align="split"
+                  >
+                    Continue browsing related industrial bearing categories or
+                    return to the full product catalog.
                   </CatalogSectionHead>
                   <div class="products-grid" id="related-products-heading">
                     {related.map((item) => (
                       <article class="products-card">
-                        <a href={`/products/${item.slug}/`} class="products-card-media">
+                        <a
+                          href={`/products/${item.slug}/`}
+                          class="products-card-media"
+                        >
                           <img
                             src={item.image}
                             alt={`${item.title} product range`}
@@ -430,14 +667,19 @@ const iconInput =
                             loading="lazy"
                             decoding="async"
                           />
-                          <span class="products-card-media-label">View specifications</span>
+                          <span class="products-card-media-label">
+                            View specifications
+                          </span>
                         </a>
                         <div class="products-card-body">
                           <h2>
                             <a href={`/products/${item.slug}/`}>{item.title}</a>
                           </h2>
                           <p>{item.summary}</p>
-                          <a href={`/products/${item.slug}/`} class="products-text-link">
+                          <a
+                            href={`/products/${item.slug}/`}
+                            class="products-text-link"
+                          >
                             Explore models
                             <span set:html={iconArrow} />
                           </a>

@@ -1,10 +1,10 @@
-import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
-import { isSitemapExcluded } from './src/data/sitemap-exclude.ts';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import { isSitemapExcluded } from "./src/data/sitemap-exclude.ts";
 
 export default defineConfig({
-  site: 'https://combinedbearingsource.com',
-  trailingSlash: 'always',
+  site: "https://combinedbearingsource.com",
+  trailingSlash: "always",
   integrations: [
     sitemap({
       filter: (page) => {

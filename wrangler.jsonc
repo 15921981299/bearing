@@ -7,19 +7,19 @@
   "vars": {
     "ZOHO_SMTP_USER": "sales@combinedbearingsource.com",
     "ZOHO_SMTP_HOST": "smtppro.zoho.com",
-    "ZOHO_SMTP_PORT": "465"
+    "ZOHO_SMTP_PORT": "465",
   },
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
   },
   "r2_buckets": [
     {
       "binding": "R2_BUCKET",
-      "bucket_name": "bearing-rfq-uploads"
-    }
+      "bucket_name": "bearing-rfq-uploads",
+    },
   ],
   "observability": {
-    "enabled": true
-  }
+    "enabled": true,
+  },
 }

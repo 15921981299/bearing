@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'ms_attribution_v1';
+const STORAGE_KEY = "ms_attribution_v1";
 
 export type AttributionTouch = {
   page: string;
@@ -14,19 +14,19 @@ export type AttributionData = {
 };
 
 function inferFunnelStage(path: string): string {
-  if (path.startsWith('/contact')) return 'quote';
-  if (path.startsWith('/certifications')) return 'signing';
-  if (path.startsWith('/terms')) return 'signing';
+  if (path.startsWith("/contact")) return "quote";
+  if (path.startsWith("/certifications")) return "signing";
+  if (path.startsWith("/terms")) return "signing";
   if (
-    path.startsWith('/products') ||
-    path.startsWith('/capabilities') ||
-    path.startsWith('/industries') ||
-    path.startsWith('/applications') ||
-    path.startsWith('/part-products')
+    path.startsWith("/products") ||
+    path.startsWith("/capabilities") ||
+    path.startsWith("/industries") ||
+    path.startsWith("/applications") ||
+    path.startsWith("/part-products")
   ) {
-    return 'selection';
+    return "selection";
   }
-  return 'awareness';
+  return "awareness";
 }
 
 function readAttribution(): AttributionData | null {
@@ -80,7 +80,7 @@ export function getAttributionSnapshot(): AttributionData | null {
 }
 
 export function getTouchSummary(data: AttributionData): string {
-  return data.touches.map((t) => t.page).join(' -> ');
+  return data.touches.map((t) => t.page).join(" -> ");
 }
 
 export function populateRfqAttributionFields(form: HTMLFormElement): void {
@@ -88,39 +88,43 @@ export function populateRfqAttributionFields(form: HTMLFormElement): void {
   const setHidden = (name: string, value: string) => {
     let input = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
     if (!input) {
-      input = document.createElement('input');
-      input.type = 'hidden';
+      input = document.createElement("input");
+      input.type = "hidden";
       input.name = name;
       form.appendChild(input);
     }
     input.value = value;
   };
 
-  setHidden('first_touch_page', data.firstTouchPage);
-  setHidden('first_touch_stage', data.firstTouchStage);
-  setHidden('touch_count', String(data.touches.length));
-  setHidden('touch_path', getTouchSummary(data));
+  setHidden("first_touch_page", data.firstTouchPage);
+  setHidden("first_touch_stage", data.firstTouchStage);
+  setHidden("touch_count", String(data.touches.length));
+  setHidden("touch_path", getTouchSummary(data));
 
   const params = new URLSearchParams(window.location.search);
-  const urlSource = params.get('source');
+  const urlSource = params.get("source");
   if (urlSource) {
-    setHidden('url_source', urlSource);
-    const sourceSelect = form.querySelector<HTMLSelectElement>('select[name="source"]');
+    setHidden("url_source", urlSource);
+    const sourceSelect = form.querySelector<HTMLSelectElement>(
+      'select[name="source"]',
+    );
     if (sourceSelect && !sourceSelect.value) {
       const match = Array.from(sourceSelect.options).find(
-        (opt) => opt.value.toLowerCase() === urlSource.toLowerCase()
+        (opt) => opt.value.toLowerCase() === urlSource.toLowerCase(),
       );
       if (match) sourceSelect.value = match.value;
     }
   }
 }
 
-export function fireAttributionLeadEvent(extra: Record<string, string | number> = {}): void {
+export function fireAttributionLeadEvent(
+  extra: Record<string, string | number> = {},
+): void {
   const data = getAttributionSnapshot();
-  if (!data || typeof window.gtag !== 'function') return;
+  if (!data || typeof window.gtag !== "function") return;
 
-  window.gtag('event', 'rfq_attribution', {
-    event_category: 'Attribution',
+  window.gtag("event", "rfq_attribution", {
+    event_category: "Attribution",
     first_touch_page: data.firstTouchPage,
     first_touch_stage: data.firstTouchStage,
     touch_count: data.touches.length,

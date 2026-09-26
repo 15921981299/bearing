@@ -1,4 +1,4 @@
-@import './detail-rfq-strip.css';
+@import "./detail-rfq-strip.css";
 
 .resource-page {
   margin: 0 auto;
@@ -52,7 +52,10 @@
   background: var(--color-white);
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
 }
 
 .resource-nav-link:hover,
@@ -175,7 +178,7 @@
 }
 
 .resource-checklist li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 3px;
@@ -377,7 +380,9 @@ a.hub-card:hover .hub-card-title {
   background: var(--color-background);
   border: 1px solid var(--color-stroke);
   border-radius: 8px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .hub-card:hover {
@@ -961,7 +966,9 @@ a.hub-card:hover .hub-card-title {
   color: var(--color-primary);
   text-decoration: none;
   text-align: center;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .sidebar-rfq-link:hover {

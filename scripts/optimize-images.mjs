@@ -6,11 +6,11 @@
  *
  * Run: node scripts/optimize-images.mjs
  */
-import sharp from 'sharp';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
-import { join, extname } from 'node:path';
+import sharp from "sharp";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { join, extname } from "node:path";
 
-const ROOT = 'public/images';
+const ROOT = "public/images";
 const MAX_WIDTH = 1600;
 const JPEG_QUALITY = 80;
 const WEBP_QUALITY = 80;
@@ -36,20 +36,22 @@ let changed = 0;
 
 for (const file of files) {
   const ext = extname(file).toLowerCase();
-  if (!['.jpg', '.jpeg', '.webp'].includes(ext)) continue;
+  if (![".jpg", ".jpeg", ".webp"].includes(ext)) continue;
 
   const original = await readFile(file);
-  let pipeline = sharp(original, { failOn: 'none' });
+  let pipeline = sharp(original, { failOn: "none" });
   const meta = await pipeline.metadata();
   if (meta.width && meta.width > MAX_WIDTH) {
     pipeline = pipeline.resize({ width: MAX_WIDTH, withoutEnlargement: true });
   }
 
   let out;
-  if (ext === '.webp') {
+  if (ext === ".webp") {
     out = await pipeline.webp({ quality: WEBP_QUALITY }).toBuffer();
   } else {
-    out = await pipeline.jpeg({ quality: JPEG_QUALITY, mozjpeg: true, progressive: true }).toBuffer();
+    out = await pipeline
+      .jpeg({ quality: JPEG_QUALITY, mozjpeg: true, progressive: true })
+      .toBuffer();
   }
 
   if (out.length < original.length) {
@@ -57,8 +59,12 @@ for (const file of files) {
     const saved = original.length - out.length;
     savedTotal += saved;
     changed += 1;
-    console.log(`${kb(original.length).padStart(6)}KB -> ${kb(out.length).padStart(6)}KB  ${file}`);
+    console.log(
+      `${kb(original.length).padStart(6)}KB -> ${kb(out.length).padStart(6)}KB  ${file}`,
+    );
   }
 }
 
-console.log(`\nOptimized ${changed} images. Total saved: ${kb(savedTotal)} KB (${(savedTotal / 1024 / 1024).toFixed(2)} MB).`);
+console.log(
+  `\nOptimized ${changed} images. Total saved: ${kb(savedTotal)} KB (${(savedTotal / 1024 / 1024).toFixed(2)} MB).`,
+);

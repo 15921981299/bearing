@@ -65,7 +65,10 @@
   color: var(--color-body-text);
   background: var(--color-white);
   text-decoration: none;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
 }
 
 .utility-pill-link:hover {

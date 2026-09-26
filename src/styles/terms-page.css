@@ -19,7 +19,10 @@
   color: var(--color-body-text);
   background: var(--color-white);
   text-decoration: none;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
 }
 
 .terms-nav-link:hover,
@@ -88,7 +91,9 @@
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .terms-rfq-link:hover {
@@ -216,7 +221,10 @@
   background: var(--color-white);
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .terms-jump-link:hover {

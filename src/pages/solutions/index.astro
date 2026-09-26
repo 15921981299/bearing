@@ -1,31 +1,31 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
-import { seoLandingPages } from '../../data/seo-landing-pages';
-import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
-import '../../styles/resource-page.css';
-import '../../styles/resource-library.css';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import { seoLandingPages } from "../../data/seo-landing-pages";
+import { breadcrumbSchema, itemListSchema, site } from "../../data/site";
+import "../../styles/resource-page.css";
+import "../../styles/resource-library.css";
 
-const clusters = ['Bearing Designs', 'Applications', 'Buyer Support'] as const;
+const clusters = ["Bearing Designs", "Applications", "Buyer Support"] as const;
 
 const clusterMeta: Record<
   (typeof clusters)[number],
   { title: string; description: string }
 > = {
-  'Bearing Designs': {
-    title: 'Combined bearing types and construction',
+  "Bearing Designs": {
+    title: "Combined bearing types and construction",
     description:
-      'Fixed axial, adjustable, welded plate and jumbo profile references for initial model identification.',
+      "Fixed axial, adjustable, welded plate and jumbo profile references for initial model identification.",
   },
   Applications: {
-    title: 'Equipment and duty-specific guides',
+    title: "Equipment and duty-specific guides",
     description:
-      'Forklift masts, stacker cranes, steel mill equipment and heavy-duty linear guide applications.',
+      "Forklift masts, stacker cranes, steel mill equipment and heavy-duty linear guide applications.",
   },
-  'Buyer Support': {
-    title: 'Export, RFQ and verification support',
+  "Buyer Support": {
+    title: "Export, RFQ and verification support",
     description:
-      'Cross references, quality control, drawing review, Incoterms and factory export documentation.',
+      "Cross references, quality control, drawing review, Incoterms and factory export documentation.",
   },
 };
 ---
@@ -36,8 +36,8 @@ const clusterMeta: Record<
   currentPath="/solutions"
   jsonLd={[
     breadcrumbSchema([
-      { name: 'Home', url: site.url },
-      { name: 'Solutions', url: `${site.url}/solutions/` },
+      { name: "Home", url: site.url },
+      { name: "Solutions", url: `${site.url}/solutions/` },
     ]),
     itemListSchema(
       seoLandingPages.map((item) => ({
@@ -49,7 +49,7 @@ const clusterMeta: Record<
 >
   <BreadcrumbHero
     title="Combined Bearing Solutions"
-    trail={[{ label: 'Home', href: '/' }, { label: 'Solutions' }]}
+    trail={[{ label: "Home", href: "/" }, { label: "Solutions" }]}
     variant="2"
   />
 
@@ -60,52 +60,58 @@ const clusterMeta: Record<
           <p class="resource-page-kicker">Technical library</p>
           <h2>Find a bearing by design, application or export requirement</h2>
           <p>
-            These pages connect combined bearing models, track rollers and OEM assemblies with the equipment,
-            guide profiles, export RFQ and drawing checks required before quotation.
+            These pages connect combined bearing models, track rollers and OEM
+            assemblies with the equipment, guide profiles, export RFQ and
+            drawing checks required before quotation.
           </p>
         </div>
 
-        {
-          clusters.map((cluster, clusterIndex) => {
-            const items = seoLandingPages.filter((item) => item.cluster === cluster);
-            const meta = clusterMeta[cluster];
+        {clusters.map((cluster, clusterIndex) => {
+          const items = seoLandingPages.filter(
+            (item) => item.cluster === cluster,
+          );
+          const meta = clusterMeta[cluster];
 
-            return (
-              <>
-                <div
-                  id={cluster === 'Bearing Designs'
-                    ? 'bearing-designs'
-                    : cluster === 'Applications'
-                      ? 'applications'
-                      : 'buyer-support'}
-                  class:list={[
-                    'resource-library-intro',
-                    'resource-library-intro--cluster',
-                    { 'resource-library-intro--secondary': clusterIndex > 0 },
-                  ]}
-                >
-                  <p class="resource-page-kicker">{cluster}</p>
-                  <h2>{meta.title}</h2>
-                  <p>{meta.description}</p>
-                </div>
-                <div class="resource-library-grid">
-                  {items.map((item, index) => (
-                    <article class="resource-library-card resource-library-card--compact">
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <h2>
-                        <a href={`/solutions/${item.slug}/`}>{item.title}</a>
-                      </h2>
-                      <p>{item.intro}</p>
-                      <a class="resource-library-link" href={`/solutions/${item.slug}/`}>
-                        Read solution →
-                      </a>
-                    </article>
-                  ))}
-                </div>
-              </>
-            );
-          })
-        }
+          return (
+            <>
+              <div
+                id={
+                  cluster === "Bearing Designs"
+                    ? "bearing-designs"
+                    : cluster === "Applications"
+                      ? "applications"
+                      : "buyer-support"
+                }
+                class:list={[
+                  "resource-library-intro",
+                  "resource-library-intro--cluster",
+                  { "resource-library-intro--secondary": clusterIndex > 0 },
+                ]}
+              >
+                <p class="resource-page-kicker">{cluster}</p>
+                <h2>{meta.title}</h2>
+                <p>{meta.description}</p>
+              </div>
+              <div class="resource-library-grid">
+                {items.map((item, index) => (
+                  <article class="resource-library-card resource-library-card--compact">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <h2>
+                      <a href={`/solutions/${item.slug}/`}>{item.title}</a>
+                    </h2>
+                    <p>{item.intro}</p>
+                    <a
+                      class="resource-library-link"
+                      href={`/solutions/${item.slug}/`}
+                    >
+                      Read solution →
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </>
+          );
+        })}
 
         <nav class="resource-library-footer" aria-label="Related libraries">
           <a href="/resources/">Technical guides</a>

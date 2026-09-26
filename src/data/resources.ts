@@ -11,53 +11,63 @@ export type TechnicalResource = {
 
 export const technicalResources: TechnicalResource[] = [
   {
-    slug: 'identify-industrial-bearing-replacement',
-    title: 'How to Identify an Industrial Bearing for Replacement',
-    seoTitle: 'How to Identify an Industrial Bearing Replacement',
-    description: 'A practical process for identifying an industrial bearing from its marking, dimensions, mounting, seals, running surface and application data.',
-    summary: 'Use the marking as a starting point, then confirm the physical design and operating duty before approving a replacement.',
-    datePublished: '2026-07-16',
-    dateModified: '2026-07-16',
+    slug: "identify-industrial-bearing-replacement",
+    title: "How to Identify an Industrial Bearing for Replacement",
+    seoTitle: "How to Identify an Industrial Bearing Replacement",
+    description:
+      "A practical process for identifying an industrial bearing from its marking, dimensions, mounting, seals, running surface and application data.",
+    summary:
+      "Use the marking as a starting point, then confirm the physical design and operating duty before approving a replacement.",
+    datePublished: "2026-07-16",
+    dateModified: "2026-07-16",
     content: `<h2>Why the marking is not enough</h2><p>A bearing designation can identify a family, but suffixes and manufacturer-specific references may change the seals, internal clearance, outer-ring profile, lubrication or mounting arrangement. Worn markings can also be incomplete. Treat the number on the old bearing as the first search clue rather than automatic proof of interchangeability.</p><h2>1. Record every available identifier</h2><p>Photograph the complete marking before cleaning or dismantling the part. Record prefixes, spaces, punctuation and suffixes exactly as shown. Also check the machine manual, previous purchase order, drawing and packaging. A second reference such as a machine maker number can be as useful as the bearing number.</p><h2>2. Identify the basic construction</h2><ul><li>Determine whether the part is a radial bearing, yoke roller, stud cam follower, combined bearing, back-up roller or crossed roller bearing.</li><li>Note whether it mounts through a bore, threaded stud, smooth stud, flange, plate or integrated shaft.</li><li>Check whether the running surface is cylindrical, crowned, convex, concave or grooved.</li><li>Record visible seals, shields, lubrication holes, grease fittings, eccentric collars and locking hardware.</li></ul><h2>3. Measure the installation envelope</h2><p>For an initial sourcing review, measure the bore or stud, outside diameter, outer-ring width and overall width. Stud followers may also require thread diameter, pitch, stud length, shoulder diameter and hex or slot details. Combined bearings and back-up rollers often require additional axial-roller or shaft-end dimensions. Use a controlled drawing for final approval whenever tolerances affect mounting or running accuracy.</p><h2>4. Describe the operating duty</h2><p>Provide the machine type, load direction, expected radial and axial loads, speed, shock, duty cycle, temperature, contamination and lubrication method. A dimensionally similar bearing may still be unsuitable if its internal design, load capacity, speed limit or sealing arrangement differs.</p><h2>5. Compare the proposed replacement</h2><p>Confirm the complete drawing and specification rather than comparing only d × D × B. Review mounting interfaces, abutments, fasteners, internal clearance or preload, outer-ring geometry, lubrication path and material requirements. For track-running bearings, the mating track hardness and alignment also influence service conditions.</p><h2>What to send with an inquiry</h2><ul><li>Complete old bearing designation and suffix</li><li>Clear marking and overall product photos</li><li>Measured dimensions or a controlled drawing</li><li>Machine and application description</li><li>Load, speed, temperature and lubrication information</li><li>Quantity, annual demand, delivery destination and required date</li></ul><p>For product-family guidance, browse our <a href="/products/">industrial bearing products</a> or <a href="/contact/?source=resource-identification">send the available information for review</a>.</p>`,
   },
   {
-    slug: 'measure-track-roller-cam-follower',
-    title: 'How to Measure a Track Roller or Cam Follower',
-    seoTitle: 'How to Measure a Track Roller or Cam Follower',
-    description: 'Learn which dimensions and design details to record when sourcing a yoke track roller, stud cam follower or guide roller replacement.',
-    summary: 'Separate the mounting dimensions from the running-surface dimensions and document every feature that controls installation.',
-    datePublished: '2026-07-16',
-    dateModified: '2026-07-16',
+    slug: "measure-track-roller-cam-follower",
+    title: "How to Measure a Track Roller or Cam Follower",
+    seoTitle: "How to Measure a Track Roller or Cam Follower",
+    description:
+      "Learn which dimensions and design details to record when sourcing a yoke track roller, stud cam follower or guide roller replacement.",
+    summary:
+      "Separate the mounting dimensions from the running-surface dimensions and document every feature that controls installation.",
+    datePublished: "2026-07-16",
+    dateModified: "2026-07-16",
     content: `<h2>First identify the mounting type</h2><p>Yoke track rollers mount through an inner-ring bore. Stud cam followers use an integrated threaded or smooth stud. Guide rollers may use a flange, eccentric collar or special profile. Establishing the mounting type prevents a dimension from being assigned to the wrong feature.</p><h2>Dimensions for a yoke roller</h2><ul><li><strong>d — bore diameter:</strong> measure the inner-ring bore and note any sleeve or special fit.</li><li><strong>D — outside diameter:</strong> measure the largest running diameter.</li><li><strong>B — overall width:</strong> record the complete width across the inner ring or side faces.</li><li><strong>C — outer-ring width:</strong> distinguish the track-contact width from overall width where they differ.</li><li><strong>Side details:</strong> record shoulders, spacers, retaining-ring grooves and seal positions.</li></ul><h2>Dimensions for a stud follower</h2><ul><li>Outer diameter and outer-ring width</li><li>Overall length and stud length</li><li>Thread diameter, thread pitch and threaded length</li><li>Stud shoulder diameter and shoulder length</li><li>Hex socket, screwdriver slot, grease fitting or lubrication-hole details</li><li>Eccentric collar diameter and offset where applicable</li></ul><h2>Describe the outer-ring profile</h2><p>A crowned or convex outer ring reduces sensitivity to misalignment and edge loading, while a cylindrical outer ring provides a different contact pattern. V-groove, U-groove and concave rollers require the profile radius, groove angle, groove width and mating-track geometry. Do not assume two rollers with the same maximum outside diameter have the same running surface.</p><h2>Check seals and lubrication</h2><p>Photograph both sides. Note open construction, rubber or plastic seals, metal shields, grease holes and relubrication paths. Record the lubricant if the application has temperature, food-grade, vacuum or compatibility requirements. Suffixes often identify these variations.</p><h2>Measurement limitations</h2><p>Measurements from a worn component are suitable for preliminary identification but may not represent the original tolerance or profile. Wear, corrosion and load damage can reduce diameters or distort contact surfaces. Final approval should use the original drawing, a verified replacement drawing or controlled inspection data.</p><h2>Operating data that completes the specification</h2><p>Share the radial load, any axial load, speed, shock, duty cycle, track material and hardness, alignment, temperature and contamination. Include the machine model and the roller's function. This helps distinguish a standard <a href="/products/track-roller-bearings/">track roller bearing</a> from a <a href="/products/special-track-roller-bearings/">drawing-based special roller</a>.</p>`,
   },
   {
-    slug: 'industrial-bearing-rfq-checklist',
-    title: 'Industrial Bearing RFQ Checklist for Buyers',
-    seoTitle: 'Industrial Bearing RFQ Checklist for Buyers',
-    description: 'A buyer-focused checklist covering bearing models, dimensions, drawings, loads, quantities, quality documents, packing and delivery requirements.',
-    summary: 'A complete RFQ reduces cross-reference errors, repeated email and delays in technical review.',
-    datePublished: '2026-07-16',
-    dateModified: '2026-07-16',
+    slug: "industrial-bearing-rfq-checklist",
+    title: "Industrial Bearing RFQ Checklist for Buyers",
+    seoTitle: "Industrial Bearing RFQ Checklist for Buyers",
+    description:
+      "A buyer-focused checklist covering bearing models, dimensions, drawings, loads, quantities, quality documents, packing and delivery requirements.",
+    summary:
+      "A complete RFQ reduces cross-reference errors, repeated email and delays in technical review.",
+    datePublished: "2026-07-16",
+    dateModified: "2026-07-16",
     content: `<h2>Product identification</h2><ul><li>Complete bearing model, brand and every suffix</li><li>Machine maker reference or previous supplier reference</li><li>Clear photos of the marking, mounting and running surface</li><li>Required new part, equivalent replacement or drawing-based custom part</li></ul><h2>Dimensions and technical documents</h2><p>Attach a controlled drawing when available. Otherwise provide the main envelope dimensions and all mounting interfaces. State the measurement units and identify which values are measured from a used part. For custom rollers, mark critical tolerances, surface finish, profile geometry and datum references.</p><h2>Operating conditions</h2><ul><li>Radial, axial and moment load where applicable</li><li>Normal and maximum speed</li><li>Continuous or intermittent duty cycle</li><li>Shock, vibration and misalignment</li><li>Operating and ambient temperature</li><li>Dust, water, scale, coolant or corrosive exposure</li><li>Oil or grease lubrication and relubrication interval</li></ul><h2>Quantity and supply plan</h2><p>State the trial quantity, order quantity and estimated annual demand separately. A one-off maintenance replacement may require a different supply route from a recurring OEM program. Include the target delivery date and whether partial shipment is acceptable.</p><h2>Quality and documentation</h2><p>Specify the documents actually required for the order, such as dimensional inspection, material documentation, hardness results, certificate of conformity, marking photos or packing photos. Avoid requesting broad certification language without identifying the applicable product, manufacturing facility and inspection scope.</p><h2>Commercial and logistics information</h2><ul><li>Delivery city, postal code and country</li><li>Preferred Incoterm if already determined</li><li>Courier, air, sea or consolidated shipment preference</li><li>Individual corrosion protection, labels and outer packing requirements</li><li>Currency and payment requirements</li></ul><h2>Questions to ask the supplier</h2><ul><li>Which drawing or specification will control production and inspection?</li><li>Is the proposed item standard, modified standard or fully custom?</li><li>Which dimensions and suffix features have been confirmed?</li><li>Are tooling, samples or first-article inspection required?</li><li>What is the quoted production lead time and what can change it?</li><li>How will nonconforming or transit-damaged goods be handled?</li></ul><p>Use our <a href="/contact/?source=resource-rfq-checklist">bearing inquiry form</a> to submit the model, drawing, quantity and destination in one request. For overseas orders, also review <a href="/solutions/bearing-export-shipping-incoterms/">export shipping and Incoterms</a>.</p>`,
   },
   {
-    slug: 'specify-combined-bearing-for-mast-guides',
-    title: 'How to Specify a Combined Bearing for Mast Guides',
-    seoTitle: 'How to Specify Combined Bearings for Mast Guides',
-    description: 'A practical guide for specifying fixed, precision, eccentric and plate-mounted combined bearings used in forklift masts and steel U-profile guides.',
-    summary: 'Record the family, mounting type, envelope and profile match before approving a mast-guide replacement.',
-    datePublished: '2026-07-18',
-    dateModified: '2026-07-18',
+    slug: "specify-combined-bearing-for-mast-guides",
+    title: "How to Specify a Combined Bearing for Mast Guides",
+    seoTitle: "How to Specify Combined Bearings for Mast Guides",
+    description:
+      "A practical guide for specifying fixed, precision, eccentric and plate-mounted combined bearings used in forklift masts and steel U-profile guides.",
+    summary:
+      "Record the family, mounting type, envelope and profile match before approving a mast-guide replacement.",
+    datePublished: "2026-07-18",
+    dateModified: "2026-07-18",
     content: `<h2>Start with the bearing family</h2><p>Combined bearings carry radial and axial load in one compact unit. Identify whether the part is a fixed-axial standard bearing (4.05x), a precision PR4 execution, an eccentric-adjustable 4.45x design, a jumbo high-load bearing, or a welded-plate AP assembly. The family controls interchangeability more than a similar outside diameter alone.</p><h2>1. Capture every marking</h2><ul><li>WINKEL-style numbers such as 4.056, PR4.056 or 4.456</li><li>JD, MR, TR or 400-series cross-references</li><li>Plate codes such as AP2, AP2-LUB, AP2-Q, AP6 or AP91-Q</li><li>Any machine-maker or OEM drawing number</li></ul><h2>2. Measure the envelope</h2><p>For preliminary identification record d, D, H, h, B, S and overall mounting length T when available. Note the axial-roller position and whether clearance is fixed or adjustable. Worn parts can understate diameters; treat measured values as a starting point.</p><h2>3. Confirm the mating profile</h2><p>Mast bearings run in steel U-profiles. Record the profile designation when known (Standard 0–5 NbV / JDG62–JDG123) or measure channel width, depth and wall thickness. A bearing that fits the stud may still be wrong for the channel geometry.</p><h2>4. Describe adjustment and plate mounting</h2><ul><li>Fixed axial roller or eccentric / screw adjustment</li><li>Access direction for adjustment tools</li><li>Standalone bearing versus welded plate assembly</li><li>Plate thickness, hole pattern, weld location and coating</li></ul><h2>5. Add duty and commercial data</h2><p>State truck or equipment capacity, mast stage, shock, grease access, quantity, destination and required documents. For export orders include the preferred Incoterm and packing notes.</p><h2>Useful next pages</h2><ul><li><a href="/products/combined-bearings/">Combined bearing model directory</a></li><li><a href="/products/standard-nbv-profiles/">Standard NbV profiles</a></li><li><a href="/case-studies/forklift-mast-combined-bearing-replacement/">Forklift mast application case</a></li><li><a href="/solutions/welded-plate-combined-bearings/">Welded-plate combined bearings</a></li><li><a href="/contact/?source=resource-combined-mast">Send a mast-bearing RFQ</a></li></ul>`,
   },
   {
-    slug: 'nukr-vs-krv-cam-follower-selection',
-    title: 'NUKR vs KRV Cam Follower Selection',
-    seoTitle: 'NUKR vs KRV Stud Type Cam Follower Selection',
-    description: 'Compare NUKR and KRV stud-type cam followers for conveyors, cams and automation: mounting envelope, internal design and RFQ checks.',
-    summary: 'Both are metric stud followers. Confirm OD, stud thread, seals and whether a caged or full-complement design is required.',
-    datePublished: '2026-07-18',
-    dateModified: '2026-07-18',
+    slug: "nukr-vs-krv-cam-follower-selection",
+    title: "NUKR vs KRV Cam Follower Selection",
+    seoTitle: "NUKR vs KRV Stud Type Cam Follower Selection",
+    description:
+      "Compare NUKR and KRV stud-type cam followers for conveyors, cams and automation: mounting envelope, internal design and RFQ checks.",
+    summary:
+      "Both are metric stud followers. Confirm OD, stud thread, seals and whether a caged or full-complement design is required.",
+    datePublished: "2026-07-18",
+    dateModified: "2026-07-18",
     content: `<h2>Same job, different internal design</h2><p>NUKR and KRV are both stud-type track rollers with thick outer rings for direct track contact. Buyers often see matching outside diameters and thread sizes. Interchange still depends on internal design, seals, grease life and permissible outer-ring load.</p><h2>What usually matches first</h2><ul><li>Outside diameter D and outer-ring width C</li><li>Stud diameter and metric thread (for example M16×1.5 on 35 mm class)</li><li>Overall length B and hex / lubrication details</li></ul><h2>What to verify before replacement</h2><ul><li>Caged versus full-complement needle / roller design</li><li>PP sealed, open or special grease execution</li><li>Cylindrical or crowned outer profile</li><li>Speed, shock and track hardness</li><li>Nut supply and locking method</li></ul><h2>When to send a drawing</h2><p>If the old marking is worn, or the machine uses an eccentric collar, smooth stud or special outer profile, send photos and a controlled drawing. Do not assume NUKR35 and KRV35-PP are drop-in equivalents without checking the suffix and application duty.</p><h2>Browse factory model pages</h2><ul><li><a href="/products/track-roller-bearings/nukr35/">NUKR35</a> through <a href="/products/track-roller-bearings/nukr90/">NUKR90</a></li><li><a href="/products/track-roller-bearings/krv16pp/">KRV16-PP</a> through <a href="/products/track-roller-bearings/krv90pp/">KRV90-PP</a></li><li><a href="/case-studies/conveyor-track-roller-oem-supply/">Conveyor track roller application case</a></li><li><a href="/contact/?source=resource-nukr-krv">Request a stud-follower quote</a></li></ul>`,
   },
 ];

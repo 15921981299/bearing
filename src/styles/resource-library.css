@@ -127,7 +127,7 @@
   color: #8c9bad;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 }
 
 .resource-library-card h2 {
@@ -209,13 +209,23 @@
 }
 
 @media (max-width: 900px) {
-  .resource-library-grid { grid-template-columns: 1fr; }
-  .resource-library-card { min-height: 0; }
-  .resource-library-card h2 { margin-top: 24px; }
-  .resource-library-intro--cluster { max-width: none; }
+  .resource-library-grid {
+    grid-template-columns: 1fr;
+  }
+  .resource-library-card {
+    min-height: 0;
+  }
+  .resource-library-card h2 {
+    margin-top: 24px;
+  }
+  .resource-library-intro--cluster {
+    max-width: none;
+  }
 }
 
 @media (max-width: 767px) {
   .resource-library-section .container,
-  .technical-guide-section .container { padding-inline: 16px; }
+  .technical-guide-section .container {
+    padding-inline: 16px;
+  }
 }

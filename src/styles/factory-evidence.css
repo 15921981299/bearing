@@ -2,15 +2,27 @@
 
 .factory-evidence-section {
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.05), transparent 40%),
-    radial-gradient(circle at 0% 100%, rgba(217, 119, 6, 0.04), transparent 42%),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.05),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(217, 119, 6, 0.04),
+      transparent 42%
+    ),
     #f4f7fb;
 }
 
 .factory-evidence-page {
   padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 5vw, 72px);
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.05), transparent 40%),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.05),
+      transparent 40%
+    ),
     #f4f7fb;
 }
 
@@ -71,8 +83,12 @@
 .factory-case-card-media::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 45%, rgba(15, 23, 42, 0.55) 100%);
-  content: '';
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0) 45%,
+    rgba(15, 23, 42, 0.55) 100%
+  );
+  content: "";
   pointer-events: none;
 }
 

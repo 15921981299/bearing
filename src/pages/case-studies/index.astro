@@ -1,10 +1,13 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
-import { factoryCaseStudies, factoryEvidenceSource } from '../../data/factory-evidence';
-import { breadcrumbSchema, itemListSchema, site } from '../../data/site';
-import '../../styles/resource-library.css';
-import '../../styles/factory-evidence.css';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import {
+  factoryCaseStudies,
+  factoryEvidenceSource,
+} from "../../data/factory-evidence";
+import { breadcrumbSchema, itemListSchema, site } from "../../data/site";
+import "../../styles/resource-library.css";
+import "../../styles/factory-evidence.css";
 
 const pageUrl = `${site.url}/case-studies/`;
 ---
@@ -14,13 +17,21 @@ const pageUrl = `${site.url}/case-studies/`;
   description="Factory application cases for steel equipment bearings, combined bearings, cross roller bearings and harmonic-reducer OEM programs."
   currentPath="/case-studies"
   jsonLd={[
-    breadcrumbSchema([{ name: 'Home', url: site.url }, { name: 'Case Studies', url: pageUrl }]),
-    itemListSchema(factoryCaseStudies.map((study) => ({ name: study.title, url: `${pageUrl}${study.slug}/` }))),
+    breadcrumbSchema([
+      { name: "Home", url: site.url },
+      { name: "Case Studies", url: pageUrl },
+    ]),
+    itemListSchema(
+      factoryCaseStudies.map((study) => ({
+        name: study.title,
+        url: `${pageUrl}${study.slug}/`,
+      })),
+    ),
   ]}
 >
   <BreadcrumbHero
     title="Application Cases"
-    trail={[{ label: 'Home', href: '/' }, { label: 'Case Studies' }]}
+    trail={[{ label: "Home", href: "/" }, { label: "Case Studies" }]}
     variant="5"
   />
 
@@ -31,16 +42,20 @@ const pageUrl = `${site.url}/case-studies/`;
           <p class="resource-page-kicker">Factory application references</p>
           <h2>OEM, mast and steel-line application cases</h2>
           <p>
-            These pages summarize typical application requirements handled by our Changzhou manufacturing team
-            for forklift mast bearings, welded-plate assemblies, conveyors, steel equipment and cross roller OEM
-            programs.
+            These pages summarize typical application requirements handled by
+            our Changzhou manufacturing team for forklift mast bearings,
+            welded-plate assemblies, conveyors, steel equipment and cross roller
+            OEM programs.
           </p>
         </header>
 
         <div class="factory-case-grid">
           {factoryCaseStudies.map((study, index) => (
             <article class="factory-case-card">
-              <a class="factory-case-card-media" href={`/case-studies/${study.slug}/`}>
+              <a
+                class="factory-case-card-media"
+                href={`/case-studies/${study.slug}/`}
+              >
                 <img
                   src={study.image}
                   alt={`${study.industry} — ${study.title}`}
@@ -49,7 +64,9 @@ const pageUrl = `${site.url}/case-studies/`;
                   loading="lazy"
                   decoding="async"
                 />
-                <span class="factory-case-card-index">{String(index + 1).padStart(2, '0')}</span>
+                <span class="factory-case-card-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <span class="factory-case-card-industry">{study.industry}</span>
               </a>
               <div class="factory-case-card-body">
@@ -57,7 +74,10 @@ const pageUrl = `${site.url}/case-studies/`;
                   <a href={`/case-studies/${study.slug}/`}>{study.title}</a>
                 </h2>
                 <p>{study.description}</p>
-                <a class="factory-case-card-link" href={`/case-studies/${study.slug}/`}>
+                <a
+                  class="factory-case-card-link"
+                  href={`/case-studies/${study.slug}/`}
+                >
                   Review application case →
                 </a>
               </div>
@@ -66,7 +86,7 @@ const pageUrl = `${site.url}/case-studies/`;
         </div>
 
         <aside class="factory-disclosure" aria-label="Factory disclosure">
-          <strong>Plant note:</strong> {factoryEvidenceSource.disclosure}{' '}
+          <strong>Plant note:</strong> {factoryEvidenceSource.disclosure}{" "}
           <a href={factoryEvidenceSource.url}>About our factory</a>.
         </aside>
 

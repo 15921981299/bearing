@@ -4,7 +4,7 @@ import {
   getPostFunnelStage,
   type BlogPostLike,
   type FunnelStage,
-} from '../data/funnel';
+} from "../data/funnel";
 
 interface Props {
   post?: BlogPostLike;
@@ -39,9 +39,11 @@ const {
   rfqContext,
   rfqSource,
 } = Astro.props;
-const stage = stageProp ?? (post ? getPostFunnelStage(post) : 'quote');
+const stage = stageProp ?? (post ? getPostFunnelStage(post) : "quote");
 const baseCta = funnelCtaByStage[stage];
-const defaultPrimaryHref = post ? `/contact/?source=blog-${post.slug}` : baseCta.primaryHref;
+const defaultPrimaryHref = post
+  ? `/contact/?source=blog-${post.slug}`
+  : baseCta.primaryHref;
 const cta = {
   title: title ?? baseCta.title,
   text: text ?? baseCta.text,
@@ -93,16 +95,18 @@ const eventLabel = topic ?? post?.slug ?? stage;
 </section>
 
 <script>
-  document.querySelectorAll<HTMLAnchorElement>('[data-funnel-event]').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (typeof window.gtag !== 'function') return;
-      window.gtag('event', link.dataset.funnelEvent ?? 'funnel_cta_click', {
-        event_category: 'Funnel',
-        event_label: link.dataset.funnelLabel ?? '',
-        funnel_stage: link.dataset.funnelStage ?? '',
+  document
+    .querySelectorAll<HTMLAnchorElement>("[data-funnel-event]")
+    .forEach((link) => {
+      link.addEventListener("click", () => {
+        if (typeof window.gtag !== "function") return;
+        window.gtag("event", link.dataset.funnelEvent ?? "funnel_cta_click", {
+          event_category: "Funnel",
+          event_label: link.dataset.funnelLabel ?? "",
+          funnel_stage: link.dataset.funnelStage ?? "",
+        });
       });
     });
-  });
 </script>
 
 <style>
