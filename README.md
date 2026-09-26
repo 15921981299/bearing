@@ -40,6 +40,24 @@ pnpm dev          # http://localhost:4321
 | `pnpm format` / `pnpm format:check` | Prettier write / check |
 | `pnpm deploy` | `pnpm build` then `npx wrangler deploy` |
 
+### Offline / one-off tools (not wired to any npm script)
+
+These run manually and are **not** part of `astro build` or `wrangler deploy`. They are kept
+because they generate or maintain assets that **are** published:
+
+| Script | What it does |
+|---|---|
+| `scripts/generate-catalog-reference-pdfs.py` | Rebuilds the combined-bearing + SL reference PDFs into `public/downloads/` and `output/pdf/` |
+| `scripts/generate-series-reference-pdfs.py` | Rebuilds the NUKR / NNTR track-roller reference PDFs (same two targets) |
+| `scripts/generate-special-bearing-pdfs.py` | Rebuilds the MR / ZRS / KRES / PR4 / profile-matrix / inspection-checklist PDFs into `public/downloads/` |
+| `scripts/generate-track-roller-reference-pdf.py` | Builds the NATR..-PP reference PDF into `output/pdf/` (staging only — copy to `public/downloads/` after review) |
+| `scripts/process-factory-assets.mjs` | `src/assets/factory-facility/` → `public/images/factory-facility/`, referenced by `src/data/factory-evidence.ts` |
+| `scripts/export-site-pages-xlsx.mjs` | Exports the current page inventory to `exports/` |
+| `scripts/strip-jade-source-urls.py` | One-off migration that stripped `sourceUrl` fields from the model data files |
+
+> The PDF generators need `reportlab`; `process-factory-assets.mjs` needs `sharp` (already a dev dependency).
+
+
 ## Site structure
 
 Static routes, all with trailing slashes (`trailingSlash: 'always'`):
@@ -135,4 +153,3 @@ Copy `.env.example` to `.env` (both are gitignored except the example). All are 
 
 - `PUBLIC_LINKEDIN_URL` — company LinkedIn; also feeds Organization schema `sameAs`
 - `PUBLIC_AUTHOR_WEI_CHEN_LINKEDIN`, `PUBLIC_AUTHOR_LISA_HUANG_LINKEDIN` — author `sameAs`
-- `KEYWORDS_EVERYWHERE_API_KEY`, `KEYWORDS_EVERYWHERE_COUNTRY`, `KEYWORDS_EVERYWHERE_CURRENCY` — keyword export scripts

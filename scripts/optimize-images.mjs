@@ -7,7 +7,7 @@
  * Run: node scripts/optimize-images.mjs
  */
 import sharp from 'sharp';
-import { readdir, stat, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 
 const ROOT = 'public/images';

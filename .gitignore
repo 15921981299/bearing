@@ -47,6 +47,10 @@ exports/
 output/
 tmp/
 
+# Previous dist/ parked aside before a rebuild (see README: move dist aside first on
+# this machine, otherwise the safe-delete shim stalls the Astro build).
+dist__prev/
+
 # Wrong-project leftovers from the engine (MTU) site, kept locally only.
 _legacy-engine/
 
