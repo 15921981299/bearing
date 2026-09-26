@@ -1,7 +1,8 @@
-/blog/* /part-products/ 301
-/materials/* /part-products/ 301
-/compare/* /part-products/ 301
-/glossary/* /part-products/ 301
-/case-studies/* /about/ 301
-/resources/* /certifications/ 301
+# Fold legacy /standards/* paths into /certifications/ — nothing is served at /standards/.
+#
+# Never add a rule whose left-hand side exists under src/pages/: a match here is
+# evaluated at the Cloudflare edge BEFORE static assets, so it 301s away a page that
+# really was built. Local tooling cannot catch that — `astro build` succeeds and
+# `check:links` scans dist/ and reports the link as intact.
+
 /standards/* /certifications/ 301
