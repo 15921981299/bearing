@@ -64,29 +64,48 @@
 
 ---
 
-## P1 — 死代码 / fork 遗留（可直接删，均为实测 0 引用）
+## P1 — 死代码 / fork 遗留（✅ 已于 2026-09-27 清理，commit `77f398b`）
 
-| 文件 | 判定依据 |
-|---|---|
-| `scripts/import-engine-family-parts-xlsx.mjs`（321 行） | 引用 `src/data/diesel-part-source-parts.ts`、`E:/claude/parts.xlsx` — 本仓库不存在 |
-| `scripts/import-engine-family-sitemap.mjs`（258 行） | 引用 `dieselpartsource-sitemap.xml`、`src/data/mtu-parts.ts`，抓取 `dieselpartsource.com` |
-| `scripts/process-engine-family-images.py`（211 行） | 操作 `public/images/engine-family-parts` |
-| `scripts/parse-parts-to-excel.mjs`（105 行） | 读 `e:/claude/parts.txt`，解析 `diesel-part-source.com` |
-| `src/components/DetailPageShell.astro` | 全仓 0 引用 |
-| `src/components/SubpageLinks.astro` | 全仓 0 引用 |
-| `src/styles/product-model.css`（802 行） | 0 引用，且无任何 `@import` 引入（`BearingModelPage` 用的是 `product-detail.css`） |
-| `scripts/lib/keywordseverywhere.mjs`（163 行） | 无任何消费者；`.env.example` 提到的 `npm run export:keywords:ke` 在 `package.json` 里不存在 |
-| `scripts/lib/load-env.mjs`（37 行） | 无任何消费者 |
+**结果**：9 个文件全部移出跟踪，**另加发现并清理 1 个**（`public/_routes.json`）。文件**没有删除，而是归档**到 `.workbuddy/archive-2026-09-27/dead-code/`（77K，保留原目录结构，可随时 `mv` 回来）。
+
+清理前我对 9 个候选**逐条独立复核**了引用（不信本报告、只信实测），并用单遍扫描器（`.workbuddy/tools/stem-reference-scan.py`）把 `scripts/`、`src/components/`、`src/styles/`、`src/lib/`、`src/data/` 全部 68 个文件算了一遍引用数，结论如下。
+
+| 文件 | 判定依据 | 状态 |
+|---|---|---|
+| `scripts/import-engine-family-parts-xlsx.mjs`（321 行） | 引用 `src/data/diesel-part-source-parts.ts`、`E:/claude/parts.xlsx` — **两者在本机均不存在** | ✅ 已归档 |
+| `scripts/import-engine-family-sitemap.mjs`（258 行） | 引用 `dieselpartsource-sitemap.xml`、`src/data/mtu-parts.ts`（均不存在），抓取 `dieselpartsource.com` | ✅ 已归档 |
+| `scripts/process-engine-family-images.py`（211 行） | 操作 `public/images/engine-family-parts`（不存在），硬编码 `dieselpartsource.com` | ✅ 已归档 |
+| `scripts/parse-parts-to-excel.mjs`（105 行） | 读 `e:/claude/parts.txt`，解析 `diesel-part-source.com`，输出回 `e:/claude/` | ✅ 已归档 |
+| `src/components/DetailPageShell.astro` | 全仓 0 引用 | ✅ 已归档 |
+| `src/components/SubpageLinks.astro` | 全仓 0 引用 | ✅ 已归档 |
+| `src/styles/product-model.css`（802 行） | 0 引用，无 `@import`（`BearingModelPage` 用的是 `product-detail.css`） | ✅ 已归档 |
+| `scripts/lib/keywordseverywhere.mjs`（163 行） | 无消费者；`.env.example` 提到的 `npm run export:keywords:ke` 在 `package.json` 里不存在 | ✅ 已归档 |
+| `scripts/lib/load-env.mjs`（37 行） | 无消费者；`git grep "lib/" -- scripts/` 为空 | ✅ 已归档 |
+| `public/_routes.json` | Cloudflare **Pages 时代残留**；已被 `public/.assetsignore` 排除（该文件内容即 `_worker.js` + `_routes.json` 两行），Workers 下完全无效 | ✅ 已归档 |
+
+配套改动：`scripts/optimize-images.mjs` 去掉未使用的 `stat`；`.env.example` 删掉 `KEYWORDS_EVERYWHERE_*` 死配置；`.gitignore` 增加 `dist__prev/`；README 新增「Offline / one-off tools」表 — 把那些「0 引用但故意保留」的脚本写明，避免下次又被当成死代码。
+
+**验证**：`build` → **242 页**；`check:links` → **243 HTML / 0 断链**；sitemap → **240 URL**（三项与清理前完全一致）；`astro check` → **0 errors / 0 warnings**（清理前 6 hints，现 4）。
 
 **已排除的假阳性**（看起来像死代码，实际是活的，不要删）：
 
 - `src/data/sitemap-exclude.ts` — 被 `astro.config.mjs` 引用
 - `public/images/stage3-bearing-models/`（14 张）— 被 `combined-bearing-models.ts` 与 `extended-bearing-models.ts` 引用
 - 6 个 product family 的 `[model].astro`（7–9 行的薄包装）— Astro 路由惯例，每个 URL 前缀一个文件，合并会改 URL
+- **4 个 PDF 生成脚本**（`generate-catalog-reference-pdfs.py`、`generate-series-reference-pdfs.py`、`generate-special-bearing-pdfs.py`、`generate-track-roller-reference-pdf.py`）— 实测 0 引用，但它们产出的正是 `public/downloads/` 里**线上在用的 16 个 PDF**（`downloads.ts`、`technical-references.ts`、`index.astro` 都在引用）。删了就再也无法重新生成，**必须保留**
+- `scripts/process-factory-assets.mjs` — `src/assets/factory-facility/`（4 张）→ `public/images/factory-facility/`，被 `factory-evidence.ts` 与 `certifications.astro` 引用
+- `scripts/strip-jade-source-urls.py` — 一次性迁移脚本，只清过 `extended-bearing-models.ts` / `combined-bearing-models.ts`；`special-combined-series.ts` 里**仍有 10 处 `jadebearings` sourceUrl**，脚本对这类文件仍可用
+
+> **教训（本次踩到）**：「0 引用」只说明它不在构建链路里，**不说明它没有价值**。判断死代码要多问一句「它的产物是谁在用」——4 个 PDF 脚本差点被我按「0 引用」删掉。
+
 
 ---
 
 ## P2 — 一致性 / 工具链
+
+**状态（2026-09-27）**：已顺手修掉 3 项 —— **8（`public/_routes.json` 已删）**、**2 的一部分（未使用的 `stat` import 已删；另 1 个未使用 import 随 `parse-parts-to-excel.mjs` 一起归档）**、**1 的一部分（`KEYWORDS_EVERYWHERE_*` 死配置已从 `.env.example` 删除）**。
+`astro check` 由 **6 hints 降到 4 hints**（0 errors / 0 warnings）。
+**未做**：1（prettier 全量格式化，103 文件、且 2 个文件解析失败，属独立动作）、3、4、5、6、7、9 —— 逐项如下。
 
 1. **prettier 形同虚设**。`format` / `format:check` 脚本与 `.prettierrc` 齐备，但 **103 个文件未格式化**（`src/` 内 85 + 配置/脚本/文档 18）：
    - 全部 16 个 CSS、15 个 data 模块、18 个组件、26 个页面、9 个客户端脚本
@@ -151,3 +170,48 @@
 - 可用解法：Windows 凭据管理器里有该仓库凭据（用户名 `15921981299`），经 GCM 2.9.0 取用：
   `GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=never git -c credential.helper= -c credential.helper=manager push ...`
   （`credential.helper=` 空值先清空助手列表，再挂 `manager`，否则仍会落到被禁用的 selector。）
+
+---
+
+## ⚠️ 事故与教训：一次 `git rm` 引发的工作区整树消失（2026-09-27）
+
+### 发生了什么
+执行 P1 清理时，用一条 `git rm -q <9 个路径>`（路径分布在 `scripts/`、`scripts/lib/`、`src/components/`、`src/styles/`）删除死代码。命令自身 rc=0，**但同一命令的后半段就发现 `scripts/optimize-images.mjs`（不在删除清单里）已消失**；下一条命令确认：`src/` 只剩 32/91 个文件、`scripts/` 归零、`src/components/`、`src/styles/`、`src/scripts/`、部分 `src/pages/**` 全部从工作区消失。`git status` 同时列出 75+ 个「worktree 已删除」。
+
+### 结论与恢复
+- **没有丢失任何内容**：全过程 HEAD 未动（`1198a39`），所有文件都在 git 对象库里。
+- 恢复一条命令解决：`git restore --source=HEAD --staged --worktree .` → `src` 94/94、`scripts` 16/16、`git status` 干净、`git fsck` 0 错误。
+- 用**宿主侧工具**（非沙箱，Read/Glob）独立复核过恢复后的真实文件系统，确认不是沙箱视图假象。
+
+### 根因定位（已排查项）
+| 排查 | 结果 |
+|---|---|
+| 是否是 `git rm` 本身 | 不是。索引里只有那 9 条 `D `，其余 75+ 条是 worktree 侧删除 |
+| 是否走了 safe-delete shim | **不是**。`safe-bin/` 里只有 `rm` / `rmdir` / `unlink` 三个 shim，**没有 git shim**；`git` 解析到 `/mingw64/bin/git` |
+| 是否误删 `public/.assetsignore` | 虚惊。它一直在 `public/` 下（内容为 `_worker.js` + `_routes.json`），我一开始查的是根目录 |
+| 审计日志 | 所有 Bash 命令都带 `command-safety.sandbox-executed` —— **命令在沙箱内执行**，沙箱与真实 FS 之间存在一致性风险，机制未能在日志层面定位到具体条目 |
+| 删除范围的特征 | 恰为「被我 `rm` 的文件所在目录」+ 同名目录（`src/scripts/`），指向按目录粒度的删除聚合逻辑，而非我显式指定的文件集 |
+
+**未彻底定论**：可以确认「不是 git 的锅」，也确认「不是 safe-bin 的 shim」，最可能是沙箱侧的删除聚合/同步逻辑；日志层面没有留下可归因的记录。故此条目按「已定位到边界、未定位到代码」如实记录。
+
+### 规避办法（本次已验证有效）
+改用**不产生 unlink 的清理方式**——索引与工作区分两步，全程不调用 `rm`：
+
+```bash
+ARCH=.workbuddy/archive-YYYY-MM-DD/dead-code
+for f in <files>; do
+  mkdir -p "$ARCH/$(dirname "$f")"
+  git rm --cached -q "$f"     # 只改索引，绝不动工作区文件
+  mv "$f" "$ARCH/$f"          # mv = rename，不产生 unlink
+done
+```
+
+- 分 3 批执行，**每批后立即核对** `find <dir> -type f | wc -l` 与 `git ls-files <dir> | wc -l` 是否相等且只少掉预期数量；三批全部零附带损伤。
+- 附带好处：文件被归档而非删除，随时可 `mv` 回来。
+
+### 沉淀成纪律
+1. **删除前先记指纹**：`git rev-parse <ref>^{tree}`，事后用它证明内容未变。
+2. **删除走「归档 + `--cached`」，不走 `rm`**，且**分批 + 每批核对文件数**。
+3. **出事后第一动作是停手 + 数文件**，不要继续操作；恢复优先用 `git restore --source=HEAD --staged --worktree .`。
+4. **用宿主侧工具（Read/Glob）做独立复核**，避免把沙箱视图当成真实磁盘。
+5. `git status` 里出现大量意料外的 ` D` 时，先怀疑**执行环境**（沙箱/同步/回收站机制），而不是以为自己删错了。
