@@ -647,7 +647,7 @@ export const seoLandingPages: SeoLandingPage[] = [
       "Buyer Support",
       "WINKEL Bearing Cross Reference Guide",
       "WINKEL Bearing Cross Reference",
-      "Use WINKEL, CR, Libe, Alfatec, JD, MR, TR and 400-series references to narrow a replacement search. The table below maps common WINKEL series to reviewed replacement support.",
+      "Use WINKEL, W-series, 984-series, PBC Hevi-Rail HVB / HVBEA, MAX Rail MX, CR, JD, MR, TR and 400-series references to narrow a replacement search. The table below maps common purchasing terms to reviewed replacement support.",
       [
         {
           heading: "How cross references work",
@@ -655,7 +655,8 @@ export const seoLandingPages: SeoLandingPage[] = [
           bullets: [
             "WINKEL 4.xxx and PR4.xxx",
             "CR 400-xxxx and DR400-xxxx",
-            "MR, TR and JD dimensional references",
+            "984.xxx, HVB / HVBEA and MX references",
+            "MR, TR, JD and machine-maker references",
           ],
         },
         {
@@ -697,7 +698,7 @@ export const seoLandingPages: SeoLandingPage[] = [
     table: {
       heading: "WINKEL model cross-reference table",
       note: "Model numbers are identification references, not automatic interchangeability. Every replacement is confirmed against dimensions, load, mounting and operating data before quotation.",
-      columns: ["WINKEL reference", "Series / execution"],
+      columns: ["Common interchange search", "Series / execution"],
       rows: [
         ...[
           "4.053",
@@ -713,7 +714,10 @@ export const seoLandingPages: SeoLandingPage[] = [
           "4.063",
           "4.064",
         ].map((m) => ({
-          cells: [m, "Standard fixed axial"],
+          cells: [
+            `${m} / W-${m} / 984.${m.slice(2)} / HVB-${m.slice(2)} / MX-${Number(m.slice(2))}`,
+            "Standard fixed axial",
+          ],
           href: `/products/combined-bearings/winkel-${m.replace(/\./g, "-")}/`,
         })),
         {
@@ -745,7 +749,10 @@ export const seoLandingPages: SeoLandingPage[] = [
           "4.462",
           "4.463",
         ].map((m) => ({
-          cells: [m, "Eccentric adjustable"],
+          cells: [
+            `${m} / 984.${m.slice(2)} / HVBEA-${m.slice(2)} / MX-${Number(m.slice(2))}`,
+            "Eccentric adjustable",
+          ],
           href: `/products/combined-bearings/winkel-${m.replace(/\./g, "-")}/`,
         })),
         ...[

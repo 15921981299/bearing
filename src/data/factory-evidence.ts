@@ -1,6 +1,6 @@
 export const factoryFacilityMedia = [
   {
-    src: "/images/factory-facility/cnc-machining-workshop.webp",
+    src: "/images/clean/cnc-workshop-documentary.webp",
     width: 1024,
     height: 682,
     alt: "CNC bearing machining workshop at our Changzhou manufacturing plant",
@@ -9,7 +9,7 @@ export const factoryFacilityMedia = [
       "CNC production equipment and operators at our Changzhou bearing manufacturing plant.",
   },
   {
-    src: "/images/factory-facility/cnc-machining-centers.webp",
+    src: "/images/clean/cnc-machining-centers-documentary.webp",
     width: 1400,
     height: 933,
     alt: "CNC machining centers at our Changzhou bearing factory",
@@ -41,7 +41,7 @@ export const factoryEvidenceSource = {
   name: "Combined Bearing Source — Changzhou Manufacturing Base",
   url: "/about/",
   disclosure:
-    "Facility photos show our Changzhou manufacturing and inspection capacity used for combined bearings, track rollers and related industrial roller bearings.",
+    "Facility photos show our Changzhou manufacturing and inspection capacity used for combined bearings, track rollers and related industrial roller bearings. Legacy watermark overlays were removed; the workshop scenes and equipment were retained.",
 };
 
 export type FactoryCaseStudy = {
@@ -66,7 +66,7 @@ export const factoryCaseStudies: FactoryCaseStudy[] = [
     description:
       "Combined bearings and steel-equipment bearing references used in metallurgical and leveling line maintenance programs.",
     industry: "Steel and metallurgical equipment",
-    image: "/images/factory-facility/cnc-machining-workshop.webp",
+    image: "/images/clean/cnc-workshop-documentary.webp",
     imageWidth: 1024,
     imageHeight: 682,
     datePublished: "2026-07-16",
@@ -141,7 +141,7 @@ export const factoryCaseStudies: FactoryCaseStudy[] = [
     description:
       "Fixed, precision and eccentric-adjustable combined bearings for forklift mast channels, with matched NbV steel profiles for OEM and maintenance programs.",
     industry: "Forklift and material handling",
-    image: "/images/factory-facility/cnc-machining-centers.webp",
+    image: "/images/clean/cnc-machining-centers-documentary.webp",
     imageWidth: 1400,
     imageHeight: 933,
     datePublished: "2026-07-18",
@@ -214,7 +214,7 @@ export const factoryCaseStudies: FactoryCaseStudy[] = [
     description:
       "AP-series plate-mounted combined bearings for OEM mast and guide assemblies, quoted from plate drawing plus bearing model.",
     industry: "OEM mast and guide systems",
-    image: "/images/factory-facility/cnc-machining-workshop.webp",
+    image: "/images/clean/cnc-workshop-documentary.webp",
     imageWidth: 1024,
     imageHeight: 682,
     datePublished: "2026-07-18",

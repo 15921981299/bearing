@@ -26,12 +26,53 @@ export function getStaticPaths() {
 const { item } = Astro.props as { item: SeoLandingPage };
 const pageUrl = `${site.url}/solutions/${item.slug}/`;
 const articleDatePublished = "2026-07-18";
-const articleDateModified = "2026-07-18";
+const articleDateModified = "2026-09-27";
 
 const clusterImages: Record<SeoLandingPage["cluster"], string> = {
   "Bearing Designs": "/images/industrial-bearing-product-range.webp",
   Applications: "/images/industrial-bearing-hero.webp",
   "Buyer Support": "/images/bearing-export-packaging.webp",
+};
+
+const pageImages: Record<string, string> = {
+  "adjustable-combined-bearings":
+    "/images/clean/adjustable-combined-bearing.webp",
+  "fixed-axial-combined-bearings":
+    "/images/clean/combined-bearing-cutaway.webp",
+  "combined-bearing-types": "/images/clean/bearing-selection-workbench.webp",
+  "welded-plate-combined-bearings":
+    "/images/clean/plate-mounted-combined-bearing.webp",
+  "jumbo-combined-bearings": "/images/clean/high-load-combined-bearing.webp",
+  "forklift-mast-bearings": "/images/clean/forklift-mast-combined-bearing.webp",
+  "combined-bearings-for-forklift-masts":
+    "/images/clean/forklift-mast-combined-bearing.webp",
+  "combined-bearings-for-stacker-cranes":
+    "/images/clean/steel-guide-profiles.webp",
+  "bearings-for-steel-mill-equipment":
+    "/images/clean/high-load-combined-bearing.webp",
+  "combined-bearings-for-container-stackers":
+    "/images/clean/forklift-mast-combined-bearing.webp",
+  "bearings-for-vertical-guide-systems":
+    "/images/clean/steel-guide-profiles.webp",
+  "bearings-for-telescopic-forks": "/images/clean/steel-guide-profiles.webp",
+  "bearings-for-heavy-duty-linear-guides":
+    "/images/clean/high-load-combined-bearing.webp",
+  "danieli-equipment-replacement-bearings":
+    "/images/clean/high-load-combined-bearing.webp",
+  "winkel-bearing-cross-reference":
+    "/images/clean/bearing-selection-workbench.webp",
+  "combined-bearing-quality-control":
+    "/images/clean/bearing-inspection-workbench.webp",
+  "combined-bearing-materials-heat-treatment":
+    "/images/clean/cnc-machining-centers-documentary.webp",
+  "combined-bearing-rfq-and-drawing-review":
+    "/images/clean/bearing-selection-workbench.webp",
+  "china-bearing-manufacturer-export":
+    "/images/clean/cnc-workshop-documentary.webp",
+  "bearing-trade-show-inquiry":
+    "/images/clean/bearing-selection-workbench.webp",
+  "oem-custom-bearing-program":
+    "/images/clean/cnc-machining-centers-documentary.webp",
 };
 
 const clusterAnchors: Record<SeoLandingPage["cluster"], string> = {
@@ -40,7 +81,7 @@ const clusterAnchors: Record<SeoLandingPage["cluster"], string> = {
   "Buyer Support": "buyer-support",
 };
 
-const heroImage = clusterImages[item.cluster];
+const heroImage = pageImages[item.slug] ?? clusterImages[item.cluster];
 
 const solutionsNav = [
   {

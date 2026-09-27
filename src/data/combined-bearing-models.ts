@@ -671,7 +671,7 @@ const mr418Rows = [
   ],
 ] as const;
 
-export const combinedBearingModels: CombinedBearingModel[] = [
+const combinedBearingModelRecords: CombinedBearingModel[] = [
   {
     slug: "winkel-4-053",
     model: "4.053",
@@ -2105,6 +2105,38 @@ export const combinedBearingModels: CombinedBearingModel[] = [
     }),
   ),
 ];
+
+const combinedBearingVisuals: Record<CombinedBearingModel["family"], string> = {
+  Standard: "/images/clean/combined-bearing-cutaway.webp",
+  Precision: "/images/clean/combined-bearing-cutaway.webp",
+  "Radial precision": "/images/clean/combined-bearing-cutaway.webp",
+  "Jumbo adjustable": "/images/clean/adjustable-combined-bearing.webp",
+  "Eccentric adjustable": "/images/clean/adjustable-combined-bearing.webp",
+  "Welded plate": "/images/clean/plate-mounted-combined-bearing.webp",
+  "Screw adjustable": "/images/clean/adjustable-combined-bearing.webp",
+  "High load axial support": "/images/clean/high-load-combined-bearing.webp",
+  "Shim adjustable": "/images/clean/high-load-combined-bearing.webp",
+};
+
+function interchangeAliases(item: CombinedBearingModel) {
+  const match = item.model.match(/^4\.(\d{3})$/);
+  if (!match) return [];
+  const code = match[1];
+  if (item.family === "Standard") {
+    return [`984.${code}`, `HVB-${code}`, `MX-${Number(code)}`];
+  }
+  if (item.family === "Eccentric adjustable") {
+    return [`984.${code}`, `HVBEA-${code}`, `MX-${Number(code)}`];
+  }
+  return [];
+}
+
+export const combinedBearingModels: CombinedBearingModel[] =
+  combinedBearingModelRecords.map((item) => ({
+    ...item,
+    aliases: [...new Set([...item.aliases, ...interchangeAliases(item)])],
+    image: combinedBearingVisuals[item.family],
+  }));
 
 export const combinedBearingModelBySlug = Object.fromEntries(
   combinedBearingModels.map((item) => [item.slug, item]),

@@ -1483,7 +1483,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "MR.961-MR.968 Screw-Adjustable Combined Bearings",
     description:
       "Complete MR.961 through MR.968 screw-adjustable combined bearing dimensions, radial and axial load ratings, speed, mass, materials and drawings.",
-    image: "/images/special-combined-series/screw-adjustable-main.jpg",
+    image: "/images/clean/adjustable-combined-bearing.webp",
     drawings: [
       {
         src: "/images/special-combined-series/screw-adjustable-drawing-1.png",
@@ -1517,7 +1517,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "High-Load Axial-Support Combined Bearings | MR.142-MR.154",
     description:
       "MR.142, MR.146 through MR.154 high-load combined bearing dimensions, loads, speed, mass, material and shim adjustment data.",
-    image: "/images/special-combined-series/high-load-main.jpg",
+    image: "/images/clean/high-load-combined-bearing.webp",
     drawings: [
       {
         src: "/images/special-combined-series/high-load-drawing.png",
@@ -1547,7 +1547,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "MR4180-MR4188 Heavy-Load Adjustable Combined Bearings",
     description:
       "MR4180 through MR4188 heavy-load combined bearing dimensions, radial and axial load ratings, materials, drawing and RFQ data.",
-    image: "/images/special-combined-series/mr418-heavy-load-main.jpg",
+    image: "/images/clean/high-load-combined-bearing.webp",
     drawings: [
       {
         src: "/images/special-combined-series/mr418-heavy-load-drawing.png",
@@ -1577,7 +1577,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "Steel-Section ZRS Combined Bearings | MR.001-MR.191",
     description:
       "Complete ZRS steel-section combined bearing dimensions, load ratings, speed, mass and MR cross-references for mast and industrial guide systems.",
-    image: "/images/special-combined-series/zrs-series.jpg",
+    image: "/images/clean/high-load-combined-bearing.webp",
     drawings: [],
     intro:
       "ZRS executions combine radial and axial guidance for straight steel sections, with fixed axial geometry and published MR alternate references.",
@@ -1602,7 +1602,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "Inclined-Section ZRS Combined Bearings | MR Series",
     description:
       "Inclined steel-section ZRS combined bearing dimensions, loads, speed, mass and alternate MR references for angled guide profiles.",
-    image: "/images/special-combined-series/inclined-zrs-series.jpg",
+    image: "/images/clean/high-load-combined-bearing.webp",
     drawings: [],
     intro:
       "Inclined-section executions change the radial and axial roller relationship to match angled steel guide profiles.",
@@ -1627,7 +1627,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "KRES.062-KRES.149 Externally Adjustable Bearings",
     description:
       "KRES externally adjustable combined bearing dimensions, adjustment ranges, load ratings, speed and mass for steel-section guide systems.",
-    image: "/images/special-combined-series/external-adjustable-series.jpg",
+    image: "/images/clean/adjustable-combined-bearing.webp",
     drawings: [],
     intro:
       "The eccentric stud is adjusted from outside the guide assembly, allowing axial clearance correction without removing the main bearing.",
@@ -1652,7 +1652,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "2-Series Radial Combined Bearings With Stud",
     description:
       "2-series radial combined bearing identification range for steel sections, including TR111, TR120, MR0120 and precision radial references.",
-    image: "/images/combined-bearing-models/winkel-2-063.webp",
+    image: "/images/clean/combined-bearing-cutaway.webp",
     drawings: [],
     intro:
       "Radial combined bearings with stud are used where the axial guide element is separate or the assembly requires radial guidance only.",
@@ -1705,7 +1705,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "4.054HT-4.063HT High-Temperature Combined Bearings",
     description:
       "High-temperature combined bearing replacement range covering 4.054HT through 4.063HT with base model and profile matching guidance.",
-    image: "/images/combined-bearing-models/winkel-4-054.webp",
+    image: "/images/clean/combined-bearing-cutaway.webp",
     drawings: [],
     intro:
       "HT executions retain the base dimensional family but require temperature-specific grease, seals and material confirmation.",
@@ -1739,7 +1739,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "PR4.454-PR4.463 Precision Adjustable Combined Bearings",
     description:
       "Precision eccentric-adjustable combined bearing replacement range from PR4.454 through PR4.463 with cross-reference and drawing review guidance.",
-    image: "/images/combined-bearing-models/winkel-pr4-056.webp",
+    image: "/images/clean/combined-bearing-cutaway.webp",
     drawings: [],
     intro:
       "The PR4.45x series combines the precision radial roller class with eccentric axial adjustment.",
@@ -1773,7 +1773,7 @@ export const specialCombinedSeries: SpecialCombinedSeries[] = [
     seoTitle: "4.078 and 4.0784 Shim-Adjustable Combined Bearings",
     description:
       "4.078, 4.0784, MR.152 and MR.142 combined bearing dimensions, load ratings, speed, mass and shim-adjustment references.",
-    image: "/images/special-combined-series/high-load-main.jpg",
+    image: "/images/clean/high-load-combined-bearing.webp",
     drawings: [
       {
         src: "/images/special-combined-series/high-load-drawing.png",

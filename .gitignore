@@ -1,4 +1,5 @@
 node_modules/
+.seo-cache/
 .pnpm-store/
 dist/
 .astro/

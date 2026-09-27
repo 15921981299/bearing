@@ -32,6 +32,16 @@ const primaryModel = item.model.split(" / ")[0];
 const aliases = item.aliases.join(", ");
 const quoteHref = `/contact/?source=${item.slug}`;
 const matchedProfile = profileMatchByBearingSlug[item.slug];
+const sourcingPhrases = [
+  `${primaryModel} combined bearing replacement`,
+  `${primaryModel} combined roller bearing dimensions`,
+  `${primaryModel} mast guide bearing`,
+  `WINKEL ${primaryModel} compatible bearing`,
+  ...item.aliases.slice(0, 4).map((alias) => `${alias} bearing equivalent`),
+  ...(matchedProfile
+    ? [`${matchedProfile.profile} profile combined bearing`]
+    : []),
+];
 const title = `${primaryModel} Combined Bearing | Replacement Data`;
 const description = `${primaryModel} combined bearing replacement dimensions, load data, profile matching and cross references. Request drawing verification and availability.`;
 const index = combinedBearingModels.findIndex(
@@ -163,7 +173,7 @@ const familyGuidance: Record<
   },
 };
 const guidance = familyGuidance[item.family];
-const lastReviewed = "2026-07-18";
+const lastReviewed = "2026-09-27";
 
 const categoryNav = [
   { href: "/products/", label: "All bearings", slug: null },
@@ -317,6 +327,11 @@ const iconApplication =
                       itemprop="image"
                     />
                   </figure>
+                  <p class="product-visual-note">
+                    Configuration illustration for this bearing family. Use the
+                    specification table and controlled drawing for final
+                    verification.
+                  </p>
                 </div>
 
                 <div class="product-detail-intro-panel">
@@ -477,6 +492,18 @@ const iconApplication =
                     plates can change fit. Send the complete marking and a
                     controlled drawing for confirmation.
                   </p>
+                  <h3>How buyers commonly identify this bearing</h3>
+                  <p>
+                    Purchasing teams, forklift service companies and machine
+                    builders may describe the same requirement in different
+                    ways. These descriptions are useful search clues, not proof
+                    of interchangeability:
+                  </p>
+                  <ul class="product-sourcing-terms">
+                    {sourcingPhrases.map((phrase) => (
+                      <li>{phrase}</li>
+                    ))}
+                  </ul>
                   <nav
                     class="product-detail-links"
                     aria-label="Technical resources"

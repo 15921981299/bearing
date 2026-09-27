@@ -25,7 +25,7 @@ const img = (name: string) => `/images/extended-bearing-models/${name}.webp`;
 const productImg = "/images/industrial-bearing-product-range.webp";
 const s = (values: Record<string, string>) =>
   Object.entries(values).map(([label, value]) => ({ label, value }));
-export const extendedBearingModels: ExtendedBearingModel[] = [
+const extendedBearingModelRecords: ExtendedBearingModel[] = [
   {
     slug: "krv35pp",
     model: "KRV35-PP",
@@ -2002,6 +2002,22 @@ export const extendedBearingModels: ExtendedBearingModel[] = [
     }),
   },
 ];
+
+const categoryVisuals: Record<ExtendedBearingModel["categorySlug"], string> = {
+  "track-roller-bearings": "/images/clean/stud-track-roller.webp",
+  "full-complement-cylindrical-roller-bearings":
+    "/images/clean/full-complement-cylindrical-roller.webp",
+  "cross-roller-bearings": "/images/clean/crossed-roller-bearing.webp",
+  "standard-nbv-profiles": "/images/clean/steel-guide-profiles.webp",
+  "backup-roller-bearings": "/images/clean/backup-roller.webp",
+  "special-track-roller-bearings": "/images/clean/stud-track-roller.webp",
+};
+
+export const extendedBearingModels: ExtendedBearingModel[] =
+  extendedBearingModelRecords.map((item) => ({
+    ...item,
+    image: categoryVisuals[item.categorySlug],
+  }));
 export const trackRollerModels = extendedBearingModels.filter(
   (x) => x.categorySlug === "track-roller-bearings",
 );

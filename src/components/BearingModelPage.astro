@@ -62,6 +62,12 @@ const title =
       ? `${item.model} | Replacement Track Roller`
       : `${item.model} ${seoCopy[item.categorySlug].title}`;
 const description = `${item.model} ${seoCopy[item.categorySlug].noun}: dimensions, application and replacement references. Confirm fit, suffix and availability before ordering.`;
+const sourcingPhrases = [
+  `${item.model} ${seoCopy[item.categorySlug].noun} dimensions`,
+  `${item.model} replacement bearing`,
+  `${item.model} bearing supplier`,
+  ...item.aliases.slice(0, 4).map((alias) => `${alias} equivalent`),
+];
 const peers = extendedBearingModels
   .filter((x) => x.categorySlug === item.categorySlug && x.slug !== item.slug)
   .slice(0, 6);
@@ -240,6 +246,10 @@ const iconApplication =
                       itemprop="image"
                     />
                   </figure>
+                  <p class="product-visual-note">
+                    Configuration illustration. Confirm the listed dimensions,
+                    execution and controlled drawing before ordering.
+                  </p>
                 </div>
 
                 <div class="product-detail-intro-panel">
@@ -391,7 +401,7 @@ const iconApplication =
                   </p>
                   <p class="product-verification-note">
                     <strong>Documentation status:</strong> Data reviewed
-                    2026-07-18. Controlled drawings and order-specific
+                    2026-09-27. Controlled drawings and order-specific
                     inspection scope are available on request; a batch report
                     must identify the actual model and lot.
                   </p>
@@ -410,6 +420,18 @@ const iconApplication =
                     Confirm dimensions, seals, mounting, load and speed before
                     interchange. Similar model numbers do not guarantee fit.
                   </p>
+                  <h3>Common sourcing descriptions</h3>
+                  <p>
+                    The following phrases reflect how maintenance and purchasing
+                    teams commonly describe the requirement. They are
+                    identification clues and must still be checked against the
+                    drawing and operating duty.
+                  </p>
+                  <ul class="product-sourcing-terms">
+                    {sourcingPhrases.map((phrase) => (
+                      <li>{phrase}</li>
+                    ))}
+                  </ul>
                   <nav
                     class="product-detail-links"
                     aria-label="Technical resources"
