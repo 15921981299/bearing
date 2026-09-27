@@ -6,4 +6,18 @@
   import { trackPageAttribution } from "../scripts/attribution";
 
   trackPageAttribution();
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const link = target?.closest<HTMLElement>("[data-track-event]");
+    if (!link || typeof window.gtag !== "function") return;
+
+    window.gtag("event", link.dataset.trackEvent || "resource_click", {
+      event_category: link.dataset.trackCategory || "Resource engagement",
+      event_label:
+        link.dataset.trackLabel || link.textContent?.trim() || "resource",
+      destination:
+        link instanceof HTMLAnchorElement ? link.href : window.location.href,
+    });
+  });
 </script>

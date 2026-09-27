@@ -12,6 +12,12 @@ export type ProductItem = {
   capabilitySlugs: string[];
   tolerance: string;
   leadTime: string;
+  /**
+   * 买家/整机厂/维修团队对该产品族使用的其他叫法与拼写变体
+   * （含带空格与带连字符两种形态）。用于 "Also known as" 区块与 schema.org
+   * 的 alternateName。属于识别线索，不构成互换认可。
+   */
+  alsoKnownAs: string[];
   seriesGroups: { label: string; references: string }[];
   selectionChecks: { label: string; detail: string }[];
   content: { partOne: string; partTwo: string };
@@ -36,6 +42,22 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Model, dimensions and load data confirmed before quotation",
     leadTime: "Standard and drawing-based options quoted by requirement",
+    alsoKnownAs: [
+      "Combination bearings",
+      "Combination roller bearings",
+      "Combi bearings",
+      "Combined roller bearings",
+      "Heavy duty combined bearings",
+      "Heavy-duty combined bearings",
+      "Heavy duty cam followers",
+      "High load roller bearings",
+      "Mast guide bearings",
+      "Forklift mast guide bearings",
+      "Material handling guide bearings",
+      "Finishing line bearings",
+      "Steel section guide bearings",
+      "WINKEL-type combined bearings",
+    ],
     seriesGroups: [
       {
         label: "Standard combined bearings",
@@ -102,6 +124,22 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Bore or stud, OD, width, track profile and load checked",
     leadTime: "Quoted after model and quantity review",
+    alsoKnownAs: [
+      "Cam followers",
+      "Cam follower bearings",
+      "Cam follower rollers",
+      "Track rollers",
+      "Track roller bearings",
+      "Yoke type track rollers",
+      "Stud type track rollers",
+      "Stud type cam followers",
+      "Roller followers",
+      "Idler rollers",
+      "Guide rollers",
+      "Needle roller track rollers",
+      "Crowned roller followers",
+      "PP sealed track rollers",
+    ],
     seriesGroups: [
       { label: "Double-row yoke rollers", references: "NNTR, RSU" },
       { label: "Full-complement yoke rollers", references: "NUTR, PWTR" },
@@ -169,6 +207,18 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Internal clearance, locating function and lubrication reviewed",
     leadTime: "Series and quantity dependent",
+    alsoKnownAs: [
+      "Full complement roller bearings",
+      "Full-complement cylindrical roller bearings",
+      "Maximum capacity cylindrical roller bearings",
+      "Non-caged cylindrical roller bearings",
+      "SL series bearings",
+      "SL01 / SL02 / SL04 roller bearings",
+      "SL18 / SL19 single row roller bearings",
+      "RSL series roller bearings",
+      "Sealed full complement roller bearings",
+      "Sheave and gearbox roller bearings",
+    ],
     seriesGroups: [
       {
         label: "Locating and semi-locating designs",
@@ -234,6 +284,18 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Outer profile and shaft geometry confirmed from drawing",
     leadTime: "Custom design and quantity dependent",
+    alsoKnownAs: [
+      "Back-up rollers",
+      "Back up rollers",
+      "Backup roll assemblies",
+      "Leveler back-up rollers",
+      "Straightener support rollers",
+      "Strip line support rollers",
+      "Pivot back-up rollers",
+      "Double back-up rolls",
+      "Cluster mill support rollers",
+      "Work roll support rollers",
+    ],
     seriesGroups: [
       {
         label: "Without pivot",
@@ -301,6 +363,18 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Accuracy, clearance or preload confirmed by application",
     leadTime: "Model and precision class dependent",
+    alsoKnownAs: [
+      "Crossed roller bearings",
+      "Cross roller bearings",
+      "Crossed cylindrical roller bearings",
+      "X roller bearings",
+      "Harmonic reducer bearings",
+      "Robot joint bearings",
+      "Hollow rotary table bearings",
+      "Precision index table bearings",
+      "Turntable bearings",
+      "Rotary positioning bearings",
+    ],
     seriesGroups: [
       { label: "Harmonic reducer bearings", references: "CSF, CSG, SHF, SHG" },
       { label: "Integrated mounting-hole types", references: "RU, CRBH, CRBF" },
@@ -356,6 +430,18 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Profile and mating bearing confirmed together",
     leadTime: "Stock or cut-length availability confirmed by RFQ",
+    alsoKnownAs: [
+      "NbV profiles",
+      "NBV profile rails",
+      "Standard NbV steel profiles",
+      "U-channel guide rails",
+      "C-profile guide rails",
+      "Steel guide profiles",
+      "Guide profiles",
+      "Combined bearing guide rails",
+      "JDG profile rails",
+      "Cut-to-length guide profiles",
+    ],
     seriesGroups: [
       {
         label: "Light profile references",
@@ -420,6 +506,18 @@ export const products: ProductItem[] = [
     capabilitySlugs: [],
     tolerance: "Drawing and operating data required",
     leadTime: "Engineering review required",
+    alsoKnownAs: [
+      "Special track rollers",
+      "Custom track rollers",
+      "Custom cam followers",
+      "Drawing-based roller bearings",
+      "Non-standard track rollers",
+      "V-groove guide rollers",
+      "U-groove guide rollers",
+      "Eccentric collar cam followers",
+      "Smooth stud rollers",
+      "High temperature track rollers",
+    ],
     seriesGroups: [
       {
         label: "Profiled outer rings",
@@ -471,6 +569,248 @@ export const products: ProductItem[] = [
     content: {
       partOne: `<h2>Non-Standard Track Rollers</h2><p>Special track rollers can incorporate profiled outer rings, modified studs, unusual widths, special seals, high-temperature grease or application-specific mounting features.</p><h3>Typical Modifications</h3><ul><li>V-groove, U-groove and crowned running surfaces</li><li>Custom stud threads and eccentric collars</li><li>Alternative seals and lubrication holes</li><li>Special bearing steel and heat-treatment requirements</li></ul>`,
       partTwo: `<h2>What to Include with the Drawing</h2><p>Provide geometry, tolerances, mating track, load direction, speed, duty cycle, temperature and contamination conditions. Also review our standard <a href="/products/track-roller-bearings/">track roller bearing range</a>.</p><p><a href="/contact/?product=special-track-roller-bearings">Submit a custom roller drawing</a>.</p>`,
+    },
+  },
+  {
+    slug: "u-channel-profile-rails",
+    title: "U-Channel Profile Rails",
+    image: "/images/clean/steel-guide-profiles.webp",
+    imageAlt:
+      "U-channel steel profile rails cut to length for combined bearing guide systems",
+    mainImage: "/images/clean/steel-guide-profiles.webp",
+    secondImage,
+    seoTitle: "U-Channel Profile Rails | C-Profile Guide Rails",
+    h1Title: "U-Channel and C-Profile Guide Rails",
+    summary:
+      "Steel U-channel and C-profile guide rails for combined-bearing linear systems, supplied as standard NbV/JDG sections or cut to length.",
+    materialSlugs: ["20mnsiv-steel"],
+    capabilitySlugs: [],
+    tolerance:
+      "Section reference, steel grade and cut length confirmed together",
+    leadTime: "Stock section or cut-to-length availability confirmed by RFQ",
+    alsoKnownAs: [
+      "U-channel rails",
+      "U channel guide rails",
+      "C-profile guide rails",
+      "C-channel rails",
+      "U-profile guide rails",
+      "NbV profile rails",
+      "Steel guide profiles",
+      "Combined bearing guide rails",
+    ],
+    seriesGroups: [
+      {
+        label: "Light sections",
+        references: "Standard 0 NbV / JDG62; Standard 1 NbV / JDG70",
+      },
+      {
+        label: "Medium sections",
+        references: "Standard 2 NbV / JDG78; Standard 3 NbV / JDG89",
+      },
+      {
+        label: "Heavy sections",
+        references: "Standard 4 NbV / JDG108; JDG123, JDG150, JDG152",
+      },
+      {
+        label: "Rail steel",
+        references:
+          "20MnSiV guide steel; running-surface hardness agreed per order",
+      },
+      {
+        label: "Supply formats",
+        references: "Standard fixed length or cut to length after confirmation",
+      },
+    ],
+    selectionChecks: [
+      {
+        label: "Section reference",
+        detail:
+          "NbV, JDG or drawing designation with the required web and flange dimensions.",
+      },
+      {
+        label: "Matched bearing",
+        detail:
+          "Combined bearing model plus the running clearance required in the assembled guide.",
+      },
+      {
+        label: "Rail steel",
+        detail:
+          "Steel grade, running-surface condition and any hardness or heat-treatment requirement.",
+      },
+      {
+        label: "Length and ends",
+        detail:
+          "Finished length, cutting tolerance, straightness, end preparation and hole or fixing details.",
+      },
+      {
+        label: "Surface and logistics",
+        detail:
+          "As-rolled, blasted or primed condition, bundle length, quantity and unloading constraints.",
+      },
+    ],
+    content: {
+      partOne: `<h2>Steel U-Channel and C-Profile Guide Rails</h2><p>A U-channel or C-profile rail is the running track of a combined-bearing linear system. The radial roller runs on the rail web while the axial roller guides against the flange, so the section geometry, steel grade and straightness set both the load path and the available running clearance.</p><h3>How the Rail and Bearing Work Together</h3><ul><li>The web carries the radial load transferred by the radial roller</li><li>The flange guides the axial roller and controls lateral position</li><li>Section height and flange thickness decide the mounting envelope</li><li>Straightness and support spacing control carriage smoothness</li></ul><p>Rails are supplied as the Standard 0 to 4 NbV sections and the heavier JDG123, JDG150 and JDG152 profiles. Each section is matched to a defined range of <a href="/products/combined-bearings/">combined bearing models</a>.</p>`,
+      partTwo: `<h2>Section Data, Matching and Ordering</h2><p>Our <a href="/products/standard-nbv-profiles/">Standard NbV profile range</a> lists the individual section references with article numbers, mass and matched bearing classes. Use the <a href="/tools/combined-bearing-selector/">bearing and profile matching tool</a> to check a combination, then confirm the controlled drawing.</p><h3>What to Send with an Enquiry</h3><p>Provide the section reference or section drawing, the mating bearing model, required length and quantity, rail steel, surface condition, straightness requirement and delivery destination. Cut lengths are confirmed against stock before the order is accepted.</p><p>Running clearance depends on alignment as well as section, so review the <a href="/resources/combined-bearing-rail-clearance-alignment/">rail clearance and alignment guide</a> before installation. <a href="/contact/?product=u-channel-profile-rails">Request U-channel rail dimensions and availability</a>.</p>`,
+    },
+  },
+  {
+    slug: "clamp-flanges",
+    title: "Clamp Flanges",
+    image: "/images/clean/adjustable-combined-bearing.webp",
+    imageAlt:
+      "Adjustable clamp flange and axial support hardware for a combined bearing guide",
+    mainImage: "/images/clean/adjustable-combined-bearing.webp",
+    secondImage,
+    seoTitle: "Adjustable Clamp Flanges | Axial Support Flanges",
+    h1Title: "Clamp Flanges and Adjustable Axial Supports",
+    summary:
+      "Clamp flanges, axial support units and adjustment washers that set and lock the axial clearance of a combined bearing guide system.",
+    materialSlugs: ["bearing-steel"],
+    capabilitySlugs: [],
+    tolerance: "Adjustment method, range and access confirmed with the bearing",
+    leadTime: "Model, adjustment design and quantity dependent",
+    alsoKnownAs: [
+      "Clamp flange",
+      "Adjustable clamp flanges",
+      "Axial support flange",
+      "Axial guide flange",
+      "Eccentric adjustment flange",
+      "Screw adjustment flange",
+      "Bearing clamp plate",
+      "Shim adjustment flange",
+    ],
+    seriesGroups: [
+      {
+        label: "Eccentric pin adjustment",
+        references: "4.454–4.463 eccentric adjustable combined bearings",
+      },
+      {
+        label: "Screw adjustment (UNI 5929 / DIN 916)",
+        references: "MR.961–MR.968 screw-adjustable series",
+      },
+      {
+        label: "Shim and adapter washers",
+        references: "0.3 / 0.5 / 1.0 mm adapter washers on MR.146–MR.154",
+      },
+      {
+        label: "Externally adjustable units",
+        references: "MR4180–MR4188 external adjustment range",
+      },
+      {
+        label: "Welded clamp plates",
+        references:
+          "AP0, AP1, AP2, AP2-LUB, AP2-Q, AP3.1, AP4, AP6, AP91-Q, AP92-Q",
+      },
+    ],
+    selectionChecks: [
+      {
+        label: "Adjustment method",
+        detail:
+          "Eccentric pin, adjustment screw, shim or adapter washer set, or external adjustment unit.",
+      },
+      {
+        label: "Range and access",
+        detail:
+          "Total adjustment travel and the tool direction available with the carriage assembled.",
+      },
+      {
+        label: "Axial duty",
+        detail:
+          "Applied axial load, shock level and whether the clamp locates in one or both directions.",
+      },
+      {
+        label: "Locking",
+        detail:
+          "Locking screw, tab, pin or torque requirement after the clearance has been set.",
+      },
+      {
+        label: "Interface",
+        detail:
+          "Plate hole pattern, bearing datum, weld or bolt fixing and removal access.",
+      },
+    ],
+    content: {
+      partOne: `<h2>Setting Axial Clearance in a Combined Bearing Guide</h2><p>In a combined-bearing system the radial roller carries the main load, so axial position is set separately by a clamp flange, axial support unit or adjustment washer stack. The adjustment hardware decides how accurately clearance can be set after the structure is welded or bolted.</p><h3>Adjustment Designs</h3><ul><li>Eccentric pin adjustment on the 4.454–4.463 series</li><li>Screw adjustment to UNI 5929 / DIN 916 on the MR.961–MR.968 series</li><li>Adapter and shim washers of 0.3, 0.5 and 1.0 mm on the MR.1xx high-load range</li><li>Externally adjustable MR4180–MR4188 units for large steel-section guides</li><li>Welded clamp plates that carry the bearing as a replaceable assembly</li></ul>`,
+      partTwo: `<h2>Adjustment, Locking and Replacement</h2><p>Clamp hardware compensates for assembly clearance; it does not correct a distorted or mismatched guide profile. Set the adjustment at the tightest position in the travel, lock it to the approved torque and then verify clearance across the full stroke. Follow the <a href="/resources/eccentric-combined-bearing-adjustment/">eccentric bearing adjustment guide</a> for the setup sequence.</p><h3>Choosing Between Screw, Shim and Eccentric</h3><p>Screw adjustment is convenient where a tool can reach the axial support. Shim and adapter washers give a defined step change but need the assembly opened. Eccentric designs allow fine adjustment on a single bearing. Where replacement access matters, review <a href="/products/flange-plates/">welded flange plates</a> and the <a href="/solutions/adjustable-combined-bearings/">adjustable combined bearing range</a>.</p><p><a href="/contact/?product=clamp-flanges">Send the axial support drawing for review</a>.</p>`,
+    },
+  },
+  {
+    slug: "flange-plates",
+    title: "Welded Flange Plates",
+    image: "/images/clean/plate-mounted-combined-bearing.webp",
+    imageAlt:
+      "Welded AP-series flange plate carrying a plate-mounted combined bearing",
+    mainImage: "/images/clean/plate-mounted-combined-bearing.webp",
+    secondImage,
+    seoTitle: "Welded Flange Plates | AP Series Mounting Plates",
+    h1Title: "Welded Flange Plates and Mounting Plates",
+    summary:
+      "AP-series welded flange plates that carry a combined bearing as a replaceable unit for masts, columns and steel-section guide systems.",
+    materialSlugs: ["bearing-steel"],
+    capabilitySlugs: [],
+    tolerance:
+      "Plate drawing, datum and weld orientation confirmed before welding",
+    leadTime: "Plate model or drawing and quantity dependent",
+    alsoKnownAs: [
+      "Flange plates",
+      "Welded flange plate",
+      "Welded mounting plate",
+      "Bearing mounting plate",
+      "AP plate assembly",
+      "Welded bearing plate",
+      "Plate-mounted combined bearing",
+      "Weld-on bearing plate",
+    ],
+    seriesGroups: [
+      {
+        label: "Standard plate assemblies",
+        references: "AP0, AP1, AP2, AP2-LUB, AP2-Q, AP3.1, AP4, AP6",
+      },
+      {
+        label: "Jumbo plate assemblies",
+        references: "AP91-Q with 4.091; AP92-Q with 4.092",
+      },
+      {
+        label: "Plate plus bearing supply",
+        references:
+          "Bearing mounted, welded and verified as one supplied assembly",
+      },
+      {
+        label: "Drawing-based plates",
+        references:
+          "Custom hole pattern, plate thickness, bearing datum and weld preparation",
+      },
+    ],
+    selectionChecks: [
+      {
+        label: "Plate drawing",
+        detail:
+          "Dimensioned plate drawing with hole pattern, thickness, datums and revisions.",
+      },
+      {
+        label: "Bearing interface",
+        detail:
+          "Combined bearing model, hub or bore fit and the required axial roller direction.",
+      },
+      {
+        label: "Weld design",
+        detail:
+          "Weld preparation, sequence and the heat-input limit that protects the bearing.",
+      },
+      {
+        label: "Structure",
+        detail:
+          "Supporting member thickness, stiffness and the applied radial, axial and moment load.",
+      },
+      {
+        label: "Service access",
+        detail:
+          "Whether the bearing alone or the complete plate assembly will be replaced on site.",
+      },
+    ],
+    content: {
+      partOne: `<h2>Flange Plates for Replaceable Combined Bearings</h2><p>A welded flange plate carries the combined bearing as a separate unit, so the plate can be welded to the structure and the bearing replaced without reworking the weld. This keeps critical welding away from the rollers and hardened running surfaces and makes replacement repeatable.</p><h3>Why Use a Plate Instead of Welding the Bearing</h3><ul><li>Welding heat stays away from the bearing and its seals</li><li>Bearing datum and orientation are set by the plate, not by site work</li><li>Replacement is a bearing change rather than a structural repair</li><li>Hole pattern and plate thickness are agreed once and repeated</li></ul>`,
+      partTwo: `<h2>Ordering a Plate Assembly</h2><p>AP plate assemblies can be supplied with the bearing already mounted and verified, or as plates for an existing bearing. Send the plate drawing, the bearing model or complete marking, the required axial roller direction, quantity and destination.</p><p>Plate welding and orientation are covered in the <a href="/resources/welding-combined-bearing-hub/">combined bearing welding guide</a>. For clearance setting after assembly, see <a href="/products/clamp-flanges/">clamp flanges and axial supports</a>, or review the <a href="/solutions/welded-plate-combined-bearings/">welded plate combined bearing guide</a>.</p><p><a href="/contact/?product=flange-plates">Send a flange plate drawing for quotation</a>.</p>`,
     },
   },
 ];

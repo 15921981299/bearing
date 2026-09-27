@@ -9,41 +9,48 @@ import "../../styles/resource-library.css";
 const buyerGuides = [
   {
     label: "01",
+    title: "Combined bearing selection tool",
+    summary:
+      "Estimate a preliminary load screen and match 4.xxx bearings to Standard NbV profiles.",
+    href: "/tools/combined-bearing-selector/",
+  },
+  {
+    label: "02",
     title: "China factory export RFQ",
     summary:
       "Factory-direct export from Changzhou with Shanghai packing and overseas RFQ checklist.",
     href: "/solutions/china-bearing-manufacturer-export/",
   },
   {
-    label: "02",
+    label: "03",
     title: "Export shipping & Incoterms",
     summary:
       "EXW, FOB, CIF notes plus packing and document expectations for bearing shipments.",
     href: "/solutions/bearing-export-shipping-incoterms/",
   },
   {
-    label: "03",
+    label: "04",
     title: "WINKEL cross reference",
     summary:
       "Use 4.xxx, PR4, JD, MR, TR and 400-series references to narrow a replacement.",
     href: "/solutions/winkel-bearing-cross-reference/",
   },
   {
-    label: "04",
+    label: "05",
     title: "Catalog downloads",
     summary:
       "NATR, NUKR, NNTR, combined bearing and SL series factory PDF references.",
     href: "/downloads/",
   },
   {
-    label: "05",
+    label: "06",
     title: "OEM custom program",
     summary:
       "Drawing-based OEM assemblies for plates, special track rollers and private-label work.",
     href: "/solutions/oem-custom-bearing-program/",
   },
   {
-    label: "06",
+    label: "07",
     title: "Application cases",
     summary:
       "Forklift mast, conveyor, welded-plate and steel-equipment factory references.",
@@ -120,7 +127,12 @@ const buyerGuides = [
                 <a href={item.href}>{item.title}</a>
               </h2>
               <p>{item.summary}</p>
-              <a class="resource-library-link" href={item.href}>
+              <a
+                class="resource-library-link"
+                href={item.href}
+                data-track-event="resource_open"
+                data-track-label={item.title}
+              >
                 Open guide →
               </a>
             </article>

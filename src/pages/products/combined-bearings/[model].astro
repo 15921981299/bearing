@@ -9,6 +9,7 @@ import {
   type CombinedBearingModel,
 } from "../../../data/combined-bearing-models";
 import { profileMatchByBearingSlug } from "../../../data/bearing-profile-matrix";
+import { coreModelDownloadBySlug } from "../../../data/core-model-downloads";
 import {
   breadcrumbSchema,
   faqSchema,
@@ -32,6 +33,7 @@ const primaryModel = item.model.split(" / ")[0];
 const aliases = item.aliases.join(", ");
 const quoteHref = `/contact/?source=${item.slug}`;
 const matchedProfile = profileMatchByBearingSlug[item.slug];
+const modelDownload = coreModelDownloadBySlug[item.slug];
 const sourcingPhrases = [
   `${primaryModel} combined bearing replacement`,
   `${primaryModel} combined roller bearing dimensions`,
@@ -224,6 +226,7 @@ const modelProductSchema = productSchema({
   category: `${item.family} Combined Bearing`,
   manufacturerName: site.name,
   brandName: site.name,
+  alternativeNames: item.aliases,
 });
 
 const iconArrow =
@@ -509,7 +512,21 @@ const iconApplication =
                     aria-label="Technical resources"
                   >
                     <strong>Resources:</strong>
+                    {modelDownload && (
+                      <a
+                        href={modelDownload.href}
+                        download
+                        data-track-event="model_sheet_download"
+                        data-track-category="Technical download"
+                        data-track-label={`${primaryModel} reference sheet`}
+                      >
+                        Download {primaryModel} reference sheet
+                      </a>
+                    )}
                     <a href="/downloads/">Download references</a>
+                    <a href="/tools/combined-bearing-selector/">
+                      Selection &amp; profile tool
+                    </a>
                     <a href={`/contact/?source=${item.slug}-drawing`}>
                       Request controlled drawing
                     </a>
@@ -580,6 +597,9 @@ const iconApplication =
                     aria-label="Technical guides"
                   >
                     <strong>Technical guides:</strong>
+                    <a href="/tools/combined-bearing-selector/">
+                      Selection &amp; profile tool
+                    </a>
                     <a href="/solutions/winkel-bearing-cross-reference/">
                       WINKEL cross reference
                     </a>

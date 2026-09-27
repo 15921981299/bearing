@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
 import { catalogRequestHref, downloadItems } from "../../data/downloads";
+import { coreModelDownloads } from "../../data/core-model-downloads";
 import { breadcrumbSchema, site } from "../../data/site";
 import "../../styles/products-index.css";
 
@@ -73,6 +74,56 @@ const pageDescription =
                     class="products-text-link"
                   >
                     Request drawing / quote
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="products-intro fade-in" style="margin-top:44px;">
+          <h2>Core model reference sheets</h2>
+          <p>
+            Download individual identification sheets for the standard,
+            eccentric-adjustable and precision models most frequently reviewed.
+            These are preliminary catalog references, not controlled
+            manufacturing drawings.
+          </p>
+        </div>
+
+        <div
+          class="products-grid fade-in"
+          style="grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));"
+        >
+          {coreModelDownloads.map((item) => (
+            <article class="products-card">
+              <div class="products-card-body">
+                <p
+                  class="home-series-code"
+                  style="margin:0 0 8px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#1d4ed8;font-weight:700;"
+                >
+                  {item.family} · PDF
+                </p>
+                <h3 style="font-size:18px;margin:0 0 8px;">{item.model}</h3>
+                <p>
+                  Dimensions, aliases, application and verification checklist.
+                </p>
+                <div class="products-rfq-actions">
+                  <a
+                    href={item.href}
+                    class="products-text-link"
+                    download
+                    data-track-event="model_sheet_download"
+                    data-track-category="Technical download"
+                    data-track-label={`${item.model} reference sheet`}
+                  >
+                    Download sheet
+                  </a>
+                  <a
+                    href={`/products/combined-bearings/${item.slug}/`}
+                    class="products-text-link"
+                  >
+                    View model
                   </a>
                 </div>
               </div>

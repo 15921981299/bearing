@@ -1059,6 +1059,290 @@ export const seoLandingPages: SeoLandingPage[] = [
       { label: "Factory QC scope", href: "/certifications/" },
     ],
   ),
+  page(
+    "horizontal-combined-bearing-guide-system",
+    "Applications",
+    "Horizontal Combined Bearing Guide Systems",
+    "Horizontal Combined Bearing Guide System",
+    "A two-rail, four-bearing arrangement provides robust horizontal travel for machinery, pull-out platforms and material-handling carriages when alignment and load distribution are controlled.",
+    [
+      {
+        heading: "Basic mechanical arrangement",
+        body: "Two parallel profiles normally carry a carriage supported by two combined bearings in each rail. The radial rollers carry the main load while the axial rollers guide the carriage laterally.",
+        bullets: [
+          "Include carriage self-weight with the payload",
+          "Place the load centre between bearing groups where possible",
+          "Support the profiles against local twist and deflection",
+        ],
+      },
+      {
+        heading: "Selection and installation checks",
+        body: "Bearing capacity, profile contact load, rail parallelism and structural deflection must be reviewed together. A larger bearing cannot compensate for a flexible or distorted support.",
+        bullets: [
+          "Bearing spacing and rail spacing",
+          "Profile section, steel grade and mounting method",
+          "Travel length, speed, shock and contamination",
+        ],
+      },
+      {
+        heading: "What to send for quotation",
+        body: "Provide a plan and side view with load position, rail centres, bearing centres and total travel. Mark whether the bearings will be welded directly or supplied on plates.",
+        bullets: [
+          "Operating and maximum load",
+          "Number of rails and bearings",
+          "Overall envelope and delivery destination",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Bearing selection tool",
+        href: "/tools/combined-bearing-selector/",
+      },
+      {
+        label: "Standard combined bearings",
+        href: "/products/combined-bearings/",
+      },
+      {
+        label: "Standard NbV profiles",
+        href: "/products/standard-nbv-profiles/",
+      },
+      {
+        label: "Rail clearance guide",
+        href: "/resources/combined-bearing-rail-clearance-alignment/",
+      },
+      {
+        label: "Submit arrangement drawing",
+        href: "/contact/?source=horizontal-guide-system",
+      },
+    ],
+  ),
+  page(
+    "cantilever-combined-bearing-linear-guide",
+    "Applications",
+    "Cantilever Combined Bearing Linear Guides",
+    "Cantilever Combined Bearing Linear Guide",
+    "Cantilevered carriages create moment loads that depend on the load offset and bearing spacing, making arrangement geometry as important as bearing catalog capacity.",
+    [
+      {
+        heading: "Why the load offset matters",
+        body: "Moving the centre of gravity away from the bearing group creates a moment. The most heavily loaded rollers can see much more than the total payload divided by bearing count.",
+        bullets: [
+          "Record load offset through the complete travel",
+          "Maximise bearing spacing within the available structure",
+          "Include acceleration, braking and shock",
+        ],
+      },
+      {
+        heading: "Rail and structure checks",
+        body: "The rails must transfer the bearing reaction into a sufficiently rigid frame. Check contact pressure, fastener or weld support, local flange deflection and torsion between parallel rails.",
+        bullets: [
+          "Profile steel and section geometry",
+          "Support spacing and connection stiffness",
+          "Carriage rotation and edge contact risk",
+        ],
+      },
+      {
+        heading: "When to use adjustable bearings",
+        body: "Eccentric or shim-adjustable axial support can help set guide clearance after assembly, but it should not be used to correct major rail misalignment or structural distortion.",
+        bullets: [
+          "Confirm adjustment access",
+          "Set at the tightest travel position",
+          "Lock and verify under controlled load",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Preliminary selection tool",
+        href: "/tools/combined-bearing-selector/",
+      },
+      {
+        label: "Adjustable combined bearings",
+        href: "/solutions/adjustable-combined-bearings/",
+      },
+      {
+        label: "Hertzian pressure guide",
+        href: "/resources/combined-bearing-hertzian-pressure/",
+      },
+      {
+        label: "Jumbo combined bearings",
+        href: "/solutions/jumbo-combined-bearings/",
+      },
+      {
+        label: "Request cantilever review",
+        href: "/contact/?source=cantilever-guide",
+      },
+    ],
+  ),
+  page(
+    "two-stage-telescopic-combined-bearing-system",
+    "Applications",
+    "Two-Stage Telescopic Combined Bearing Systems",
+    "Two Stage Telescopic Combined Bearing System",
+    "Two-stage telescopic guide systems increase extension while keeping the retracted envelope compact, but the overlap, bearing reactions and cable or drive routing change throughout travel.",
+    [
+      {
+        heading: "Define every extension state",
+        body: "Check the system fully retracted, at intermediate travel and fully extended. Minimum rail overlap and the changing load centre usually control the most demanding condition.",
+        bullets: [
+          "Retracted and extended overall length",
+          "Minimum overlap per stage",
+          "Payload centre and carriage self-weight",
+        ],
+      },
+      {
+        heading: "Bearing and profile arrangement",
+        body: "Each stage needs adequate bearing spacing and structural support. Confirm whether C profiles, I profiles or a paired arrangement best suits the available envelope and loading direction.",
+        bullets: [
+          "Fixed versus adjustable axial guidance",
+          "Internal access for lubrication and replacement",
+          "Stops, retention and over-travel protection",
+        ],
+      },
+      {
+        heading: "RFQ drawing checklist",
+        body: "A telescopic quotation should include a side-view layout showing all stages, bearing locations, moving masses, drive force and the required duty cycle.",
+        bullets: [
+          "Travel and speed",
+          "Horizontal, vertical or overhead orientation",
+          "Shock, environment and inspection scope",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Telescopic fork bearings",
+        href: "/solutions/bearings-for-telescopic-forks/",
+      },
+      {
+        label: "Profile matching tool",
+        href: "/tools/combined-bearing-selector/",
+      },
+      {
+        label: "Combined bearing models",
+        href: "/products/combined-bearings/",
+      },
+      {
+        label: "Alignment guide",
+        href: "/resources/combined-bearing-rail-clearance-alignment/",
+      },
+      {
+        label: "Submit telescopic layout",
+        href: "/contact/?source=two-stage-telescopic",
+      },
+    ],
+  ),
+  page(
+    "three-stage-telescopic-combined-bearing-system",
+    "Applications",
+    "Three-Stage Telescopic Combined Bearing Systems",
+    "Three Stage Telescopic Combined Bearing System",
+    "Three-stage telescopic systems provide long extension from a short retracted package and require stage-by-stage review of overlap, moment load, synchronisation and service access.",
+    [
+      {
+        heading: "Stage-by-stage load review",
+        body: "The same payload produces different reactions as stages extend. Calculate each rail and bearing group at the least favourable overlap rather than applying one average load to the complete assembly.",
+        bullets: [
+          "Mass of every moving stage",
+          "Payload offset at maximum extension",
+          "Drive, acceleration and emergency-stop forces",
+        ],
+      },
+      {
+        heading: "Synchronisation and guidance",
+        body: "Chains, belts, cylinders or mechanical links may coordinate extension. The guide system must tolerate the resulting force path without allowing one stage to skew or overload a single axial roller.",
+        bullets: [
+          "Stage timing and drive attachment points",
+          "Clearance at retracted and extended positions",
+          "Stops and anti-separation features",
+        ],
+      },
+      {
+        heading: "Maintenance access",
+        body: "Plan how inner bearings, fasteners and lubrication points can be inspected or replaced. A compact design that cannot be serviced can create excessive downtime.",
+        bullets: [
+          "Removable plates or access openings",
+          "Protected lubrication route",
+          "Documented inspection positions",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Two-stage system",
+        href: "/solutions/two-stage-telescopic-combined-bearing-system/",
+      },
+      {
+        label: "Heavy-duty linear guides",
+        href: "/solutions/bearings-for-heavy-duty-linear-guides/",
+      },
+      {
+        label: "Lubrication guide",
+        href: "/resources/combined-bearing-lubrication-maintenance/",
+      },
+      { label: "Jumbo bearings", href: "/solutions/jumbo-combined-bearings/" },
+      {
+        label: "Request three-stage review",
+        href: "/contact/?source=three-stage-telescopic",
+      },
+    ],
+  ),
+  page(
+    "overhead-lift-combined-bearing-guides",
+    "Applications",
+    "Overhead Lift Combined Bearing Guides",
+    "Overhead Lift Combined Bearing Guides",
+    "Overhead and inverted guide arrangements require positive retention, conservative load review and documented inspection because gravity acts differently from a floor-supported horizontal slide.",
+    [
+      {
+        heading: "Treat retention as a separate safety function",
+        body: "Do not assume the rolling elements alone provide all required restraint. The machine risk assessment should define stops, anti-drop features and safe behaviour after a bearing or fastener fault.",
+        bullets: [
+          "Positive mechanical retention",
+          "End stops and over-travel protection",
+          "Inspection access from a safe position",
+        ],
+      },
+      {
+        heading: "Operating load case",
+        body: "Include the suspended structure, payload, acceleration, braking, impact and any off-centre load. Check both normal operation and the defined abnormal or emergency condition.",
+        bullets: [
+          "Dynamic and moment loads",
+          "Rail connection and support spacing",
+          "Environmental and lubrication conditions",
+        ],
+      },
+      {
+        heading: "Documentation before quotation",
+        body: "Provide the complete arrangement drawing and applicable safety requirements. The bearing supplier can review component selection, but responsibility for the overall lifting machine and safety system remains with its designer.",
+        bullets: [
+          "Load diagram and duty cycle",
+          "Required standards and inspection documents",
+          "Installation and maintenance concept",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Vertical guide systems",
+        href: "/solutions/bearings-for-vertical-guide-systems/",
+      },
+      {
+        label: "Hertzian pressure guide",
+        href: "/resources/combined-bearing-hertzian-pressure/",
+      },
+      { label: "Quality and inspection", href: "/certifications/" },
+      {
+        label: "RFQ checklist",
+        href: "/resources/industrial-bearing-rfq-checklist/",
+      },
+      {
+        label: "Submit overhead guide drawing",
+        href: "/contact/?source=overhead-guide",
+      },
+    ],
+  ),
 ];
 
 export const seoLandingPageBySlug = Object.fromEntries(

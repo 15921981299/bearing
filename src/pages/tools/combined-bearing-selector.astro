@@ -1,0 +1,422 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import DetailRfqStrip from "../../components/DetailRfqStrip.astro";
+import { combinedBearingModels } from "../../data/combined-bearing-models";
+import { bearingProfileMatrix } from "../../data/bearing-profile-matrix";
+import { breadcrumbSchema, site } from "../../data/site";
+import "../../styles/selector-tool.css";
+
+const numeric = (value?: string) => {
+  const match = value?.match(/[\d.]+/);
+  return match ? Number(match[0]) : null;
+};
+
+const selectorData = combinedBearingModels
+  .filter((item) => item.family === "Standard")
+  .map((item) => {
+    const specs = Object.fromEntries(
+      item.specs.map((spec) => [spec.label, spec.value]),
+    );
+    return {
+      model: item.model.split(" /")[0],
+      slug: item.slug,
+      diameter: numeric(specs.D),
+      radial: numeric(specs.FR),
+      axial: numeric(specs.FA),
+      dynamic: numeric(specs.Cr ?? specs.C),
+      profile:
+        bearingProfileMatrix.find((profile) =>
+          profile.matchedBearings.some((bearing) => bearing.slug === item.slug),
+        )?.profile ?? "Confirm profile",
+    };
+  })
+  .filter((item) => item.radial && item.axial)
+  .sort((a, b) => (a.diameter ?? 0) - (b.diameter ?? 0));
+
+const profileRows = bearingProfileMatrix.map((profile) => ({
+  profile: profile.profile,
+  slug: profile.profileSlug,
+  article: profile.articleNumber,
+  reference: profile.replacementReference,
+  mass: profile.mass,
+  bearings: profile.matchedBearings,
+  note: profile.note,
+}));
+
+const pageUrl = `${site.url}/tools/combined-bearing-selector/`;
+---
+
+<BaseLayout
+  title="Combined Bearing Selection & Profile Matching Tool"
+  description="Estimate a preliminary combined bearing size from load and arrangement, then match 4.xxx bearings to Standard NbV profiles. Engineering review is required before ordering."
+  currentPath="/resources"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: "Home", url: site.url },
+      { name: "Technical Guides", url: `${site.url}/resources/` },
+      { name: "Combined Bearing Selector", url: pageUrl },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Combined Bearing Selection and Profile Matching Tool",
+      applicationCategory: "EngineeringApplication",
+      operatingSystem: "Web",
+      url: pageUrl,
+      description:
+        "Preliminary screening tool for standard combined roller bearings and matching Standard NbV guide profiles.",
+      provider: { "@type": "Organization", name: site.name, url: site.url },
+    },
+  ]}
+>
+  <BreadcrumbHero
+    title="Combined Bearing Selection & Profile Matching"
+    trail={[
+      { label: "Home", href: "/" },
+      { label: "Technical Guides", href: "/resources/" },
+      { label: "Selection Tool" },
+    ]}
+    variant="3"
+  />
+
+  <main class="selector-page">
+    <section class="selector-section">
+      <div class="container">
+        <header class="selector-intro">
+          <p class="selector-kicker">Preliminary engineering screen</p>
+          <h2>Shortlist a bearing, then verify the complete system</h2>
+          <p>
+            Enter a load arrangement to estimate a screening reaction per
+            bearing. The result compares published allowable radial and axial
+            profile loads for the standard models currently verified in our
+            catalog. It is not a final Hertzian contact calculation.
+          </p>
+        </header>
+
+        <div class="selector-layout">
+          <form class="selector-card selector-form" id="bearing-selector">
+            <div class="selector-card-heading">
+              <span>01</span>
+              <div>
+                <h2>Load and arrangement</h2>
+                <p>Use operating load, not machine capacity alone.</p>
+              </div>
+            </div>
+
+            <label>
+              Arrangement
+              <select name="arrangement" id="arrangement">
+                <option value="simple">Simple horizontal</option>
+                <option value="horizontal-cantilever">
+                  Horizontal cantilever
+                </option>
+                <option value="vertical-cantilever">
+                  Vertical mast / cantilever
+                </option>
+              </select>
+            </label>
+
+            <div class="selector-field-grid">
+              <label>
+                Main load P (N)
+                <input
+                  name="load"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="5000"
+                  required
+                />
+              </label>
+              <label>
+                Number of bearings
+                <select name="bearingCount">
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                  <option value="8">8</option>
+                </select>
+              </label>
+              <label class="cantilever-field">
+                Load offset L (mm)
+                <input
+                  name="offset"
+                  type="number"
+                  min="0"
+                  step="1"
+                  value="500"
+                />
+              </label>
+              <label class="cantilever-field">
+                Bearing spacing I (mm)
+                <input
+                  name="spacing"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="600"
+                />
+              </label>
+              <label>
+                Lateral / axial load (N)
+                <input
+                  name="axialLoad"
+                  type="number"
+                  min="0"
+                  step="1"
+                  value="500"
+                />
+              </label>
+              <label>
+                Screening factor
+                <select name="factor">
+                  <option value="1.25">1.25 - steady</option>
+                  <option value="1.5" selected>
+                    1.50 - general industrial
+                  </option>
+                  <option value="2">2.00 - shock / uncertain</option>
+                </select>
+              </label>
+            </div>
+
+            <button type="submit" class="selector-submit">
+              Calculate shortlist
+            </button>
+            <p class="selector-form-note">
+              If load direction, moment distribution or rail support is
+              uncertain, submit the arrangement drawing instead of relying on
+              this screen.
+            </p>
+          </form>
+
+          <section
+            class="selector-card selector-result"
+            aria-live="polite"
+            aria-labelledby="result-heading"
+          >
+            <div class="selector-card-heading">
+              <span>02</span>
+              <div>
+                <h2 id="result-heading">Preliminary result</h2>
+                <p id="result-status">Complete the inputs and calculate.</p>
+              </div>
+            </div>
+            <div id="selector-output" class="selector-output">
+              <div class="selector-empty">
+                <strong>No calculation yet</strong>
+                <p>
+                  The shortlist will show the screening load, model and matched
+                  profile.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section
+          class="profile-lookup"
+          aria-labelledby="profile-lookup-heading"
+        >
+          <div class="profile-lookup-heading">
+            <div>
+              <p class="selector-kicker">Bidirectional reference</p>
+              <h2 id="profile-lookup-heading">
+                Bearing ↔ Standard NbV profile lookup
+              </h2>
+            </div>
+            <label>
+              <span>Search model or profile</span>
+              <input
+                id="profile-search"
+                type="search"
+                placeholder="Example: 4.058, JDG89 or 113.013.000"
+              />
+            </label>
+          </div>
+          <div class="selector-table-wrap">
+            <table class="selector-table">
+              <thead>
+                <tr>
+                  <th>Profile</th>
+                  <th>Article / reference</th>
+                  <th>Matched bearings</th>
+                  <th>Mass</th>
+                  <th>Verification note</th>
+                </tr>
+              </thead>
+              <tbody id="profile-table-body">
+                {profileRows.map((row) => (
+                  <tr
+                    data-profile-row={`${row.profile} ${row.article} ${row.reference} ${row.bearings.map((bearing) => bearing.model).join(" ")}`.toLowerCase()}
+                  >
+                    <td>
+                      <a href={`/products/standard-nbv-profiles/${row.slug}/`}>
+                        {row.profile}
+                      </a>
+                    </td>
+                    <td>
+                      {row.article}
+                      <br />
+                      <small>{row.reference}</small>
+                    </td>
+                    <td>
+                      {row.bearings.map((bearing, index) => (
+                        <>
+                          <a
+                            href={`/products/combined-bearings/${bearing.slug}/`}
+                          >
+                            {bearing.model}
+                          </a>
+                          {index < row.bearings.length - 1 ? " / " : ""}
+                        </>
+                      ))}
+                    </td>
+                    <td>{row.mass}</td>
+                    <td>{row.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p id="profile-no-results" class="profile-no-results" hidden>
+            No matching profile or bearing was found. Send the marking and
+            profile dimensions for review.
+          </p>
+        </section>
+
+        <aside class="selector-boundary">
+          <h2>Engineering boundary</h2>
+          <p>
+            Final selection must check Hertzian contact pressure, rail steel and
+            support, load distribution, bearing spacing, shock, deflection,
+            alignment, speed, lubrication and the current controlled drawing.
+            Similar model numbers do not guarantee interchangeability.
+          </p>
+          <a href="/resources/combined-bearing-hertzian-pressure/">
+            Read the contact-pressure guide
+          </a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <DetailRfqStrip
+    title="Need the result checked against your drawing?"
+    text="Send the load arrangement, bearing spacing, travel, profile section, quantity and destination for application review."
+    label="Submit selection data"
+    quoteHref="/contact/?source=combined-bearing-selector"
+    secondaryLabel="Browse bearing models"
+    secondaryHref="/products/combined-bearings/"
+  />
+
+  <script is:inline define:vars={{ selectorData }}>
+    const form = document.querySelector("#bearing-selector");
+    const arrangement = document.querySelector("#arrangement");
+    const output = document.querySelector("#selector-output");
+    const status = document.querySelector("#result-status");
+    const cantileverFields = document.querySelectorAll(".cantilever-field");
+
+    const formatLoad = (value) => `${(value / 1000).toFixed(2)} kN`;
+    const toggleCantilever = () => {
+      const show = arrangement?.value !== "simple";
+      cantileverFields.forEach((field) => {
+        field.hidden = !show;
+      });
+    };
+
+    arrangement?.addEventListener("change", toggleCantilever);
+    toggleCantilever();
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const values = new FormData(form);
+      const mode = String(values.get("arrangement"));
+      const load = Number(values.get("load"));
+      const count = Number(values.get("bearingCount"));
+      const offset = Number(values.get("offset"));
+      const spacing = Number(values.get("spacing"));
+      const axialLoad = Number(values.get("axialLoad"));
+      const factor = Number(values.get("factor"));
+
+      if (!load || !count || !factor || (mode !== "simple" && !spacing)) {
+        status.textContent = "Check the required numeric inputs.";
+        return;
+      }
+
+      const directReaction = load / count;
+      const momentReaction =
+        mode === "simple"
+          ? 0
+          : (load * offset) / spacing / Math.max(2, count / 2);
+      const radialRequired = (directReaction + momentReaction) * factor;
+      const axialRequired = (axialLoad / count) * factor;
+      const matches = selectorData.filter(
+        (item) =>
+          item.radial * 1000 >= radialRequired &&
+          item.axial * 1000 >= axialRequired,
+      );
+      const recommended = matches[0];
+
+      if (!recommended) {
+        status.textContent =
+          "No verified standard model fits this preliminary screen.";
+        output.innerHTML = `
+          <div class="selector-empty selector-empty--warning">
+            <strong>Application review required</strong>
+            <p>Screening radial load: ${formatLoad(radialRequired)}; axial load: ${formatLoad(axialRequired)}. Review a larger, Jumbo or special system with the complete arrangement drawing.</p>
+            <a href="/contact/?source=selector-no-match" data-rfq-modal data-rfq-context="Selector: no verified standard match" data-rfq-source="selector-no-match">Send arrangement for review</a>
+          </div>`;
+      } else {
+        const alternatives = matches
+          .slice(1, 3)
+          .map(
+            (item) =>
+              `<a href="/products/combined-bearings/${item.slug}/">${item.model}</a>`,
+          )
+          .join(" · ");
+        status.textContent =
+          "A catalog shortlist is available for engineering verification.";
+        output.innerHTML = `
+          <dl class="selector-metrics">
+            <div><dt>Screening radial load</dt><dd>${formatLoad(radialRequired)}</dd></div>
+            <div><dt>Screening axial load</dt><dd>${formatLoad(axialRequired)}</dd></div>
+            <div><dt>First catalog match</dt><dd>${recommended.model}</dd></div>
+            <div><dt>Matched profile</dt><dd>${recommended.profile}</dd></div>
+          </dl>
+          <div class="selector-recommendation">
+            <p><strong>Why this is only a shortlist:</strong> the comparison uses published profile-load screening values. It does not model rail deflection, local contact stress or uneven load sharing.</p>
+            <div class="selector-result-actions">
+              <a href="/products/combined-bearings/${recommended.slug}/" data-track-event="selector_product_open" data-track-label="${recommended.model}">View ${recommended.model}</a>
+              <a href="/contact/?source=selector-${recommended.slug}" data-rfq-modal data-rfq-context="Selector result: ${recommended.model}" data-rfq-source="selector-${recommended.slug}">Verify this selection</a>
+            </div>
+            ${alternatives ? `<p class="selector-alternatives">Larger verified catalog options: ${alternatives}</p>` : ""}
+          </div>`;
+      }
+
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "bearing_selector_result", {
+          event_category: "Engineering tool",
+          arrangement: mode,
+          result_model: recommended?.model || "manual-review",
+          radial_load_kn: Number((radialRequired / 1000).toFixed(2)),
+        });
+      }
+    });
+
+    const profileSearch = document.querySelector("#profile-search");
+    const profileRows = Array.from(
+      document.querySelectorAll("[data-profile-row]"),
+    );
+    const noResults = document.querySelector("#profile-no-results");
+    profileSearch?.addEventListener("input", () => {
+      const term = profileSearch.value.trim().toLowerCase();
+      let visible = 0;
+      profileRows.forEach((row) => {
+        const show = !term || row.dataset.profileRow.includes(term);
+        row.hidden = !show;
+        if (show) visible += 1;
+      });
+      noResults.hidden = visible > 0;
+    });
+  </script>
+</BaseLayout>

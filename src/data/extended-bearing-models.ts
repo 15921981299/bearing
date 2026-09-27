@@ -1,3 +1,9 @@
+import {
+  buildAliasOwnerIndex,
+  makeForeignNormCheck,
+  spellingVariants,
+} from "./alias-variants";
+
 export type ExtendedBearingModel = {
   slug: string;
   model: string;
@@ -2013,9 +2019,24 @@ const categoryVisuals: Record<ExtendedBearingModel["categorySlug"], string> = {
   "special-track-roller-bearings": "/images/clean/stud-track-roller.webp",
 };
 
+/**
+ * 每个件号写法的 norm -> 拥有它的记录 slug（用于避免跨型号歧义与笔误放大）。
+ */
+const aliasOwnerIndex = buildAliasOwnerIndex(extendedBearingModelRecords);
+
 export const extendedBearingModels: ExtendedBearingModel[] =
   extendedBearingModelRecords.map((item) => ({
     ...item,
+    aliases: [
+      ...new Set([
+        ...item.aliases,
+        ...spellingVariants(
+          item.aliases,
+          item.model,
+          makeForeignNormCheck(aliasOwnerIndex, item.slug),
+        ),
+      ]),
+    ],
     image: categoryVisuals[item.categorySlug],
   }));
 export const trackRollerModels = extendedBearingModels.filter(

@@ -1,6 +1,7 @@
 # Build output
 dist/
 dist__prev/
+dist__prev*/
 node_modules/
 
 # Generated / scratch directories (also in .gitignore)

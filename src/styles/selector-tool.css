@@ -1,0 +1,361 @@
+.selector-page {
+  background: #f8fafc;
+}
+
+.selector-section {
+  padding: 72px 0 88px;
+}
+
+.selector-intro {
+  max-width: 820px;
+  margin-bottom: 30px;
+}
+
+.selector-kicker {
+  margin: 0 0 8px;
+  color: #146ef5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.selector-intro h2,
+.profile-lookup h2,
+.selector-boundary h2 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.selector-intro > p:last-child {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.selector-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.selector-card,
+.profile-lookup,
+.selector-boundary {
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+}
+
+.selector-card {
+  padding: 26px;
+}
+
+.selector-card-heading {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.selector-card-heading > span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border-radius: 10px;
+  background: #eaf2ff;
+  color: #146ef5;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.selector-card-heading h2 {
+  margin: 0 0 4px;
+  color: #0f172a;
+  font-size: 22px;
+}
+
+.selector-card-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.selector-form > label,
+.selector-field-grid label,
+.profile-lookup-heading label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.selector-form > label {
+  margin-top: 22px;
+}
+
+.selector-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.selector-form input,
+.selector-form select,
+.profile-lookup input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  color: #0f172a;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 500;
+}
+
+.selector-form input:focus-visible,
+.selector-form select:focus-visible,
+.profile-lookup input:focus-visible,
+.selector-submit:focus-visible,
+.selector-result-actions a:focus-visible {
+  outline: 3px solid rgba(20, 110, 245, 0.25);
+  outline-offset: 2px;
+  border-color: #146ef5;
+}
+
+.selector-submit {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #146ef5;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  transition: background-color 180ms ease;
+}
+
+.selector-submit:hover {
+  background: #0b56c6;
+}
+
+.selector-form-note {
+  margin: 13px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.selector-output {
+  padding-top: 22px;
+}
+
+.selector-empty {
+  padding: 22px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.selector-empty strong {
+  color: #0f172a;
+}
+
+.selector-empty p {
+  margin: 8px 0 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.selector-empty--warning {
+  border-color: #f2c46d;
+  background: #fffbeb;
+}
+
+.selector-empty a,
+.selector-recommendation a,
+.selector-table a,
+.selector-boundary a {
+  color: #075dcc;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.selector-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.selector-metrics div {
+  padding: 14px;
+  border-radius: 10px;
+  background: #f1f5f9;
+}
+
+.selector-metrics dt {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.selector-metrics dd {
+  margin: 5px 0 0;
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.selector-recommendation {
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 3px solid #146ef5;
+  background: #f8fbff;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.selector-recommendation p {
+  margin: 0;
+}
+
+.selector-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.selector-alternatives {
+  margin-top: 12px !important;
+  font-size: 13px;
+}
+
+.profile-lookup {
+  margin-top: 24px;
+  padding: 26px;
+}
+
+.profile-lookup-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+}
+
+.profile-lookup-heading label {
+  width: min(100%, 380px);
+}
+
+.selector-table-wrap {
+  overflow-x: auto;
+  margin-top: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.selector-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  color: #334155;
+  font-size: 13px;
+}
+
+.selector-table th,
+.selector-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.selector-table th {
+  background: #0f172a;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.selector-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.selector-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.selector-table small {
+  color: #64748b;
+}
+
+.profile-no-results {
+  margin: 18px 0 0;
+  color: #92400e;
+}
+
+.selector-boundary {
+  margin-top: 24px;
+  padding: 24px 26px;
+  border-left: 4px solid #146ef5;
+  box-shadow: none;
+}
+
+.selector-boundary p {
+  margin: 0 0 10px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .selector-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-lookup-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-lookup-heading label {
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .selector-section {
+    padding: 52px 0 64px;
+  }
+
+  .selector-card,
+  .profile-lookup,
+  .selector-boundary {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .selector-field-grid,
+  .selector-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selector-submit {
+    transition: none;
+  }
+}

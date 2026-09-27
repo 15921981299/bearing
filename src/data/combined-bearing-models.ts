@@ -1,3 +1,9 @@
+import {
+  buildAliasOwnerIndex,
+  makeForeignNormCheck,
+  spellingVariants,
+} from "./alias-variants";
+
 export type BearingSpec = { label: string; value: string };
 
 export type CombinedBearingModel = {
@@ -2131,10 +2137,26 @@ function interchangeAliases(item: CombinedBearingModel) {
   return [];
 }
 
+/**
+ * 每个件号写法的 norm -> 拥有它的记录 slug。生成拼写变体时用它排除
+ * 属于其他型号的写法，既避免跨型号歧义，也避免把上游数据里的笔误放大。
+ */
+const aliasOwnerIndex = buildAliasOwnerIndex(combinedBearingModelRecords);
+
 export const combinedBearingModels: CombinedBearingModel[] =
   combinedBearingModelRecords.map((item) => ({
     ...item,
-    aliases: [...new Set([...item.aliases, ...interchangeAliases(item)])],
+    aliases: [
+      ...new Set([
+        ...item.aliases,
+        ...interchangeAliases(item),
+        ...spellingVariants(
+          item.aliases,
+          item.model,
+          makeForeignNormCheck(aliasOwnerIndex, item.slug),
+        ),
+      ]),
+    ],
     image: combinedBearingVisuals[item.family],
   }));
 

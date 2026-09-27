@@ -42,27 +42,80 @@ const related = products
   .filter((item) => item.slug !== product.slug)
   .slice(0, 4);
 const technicalReferences = technicalReferencesByProduct[product.slug] ?? [];
-const modelDirectory =
-  product.slug === "combined-bearings"
-    ? combinedBearingModels.map((model) => ({
-        slug: model.slug,
-        model: model.model,
-        aliases: model.aliases,
-        image: model.image,
-      }))
-    : product.slug === "track-roller-bearings"
-      ? trackRollerModels
-      : product.slug === "full-complement-cylindrical-roller-bearings"
-        ? fullComplementModels
-        : product.slug === "cross-roller-bearings"
-          ? crossRollerModels
-          : product.slug === "standard-nbv-profiles"
-            ? nbvProfileModels
-            : product.slug === "backup-roller-bearings"
-              ? backupRollerModels
-              : product.slug === "special-track-roller-bearings"
-                ? specialTrackRollerModels
-                : [];
+
+type ModelDirectoryEntry = {
+  slug: string;
+  model: string;
+  aliases: string[];
+  image: string;
+  /** 型号页的真实路径 —— 类目页可能聚合别的父路径下的型号，不能按当前 slug 拼 */
+  href: string;
+};
+
+const modelHrefs = (
+  base: string,
+  models: readonly {
+    slug: string;
+    model: string;
+    aliases: string[];
+    image: string;
+  }[],
+): ModelDirectoryEntry[] =>
+  models.map((model) => ({ ...model, href: `${base}/${model.slug}/` }));
+
+const weldedPlateModels = modelHrefs(
+  "/products/combined-bearings",
+  combinedBearingModels.filter((model) => model.family === "Welded plate"),
+);
+
+/** 产品族 -> 型号目录；新增族页时只需在此登记，避免继续堆嵌套三元 */
+const modelDirectoryBySlug: Record<string, ModelDirectoryEntry[]> = {
+  "combined-bearings": modelHrefs(
+    "/products/combined-bearings",
+    combinedBearingModels,
+  ),
+  "track-roller-bearings": modelHrefs(
+    "/products/track-roller-bearings",
+    trackRollerModels,
+  ),
+  "full-complement-cylindrical-roller-bearings": modelHrefs(
+    "/products/full-complement-cylindrical-roller-bearings",
+    fullComplementModels,
+  ),
+  "cross-roller-bearings": modelHrefs(
+    "/products/cross-roller-bearings",
+    crossRollerModels,
+  ),
+  "standard-nbv-profiles": modelHrefs(
+    "/products/standard-nbv-profiles",
+    nbvProfileModels,
+  ),
+  "backup-roller-bearings": modelHrefs(
+    "/products/backup-roller-bearings",
+    backupRollerModels,
+  ),
+  "special-track-roller-bearings": modelHrefs(
+    "/products/special-track-roller-bearings",
+    specialTrackRollerModels,
+  ),
+  // 导轨/法兰类目页复用既有型号页，链接回各自真实父路径
+  "u-channel-profile-rails": modelHrefs(
+    "/products/standard-nbv-profiles",
+    nbvProfileModels,
+  ),
+  "flange-plates": weldedPlateModels,
+};
+
+const modelDirectory = modelDirectoryBySlug[product.slug] ?? [];
+
+/** 型号目录在 itemListSchema 里的名称后缀（类目页聚合的是别的族的型号） */
+const modelDirectoryLabelBySlug: Record<string, string> = {
+  "u-channel-profile-rails": "Standard NbV Profile",
+  "flange-plates": "Welded Plate Combined Bearing",
+};
+const directoryLabel =
+  modelDirectoryLabelBySlug[product.slug] ??
+  (product.slug === "combined-bearings" ? "Combined Bearing" : product.title);
 
 const categoryNav = [
   { href: "/products/", label: "All bearings", slug: null },
@@ -100,6 +153,21 @@ const categoryNav = [
     href: "/products/special-track-roller-bearings/",
     label: "Special track",
     slug: "special-track-roller-bearings",
+  },
+  {
+    href: "/products/u-channel-profile-rails/",
+    label: "U-channel rails",
+    slug: "u-channel-profile-rails",
+  },
+  {
+    href: "/products/clamp-flanges/",
+    label: "Clamp flanges",
+    slug: "clamp-flanges",
+  },
+  {
+    href: "/products/flange-plates/",
+    label: "Flange plates",
+    slug: "flange-plates",
   },
 ];
 
@@ -143,6 +211,7 @@ const iconInput =
       image: `${site.url}${product.mainImage}`,
       category: "Industrial Bearings",
       sku: product.slug,
+      alternativeNames: product.alsoKnownAs,
     }),
     faqSchema(
       productFaqs.map((faq) => ({
@@ -154,8 +223,8 @@ const iconInput =
       ? [
           itemListSchema(
             modelDirectory.map((model) => ({
-              name: `${model.model} ${product.slug === "combined-bearings" ? "Combined Bearing" : product.title}`,
-              url: `${site.url}/products/${product.slug}/${model.slug}/`,
+              name: `${model.model} ${directoryLabel}`,
+              url: `${site.url}${model.href}`,
             })),
           ),
         ]
@@ -301,6 +370,31 @@ const iconInput =
                 />
 
                 <section
+                  class="product-seo-section product-also-known"
+                  aria-labelledby="also-known-as-heading"
+                >
+                  <h2 id="also-known-as-heading">
+                    Also known as: other names for {product.title.toLowerCase()}
+                  </h2>
+                  <p>
+                    Buyers, maintenance teams and machine builders use different
+                    names and spellings for the same product family. These terms
+                    are identification and search clues, not an interchange
+                    approval.
+                  </p>
+                  <ul class="product-sourcing-terms">
+                    {product.alsoKnownAs.map((name) => (
+                      <li>{name}</li>
+                    ))}
+                  </ul>
+                  <p>
+                    Suffixes, seals, lubrication, tolerances and mounting
+                    executions can change fit. Send the complete marking and a
+                    controlled drawing for confirmation.
+                  </p>
+                </section>
+
+                <section
                   class="product-seo-section"
                   aria-labelledby="series-reference-heading"
                 >
@@ -347,7 +441,7 @@ const iconInput =
                       </p>
                       <div class="combined-model-directory-grid">
                         {modelDirectory.map((model) => (
-                          <a href={`/products/${product.slug}/${model.slug}/`}>
+                          <a href={model.href}>
                             <img
                               src={model.image}
                               alt={`${model.model} ${product.title}`}

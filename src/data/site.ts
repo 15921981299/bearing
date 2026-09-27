@@ -213,6 +213,7 @@ export function productSchema(product: {
   brandName?: string;
   manufacturerName?: string;
   category?: string;
+  alternativeNames?: readonly string[];
   offer?: {
     price: number | string;
     priceCurrency: string;
@@ -227,6 +228,9 @@ export function productSchema(product: {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
+    ...(product.alternativeNames?.length
+      ? { alternateName: [...product.alternativeNames] }
+      : {}),
     description,
     url: product.url,
     image: product.image,

@@ -25,6 +25,8 @@ function normalizeHref(href) {
     href.startsWith("tel:")
   )
     return null;
+  // 未解析的模板占位（内联脚本里的 `${slug}`）不是真实链接
+  if (href.includes("${")) return null;
   if (href.startsWith("http://") || href.startsWith("https://")) return null;
   const pathOnly = href.split(/[?#]/)[0];
   if (!pathOnly.startsWith("/")) return null;
@@ -69,6 +71,16 @@ await walk(distDir);
 const hrefPattern = /href="(\/[^"]*)"/g;
 const broken = new Set();
 
+/**
+ * 内联 <script>/<style> 里的 "href=..." 不是可抓取的链接：
+ * 例如选型器把 `href="/products/combined-bearings/${slug}/"` 当 JS 模板字符串写在内联脚本里，
+ * 直接扫全文件会把它们当成断链（误报，会让 CI 假失败）。
+ */
+const stripNonMarkup = (html) =>
+  html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
+
 for (const file of htmlFiles) {
   let html;
   try {
@@ -82,6 +94,8 @@ for (const file of htmlFiles) {
     }
     throw err;
   }
+  html = stripNonMarkup(html);
+  hrefPattern.lastIndex = 0;
   let match;
   while ((match = hrefPattern.exec(html)) !== null) {
     const normalized = normalizeHref(match[1]);
