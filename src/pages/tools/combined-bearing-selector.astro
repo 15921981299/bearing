@@ -26,9 +26,13 @@ const selectorData = combinedBearingModels
       axial: numeric(specs.FA),
       dynamic: numeric(specs.Cr ?? specs.C),
       profile:
-        bearingProfileMatrix.find((profile) =>
-          profile.matchedBearings.some((bearing) => bearing.slug === item.slug),
-        )?.profile ?? "Confirm profile",
+        item.slug === "winkel-4-053"
+          ? "EC053 / confirm drawing"
+          : (bearingProfileMatrix.find((profile) =>
+              profile.matchedBearings.some(
+                (bearing) => bearing.slug === item.slug,
+              ),
+            )?.profile ?? "Confirm profile"),
     };
   })
   .filter((item) => item.radial && item.axial)

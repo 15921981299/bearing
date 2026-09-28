@@ -107,6 +107,10 @@
   margin-top: 16px;
 }
 
+.cantilever-field[hidden] {
+  display: none;
+}
+
 .selector-form input,
 .selector-form select,
 .profile-lookup input {

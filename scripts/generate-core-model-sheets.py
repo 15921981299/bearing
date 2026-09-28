@@ -145,10 +145,18 @@ def generate(record: dict[str, object]) -> Path:
     )
     aliases = record["aliases"] if isinstance(record["aliases"], list) else []
     specs = record["specs"] if isinstance(record["specs"], list) else []
-    spec_rows = [[Paragraph("Parameter", small_style), Paragraph("Catalog value", small_style)]]
-    for label, value in specs:
-        spec_rows.append([Paragraph(str(label), small_style), Paragraph(str(value), small_style)])
-    spec_table = Table(spec_rows, colWidths=[55 * mm, 55 * mm], repeatRows=1)
+    spec_rows = [[
+        Paragraph("Parameter", small_style), Paragraph("Catalog value", small_style),
+        Paragraph("Parameter", small_style), Paragraph("Catalog value", small_style),
+    ]]
+    for index in range(0, len(specs), 2):
+        left = specs[index]
+        right = specs[index + 1] if index + 1 < len(specs) else ("", "")
+        spec_rows.append([
+            Paragraph(str(left[0]), small_style), Paragraph(str(left[1]), small_style),
+            Paragraph(str(right[0]), small_style), Paragraph(str(right[1]), small_style),
+        ])
+    spec_table = Table(spec_rows, colWidths=[29 * mm, 52 * mm, 29 * mm, 52 * mm], repeatRows=1)
     spec_table.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
