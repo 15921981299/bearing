@@ -13,6 +13,7 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "audit:publish": "node scripts/audit-publish-readiness.mjs",
     "audit:encoding": "node scripts/audit-encoding.mjs",
+    "indexnow": "node scripts/indexnow-ping.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
