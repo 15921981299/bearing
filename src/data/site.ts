@@ -1,4 +1,6 @@
-﻿export const site = {
+﻿import { articleReviewAuthor, activeTeamMembers, teamMemberHref } from "./team";
+
+export const site = {
   name: "Combined Bearing Source",
   company: {
     legalName: "Combined Bearing Source",
@@ -171,6 +173,19 @@ export const organizationSchema = {
     "OEM Bearing Manufacturing",
     "Custom Track Roller Production",
   ],
+  // Named engineering staff — emitted only for members who agreed to be
+  // published (see src/data/team.ts). Empty while the team file is empty.
+  ...(activeTeamMembers.length
+    ? {
+        employee: activeTeamMembers.map((member) => ({
+          "@type": "Person",
+          name: member.name,
+          jobTitle: member.role,
+          url: `${site.url}${teamMemberHref(member.slug)}`,
+          ...(member.sameAs.length ? { sameAs: [...member.sameAs] } : {}),
+        })),
+      }
+    : {}),
   // sameAs is populated only with non-empty social URLs to avoid emitting empty links.
   ...(Object.values(site.social).some(Boolean)
     ? { sameAs: Object.values(site.social).filter(Boolean) }
@@ -395,6 +410,31 @@ export function caseStudySchema(study: {
       },
     },
     mainEntityOfPage: study.url,
+  };
+}
+
+/**
+ * Author fields shared by every Article/schema on the site.
+ *
+ * Person-first: as soon as a named, consented engineer exists (src/data/team.ts)
+ * guides, application references and solution pages are attributed to that
+ * person. Until then they fall back to the Organization, which is honest but
+ * carries no E-E-A-T weight.
+ */
+export function articleAuthorFields() {
+  if (articleReviewAuthor) {
+    return {
+      authorName: articleReviewAuthor.name,
+      authorUrl: `${site.url}${teamMemberHref(articleReviewAuthor.slug)}`,
+      authorJobTitle: articleReviewAuthor.role,
+      authorSameAs: articleReviewAuthor.sameAs,
+      authorType: "Person" as const,
+    };
+  }
+  return {
+    authorName: site.name,
+    authorUrl: site.url,
+    authorType: "Organization" as const,
   };
 }
 

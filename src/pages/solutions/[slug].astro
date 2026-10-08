@@ -7,6 +7,7 @@ import {
   type SeoLandingPage,
 } from "../../data/seo-landing-pages";
 import {
+  articleAuthorFields,
   articleSchema,
   breadcrumbSchema,
   faqSchema,
@@ -171,8 +172,7 @@ const webPageSchema = {
       image: `${site.url}${heroImage}`,
       datePublished: articleDatePublished,
       dateModified: articleDateModified,
-      authorName: site.name,
-      authorType: "Organization",
+      ...articleAuthorFields(),
     }),
     serviceSchema({
       name: item.title,

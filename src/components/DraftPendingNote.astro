@@ -1,0 +1,42 @@
+---
+/**
+ * Renders the "still to fill in" list for a drafted record.
+ *
+ * Visible only in the local preview build (`npm run build:draft-preview`), so it
+ * never appears on a deployed page. Its job is to turn the preview into a
+ * to-do list: open the page, read what is missing, fill it in the data file.
+ */
+import { draftPreviewEnabled } from "../data/publish-mode";
+
+interface Props {
+  pending?: string;
+  label?: string;
+}
+
+const { pending, label = "Still to fill in before this can be published" } =
+  Astro.props;
+---
+
+{draftPreviewEnabled && pending && (
+  <p class="draft-pending-note">
+    <strong>Draft — {label}:</strong> {pending}
+  </p>
+)}
+
+<style>
+  .draft-pending-note {
+    margin: 18px 0;
+    padding: 12px 16px;
+    border: 1px dashed #b45309;
+    border-left-width: 4px;
+    border-radius: 6px;
+    background: #fffbeb;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #78350f;
+  }
+
+  .draft-pending-note strong {
+    color: #92400e;
+  }
+</style>

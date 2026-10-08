@@ -2,11 +2,17 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
 import DetailRfqStrip from "../../components/DetailRfqStrip.astro";
+import AuthorByline from "../../components/AuthorByline.astro";
 import {
   technicalResources,
   type TechnicalResource,
 } from "../../data/resources";
-import { articleSchema, breadcrumbSchema, site } from "../../data/site";
+import {
+  articleAuthorFields,
+  articleSchema,
+  breadcrumbSchema,
+  site,
+} from "../../data/site";
 import "../../styles/resource-page.css";
 import "../../styles/resource-library.css";
 export function getStaticPaths() {
@@ -38,8 +44,7 @@ const pageUrl = `${site.url}/resources/${resource.slug}/`;
       image: `${site.url}/images/bearing-dimensional-inspection.webp`,
       datePublished: resource.datePublished,
       dateModified: resource.dateModified,
-      authorName: site.name,
-      authorType: "Organization",
+      ...articleAuthorFields(),
     }),
   ]}
 >
@@ -62,6 +67,7 @@ const pageUrl = `${site.url}/resources/${resource.slug}/`;
             <span>Updated {resource.dateModified}</span>
             <span>For identification and RFQ preparation</span>
           </div>
+          <AuthorByline reviewedOn={resource.dateModified} />
           <div class="technical-guide-content" set:html={resource.content} />
           <p class="technical-guide-disclaimer">
             <strong>Technical note:</strong> This guide supports preliminary

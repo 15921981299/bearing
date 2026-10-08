@@ -18,6 +18,7 @@ import FloatingQuote from "../components/FloatingQuote.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import RfqModal from "../components/RfqModal.astro";
 import { organizationSchema, site } from "../data/site";
+import { draftPreviewEnabled } from "../data/publish-mode";
 
 interface Props {
   title: string;
@@ -122,6 +123,13 @@ const schemas = [
   </head>
   <body>
     <Gtm placement="body" />
+    {draftPreviewEnabled && (
+      <div class="draft-preview-banner" role="status">
+        <strong>Draft preview</strong> — records marked <code>draft: true</code>{" "}
+        are shown here and are excluded from every deployed build. Anything
+        still reading <code>[REPLACE: …]</code> is not real content yet.
+      </div>
+    )}
     <div class="page-wrapper">
       <Header currentPath={currentPath} />
       <main class="main-wrapper">
@@ -142,3 +150,25 @@ const schemas = [
     </script>
   </body>
 </html>
+
+<style>
+  /* Local-only marker for `npm run build:draft-preview`. Never deployed. */
+  .draft-preview-banner {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    padding: 10px 16px;
+    background: #78350f;
+    color: #fffbeb;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .draft-preview-banner code {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgb(0 0 0 / 30%);
+    font-size: 12px;
+  }
+</style>

@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:draft-preview": "node scripts/build-draft-preview.mjs",
     "preview": "astro preview",
     "deploy": "npm run build && npx wrangler deploy",
     "check": "astro check",
     "check:links": "node scripts/check-internal-links.mjs",
+    "audit:publish": "node scripts/audit-publish-readiness.mjs",
     "audit:encoding": "node scripts/audit-encoding.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "format": "prettier --write .",

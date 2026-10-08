@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
 import {
-  factoryCaseStudies,
+  activeFactoryCaseStudies,
   factoryEvidenceSource,
 } from "../../data/factory-evidence";
 import { breadcrumbSchema, itemListSchema, site } from "../../data/site";
@@ -22,7 +22,7 @@ const pageUrl = `${site.url}/case-studies/`;
       { name: "Case Studies", url: pageUrl },
     ]),
     itemListSchema(
-      factoryCaseStudies.map((study) => ({
+      activeFactoryCaseStudies.map((study) => ({
         name: study.title,
         url: `${pageUrl}${study.slug}/`,
       })),
@@ -50,7 +50,7 @@ const pageUrl = `${site.url}/case-studies/`;
         </header>
 
         <div class="factory-case-grid">
-          {factoryCaseStudies.map((study, index) => (
+          {activeFactoryCaseStudies.map((study, index) => (
             <article class="factory-case-card">
               <a
                 class="factory-case-card-media"

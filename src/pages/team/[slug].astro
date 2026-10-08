@@ -1,0 +1,316 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
+import DraftPendingNote from "../../components/DraftPendingNote.astro";
+import {
+  activeTeamMembers,
+  teamMemberHref,
+  type TeamMember,
+} from "../../data/team";
+import { breadcrumbSchema, personProfileSchema, site } from "../../data/site";
+
+/**
+ * Profile pages exist only for engineers who have agreed to be published.
+ * While `teamMembers` is empty this route builds zero pages — no thin page,
+ * no sitemap entry, no dangling link.
+ */
+export function getStaticPaths() {
+  return activeTeamMembers.map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props as { member: TeamMember };
+const pageUrl = `${site.url}${teamMemberHref(member.slug)}`;
+const description = `${member.name} — ${member.role} at ${site.name}. ${member.bio}`;
+const facts = [
+  member.yearsExperience
+    ? { label: "Experience", value: `${member.yearsExperience} years` }
+    : null,
+  member.joinedYear
+    ? { label: "With the plant since", value: String(member.joinedYear) }
+    : null,
+  { label: "Based at", value: site.locations.plant.name },
+].filter((fact): fact is { label: string; value: string } => fact !== null);
+---
+
+<BaseLayout
+  title={`${member.name} — ${member.role}`}
+  description={description}
+  currentPath="/about"
+  image={member.photo?.src}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: "Home", url: site.url },
+      { name: "About Us", url: `${site.url}/about/` },
+      { name: member.name, url: pageUrl },
+    ]),
+    personProfileSchema({
+      name: member.name,
+      jobTitle: member.role,
+      description,
+      url: pageUrl,
+      sameAs: member.sameAs,
+      knowsAbout: member.knowsAbout,
+    }),
+  ]}
+>
+  <BreadcrumbHero
+    title={member.name}
+    trail={[
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about/" },
+      { label: member.name },
+    ]}
+    variant="1"
+  />
+
+  <section class="team-member-section">
+    <div class="section-gap bottom">
+      <div class="container">
+        <article class="team-member-card fade-in">
+          <DraftPendingNote pending={member.pending} />
+          <div class="team-member-head">
+            {member.photo && (
+              <img
+                src={member.photo.src}
+                alt={member.photo.alt}
+                width={member.photo.width}
+                height={member.photo.height}
+                class="team-member-photo"
+                loading="eager"
+                decoding="async"
+              />
+            )}
+            <div class="team-member-headline">
+              <h2 class="team-member-name">{member.name}</h2>
+              <p class="team-member-role">{member.role}</p>
+              <dl class="team-member-facts">
+                {facts.map((fact) => (
+                  <div>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              {member.sameAs.length > 0 && (
+                <p class="team-member-profiles">
+                  {member.sameAs.map((url, index) => (
+                    <>
+                      {index > 0 && <span aria-hidden="true"> · </span>}
+                      <a href={url} rel="me noopener" target="_blank">
+                        Verifiable profile
+                      </a>
+                    </>
+                  ))}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <p class="team-member-bio">{member.bio}</p>
+
+          {member.credentials.length > 0 && (
+            <section class="team-member-block">
+              <h3>Background</h3>
+              <ul class="team-member-credentials">
+                {member.credentials.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {member.knowsAbout && member.knowsAbout.length > 0 && (
+            <section class="team-member-block">
+              <h3>Works on</h3>
+              <ul class="team-member-tags">
+                {member.knowsAbout.map((topic) => (
+                  <li>{topic}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <p class="team-member-note">
+            <strong>Scope of this page:</strong> this engineer reviews incoming
+            inquiries, drawing data and inspection scope for{" "}
+            <a href="/products/">our bearing range</a>. Factory QC scope and
+            document handling are described on{" "}
+            <a href="/certifications/">quality and certifications</a>.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .team-member-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke);
+    border-radius: 12px;
+  }
+
+  .team-member-head {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .team-member-photo {
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--color-stroke);
+  }
+
+  .team-member-headline {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .team-member-name {
+    margin: 0 0 6px;
+    font-size: 30px;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  .team-member-role {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .team-member-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin: 0 0 14px;
+  }
+
+  .team-member-facts dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  .team-member-facts dd {
+    margin: 2px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-title);
+  }
+
+  .team-member-profiles {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .team-member-profiles a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .team-member-profiles a:hover {
+    text-decoration: underline;
+  }
+
+  .team-member-bio {
+    margin: 0 0 24px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-body-text);
+  }
+
+  .team-member-block {
+    margin-bottom: 24px;
+  }
+
+  .team-member-block h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    text-transform: none;
+  }
+
+  .team-member-credentials {
+    margin: 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-body-text);
+  }
+
+  .team-member-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .team-member-tags li {
+    padding: 6px 14px;
+    border: 1px solid var(--color-stroke);
+    border-radius: 999px;
+    background: var(--color-background);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-body-text);
+  }
+
+  .team-member-note {
+    margin: 0;
+    padding: 14px 16px;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 6px;
+    background: var(--color-background);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .team-member-note a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .team-member-note a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .team-member-card {
+      padding: 22px 18px;
+    }
+
+    .team-member-head {
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .team-member-photo {
+      width: 140px;
+      height: 140px;
+    }
+
+    .team-member-name {
+      font-size: 25px;
+    }
+  }
+</style>

@@ -2,16 +2,23 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BreadcrumbHero from "../../components/BreadcrumbHero.astro";
 import DetailRfqStrip from "../../components/DetailRfqStrip.astro";
+import AuthorByline from "../../components/AuthorByline.astro";
+import DraftPendingNote from "../../components/DraftPendingNote.astro";
 import {
-  factoryCaseStudies,
+  activeFactoryCaseStudies,
   factoryEvidenceSource,
   type FactoryCaseStudy,
 } from "../../data/factory-evidence";
-import { articleSchema, breadcrumbSchema, site } from "../../data/site";
+import {
+  articleAuthorFields,
+  articleSchema,
+  breadcrumbSchema,
+  site,
+} from "../../data/site";
 import "../../styles/factory-evidence.css";
 
 export function getStaticPaths() {
-  return factoryCaseStudies.map((study) => ({
+  return activeFactoryCaseStudies.map((study) => ({
     params: { slug: study.slug },
     props: { study },
   }));
@@ -37,9 +44,7 @@ const pageUrl = `${site.url}/case-studies/${study.slug}/`;
       url: pageUrl,
       image: `${site.url}${study.image}`,
       datePublished: study.datePublished,
-      authorName: site.name,
-      authorUrl: site.url,
-      authorType: "Organization",
+      ...articleAuthorFields(),
     }),
   ]}
 >
@@ -69,11 +74,21 @@ const pageUrl = `${site.url}/case-studies/${study.slug}/`;
           </figcaption>
         </figure>
         <p class="factory-disclosure">
-          <strong>Factory note:</strong> This page is an application
-          identification reference for quotation. Final interchangeability
-          depends on the controlled drawing, dimensions and inspection scope
-          agreed for the order.
+          {study.disclosure ? (
+            <>
+              <strong>Client case note:</strong> {study.disclosure}
+            </>
+          ) : (
+            <>
+              <strong>Factory note:</strong> This page is an application
+              identification reference for quotation. Final interchangeability
+              depends on the controlled drawing, dimensions and inspection scope
+              agreed for the order.
+            </>
+          )}
         </p>
+        <DraftPendingNote pending={study.pending} />
+        <AuthorByline />
         <dl class="factory-fact-grid">
           {study.facts.map((fact) => (
             <div>

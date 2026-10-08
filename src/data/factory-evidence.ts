@@ -1,4 +1,124 @@
-export const factoryFacilityMedia = [
+import {
+  assertNoPendingFields,
+  draftPreviewEnabled,
+  flattenValues,
+} from "./publish-mode";
+
+/**
+ * Factory media, split by what it actually proves.
+ *
+ * `workshop`   — production floor / machining (capacity evidence)
+ * `inspection` — measurement & QC (inspection evidence)
+ *
+ * `capturedOn` and `batch` are optional but strongly recommended: a photo that
+ * pins down a date and a batch is evidence, a photo without them is decoration.
+ * Only add them when they are true for that frame.
+ */
+export type FactoryMediaKind = "workshop" | "inspection";
+
+export type FactoryFacilityMedia = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  title: string;
+  description: string;
+  kind: FactoryMediaKind;
+  /** ISO date the photo was actually taken, when known */
+  capturedOn?: string;
+  /** Batch / model visible in the frame, when known */
+  batch?: string;
+  /** Drafts never render in a deployed build. */
+  draft?: boolean;
+  /** Which shot from `factoryPhotoPlan` this frame is meant to replace. */
+  pendingShot?: string;
+};
+
+/**
+ * Shots still to be taken at the plant.
+ *
+ * The four photos below are real but two of them are only instrument stills —
+ * they show that an instrument exists, not that anyone inspects with it. A
+ * photo becomes evidence when three things are in the same frame: a person
+ * operating, a legible reading, and a batch or model label. Until then it is
+ * decoration, which is why nothing here is wired into the page: this is a
+ * shooting checklist, not site content.
+ *
+ * Take the shots, drop the files into public/images/factory-facility/ using the
+ * `file` names below, then add them to `factoryFacilityMedia` with
+ * `kind: "inspection"`, a real `capturedOn` and — when the frame shows one — the
+ * `batch`. Run `npm run audit:publish` to see which shots are still missing.
+ */
+export type FactoryPhotoSlot = {
+  /** File name to use in public/images/factory-facility/ */
+  file: string;
+  subject: string;
+  /** What must be legible in the same frame for the photo to be evidence */
+  mustShow: string;
+  purpose: string;
+  kind: FactoryMediaKind;
+};
+
+export const factoryPhotoPlan: FactoryPhotoSlot[] = [
+  {
+    file: "inspection-bench-in-operation.webp",
+    subject: "Inspection bench, an operator measuring a specific model",
+    mustShow: "Model marking or the traveller / work order",
+    purpose: "Proves inspection happens rather than equipment exists",
+    kind: "inspection",
+  },
+  {
+    file: "instrument-reading-closeup.webp",
+    subject: "Close-up of the instrument reading",
+    mustShow: "A legible reading next to the part being measured",
+    purpose: "The single most persuasive frame in the whole set",
+    kind: "inspection",
+  },
+  {
+    file: "batch-parts-awaiting-inspection.webp",
+    subject: "A whole batch laid out before or after inspection",
+    mustShow: "Batch label",
+    purpose: "Shows batch handling, not a single staged part",
+    kind: "inspection",
+  },
+  {
+    file: "cmm-or-optical-screen.webp",
+    subject: "Measurement screen of the CMM or optical system",
+    mustShow: "The measured values on screen",
+    purpose: "Instrument-grade evidence",
+    kind: "inspection",
+  },
+  {
+    file: "hardness-testing.webp",
+    subject: "Hardness tester or a metallographic specimen",
+    mustShow: "Specimen and reading together",
+    purpose: "Material evidence, pairs with the heat-treatment report",
+    kind: "inspection",
+  },
+  {
+    file: "bore-and-clearance-check.webp",
+    subject: "Bore, outside diameter or clearance check",
+    mustShow: "Plug gauge or dial indicator plus the part",
+    purpose: "Routine dimensional evidence",
+    kind: "inspection",
+  },
+  {
+    file: "packing-labelling.webp",
+    subject: "Labelling and packing before shipment",
+    mustShow: "Model and batch on the label",
+    purpose: "Connects inspection to what the customer receives",
+    kind: "inspection",
+  },
+  {
+    file: "inspection-record-form.webp",
+    subject: "Filling in the inspection record sheet",
+    mustShow: "Report number (may be blurred)",
+    purpose: "Documentary evidence behind the report samples",
+    kind: "inspection",
+  },
+];
+
+export const factoryFacilityMedia: FactoryFacilityMedia[] = [
   {
     src: "/images/clean/cnc-workshop-documentary.webp",
     width: 1024,
@@ -7,6 +127,7 @@ export const factoryFacilityMedia = [
     title: "CNC machining workshop",
     description:
       "CNC production equipment and operators at our Changzhou bearing manufacturing plant.",
+    kind: "workshop",
   },
   {
     src: "/images/clean/cnc-machining-centers-documentary.webp",
@@ -16,6 +137,7 @@ export const factoryFacilityMedia = [
     title: "CNC machining centers",
     description:
       "Machining centers and in-process bearing components on the production floor.",
+    kind: "workshop",
   },
   {
     src: "/images/factory-facility/length-measuring-instrument.webp",
@@ -25,6 +147,7 @@ export const factoryFacilityMedia = [
     title: "Length measurement equipment",
     description:
       "Measurement-room equipment used for dimensional verification before shipment.",
+    kind: "inspection",
   },
   {
     src: "/images/factory-facility/optical-measuring-instrument.webp",
@@ -34,8 +157,19 @@ export const factoryFacilityMedia = [
     title: "Optical measurement system",
     description:
       "Optical measurement and profile-checking workstation for precision bearing inspection.",
+    kind: "inspection",
   },
-] as const;
+];
+
+/**
+ * What the current build should render. Media records have no `draft` entries
+ * today; the filter exists so a half-ready frame can be parked here without
+ * reaching a deployed build.
+ */
+export const activeFactoryFacilityMedia: FactoryFacilityMedia[] =
+  draftPreviewEnabled
+    ? factoryFacilityMedia
+    : factoryFacilityMedia.filter((media) => !media.draft);
 
 export const factoryEvidenceSource = {
   name: "Combined Bearing Source — Changzhou Manufacturing Base",
@@ -57,6 +191,15 @@ export type FactoryCaseStudy = {
   sourceLabel: string;
   facts: { label: string; value: string }[];
   sections: { heading: string; paragraphs: string[] }[];
+  /**
+   * Replaces the default "application identification reference" note for pages
+   * that describe a real customer engagement, including what was redacted.
+   */
+  disclosure?: string;
+  /** Drafts never render in a deployed build. */
+  draft?: boolean;
+  /** What is still missing before this page can be published. */
+  pending?: string;
 };
 
 export const factoryCaseStudies: FactoryCaseStudy[] = [
@@ -249,4 +392,176 @@ export const factoryCaseStudies: FactoryCaseStudy[] = [
       },
     ],
   },
+
+  // ── DRAFT CLIENT CASES ──────────────────────────────────────────────────
+  // The five pages above are application references: they deliberately carry no
+  // customer, quantity, date or outcome, which makes them honest but weak as
+  // evidence. The two below are the shape a real engagement case takes.
+  //
+  // Everything that identifies the customer or quantifies the result is a
+  // `[REPLACE: …]` placeholder. Fill those from actual order records — and see
+  // seo-reports/eeat-material-brief-2026-09-28.md §4 for the three compliant
+  // ways to describe a customer (named with written permission / described but
+  // unnamed / not a case at all).
+  {
+    slug: "draft-eu-forklift-mast-bearing-replacement",
+    draft: true,
+    title: "Client Case: Forklift Mast Bearing Replacement Supply",
+    description:
+      "Replacement supply of 4.054 and PR4.054 class combined mast bearings for a European material-handling service network.",
+    industry: "Forklift and material handling",
+    image: "/images/clean/cnc-machining-centers-documentary.webp",
+    imageWidth: 1400,
+    imageHeight: 933,
+    // Editorial date for the page itself — set this to the day you publish.
+    datePublished: "2026-09-28",
+    sourceUrl: "/solutions/combined-bearings-for-forklift-masts/",
+    sourceLabel: "Combined bearings for forklift masts",
+    facts: [
+      {
+        label: "Customer",
+        value:
+          "[REPLACE: a named customer needs written permission; otherwise describe them — e.g. a European forklift service network]",
+      },
+      {
+        label: "Application",
+        value: "Three-stage mast side guide, 4.054 / PR4.054 class",
+      },
+      {
+        label: "Bearing scope",
+        value: "Standard fixed-axial and precision PR executions",
+      },
+      {
+        label: "Engagement window",
+        value: "[REPLACE: year or date range of the supply]",
+      },
+    ],
+    sections: [
+      {
+        heading: "The requirement",
+        paragraphs: [
+          "The customer maintains a fleet of three-stage mast forklifts and replaces mast guide bearings on a scheduled service interval. They were buying through the truck manufacturer's parts channel and hitting two problems: lead time on the fixed-axial standard bearings, and a channel-clearance adjustment that had to be set on assembly for the precision positions.",
+          "[REPLACE: state the actual trigger — the lead time, the price gap, a discontinued marking, or a repeat failure — as it was told to you, without embellishment]",
+        ],
+      },
+      {
+        heading: "What we did",
+        paragraphs: [
+          "We cross-referenced the markings taken off the removed bearings — MR, JD and 400-series numbers — against the 4.054 and PR4.054 records, confirmed the 30 x 62.5 x 37.5 mm envelope against the bearing seats, and agreed which positions needed the precision PR execution rather than the standard one.",
+          "The inspection scope for the batch was agreed before production: dimensional check on bore, outside diameter, height and axial roller seat height, with records released with the shipment.",
+          "[REPLACE: add anything else you actually did — a sample submission, a drawing revision, a packing change]",
+        ],
+      },
+      {
+        heading: "Result",
+        paragraphs: [
+          "[REPLACE: state what actually happened, with numbers if you have them — quantity supplied, delivery days, the number of repeat orders, scrap or rework rate. Remove this whole section if the record is only an inquiry and nothing was delivered.]",
+        ],
+      },
+      {
+        heading: "What is redacted on this page",
+        paragraphs: [
+          "The customer's identity, order quantities, prices and order numbers are not published. Everything else — the application position, the bearing class and the inspection scope — is as agreed for the order.",
+        ],
+      },
+    ],
+    disclosure:
+      "This page describes a real customer engagement. Commercial terms, quantities and the customer's identity are withheld; the engineering content is not altered.",
+    pending:
+      "Replace the customer descriptor, the engagement window and the entire Result section with what is actually on the order records. If nothing was delivered, delete this page instead of publishing an inquiry as a case.",
+  },
+  {
+    slug: "draft-metallurgical-line-bearing-replacement",
+    draft: true,
+    title: "Client Case: Metallurgical Line Combined Bearing Replacement",
+    description:
+      "Replacement supply of combined track roller bearings for a steel leveler and straightener maintenance programme.",
+    industry: "Steel and metallurgical equipment",
+    image: "/images/clean/cnc-workshop-documentary.webp",
+    imageWidth: 1024,
+    imageHeight: 682,
+    datePublished: "2026-09-28",
+    sourceUrl: "/solutions/danieli-equipment-replacement-bearings/",
+    sourceLabel: "Danieli equipment replacement bearings",
+    facts: [
+      {
+        label: "Customer",
+        value:
+          "[REPLACE: a named customer needs written permission; otherwise describe them — e.g. a steel plant maintenance contractor]",
+      },
+      {
+        label: "Application",
+        value: "Leveler / straightener guide and support positions",
+      },
+      {
+        label: "Bearing scope",
+        value: "MR3187 combined track roller, 88 mm D x 79 mm H",
+      },
+      {
+        label: "Engagement window",
+        value: "[REPLACE: year or date range of the supply]",
+      },
+    ],
+    sections: [
+      {
+        heading: "The requirement",
+        paragraphs: [
+          "Metallurgical maintenance programmes quote from long equipment item-number lists rather than bearing designations, and the numbers on the removed part rarely match the drawing the maintenance planner holds.",
+          "[REPLACE: state the actual trigger — an obsolete maker number, a shutdown deadline, a bearing that failed early in service]",
+        ],
+      },
+      {
+        heading: "What we did",
+        paragraphs: [
+          "We worked back from the equipment item numbers and the markings on the failed bearings to the MR3187 record — 88 mm outside diameter, 79 mm height, ZZ seal, 20CrMnTi rings — and confirmed the guide and support positions against the measured seat dimensions before quoting.",
+          "Because the load ratings are not published for this reference, expected duty was reviewed against the original equipment data rather than a catalogue figure.",
+          "[REPLACE: add the specific engineering work you did — a drawing you produced, a material you substituted, a tolerance you widened]",
+        ],
+      },
+      {
+        heading: "Result",
+        paragraphs: [
+          "[REPLACE: what was delivered and what happened — quantity, whether it fitted on first assembly, how many shutdown windows it has survived. Delete this section if the record is only an inquiry.]",
+        ],
+      },
+      {
+        heading: "What is redacted on this page",
+        paragraphs: [
+          "The customer's identity, the equipment line identification, quantities and prices are not published.",
+        ],
+      },
+    ],
+    disclosure:
+      "This page describes a real customer engagement. Commercial terms, quantities and the customer's identity are withheld; the engineering content is not altered.",
+    pending:
+      "Same as the forklift case: customer descriptor, engagement window and a Result section taken from real records. Delete the page if there was no delivery.",
+  },
 ];
+
+/** Case pages that are real and cleared for publication. Never includes drafts. */
+export const publishedFactoryCaseStudies: FactoryCaseStudy[] =
+  factoryCaseStudies.filter((study) => !study.draft);
+
+/** Drafted case pages, shown only in the local preview build. */
+export const draftFactoryCaseStudies: FactoryCaseStudy[] =
+  factoryCaseStudies.filter((study) => study.draft);
+
+/** What the current build should render. */
+export const activeFactoryCaseStudies: FactoryCaseStudy[] = draftPreviewEnabled
+  ? [...publishedFactoryCaseStudies, ...draftFactoryCaseStudies]
+  : publishedFactoryCaseStudies;
+
+// ── Build gate ────────────────────────────────────────────────────────────
+assertNoPendingFields(
+  "Factory case studies",
+  activeFactoryCaseStudies.map((study) => ({
+    label: study.slug,
+    values: flattenValues(
+      study.title,
+      study.description,
+      study.facts,
+      study.sections,
+      study.disclosure,
+    ),
+  })),
+);

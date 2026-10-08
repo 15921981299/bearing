@@ -5,7 +5,7 @@ import FaqSection from "../components/FaqSection.astro";
 import { products } from "../data/products";
 import {
   factoryEvidenceSource,
-  factoryFacilityMedia,
+  activeFactoryFacilityMedia,
 } from "../data/factory-evidence";
 import { productFaqs } from "../data/page-faqs";
 import { faqSchema, itemListSchema, site } from "../data/site";
@@ -415,7 +415,7 @@ const technicalHighlights = [
             </CatalogSectionHead>
             <div class="home-evidence-layout">
               <div class="home-evidence-gallery">
-                {factoryFacilityMedia.slice(0, 2).map((media) => (
+                {activeFactoryFacilityMedia.slice(0, 2).map((media) => (
                   <figure>
                     <img
                       src={media.src}

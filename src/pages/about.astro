@@ -4,6 +4,7 @@ import BreadcrumbHero from "../components/BreadcrumbHero.astro";
 import FunnelPageView from "../components/FunnelPageView.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { breadcrumbSchema, site, videoSchema } from "../data/site";
+import { activeTeamMembers, hasActiveTeam, teamMemberHref } from "../data/team";
 
 const workshopVideo = videoSchema({
   name: "Combined Bearing Source Manufacturing Plant Overview",
@@ -120,6 +121,11 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
             <a href="#about-process" class="about-jump-link">
               RFQ process
             </a>
+            {hasActiveTeam && (
+              <a href="#about-team" class="about-jump-link">
+                Engineering team
+              </a>
+            )}
             <a href="#about-factory" class="about-jump-link">
               Plant &amp; export
             </a>
@@ -311,6 +317,61 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
       </div>
     </div>
   </section>
+
+  <!-- Engineering team: renders only for members who agreed to be published -->
+  {hasActiveTeam && (
+    <section id="about-team" class="who-we-are-section about-section">
+      <div class="section-gap bottom">
+        <div class="container">
+          <SectionHeading
+            title="The Engineers Behind the Drawing Review"
+            subtitle="Engineering Team"
+          />
+          <div class="editorial-team-grid fade-in">
+            {activeTeamMembers.map((member) => (
+              <div class="editorial-team-card">
+                <div class="editorial-team-head">
+                  {member.photo && (
+                    <img
+                      src={member.photo.src}
+                      alt={member.photo.alt}
+                      width={member.photo.width}
+                      height={member.photo.height}
+                      class="editorial-team-photo"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <div>
+                    <h3 class="editorial-team-name">
+                      <a href={teamMemberHref(member.slug)}>{member.name}</a>
+                    </h3>
+                    <p class="editorial-team-role">{member.role}</p>
+                  </div>
+                </div>
+                <p class="editorial-team-bio">{member.bio}</p>
+                {member.credentials.length > 0 && (
+                  <ul class="editorial-team-credentials">
+                    {member.credentials.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+          <p class="editorial-team-note">
+            Each engineer is listed with their own consent, and their profile
+            links point to external records you can check independently.
+            Technical guides and application references on this site are
+            reviewed by this team before publication — see the{" "}
+            <a href="/certifications/">factory QC and inspection scope</a> for
+            how that review is documented.
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Factory tour -->
   <section id="about-factory" class="who-we-are-section about-section">
@@ -698,6 +759,32 @@ const linkArrow = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" x
     gap: 20px;
     max-width: 900px;
     margin: 0 auto;
+  }
+
+  .editorial-team-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .editorial-team-photo {
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--color-stroke);
+  }
+
+  .editorial-team-credentials {
+    display: grid;
+    gap: 4px;
+    margin: 12px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #475569;
   }
 
   .editorial-team-card {

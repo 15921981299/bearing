@@ -3,10 +3,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BreadcrumbHero from "../components/BreadcrumbHero.astro";
 import FunnelPageView from "../components/FunnelPageView.astro";
 import { site, breadcrumbSchema, videoSchema } from "../data/site";
+import DraftPendingNote from "../components/DraftPendingNote.astro";
 import {
-  factoryFacilityMedia,
+  activeFactoryFacilityMedia,
   factoryEvidenceSource,
 } from "../data/factory-evidence";
+import {
+  activeInspectionReports,
+  hasActiveInspectionReports,
+} from "../data/inspection-reports";
 import "../styles/resource-page.css";
 import "../styles/hub-list-page.css";
 import "../styles/certification-page.css";
@@ -21,6 +26,12 @@ const certIcons: Record<string, string> = {
 };
 
 const { quality } = site;
+const workshopMedia = activeFactoryFacilityMedia.filter(
+  (media) => media.kind === "workshop",
+);
+const inspectionMedia = activeFactoryFacilityMedia.filter(
+  (media) => media.kind === "inspection",
+);
 const inspectionVideo = videoSchema({
   name: "Bearing Factory Inspection and Packing Process",
   description:
@@ -125,31 +136,26 @@ const verificationDocuments = [
     label: "Factory availability confirmation",
     detail:
       "Line-item review for bearing model, quantity, production route, and expected delivery window.",
-    sampleId: null,
   },
   {
     label: "Nameplate and old-bearing photo check",
     detail:
       "Bearing model, dimensions, plate photo, casting mark, or old-bearing image review when the bearing model is unclear.",
-    sampleId: null,
   },
   {
     label: "Packing and shipment photos",
     detail:
       "Photo confirmation before dispatch for urgent orders, export packing, or high-value assemblies.",
-    sampleId: null,
   },
   {
     label: "Factory documents on request",
     detail:
       "Available inspection notes, conformity notes, invoice, packing list, and export paperwork matched to the order scope.",
-    sampleId: null,
   },
   {
     label: "Customs and HS code support",
     detail:
       "HS code and shipment document support for bearing products orders when required by the destination country.",
-    sampleId: null,
   },
 ] as const;
 ---
@@ -266,6 +272,11 @@ const verificationDocuments = [
             <a href="#documentation" class="hub-list-jump-link">
               Documentation
             </a>
+            {hasActiveInspectionReports && (
+              <a href="#inspection-reports" class="hub-list-jump-link">
+                Report samples
+              </a>
+            )}
           </nav>
 
           <section
@@ -305,8 +316,9 @@ const verificationDocuments = [
                 </p>
               </div>
             </header>
+            <h3 class="factory-facility-subhead">Production floor</h3>
             <div class="factory-facility-grid">
-              {factoryFacilityMedia.map((media) => (
+              {workshopMedia.map((media) => (
                 <figure class="factory-facility-card">
                   <img
                     src={media.src}
@@ -319,6 +331,32 @@ const verificationDocuments = [
                   <figcaption>
                     <strong>{media.title}</strong>
                     <span>{media.description}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <h3 class="factory-facility-subhead">Inspection and measurement</h3>
+            <div class="factory-facility-grid">
+              {inspectionMedia.map((media) => (
+                <figure class="factory-facility-card">
+                  <img
+                    src={media.src}
+                    alt={media.alt}
+                    width={media.width}
+                    height={media.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>
+                    <strong>{media.title}</strong>
+                    <span>{media.description}</span>
+                    {(media.capturedOn || media.batch) && (
+                      <span class="factory-facility-evidence">
+                        {media.capturedOn && `Captured ${media.capturedOn}`}
+                        {media.capturedOn && media.batch && " · "}
+                        {media.batch && `Batch ${media.batch}`}
+                      </span>
+                    )}
                   </figcaption>
                 </figure>
               ))}
@@ -406,14 +444,6 @@ const verificationDocuments = [
                 <div class="verify-doc-card">
                   <h3 class="verify-doc-label">{doc.label}</h3>
                   <p class="verify-doc-detail">{doc.detail}</p>
-                  {doc.sampleId && (
-                    <a
-                      href={`/certifications/#${doc.sampleId}`}
-                      class="verify-doc-sample"
-                    >
-                      View redacted sample →
-                    </a>
-                  )}
                 </div>
               ))}
             </div>
@@ -440,6 +470,119 @@ const verificationDocuments = [
               </a>
             </p>
           </section>
+
+          {hasActiveInspectionReports && (
+            <section
+              id="inspection-reports"
+              class="blog-index-section cert-section"
+            >
+              <header class="blog-index-section-head">
+                <div>
+                  <h2>Published inspection report samples</h2>
+                  <p>
+                    Released copies of factory reports for the models below,
+                    with customer, price and order data redacted. Each sample
+                    carries the issuer, report number, model or batch,
+                    inspection date, equipment, measured values, acceptance
+                    basis and approval — the fields required before a document
+                    is presented as a report.
+                  </p>
+                </div>
+              </header>
+              <div class="inspection-sample-list">
+                {activeInspectionReports.map((report) => (
+                  <article id={report.id} class="inspection-sample">
+                    <header class="inspection-sample-head">
+                      <h3>{report.title}</h3>
+                      {report.pdf && (
+                        <a
+                          href={report.pdf}
+                          class="inspection-sample-download"
+                          download
+                        >
+                          Download redacted PDF
+                          {report.fileSizeLabel
+                            ? ` (${report.fileSizeLabel})`
+                            : ""}{" "}
+                          →
+                        </a>
+                      )}
+                    </header>
+                    <DraftPendingNote pending={report.pending} />
+                    <dl class="inspection-sample-facts">
+                      <div>
+                        <dt>Report number</dt>
+                        <dd>{report.reportNumber}</dd>
+                      </div>
+                      <div>
+                        <dt>Issued by</dt>
+                        <dd>{report.issuedBy}</dd>
+                      </div>
+                      <div>
+                        <dt>Model</dt>
+                        <dd>{report.model}</dd>
+                      </div>
+                      {report.batch && (
+                        <div>
+                          <dt>Batch</dt>
+                          <dd>{report.batch}</dd>
+                        </div>
+                      )}
+                      <div>
+                        <dt>Inspection date</dt>
+                        <dd>{report.inspectionDate}</dd>
+                      </div>
+                      <div>
+                        <dt>Approved by</dt>
+                        <dd>{report.approvedBy}</dd>
+                      </div>
+                      <div>
+                        <dt>Acceptance basis</dt>
+                        <dd>{report.standards.join(" · ")}</dd>
+                      </div>
+                      <div>
+                        <dt>Equipment</dt>
+                        <dd>{report.instruments.join(" · ")}</dd>
+                      </div>
+                    </dl>
+                    <div class="equip-table-wrap">
+                      <table class="equip-table">
+                        <caption class="equip-table-caption">
+                          Measured results as released with this batch
+                        </caption>
+                        <thead>
+                          <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Specification</th>
+                            <th scope="col">Measured</th>
+                            <th scope="col">Verdict</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {report.measurements.map((row) => (
+                            <tr>
+                              <td class="equip-name">{row.item}</td>
+                              <td class="equip-cap">{row.specification}</td>
+                              <td class="equip-cap">{row.measured}</td>
+                              <td class="equip-qty">{row.verdict}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="inspection-sample-redaction">
+                      <strong>Redacted before publication:</strong>{" "}
+                      {report.redacted.join(", ")}. Nothing else in the report
+                      was altered.
+                    </p>
+                    {report.note && (
+                      <p class="inspection-sample-note">{report.note}</p>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
 
           <footer class="hub-list-footer-links blog-index-footer">
             <a href="/privacy/">Payment terms</a>
@@ -724,6 +867,25 @@ const verificationDocuments = [
     gap: 18px;
   }
 
+  .factory-facility-subhead {
+    margin: 26px 0 14px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .factory-facility-subhead:first-of-type {
+    margin-top: 0;
+  }
+
+  .factory-facility-evidence {
+    font-size: 12px;
+    font-weight: 600;
+    color: #92400e;
+  }
+
   .factory-facility-card {
     overflow: hidden;
     margin: 0;
@@ -807,19 +969,84 @@ const verificationDocuments = [
     color: #475569;
   }
 
-  .verify-doc-sample {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 13px;
+  .inspection-sample-list {
+    display: grid;
+    gap: 24px;
+  }
+
+  .inspection-sample {
+    padding: 24px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke);
+    border-radius: 10px;
+    scroll-margin-top: 120px;
+  }
+
+  .inspection-sample-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px 20px;
+    margin-bottom: 18px;
+  }
+
+  .inspection-sample-head h3 {
+    margin: 0;
+    font-size: 20px;
+    text-transform: none;
+  }
+
+  .inspection-sample-download {
+    font-size: 14px;
     font-weight: 600;
     color: var(--color-primary);
     text-decoration: none;
     cursor: pointer;
-    transition: color 0.2s ease;
   }
 
-  .verify-doc-sample:hover {
+  .inspection-sample-download:hover {
     text-decoration: underline;
+  }
+
+  .inspection-sample-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px 22px;
+    margin: 0 0 20px;
+  }
+
+  .inspection-sample-facts dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  .inspection-sample-facts dd {
+    margin: 3px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--color-title);
+  }
+
+  .inspection-sample-redaction {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid #d97706;
+    border-radius: 6px;
+    background: #fff8e8;
+    color: #6b4b12;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .inspection-sample-note {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #64748b;
   }
 
   .cert-cta-row {
@@ -895,7 +1122,6 @@ const verificationDocuments = [
   .detail-rfq-link:focus-visible,
   .industry-proof-title a:focus-visible,
   .industry-proof-links a:focus-visible,
-  .verify-doc-sample:focus-visible,
   .cert-cta-row a:focus-visible,
   .hub-list-footer-links a:focus-visible,
   .featured-proof-card:focus-visible {
