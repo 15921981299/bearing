@@ -151,6 +151,28 @@ const technicalHighlights = [
     downloadHref: "/downloads/combined-bearing-standard-series-reference.pdf",
   },
 ];
+
+const threeWays = [
+  {
+    code: "Replacement",
+    name: "Equipment replacement & cross-reference",
+    note: "Identify and replace combined bearings, track rollers and special bearings from machine-maker numbers.",
+    href: "/solutions/combined-bearings-for-industrial-machinery/",
+  },
+  {
+    code: "Custom",
+    name: "Custom & drawing-based bearings",
+    note: "Combined bearings, extended studs and non-standard executions produced to your controlled drawing.",
+    href: "/solutions/oem-custom-bearing-program/",
+  },
+  {
+    code: "Capability",
+    name: "Precision round machining",
+    note: "In-house CNC turning and milling that supports custom bearing production and standalone precision parts.",
+    href: "/solutions/precision-round-machined-parts/",
+  },
+];
+
 ---
 
 <BaseLayout
@@ -468,6 +490,33 @@ const technicalHighlights = [
               </a>
               . {factoryEvidenceSource.disclosure}
             </p>
+          </div>
+        </section>
+
+        <section class="home-section" aria-labelledby="home-ways-heading">
+          <div class="home-band home-band--series home-section-inner fade-in">
+            <CatalogSectionHead
+              kicker="Three Ways We Support Your Program"
+              title="Replacement, custom and in-house machining"
+              titleId="home-ways-heading"
+              align="split"
+            >
+              Whether you need a like-for-like replacement, a drawing-based
+              special, or the machining capacity behind it, start from the
+              matching route below.
+            </CatalogSectionHead>
+            <div class="home-series-grid">
+              {threeWays.map((item) => (
+                <a class="home-series-card" href={item.href}>
+                  <span class="home-series-code">{item.code}</span>
+                  <strong>{item.name}</strong>
+                  <span>{item.note}</span>
+                  <span class="home-series-action">
+                    Explore <span set:html={iconArrow} />
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 

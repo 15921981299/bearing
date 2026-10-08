@@ -64,7 +64,7 @@ const page = (
   ],
 });
 
-export const seoLandingPages: SeoLandingPage[] = [
+const rawSeoLandingPages: SeoLandingPage[] = [
   page(
     "adjustable-combined-bearings",
     "Bearing Designs",
@@ -296,6 +296,77 @@ export const seoLandingPages: SeoLandingPage[] = [
     ],
   ),
   page(
+    "custom-combined-bearings-extended-studs",
+    "Bearing Designs",
+    "Custom Combined Bearings with Extended Studs",
+    "Custom Combined Bearings with Extended Studs",
+    "Combined bearings can be supplied with a longer pin axis (munhão / extended stud) for equipment where the standard shaft length does not reach the mounting structure.",
+    [
+      {
+        heading: "What an extended stud means",
+        body: "The pin or shaft that carries the bearing can be made longer than the catalog length so the bearing seats against a thicker plate, bracket or welded structure. The bearing envelope (d, D, B) stays the same; only the pin axis changes.",
+        bullets: [
+          "Same radial and axial roller envelope",
+          "Longer pin axis to reach the mounting face",
+          "Welded-plate or bolt-on fitment",
+        ],
+      },
+      {
+        heading: "Why some equipment need a longer pin",
+        body: "Machine makers often integrate the bearing into a fabricated bracket where the standard shaft falls short. A longer pin removes the need for a spacer or a modified bracket on the customer side.",
+        bullets: [
+          "Thick fabricated brackets and plates",
+          "Retrofit into an existing machine envelope",
+          "Equipment-specific assembly geometry",
+        ],
+      },
+      {
+        heading: "Specify the pin length from the drawing",
+        body: "Adjacent references can share the same bearing envelope and differ only in pin or shaft length. That dimension is not always on the first page of the drawing, so it must be confirmed before quotation. Our Danieli reference experience shows two numbers that differ only in pin length.",
+        bullets: [
+          "46999156 and 46999157 share the same bearing envelope",
+          "The two references differ only in pin-axis (munhão) length",
+          "Send the complete drawing, not only page 1 of 5",
+        ],
+      },
+      {
+        heading: "Genuine-equivalent and aftermarket supply routes",
+        body: "The same extended-stud reference can be supplied two ways: a drawing-matched genuine-equivalent execution or a cost-optimised aftermarket execution. Both are released only after fitment verification against dimensions, duty and the controlled drawing.",
+        bullets: [
+          "Genuine-equivalent: drawing-matched, for OEM-grade replacement",
+          "Aftermarket: cost-optimised running production item",
+          "Fitment verified before quotation on either route",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Danieli replacement support",
+        href: "/solutions/danieli-equipment-replacement-bearings/",
+      },
+      {
+        label: "OEM custom bearing program",
+        href: "/solutions/oem-custom-bearing-program/",
+      },
+      {
+        label: "Danieli 0.160003 L combined bearing",
+        href: "/products/combined-bearings/0-160003-l-danieli-combined-bearing/",
+      },
+      {
+        label: "Welded-plate combined bearings",
+        href: "/products/combined-bearings/ap2-welded-plate/",
+      },
+      {
+        label: "Combined bearing model directory",
+        href: "/products/combined-bearings/",
+      },
+      {
+        label: "Request extended-stud quotation",
+        href: "/contact/?source=solution-extended-studs",
+      },
+    ],
+  ),
+  page(
     "jumbo-combined-bearings",
     "Bearing Designs",
     "Jumbo Combined Bearings",
@@ -372,6 +443,70 @@ export const seoLandingPages: SeoLandingPage[] = [
     ],
   ),
   page(
+    "combined-bearings-for-industrial-machinery",
+    "Applications",
+    "Combined Bearings for Industrial Machinery",
+    "Combined Bearings for Industrial Machinery",
+    "A routing guide for combined bearings used in forklifts, logistics, steel equipment, stacker cranes, heavy linear guides and telescopic systems.",
+    [
+      {
+        heading: "Why one unit carries radial and axial load",
+        body: "A combined bearing integrates a radial roller and an axial roller in one compact unit that runs inside a steel profile. That replaces a separate radial bearing plus a side-thrust guide, reduces parts and shortens assembly.",
+        bullets: [
+          "Radial roller and axial roller in one housing",
+          "Compact profile-running envelope",
+          "Fewer components than a split arrangement",
+        ],
+      },
+      {
+        heading: "Route by equipment type",
+        body: "Start from the machine, not the load alone. Each application has its own duty, contamination and adjustment needs.",
+        bullets: [
+          "Forklifts and mast channels",
+          "Stacker cranes and AS/RS",
+          "Steel mill handling equipment",
+          "Heavy-duty linear guides",
+          "Telescopic and overhead systems",
+        ],
+      },
+      {
+        heading: "Selection starting point",
+        body: "Record the model or machine number, envelope dimensions, load directions, speed, contamination and mounting. A controlled drawing or marking photos turn a guess into a quotation.",
+        bullets: [
+          "Model, suffix and machine reference",
+          "d, D, H, h and B dimensions",
+          "Load, speed, environment",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Combined bearings for forklift masts",
+        href: "/solutions/combined-bearings-for-forklift-masts/",
+      },
+      {
+        label: "Combined bearings for stacker cranes",
+        href: "/solutions/combined-bearings-for-stacker-cranes/",
+      },
+      {
+        label: "Bearings for steel mill equipment",
+        href: "/solutions/bearings-for-steel-mill-equipment/",
+      },
+      {
+        label: "Heavy-duty linear guides",
+        href: "/solutions/bearings-for-heavy-duty-linear-guides/",
+      },
+      {
+        label: "Combined bearing model directory",
+        href: "/products/combined-bearings/",
+      },
+      {
+        label: "Request specification review",
+        href: "/contact/?source=solution-industrial-machinery",
+      },
+    ],
+  ),
+  page(
     "combined-bearings-for-forklift-masts",
     "Applications",
     "Combined Bearings for Forklift Masts",
@@ -443,51 +578,112 @@ export const seoLandingPages: SeoLandingPage[] = [
       },
     ],
   ),
-  page(
-    "bearings-for-steel-mill-equipment",
-    "Applications",
-    "Bearings for Steel Mill Handling Equipment",
-    "Bearings for Steel Mill Equipment",
-    "Heavy combined bearings, track rollers and back-up rollers for steel production and handling machinery.",
-    [
-      {
-        heading: "Severe environment",
-        body: "Scale, heat, coolant, shock and low-speed high-load duty affect material, sealing and lubrication choices.",
-        bullets: [
-          "Temperature at the bearing",
-          "Contamination and washdown",
-          "Static load and impact",
-        ],
-      },
-      {
-        heading: "Equipment references",
-        body: "Danieli and other machine-maker numbers should be paired with dimensions and application position.",
-        bullets: [
-          "Machine drawing number",
-          "Assembly and position",
-          "Inspection and material documents",
-        ],
-      },
-    ],
-    [
-      {
-        label: "Steel equipment application case",
-        href: "/case-studies/danieli-steel-equipment-bearing-reference/",
-      },
-      {
-        label: "Danieli replacement support",
-        href: "/solutions/danieli-equipment-replacement-bearings/",
-      },
-      {
-        label: "Back-up roller bearings",
-        href: "/products/backup-roller-bearings/",
-      },
-      {
-        label: "Request specification review",
-        href: "/contact/?source=solution-steel-mill",
-      },
-    ],
-  ),
+  {
+    ...page(
+      "bearings-for-steel-mill-equipment",
+      "Applications",
+      "Bearings for Steel Mill Handling Equipment",
+      "Bearings for Steel Mill Equipment",
+      "Heavy combined bearings, track rollers and back-up rollers for steel production and handling machinery.",
+      [
+        {
+          heading: "Severe environment",
+          body: "Scale, heat, coolant, shock and low-speed high-load duty affect material, sealing and lubrication choices.",
+          bullets: [
+            "Temperature at the bearing",
+            "Contamination and washdown",
+            "Static load and impact",
+          ],
+        },
+        {
+          heading: "Equipment references",
+          body: "Danieli and other machine-maker numbers should be paired with dimensions and application position.",
+          bullets: [
+            "Machine drawing number",
+            "Assembly and position",
+            "Inspection and material documents",
+          ],
+        },
+        {
+          heading: "Machine-maker cross-reference support",
+          body: "Steel lines are quoted from long equipment item-number lists rather than bearing designations. We work from the Danieli, SMS Group, Primetals and Tenova style numbers back to the bearing envelope, then confirm against dimensions and duty.",
+          bullets: [
+            "Danieli 0.xxxxxx and 4.xxxxxx references",
+            "SMS Group and Primetals style items",
+            "Tenova and other line-maker numbers",
+          ],
+        },
+      ],
+      [
+        {
+          label: "Steel equipment application case",
+          href: "/case-studies/danieli-steel-equipment-bearing-reference/",
+        },
+        {
+          label: "Danieli replacement support",
+          href: "/solutions/danieli-equipment-replacement-bearings/",
+        },
+        {
+          label: "Danieli 0.160003 L combined bearing",
+          href: "/products/combined-bearings/0-160003-l-danieli-combined-bearing/",
+        },
+        {
+          label: "Back-up roller bearings",
+          href: "/products/backup-roller-bearings/",
+        },
+        {
+          label: "Jumbo combined bearings",
+          href: "/solutions/jumbo-combined-bearings/",
+        },
+        {
+          label: "Request specification review",
+          href: "/contact/?source=solution-steel-mill",
+        },
+      ],
+    ),
+    seoTitle: "Bearings for Steel Mill Equipment | Technical Guide",
+    description:
+      "Combined bearings, track rollers and back-up rollers for steel production and handling machinery, with Danieli, SMS, Primetals and Tenova cross-reference support.",
+    table: {
+      heading: "Steel-equipment bearing cross-reference (identification only)",
+      note: "Machine-maker item numbers are identification references, not automatic interchangeability. Every reference is confirmed against dimensions, load, mounting and operating data before quotation.",
+      columns: ["Machine-maker style", "Typical bearing family", "Confirm before order"],
+      rows: [
+        {
+          cells: [
+            "Danieli 0.xxxxxx / 4.xxxxxx",
+            "Combined track roller or special combined bearing",
+            "Envelope, pin length, duty",
+          ],
+          href: "/solutions/danieli-equipment-replacement-bearings/",
+        },
+        {
+          cells: [
+            "SMS Group style items",
+            "Combined bearing / back-up roller",
+            "Drawing and position",
+          ],
+          href: "/solutions/bearings-for-steel-mill-equipment/",
+        },
+        {
+          cells: [
+            "Primetals style items",
+            "Track roller / support roller",
+            "d, D, B and load",
+          ],
+          href: "/products/track-roller-bearings/",
+        },
+        {
+          cells: [
+            "Tenova style items",
+            "Combined bearing / back-up roller",
+            "Envelope and material",
+          ],
+          href: "/products/backup-roller-bearings/",
+        },
+      ],
+    },
+  },
   page(
     "combined-bearings-for-container-stackers",
     "Applications",
@@ -512,6 +708,64 @@ export const seoLandingPages: SeoLandingPage[] = [
           "Profile condition",
           "Adjustment position and hardware",
         ],
+      },
+    ],
+  ),
+  page(
+    "heavy-duty-guide-rollers",
+    "Applications",
+    "Heavy-Duty Guide Rollers",
+    "Heavy-Duty Guide Rollers",
+    "Yoke and stud type guide rollers carry radial and side load in conveyors, cranes, stackers and steel equipment where contamination and shock are normal.",
+    [
+      {
+        heading: "Guide roller types",
+        body: "Guide rollers are offered as yoke (caged or full-complement) or stud type (NUKR / KRV class), with thick-section outer rings for direct track running.",
+        bullets: [
+          "Yoke rollers: NATR, NATV, NUTR",
+          "Stud rollers: NUKR, KRV",
+          "Full-complement for higher radial load",
+        ],
+      },
+      {
+        heading: "When to use a guide roller vs a combined bearing",
+        body: "A guide roller runs on a track and carries mostly radial load. A combined bearing adds an axial roller for side thrust guidance in a steel profile. Choose the combined bearing when side guidance and a compact profile-running unit are required; use guide rollers for simpler radial track duty.",
+        bullets: [
+          "Radial track duty: guide roller",
+          "Radial + axial guidance in a profile: combined bearing",
+          "Heavy shock and contamination: sealed or full-complement",
+        ],
+      },
+      {
+        heading: "Heavy-duty execution",
+        body: "High-load positions use full-complement yoke rollers, larger stud diameters and sealed executions. State track hardness, speed, shock and relubrication needs so the right execution is selected.",
+        bullets: [
+          "Full-complement yoke rollers (NUTR)",
+          "Larger stud and hex for NUKR",
+          "Sealed for washdown or dusty duty",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Track roller bearing models",
+        href: "/products/track-roller-bearings/",
+      },
+      {
+        label: "Special track rollers",
+        href: "/products/special-track-roller-bearings/",
+      },
+      {
+        label: "Bearings for steel mill equipment",
+        href: "/solutions/bearings-for-steel-mill-equipment/",
+      },
+      {
+        label: "Jumbo combined bearings",
+        href: "/solutions/jumbo-combined-bearings/",
+      },
+      {
+        label: "Request guide roller quotation",
+        href: "/contact/?source=solution-guide-rollers",
       },
     ],
   ),
@@ -1029,61 +1283,130 @@ export const seoLandingPages: SeoLandingPage[] = [
       },
     ],
   ),
+  {
+    ...page(
+      "oem-custom-bearing-program",
+      "Buyer Support",
+      "OEM Custom Bearing Program",
+      "OEM Custom Bearing Manufacturing from Drawings",
+      "Drawing-based OEM and private-label industrial bearing manufacturing from drawings: combined bearings, track rollers, back-up rollers and special profiles produced to your controlled drawing.",
+      [
+        {
+          heading: "What OEM programs usually include",
+          body: "Custom work starts from a controlled drawing or an approved sample, not from a catalog code alone.",
+          bullets: [
+            "Envelope and mounting geometry",
+            "Material and heat-treatment route",
+            "Seal, grease and marking",
+            "Inspection scope and packing",
+          ],
+        },
+        {
+          heading: "Typical OEM categories",
+          body: "We support both catalog-near replacements and fully special executions.",
+          bullets: [
+            "Welded-plate AP assemblies",
+            "Special track outer profiles",
+            "Back-up rollers for metal forming",
+            "Cross roller bearings for reducers",
+            "Custom combined bearings with extended studs (long pin axis)",
+          ],
+        },
+        {
+          heading: "Dual supply: genuine-equivalent and aftermarket",
+          body: "For buyers who must qualify both an OEM-matched part and a lower-cost option, the same drawing can be released on two routes. The genuine-equivalent execution matches the original specification; the aftermarket execution optimises cost on a drawing-controlled running production item. Fitment is verified on both before quotation.",
+          bullets: [
+            "Genuine-equivalent for OEM-grade and warranty-sensitive use",
+            "Aftermarket for routine maintenance and cost-driven spares",
+            "Same dimensional and inspection review on either route",
+          ],
+        },
+      ],
+      [
+        {
+          label: "Welded-plate OEM case",
+          href: "/case-studies/welded-plate-combined-bearing-oem/",
+        },
+        {
+          label: "Cross roller OEM case",
+          href: "/case-studies/cross-roller-bearing-oem-application-reference/",
+        },
+        {
+          label: "Custom combined bearings with extended studs",
+          href: "/solutions/custom-combined-bearings-extended-studs/",
+        },
+        {
+          label: "Special track rollers",
+          href: "/products/special-track-roller-bearings/",
+        },
+        {
+          label: "Request OEM review",
+          href: "/contact/?source=solution-oem-custom",
+        },
+        { label: "Factory QC scope", href: "/certifications/" },
+      ],
+    ),
+    seoTitle: "OEM Custom Bearing Manufacturing from Drawings | Technical Guide",
+    description:
+      "OEM custom bearing manufacturing from drawings: combined bearings, track rollers, back-up rollers and special profiles produced to your controlled drawing, with genuine-equivalent and aftermarket supply routes.",
+  },
   page(
-    "oem-custom-bearing-program",
+    "precision-round-machined-parts",
     "Buyer Support",
-    "OEM Custom Bearing Program",
-    "OEM Custom Bearing Manufacturer",
-    "Drawing-based OEM and private-label industrial bearing programs for combined bearings, track rollers, back-up rollers and special profiles.",
+    "Precision Round Machined Parts",
+    "Precision Round Machined Parts",
+    "In-house CNC turning and milling of shafts, pins, hubs and ring parts that support custom combined bearing and non-standard roller bearing production.",
     [
       {
-        heading: "What OEM programs usually include",
-        body: "Custom work starts from a controlled drawing or an approved sample, not from a catalog code alone.",
+        heading: "What we machine in-house",
+        body: "Our Changzhou plant turns and mills round and ring-shaped components that feed custom bearing production and can also be quoted as standalone precision parts.",
         bullets: [
-          "Envelope and mounting geometry",
-          "Material and heat-treatment route",
-          "Seal, grease and marking",
-          "Inspection scope and packing",
+          "Shafts and studs",
+          "Pins and mandrels",
+          "Hubs, spacers and ring parts",
+          "Bearing seat and shoulder features",
         ],
       },
       {
-        heading: "Typical OEM categories",
-        body: "We support both catalog-near replacements and fully special executions.",
+        heading: "Typical capability",
+        body: "State the material, tolerance, heat-treatment and inspection scope. Round parts are quoted from a controlled drawing rather than a catalog code.",
         bullets: [
-          "Welded-plate AP assemblies",
-          "Special track outer profiles",
-          "Back-up rollers for metal forming",
-          "Cross roller bearings for reducers",
+          "Turning and milling to drawing tolerance",
+          "20CrMnTi and bearing-steel grades",
+          "Hardened and ground where required",
         ],
       },
       {
-        heading: "Dual supply: genuine-equivalent and aftermarket",
-        body: "For buyers who must qualify both an OEM-matched part and a lower-cost option, the same drawing can be released on two routes. The genuine-equivalent execution matches the original specification; the aftermarket execution optimises cost on a drawing-controlled running production item. Fitment is verified on both before quotation.",
+        heading: "How it supports custom bearings",
+        body: "Machined pins, studs and seat features are the parts that make a non-standard combined bearing fit a specific machine. In-house machining shortens the loop between drawing review and a finished bearing.",
         bullets: [
-          "Genuine-equivalent for OEM-grade and warranty-sensitive use",
-          "Aftermarket for routine maintenance and cost-driven spares",
-          "Same dimensional and inspection review on either route",
+          "Extended studs and pin axes",
+          "Welded-plate and bracket features",
+          "Drawing-controlled special executions",
         ],
       },
     ],
     [
       {
-        label: "Welded-plate OEM case",
-        href: "/case-studies/welded-plate-combined-bearing-oem/",
+        label: "OEM custom bearing program",
+        href: "/solutions/oem-custom-bearing-program/",
       },
       {
-        label: "Cross roller OEM case",
-        href: "/case-studies/cross-roller-bearing-oem-application-reference/",
+        label: "Custom combined bearings with extended studs",
+        href: "/solutions/custom-combined-bearings-extended-studs/",
       },
       {
-        label: "Special track rollers",
-        href: "/products/special-track-roller-bearings/",
+        label: "Factory quality and inspection scope",
+        href: "/certifications/",
       },
       {
-        label: "Request OEM review",
-        href: "/contact/?source=solution-oem-custom",
+        label: "CNC precision machining services",
+        href: "https://machiningsupplier.com/",
       },
-      { label: "Factory QC scope", href: "/certifications/" },
+      {
+        label: "Request machining quotation",
+        href: "/contact/?source=solution-precision-machined",
+      },
     ],
   ),
   page(
@@ -1426,6 +1749,27 @@ export const seoLandingPages: SeoLandingPage[] = [
     ],
   ),
 ];
+
+// Phase 2 hub-and-spoke: every Application spoke links back to the industrial
+// machinery hub so authority concentrates on one page instead of 12 thin ones.
+const industrialHubHref = "/solutions/combined-bearings-for-industrial-machinery/";
+export const seoLandingPages: SeoLandingPage[] = rawSeoLandingPages.map(
+  (pageItem) =>
+    pageItem.cluster === "Applications" &&
+    pageItem.slug !== "combined-bearings-for-industrial-machinery" &&
+    !pageItem.related.some((link) => link.href === industrialHubHref)
+      ? {
+          ...pageItem,
+          related: [
+            ...pageItem.related,
+            {
+              label: "Combined bearings for industrial machinery",
+              href: industrialHubHref,
+            },
+          ],
+        }
+      : pageItem,
+);
 
 export const seoLandingPageBySlug = Object.fromEntries(
   seoLandingPages.map((item) => [item.slug, item]),

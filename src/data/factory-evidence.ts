@@ -392,6 +392,41 @@ export const factoryCaseStudies: FactoryCaseStudy[] = [
       },
     ],
   },
+  {
+    slug: "heavy-duty-guide-rollers-logistics-case",
+    title: "Application Case: Heavy-Duty Guide Rollers for Crane and Stacker Systems",
+    description:
+      "Yoke and stud type guide rollers for crane, stacker and logistics equipment, with heavy radial load, shock and contamination duty.",
+    industry: "Cranes and stacker systems",
+    image: "/images/clean/stud-track-roller.webp",
+    imageWidth: 640,
+    imageHeight: 360,
+    datePublished: "2026-10-08",
+    sourceUrl: "/solutions/heavy-duty-guide-rollers/",
+    sourceLabel: "Heavy-duty guide rollers",
+    facts: [
+      { label: "Evidence type", value: "Factory application reference" },
+      { label: "Yoke series", value: "NATR..-PP, NATV..-PP, NUTR" },
+      { label: "Stud series", value: "NUKR, KRV" },
+      { label: "Production base", value: "Changzhou manufacturing plant" },
+    ],
+    sections: [
+      {
+        heading: "Application background",
+        paragraphs: [
+          "Crane, reach-stacker and AS/RS equipment run guide rollers directly on hardened tracks under heavy radial load, side thrust, shock and outdoor contamination. Selection depends on mounting type, outer-ring section, seal and relubrication access.",
+          "Full-complement yoke rollers (NUTR) and larger stud followers (NUKR) cover the higher radial-duty positions; caged yoke rollers (NATR) suit cleaner, higher-speed runs.",
+        ],
+      },
+      {
+        heading: "RFQ checklist for guide rollers",
+        paragraphs: [
+          "Provide the full model and suffix, measured d / D / B, track hardness, speed, shock level and whether relubrication is required. For stud types, include thread size, hex and nut supply.",
+          "Where the envelope is non-standard, send the track profile and a controlled drawing. Final interchangeability depends on the drawing and operating duty agreed for the order.",
+        ],
+      },
+    ],
+  },
 
   // ── DRAFT CLIENT CASES ──────────────────────────────────────────────────
   // The five pages above are application references: they deliberately carry no
