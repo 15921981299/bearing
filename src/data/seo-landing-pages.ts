@@ -621,6 +621,24 @@ export const seoLandingPages: SeoLandingPage[] = [
           "Inspection scope",
         ],
       },
+      {
+        heading: "Confirm pin / shaft length from the drawing",
+        body: "Adjacent Danieli references can share the same bearing envelope and differ only in pin or shaft length. That dimension is not always shown on the first page of the drawing, so it must be confirmed before quotation.",
+        bullets: [
+          "46999156 and 46999157 share the same bearing envelope",
+          "The two references differ only in pin-axis (munhão) length",
+          "Send the complete drawing, not only page 1 of 5",
+        ],
+      },
+      {
+        heading: "Genuine-equivalent and aftermarket supply routes",
+        body: "The same Danieli reference can be supplied two ways: a drawing-matched genuine-equivalent execution or a cost-optimised aftermarket execution. Both are released only after fitment verification against dimensions, duty and the controlled drawing.",
+        bullets: [
+          "Genuine-equivalent: drawing-matched, for OEM-grade replacement",
+          "Aftermarket: cost-optimised running production item",
+          "Fitment verified before quotation on either route",
+        ],
+      },
     ],
     [
       {
@@ -1038,6 +1056,15 @@ export const seoLandingPages: SeoLandingPage[] = [
           "Cross roller bearings for reducers",
         ],
       },
+      {
+        heading: "Dual supply: genuine-equivalent and aftermarket",
+        body: "For buyers who must qualify both an OEM-matched part and a lower-cost option, the same drawing can be released on two routes. The genuine-equivalent execution matches the original specification; the aftermarket execution optimises cost on a drawing-controlled running production item. Fitment is verified on both before quotation.",
+        bullets: [
+          "Genuine-equivalent for OEM-grade and warranty-sensitive use",
+          "Aftermarket for routine maintenance and cost-driven spares",
+          "Same dimensional and inspection review on either route",
+        ],
+      },
     ],
     [
       {
@@ -1340,6 +1367,61 @@ export const seoLandingPages: SeoLandingPage[] = [
       {
         label: "Submit overhead guide drawing",
         href: "/contact/?source=overhead-guide",
+      },
+    ],
+  ),
+  page(
+    "combined-bearing-seal-options",
+    "Buyer Support",
+    "Combined Bearing Seal Options",
+    "Combined Bearing Seal Options",
+    "Seal execution affects contamination protection, relubrication and service life of combined roller bearings in forklift masts, steel equipment and guide systems.",
+    [
+      {
+        heading: "Common seal executions",
+        body: "Combined bearings are offered open, shielded or sealed depending on contamination and relubrication needs.",
+        bullets: [
+          "Open (no shield) — for clean, relubricated guide systems",
+          "ZZ metal shield — light contamination, low friction",
+          "Rubber contact seal — dust, coolant and washdown duty",
+          "Relubricatable (grease nipple / AP2-LUB style) — high-cycle automation",
+        ],
+      },
+      {
+        heading: "Sealed and vibration-duty variants",
+        body: "For vibrating or heavily contaminated equipment, a sealed execution with retained grease protects the raceway. State the vibration level and sealed requirement so the right seal and clearance are selected.",
+        bullets: [
+          "Sealed radial roller execution",
+          "Vibration and shock-duty clearance",
+          "Grease type and relubrication interval",
+        ],
+      },
+      {
+        heading: "How to specify the seal",
+        body: "Seal choice follows the operating environment, not the catalog code alone. Provide contamination, washdown, speed and maintenance access so the seal and grease are matched to duty.",
+        bullets: [
+          "Contamination and washdown level",
+          "Required service interval",
+          "Drawing or old marking for confirmation",
+        ],
+      },
+    ],
+    [
+      {
+        label: "Combined bearing quality control",
+        href: "/solutions/combined-bearing-quality-control/",
+      },
+      {
+        label: "OEM custom bearing program",
+        href: "/solutions/oem-custom-bearing-program/",
+      },
+      {
+        label: "Combined bearing model directory",
+        href: "/products/combined-bearings/",
+      },
+      {
+        label: "Request seal specification review",
+        href: "/contact/?source=solution-seal-options",
       },
     ],
   ),

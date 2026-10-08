@@ -1935,6 +1935,33 @@ const combinedBearingModelRecords: CombinedBearingModel[] = [
       Assembly: "4.092 on AP92-Q plate",
     }),
   },
+  {
+    slug: "0-160003-l-danieli-combined-bearing",
+    model: "0.160003.L",
+    family: "Standard",
+    aliases: [
+      "0.160003 L",
+      "0-160003-L",
+      "0.160003L",
+      "46999157",
+      "Danieli 0.160003",
+      "Danieli combined bearing 149",
+    ],
+    image: "/images/clean/high-load-combined-bearing.webp",
+    description:
+      "Danieli-reference combined bearing in the 149 mm outside-diameter class with a 40 mm radial roller, supplied as a running non-standard production item for metallurgical and rolling-mill equipment.",
+    application:
+      "Danieli coil-upender and lifting guides, rolling-mill special-profile guide assemblies and other equipment identified by Danieli 0.xxxxxx references.",
+    specs: specs({
+      D: "149 mm (matched to 0.160003.L envelope)",
+      RadialRollerWidth: "C = 40 mm (enlarged-variant radial roller)",
+      Drawing:
+        "Confirm 46999156 / 46999157 pin-axis length from the controlled drawing — the two references differ only in pin / shaft length, which is not shown on page 1 of 5",
+      Execution: "Drawing-controlled Danieli non-standard combined bearing",
+      Program: "Running production at plant — long-term annual supply available",
+      Material: "20CrMnTi (case-hardened bearing steel)",
+    }),
+  },
   ...screwAdjustableRows.map(
     ([
       model,

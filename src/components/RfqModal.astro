@@ -57,6 +57,22 @@ import { site } from "../data/site";
           placeholder="e.g. 2 pcs, 1 set, or unknown"
         />
       </label>
+      <label>
+        <span>Equipment maker &amp; model</span>
+        <input
+          type="text"
+          name="equipment"
+          placeholder="e.g. Danieli 4.000.004, Linde H25, Hyster"
+        />
+      </label>
+      <label>
+        <span>Application / operating condition</span>
+        <input
+          type="text"
+          name="application"
+          placeholder="e.g. coil upender guide, outdoor, high dust"
+        />
+      </label>
       <label class="rfq-modal__full">
         <span>Bearing Model / Inquiry Details *</span>
         <textarea
@@ -143,7 +159,7 @@ import { site } from "../data/site";
     setHidden("page_title", document.title);
     setHidden("rfq_context", context);
     if (messageEl && !messageEl.value.trim()) {
-      messageEl.value = `Inquiry page: ${context}\nPage URL: ${window.location.href}\n\nBearing model / quantity / destination: `;
+      messageEl.value = `Inquiry page: ${context}\nPage URL: ${window.location.href}\n\nBearing model / quantity / destination / equipment / application: `;
     }
     populateRfqAttributionFields(form);
 
